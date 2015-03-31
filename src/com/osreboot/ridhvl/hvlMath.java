@@ -16,7 +16,7 @@ public class hvlMath {
 	 * <p>
 	 * This method can be used, for example, to move an object towards a wall at modifierArg
 	 * speed where upon arrival the object will stop.
-	 * <p>
+	 * 
 	 * @param arg1 			original value to be modified
 	 * @param modifierArg 	value by which arg1 will be modified (ignores negatives)
 	 * @param goalArg 		maximum or minimum value to be returned
