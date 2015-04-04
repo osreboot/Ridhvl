@@ -1,6 +1,9 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 
 public class hvlPainter2D {
 
@@ -27,5 +30,23 @@ public class hvlPainter2D {
 		GL11.glOrtho(0, displayWidth, displayHeight, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
+
+	public static void drawQuad(float x, float y, float xl, float yl, Texture t){
+		hvlQuadPainter2D.drawQuad(x, y, xl, yl, t);
+	}
+
+	public static void drawQuad(float x, float y, float xl, float yl, Texture t, Color c){
+		hvlQuadPainter2D.drawQuad(x, y, xl, yl, t, c);
+	}
+
+	public static void drawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+		hvlQuadPainter2D.drawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t);
+	}
+
+	public static void drawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+		hvlQuadPainter2D.drawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
+	}
+	
+	//TODO drawQuad(float x, float y, float xl, float yl, Color c)
 
 }
