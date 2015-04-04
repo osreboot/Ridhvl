@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.painter;
+package com.osreboot.ridhvl.painter.painter2d;
 
 import org.lwjgl.opengl.GL11;
 
@@ -20,16 +20,12 @@ public class hvlPainter2D {
 			break;
 		}
 	}
-	
-	public static void GL11_Ortho(TemplateType type, int displayWidth, int displayHeight){
-		switch(type){
-		default:
-			GL11.glMatrixMode(GL11.GL_MATRIX_MODE);
-			GL11.glLoadIdentity();
-			GL11.glOrtho(0, displayWidth, displayHeight, 0, 1, -1);
-			GL11.glMatrixMode(GL11.GL_MODELVIEW);
-			break;
-		}
+
+	public static void GL11_Ortho(int displayWidth, int displayHeight){
+		GL11.glMatrixMode(GL11.GL_MATRIX_MODE);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, displayWidth, displayHeight, 0, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 
 }
