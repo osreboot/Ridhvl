@@ -4,11 +4,11 @@ import org.lwjgl.opengl.GL11;
 
 public class hvlPainter3D {
 
-	public static enum TemplateType{
+	public static enum hvlPainter3DTemplate{
 		DEFAULT
 	}
 
-	public static void GL11_Init(TemplateType type){
+	public static void GL11_Init(hvlPainter3DTemplate type){
 		switch(type){
 		default:
 			GL11.glEnable(GL11.GL_TEXTURE_2D);

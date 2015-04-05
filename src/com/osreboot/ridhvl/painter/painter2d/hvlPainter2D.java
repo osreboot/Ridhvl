@@ -1,17 +1,16 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
-import java.awt.Color;
-
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 public class hvlPainter2D {
 
-	public static enum TemplateType{
+	public static enum hvlPainter2DTemplate{
 		DEFAULT
 	}
 
-	public static void GL11_Init(TemplateType type){
+	public static void GL11_Init(hvlPainter2DTemplate type){
 		switch(type){
 		default:
 			GL11.glEnable(GL11.GL_TEXTURE_2D);

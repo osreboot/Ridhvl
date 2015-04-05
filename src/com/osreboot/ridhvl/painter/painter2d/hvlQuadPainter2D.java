@@ -1,8 +1,8 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
-import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 class hvlQuadPainter2D {
@@ -23,7 +23,7 @@ class hvlQuadPainter2D {
 	}
 	
 	protected static void drawQuad(float x, float y, float xl, float yl, Texture t, Color c){
-		GL11.glColor4f(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+		GL11.glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(0, 0);
@@ -53,7 +53,7 @@ class hvlQuadPainter2D {
 	}
 	
 	protected static void drawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
-		GL11.glColor4f(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+		GL11.glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(uvx1, uvy1);
