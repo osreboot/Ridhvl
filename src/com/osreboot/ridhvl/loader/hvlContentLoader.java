@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.loaders;
+package com.osreboot.ridhvl.loader;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

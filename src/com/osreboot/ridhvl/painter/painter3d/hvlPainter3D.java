@@ -8,7 +8,7 @@ public class hvlPainter3D {
 		DEFAULT
 	}
 
-	public static void GL11_Init(hvlPainter3DTemplate type){
+	public static void hvlGL11Init(hvlPainter3DTemplate type){
 		switch(type){
 		default:
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -21,7 +21,7 @@ public class hvlPainter3D {
 		}
 	}
 
-	public static void GL11_Ortho(int displayWidth, int displayHeight, int farPlane, int nearPlane){
+	public static void hvlGL11Ortho(int displayWidth, int displayHeight, int farPlane, int nearPlane){
 		GL11.glMatrixMode(GL11.GL_MATRIX_MODE);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, displayWidth, displayHeight, 0, nearPlane, farPlane);

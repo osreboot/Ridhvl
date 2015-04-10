@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.loaders;
+package com.osreboot.ridhvl.loader;
 
 import java.io.FileInputStream;
 

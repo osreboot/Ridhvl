@@ -7,7 +7,7 @@ import org.newdawn.slick.opengl.Texture;
 
 class hvlQuadPainter2D {
 
-	protected static void drawQuad(float x, float y, float xl, float yl, Texture t){
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		GL11.glColor4f(1, 1, 1, 1);
 		t.bind();
 		GL11.glBegin(GL11.GL_QUADS);
@@ -22,7 +22,7 @@ class hvlQuadPainter2D {
 		GL11.glEnd();
 	}
 	
-	protected static void drawQuad(float x, float y, float xl, float yl, Texture t, Color c){
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c){
 		GL11.glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		GL11.glBegin(GL11.GL_QUADS);
@@ -37,7 +37,7 @@ class hvlQuadPainter2D {
 		GL11.glEnd();
 	}
 	
-	protected static void drawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
 		GL11.glColor4f(1, 1, 1, 1);
 		t.bind();
 		GL11.glBegin(GL11.GL_QUADS);
@@ -52,7 +52,7 @@ class hvlQuadPainter2D {
 		GL11.glEnd();
 	}
 	
-	protected static void drawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
 		GL11.glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		GL11.glBegin(GL11.GL_QUADS);
@@ -67,6 +67,6 @@ class hvlQuadPainter2D {
 		GL11.glEnd();
 	}
 	
-	//TODO drawQuad(float x, float y, float xl, float yl, Color c)
+	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
 	
 }

@@ -1,8 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.hvlPainter2D.GL11_Init;
-import static com.osreboot.ridhvl.painter.painter2d.hvlPainter2D.GL11_Ortho;
-import static com.osreboot.ridhvl.painter.painter2d.hvlPainter2D.drawQuad;
+import static com.osreboot.ridhvl.painter.painter2d.hvlPainter2D.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -12,7 +10,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.hvlUpdater;
-import com.osreboot.ridhvl.loaders.hvlTextureLoader;
+import com.osreboot.ridhvl.loader.hvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.hvlPainter2D.hvlPainter2DTemplate;
 
 
@@ -51,7 +49,7 @@ public class Painter2DTest extends hvlUpdater{
 		gradient = gradient < 1280 ? gradient + delta : 0;
 		
 		for(int i = 0; i < 360; i++){
-			drawQuad(0, i*2, gradient - (i*2), 2, textureLoader.getResource(0), new Color(1f, ((float)i - 180)/180, (float)i/360));
+			hvlDrawQuad(0, i*2, gradient - (i*2), 2, textureLoader.getResource(0), new Color(1f, ((float)i - 180)/180, (float)i/360));
 		}
 
 		Display.update();

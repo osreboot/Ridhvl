@@ -30,22 +30,22 @@ public class hvlPainter2D {
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 
-	public static void drawQuad(float x, float y, float xl, float yl, Texture t){
-		hvlQuadPainter2D.drawQuad(x, y, xl, yl, t);
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
+		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
 	}
 
-	public static void drawQuad(float x, float y, float xl, float yl, Texture t, Color c){
-		hvlQuadPainter2D.drawQuad(x, y, xl, yl, t, c);
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c){
+		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t, c);
 	}
 
-	public static void drawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
-		hvlQuadPainter2D.drawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t);
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t);
 	}
 
-	public static void drawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
-		hvlQuadPainter2D.drawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
 	}
 	
-	//TODO drawQuad(float x, float y, float xl, float yl, Color c)
+	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
 
 }
