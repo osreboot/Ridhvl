@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-class hvlQuadPainter2D {
+class HvlQuadPainter2D {
 
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		GL11.glColor4f(1, 1, 1, 1);

@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.hvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -9,12 +9,12 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.hvlUpdater;
-import com.osreboot.ridhvl.loader.hvlTextureLoader;
-import com.osreboot.ridhvl.painter.painter2d.hvlPainter2D.hvlPainter2DTemplate;
+import com.osreboot.ridhvl.HvlTimer;
+import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
 
 
-public class Painter2DTest extends hvlUpdater{
+public class Painter2DTest extends HvlTimer{
 
 	public static void main(String args[]){
 		run();
@@ -27,8 +27,8 @@ public class Painter2DTest extends hvlUpdater{
 			Display.setTitle("Unnamed");
 			Display.create();
 			
-			GL11_Init(hvlPainter2DTemplate.DEFAULT);
-			GL11_Ortho(1280, 720);
+			hvlGL11Init(HvlPainter2DTemplate.DEFAULT);
+			hvlGL11Ortho(1280, 720);
 
 			textureLoader.loadResource("White");
 			
@@ -37,7 +37,7 @@ public class Painter2DTest extends hvlUpdater{
 		new Painter2DTest();
 	}
 	
-	static hvlTextureLoader textureLoader = new hvlTextureLoader(5);
+	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	long gradient = 0;
 	
 	public Painter2DTest(){}

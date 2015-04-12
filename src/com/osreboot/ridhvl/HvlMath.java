@@ -1,7 +1,7 @@
 package com.osreboot.ridhvl;
 
 
-public class hvlMath {
+public class HvlMath {
 
 	/**
 	 * Returns arg1 progressed towards goalArg by modifierArg amount (ignores negative 

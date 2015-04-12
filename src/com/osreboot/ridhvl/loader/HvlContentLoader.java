@@ -3,17 +3,17 @@ package com.osreboot.ridhvl.loader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public abstract class hvlContentLoader<T> {
+public abstract class HvlContentLoader<T> {
 	
 	@SuppressWarnings("rawtypes")
-	public static ArrayList<hvlContentLoader> loaders = new ArrayList<hvlContentLoader>();
+	public static ArrayList<HvlContentLoader> loaders = new ArrayList<HvlContentLoader>();
 	
 	private String defaultPath;
 	
 	private T[] resources;
 	
 	@SuppressWarnings("unchecked")
-	public hvlContentLoader(Class<T> c, String defaultPathArg, int arrayLength){
+	public HvlContentLoader(Class<T> c, String defaultPathArg, int arrayLength){
 		defaultPath = defaultPathArg;
 		resources = (T[]) Array.newInstance(c, arrayLength);
 		loaders.add(this);

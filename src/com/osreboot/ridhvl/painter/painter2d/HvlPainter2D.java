@@ -4,13 +4,13 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-public class hvlPainter2D {
+public class HvlPainter2D {
 
-	public static enum hvlPainter2DTemplate{
+	public static enum HvlPainter2DTemplate{
 		DEFAULT
 	}
 
-	public static void GL11_Init(hvlPainter2DTemplate type){
+	public static void hvlGL11Init(HvlPainter2DTemplate type){
 		switch(type){
 		default:
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -23,7 +23,7 @@ public class hvlPainter2D {
 		}
 	}
 
-	public static void GL11_Ortho(int displayWidth, int displayHeight){
+	public static void hvlGL11Ortho(int displayWidth, int displayHeight){
 		GL11.glMatrixMode(GL11.GL_MATRIX_MODE);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, displayWidth, displayHeight, 0, 1, -1);
@@ -31,19 +31,19 @@ public class hvlPainter2D {
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
-		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c){
-		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t, c);
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t, c);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
-		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t);
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
-		hvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
 	}
 	
 	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)

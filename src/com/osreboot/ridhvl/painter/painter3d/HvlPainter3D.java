@@ -2,13 +2,13 @@ package com.osreboot.ridhvl.painter.painter3d;
 
 import org.lwjgl.opengl.GL11;
 
-public class hvlPainter3D {
+public class HvlPainter3D {
 
-	public static enum hvlPainter3DTemplate{
+	public static enum HvlPainter3DTemplate{
 		DEFAULT
 	}
 
-	public static void hvlGL11Init(hvlPainter3DTemplate type){
+	public static void hvlGL11Init(HvlPainter3DTemplate type){
 		switch(type){
 		default:
 			GL11.glEnable(GL11.GL_TEXTURE_2D);

@@ -5,13 +5,13 @@ import java.io.FileInputStream;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-public class hvlTextureLoader extends hvlContentLoader<Texture>{
+public class HvlTextureLoader extends HvlContentLoader<Texture>{
 
-	public hvlTextureLoader(String defaultPathArg, int arrayLength){
+	public HvlTextureLoader(String defaultPathArg, int arrayLength){
 		super(Texture.class, defaultPathArg, arrayLength);
 	}
 	
-	public hvlTextureLoader(int arrayLength){
+	public HvlTextureLoader(int arrayLength){
 		super(Texture.class, "res/", arrayLength);
 	}
 

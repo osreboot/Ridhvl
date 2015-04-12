@@ -3,12 +3,12 @@ package com.osreboot.ridhvl;
 import org.lwjgl.Sys;
 
 
-public abstract class hvlUpdater {
+public abstract class HvlTimer {
 
 	private long delta, time, last;
 	private boolean running = true;
 	
-	public hvlUpdater(){
+	public HvlTimer(){
 		while(running){
 			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
 			delta = (long)(time - last);//TODO if user is not dragging window?
