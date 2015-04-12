@@ -9,8 +9,10 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
 import com.osreboot.ridhvl.HvlTimer;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
 
 
@@ -31,6 +33,9 @@ public class Painter2DTest extends HvlTimer{
 			hvlGL11Ortho(1280, 720);
 
 			textureLoader.loadResource("White");
+			textureLoader.loadResource("Font");
+			
+			fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontLayout.SIMPLISTIC, 2048, 2048, 40, 50, 51);
 			
 		}catch(Exception e){e.printStackTrace();}
 		
@@ -38,6 +43,7 @@ public class Painter2DTest extends HvlTimer{
 	}
 	
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
+	static HvlFontPainter2D fontPainter;
 	long gradient = 0;
 	
 	public Painter2DTest(){}
@@ -51,6 +57,8 @@ public class Painter2DTest extends HvlTimer{
 		for(int i = 0; i < 360; i++){
 			hvlDrawQuad(0, i*2, gradient - (i*2), 2, textureLoader.getResource(0), new Color(1f, ((float)i - 180)/180, (float)i/360));
 		}
+		
+		fontPainter.hvlDrawWord("test painter and font renderer!", 10, 10, new Color(gradient/1280f, gradient/1280f, gradient/1280f, 1f));
 
 		Display.update();
 		Display.sync(60);

@@ -19,7 +19,7 @@ public abstract class HvlContentLoader<T> {
 		loaders.add(this);
 	}
 	
-	public int addResource(T resourceArg){
+	public int addResource(T resourceArg){//TODO exception for not enough room in array
 		int index = 0;
 		for(int i = 0; i < resources.length; i++){
 			if(resources[i] == null){
