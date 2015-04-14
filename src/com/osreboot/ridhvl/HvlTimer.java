@@ -8,7 +8,9 @@ public abstract class HvlTimer {
 	private long delta, time, last;
 	private boolean running = true;
 	
-	public HvlTimer(){
+	public HvlTimer(){}
+
+	public final void start(){
 		while(running){
 			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
 			delta = (long)(time - last);//TODO if user is not dragging window?
@@ -16,7 +18,7 @@ public abstract class HvlTimer {
 			update(delta);
 		}
 	}
-
+	
 	public abstract void update(long delta);
 
 	public long getDelta(){
