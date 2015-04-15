@@ -47,5 +47,13 @@ public class HvlPainter2D {
 	}
 	
 	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
+	
+	public static void hvlRotate(float x, float y, float degrees){
+		HvlSwivel2D.hvlRotate(x, y, degrees);
+	}
+	
+	public static void hvlResetRotation(){
+		HvlSwivel2D.hvlResetRotation();
+	}
 
 }
