@@ -19,7 +19,7 @@ public class HvlTextureLoader extends HvlContentLoader<Texture>{
 	public boolean loadResource(String nameArg){
 		Texture t;
 		try{
-			t = TextureLoader.getTexture("PNG", new FileInputStream(super.getDefaultPath() + nameArg + ".png"));
+			t = TextureLoader.getTexture("PNG", new FileInputStream(getDefaultPath() + nameArg + ".png"));
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
