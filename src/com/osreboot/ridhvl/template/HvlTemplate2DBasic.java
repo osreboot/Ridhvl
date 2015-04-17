@@ -6,21 +6,51 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 
+import java.io.FileInputStream;
+import java.nio.ByteBuffer;
+
+import javax.imageio.ImageIO;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
 
 public abstract class HvlTemplate2DBasic extends HvlTemplate{
 
-	private int frameRate;
+	private int frameRate, displayWidth, displayHeight;
 
 	public HvlTemplate2DBasic(int frameRateArg, int width, int height, String title){
 		frameRate = frameRateArg;
+		
+		displayWidth = width;
+		displayHeight = height;
 
 		try{
-			Display.setDisplayMode(new DisplayMode(width, height));//TODO arguments
+			Display.setDisplayMode(new DisplayMode(width, height));
 			//Display.setIcon(new ByteBuffer[]{new ImageIOImageData().imageToByteBuffer(ImageIO.read(new FileInputStream("res/Icon32.png")), false, false, null)}); //TODO
+			Display.setTitle(title);
+			Display.create();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		hvlGL11Init(HvlPainter2DTemplate.DEFAULT);
+		hvlGL11Ortho(width, height);
+		
+		start();
+	}
+	
+	public HvlTemplate2DBasic(int frameRateArg, int width, int height, String title, String iconName){
+		frameRate = frameRateArg;
+
+		displayWidth = width;
+		displayHeight = height;
+		
+		try{
+			Display.setDisplayMode(new DisplayMode(width, height));
+			Display.setIcon(new ByteBuffer[]{new ImageIOImageData().imageToByteBuffer(ImageIO.read(new FileInputStream("res/" + iconName + ".png")), false, false, null)});
 			Display.setTitle(title);
 			Display.create();
 		}catch(Exception e){
@@ -48,6 +78,14 @@ public abstract class HvlTemplate2DBasic extends HvlTemplate{
 			Display.destroy();
 			System.exit(1);
 		}
+	}
+	
+	public int getWidth(){
+		return displayWidth;
+	}
+	
+	public int getHeight(){
+		return displayHeight;
 	}
 
 }
