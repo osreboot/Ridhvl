@@ -19,7 +19,7 @@ public abstract class HvlTimer {
 		}
 	}
 	
-	public abstract void update(long delta);
+	public abstract void update(long delta);//TODO convert delta to double
 
 	public long getDelta(){
 		return delta;

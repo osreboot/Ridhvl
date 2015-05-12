@@ -67,4 +67,25 @@ public class HvlFontPainter2D {
 		}
 	}
 	
+	public void hvlDrawWord(String word, float x, float y, float scale, Color c){
+		for(int i = 0; i < word.toCharArray().length; i++){
+			if(HvlFontUtil.containsChar(layout, word.toCharArray()[i])){
+				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
+				int ypos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) / rowCount;
+				GL11.glColor4f(c.r, c.g, c.b, c.a);
+				image.bind();
+				GL11.glBegin(GL11.GL_QUADS);
+				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos);
+				GL11.glVertex2f(x + (i*fontWidth*scale), y);
+				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos);
+				GL11.glVertex2f(x + (fontWidth*scale) + (i*fontWidth*scale), y);
+				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureWidth), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
+				GL11.glVertex2f(x + (fontWidth*scale) + (i*fontWidth*scale), y + (fontHeight*scale));
+				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
+				GL11.glVertex2f(x + (i*fontWidth*scale), y + (fontHeight*scale));
+				GL11.glEnd();
+			}
+		}
+	}
+	
 }
