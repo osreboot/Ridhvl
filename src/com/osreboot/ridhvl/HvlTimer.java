@@ -15,11 +15,11 @@ public abstract class HvlTimer {
 			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
 			delta = (long)(time - last);//TODO if user is not dragging window?
 			last = time;
-			update(delta);
+			if(delta > 0) update(delta);
 		}
 	}
 	
-	public abstract void update(long delta);//TODO convert delta to double
+	public abstract void update(long delta);
 
 	public long getDelta(){
 		return delta;
