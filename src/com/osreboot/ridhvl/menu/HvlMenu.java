@@ -31,7 +31,10 @@ public class HvlMenu {
 	}
 	
 	public void update(){
+		draw();
 		for(HvlButton b : buttons) b.update();
 	}
+	
+	public void draw(){}
 	
 }

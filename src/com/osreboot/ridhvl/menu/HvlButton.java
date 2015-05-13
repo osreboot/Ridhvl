@@ -45,16 +45,24 @@ public abstract class HvlButton {
 		buttons.add(this);
 	}
 	
-	public abstract void onPressing();//TODO int argument for button
-	public abstract void onTriggered();
+	public void onPressing(int buttonArg){}
+	public void onTriggered(){}//TODO int buttonArg?
+	public void draw(){}
 	
 	public boolean isBeingPressed(int buttonArg){
 		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > xLocation && inversionHeight - Mouse.getY() > yLocation && Mouse.getX() < xLocation + xLength && inversionHeight - Mouse.getY() < yLocation + yLength;
 	}
 	
 	public void update(){
+		draw();
 		if(isBeingPressed(0)){
-			onPressing();
+			onPressing(0);
+			if(!triggered){
+				onTriggered();
+				triggered = true;
+			}
+		}else if(isBeingPressed(1)){
+			onPressing(1);
 			if(!triggered){
 				onTriggered();
 				triggered = true;
