@@ -28,7 +28,7 @@ public abstract class HvlButton {
 	}*///TODO clear this up
 
 	public static void updateButtons(){
-		for(HvlButton b : buttons) b.update();
+		//for(HvlButton b : buttons) b.update();
 		triggered = !Mouse.isButtonDown(0);
 	}
 	
@@ -46,7 +46,7 @@ public abstract class HvlButton {
 	}
 	
 	public void onPressing(int buttonArg){}
-	public void onTriggered(){}//TODO int buttonArg?
+	public void onTriggered(){}
 	public void draw(){}
 	
 	public boolean isBeingPressed(int buttonArg){
@@ -63,10 +63,6 @@ public abstract class HvlButton {
 			}
 		}else if(isBeingPressed(1)){
 			onPressing(1);
-			if(!triggered){
-				onTriggered();
-				triggered = true;
-			}
 		}
 	}
 	
