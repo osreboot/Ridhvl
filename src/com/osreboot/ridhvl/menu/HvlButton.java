@@ -47,7 +47,7 @@ public abstract class HvlButton {
 	
 	public void onPressing(int buttonArg){}
 	public void onTriggered(){}
-	public void draw(){}
+	public void draw(long delta){}
 	
 	public final boolean isBeingPressed(int buttonArg){
 		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > xLocation && inversionHeight - Mouse.getY() > yLocation && Mouse.getX() < xLocation + xLength && inversionHeight - Mouse.getY() < yLocation + yLength;
@@ -57,8 +57,8 @@ public abstract class HvlButton {
 		return Mouse.isInsideWindow() && Mouse.getX() > xLocation && inversionHeight - Mouse.getY() > yLocation && Mouse.getX() < xLocation + xLength && inversionHeight - Mouse.getY() < yLocation + yLength;
 	}
 	
-	public final void update(){
-		draw();
+	public final void update(long delta){
+		draw(delta);
 		if(isBeingPressed(0)){
 			onPressing(0);
 			if(!triggered){
