@@ -4,6 +4,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -12,7 +13,7 @@ import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 public class Template2DBasicTest extends HvlTemplate2DBasic{
 
 	public Template2DBasicTest(){
-		super(60, 1280, 720, "Unnamed");
+		super(60, 1280, 720, "Unnamed", HvlDisplayMode.DEFAULT);
 	}
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);

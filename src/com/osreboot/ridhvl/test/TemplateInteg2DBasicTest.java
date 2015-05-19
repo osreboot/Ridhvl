@@ -4,6 +4,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
@@ -11,7 +12,7 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 
 	public TemplateInteg2DBasicTest(){
-		super(60, 1280, 720, "Unnamed", 5);
+		super(60, 1280, 720, "Unnamed", 5, HvlDisplayMode.DEFAULT);
 	}
 
 	static HvlFontPainter2D fontPainter;
