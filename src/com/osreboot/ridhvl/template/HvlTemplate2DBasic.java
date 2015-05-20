@@ -32,7 +32,7 @@ public abstract class HvlTemplate2DBasic extends HvlTemplate{
 		try{
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.setTitle(title);
-			HvlDisplay.configureDisplay(displayModeArg);
+			HvlDisplay.configureDisplay(displayModeArg, (float)width/(float)height);
 			Display.create();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -54,7 +54,7 @@ public abstract class HvlTemplate2DBasic extends HvlTemplate{
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.setIcon(new ByteBuffer[]{new ImageIOImageData().imageToByteBuffer(ImageIO.read(new FileInputStream("res/" + iconName + ".png")), false, false, null)});
 			Display.setTitle(title);
-			HvlDisplay.configureDisplay(displayModeArg);
+			HvlDisplay.configureDisplay(displayModeArg, (float)width/(float)height);
 			Display.create();
 		}catch(Exception e){
 			e.printStackTrace();

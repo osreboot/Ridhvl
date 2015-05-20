@@ -11,6 +11,10 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
 
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 
+	public static void main(String args[]){
+		new TemplateInteg2DBasicTest();
+	}
+	
 	public TemplateInteg2DBasicTest(){
 		super(60, 1280, 720, "Unnamed", 5, HvlDisplayMode.DEFAULT);
 	}

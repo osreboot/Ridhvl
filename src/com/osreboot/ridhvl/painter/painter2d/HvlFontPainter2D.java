@@ -1,6 +1,5 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -30,18 +29,8 @@ public class HvlFontPainter2D {
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
 				int ypos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) / rowCount;
 				float charLength = width/word.toCharArray().length;//TODO could be more efficient
-				GL11.glColor4f(c.r, c.g, c.b, c.a);
-				image.bind();
-				GL11.glBegin(GL11.GL_QUADS);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos);
-				GL11.glVertex2f(x + (i*charLength), y);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos);
-				GL11.glVertex2f(x + charLength + (i*charLength), y);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureWidth), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
-				GL11.glVertex2f(x + charLength + (i*charLength), y + height);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
-				GL11.glVertex2f(x + (i*charLength), y + height);
-				GL11.glEnd();
+				
+				HvlPainter2D.hvlDrawQuad(x + (i*charLength), y, charLength, height, (fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos, (fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight), image, c);
 			}
 		}
 	}
@@ -51,18 +40,8 @@ public class HvlFontPainter2D {
 			if(HvlFontUtil.containsChar(layout, word.toCharArray()[i])){
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
 				int ypos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) / rowCount;
-				GL11.glColor4f(c.r, c.g, c.b, c.a);
-				image.bind();
-				GL11.glBegin(GL11.GL_QUADS);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos);
-				GL11.glVertex2f(x + (i*fontWidth), y);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos);
-				GL11.glVertex2f(x + fontWidth + (i*fontWidth), y);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureWidth), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
-				GL11.glVertex2f(x + fontWidth + (i*fontWidth), y + fontHeight);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
-				GL11.glVertex2f(x + (i*fontWidth), y + fontHeight);
-				GL11.glEnd();
+				
+				HvlPainter2D.hvlDrawQuad(x + (i*fontWidth), y, fontWidth, fontHeight, (fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos, (fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight), image, c);
 			}
 		}
 	}
@@ -72,18 +51,8 @@ public class HvlFontPainter2D {
 			if(HvlFontUtil.containsChar(layout, word.toCharArray()[i])){
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
 				int ypos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) / rowCount;
-				GL11.glColor4f(c.r, c.g, c.b, c.a);
-				image.bind();
-				GL11.glBegin(GL11.GL_QUADS);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos);
-				GL11.glVertex2f(x + (i*fontWidth*scale), y);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos);
-				GL11.glVertex2f(x + (fontWidth*scale) + (i*fontWidth*scale), y);
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos + (fontWidth/textureWidth), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
-				GL11.glVertex2f(x + (fontWidth*scale) + (i*fontWidth*scale), y + (fontHeight*scale));
-				GL11.glTexCoord2f((fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight));
-				GL11.glVertex2f(x + (i*fontWidth*scale), y + (fontHeight*scale));
-				GL11.glEnd();
+				
+				HvlPainter2D.hvlDrawQuad(x + (i*fontWidth*scale), y, fontWidth*scale, fontHeight*scale, (fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos, (fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight), image, c);
 			}
 		}
 	}

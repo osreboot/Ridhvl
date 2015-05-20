@@ -4,6 +4,8 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.HvlDisplay;
+
 public class HvlPainter2D {
 
 	public static enum HvlPainter2DTemplate{
@@ -30,6 +32,8 @@ public class HvlPainter2D {
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 
+	
+	//TODO account for HvlDisplayMode
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
 	}

@@ -17,18 +17,8 @@ public abstract class HvlButton {
 	public static float getInversionHeight(){
 		return globalInversionHeight;
 	}
-	
-	/*
-	public static boolean isBeingClicked(int buttonArg, float xArg, float yArg, float xlArg, float ylArg, float inversionHeightArg){
-		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > xArg && inversionHeightArg - Mouse.getY() > yArg && Mouse.getX() < xArg + xlArg && inversionHeightArg - Mouse.getY() < yArg + ylArg;
-	}
-	
-	public static boolean isBeingClicked(int buttonArg, float xArg, float yArg, float xlArg, float ylArg){
-		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > xArg && globalInversionHeight - Mouse.getY() > yArg && Mouse.getX() < xArg + xlArg && globalInversionHeight - Mouse.getY() < yArg + ylArg;
-	}*///TODO clear this up
 
 	public static void updateButtons(){
-		//for(HvlButton b : buttons) b.update();
 		triggered = !Mouse.isButtonDown(0);
 	}
 	
@@ -49,11 +39,11 @@ public abstract class HvlButton {
 	public void onTriggered(){}
 	public void draw(long delta){}
 	
-	public final boolean isBeingPressed(int buttonArg){
+	public final boolean isBeingPressed(int buttonArg){//TODO account for HvlDisplayMode
 		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > xLocation && inversionHeight - Mouse.getY() > yLocation && Mouse.getX() < xLocation + xLength && inversionHeight - Mouse.getY() < yLocation + yLength;
 	}
 	
-	public final boolean isHovering(){
+	public final boolean isHovering(){//TODO account for HvlDisplayMode
 		return Mouse.isInsideWindow() && Mouse.getX() > xLocation && inversionHeight - Mouse.getY() > yLocation && Mouse.getX() < xLocation + xLength && inversionHeight - Mouse.getY() < yLocation + yLength;
 	}
 	
