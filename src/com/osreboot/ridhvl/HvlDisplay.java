@@ -34,15 +34,15 @@ public class HvlDisplay {
 		aspectRatio = aspectRatioArg;
 	}
 	
-	public static float getTransformedWidth(float xArg){
+	public static float getTransformedX(float xArg){
 		switch(displayMode){
-		case ARLOCK: return xArg*Display.getWidth() + ((Display.getHeight()*aspectRatio)/2);
+		case ARLOCK: return xArg*Display.getWidth();//TODO work with blank space
 		case SCALABLE: return xArg*Display.getWidth();
 		default: return xArg;
 		}
 	}
 	
-	public static float getTransformedHeight(float yArg){
+	public static float getTransformedY(float yArg){
 		switch(displayMode){
 		case ARLOCK: return yArg*Display.getHeight();//TODO work with blank space
 		case SCALABLE: return yArg*Display.getHeight();
@@ -50,7 +50,7 @@ public class HvlDisplay {
 		}
 	}
 	
-	public static float getScaledWidth(float xArg){
+	public static float getScaledX(float xArg){
 		switch(displayMode){
 		case ARLOCK: return xArg*Display.getWidth();
 		case SCALABLE: return xArg*Display.getWidth();
@@ -58,10 +58,26 @@ public class HvlDisplay {
 		}
 	}
 	
-	public static float getScaledHeight(float yArg){
+	public static float getScaledY(float yArg){
 		switch(displayMode){
 		case ARLOCK: return yArg*Display.getHeight();
 		case SCALABLE: return yArg*Display.getHeight();
+		default: return yArg;
+		}
+	}
+	
+	public static float getUnscaledX(float xArg){
+		switch(displayMode){
+		case ARLOCK: return xArg/Display.getWidth();
+		case SCALABLE: return xArg/Display.getWidth();
+		default: return xArg;
+		}
+	}
+	
+	public static float getUnscaledY(float yArg){
+		switch(displayMode){
+		case ARLOCK: return yArg/Display.getHeight();
+		case SCALABLE: return yArg/Display.getHeight();
 		default: return yArg;
 		}
 	}

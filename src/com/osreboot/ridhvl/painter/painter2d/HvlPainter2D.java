@@ -35,25 +35,25 @@ public class HvlPainter2D {
 	
 	//TODO account for HvlDisplayMode
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
-		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
+		HvlQuadPainter2D.hvlDrawQuad(HvlDisplay.getTransformedX(x), HvlDisplay.getTransformedY(y), HvlDisplay.getScaledX(xl), HvlDisplay.getScaledY(yl), t);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c){
-		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t, c);
+		HvlQuadPainter2D.hvlDrawQuad(HvlDisplay.getTransformedX(x), HvlDisplay.getTransformedY(y), HvlDisplay.getScaledX(xl), HvlDisplay.getScaledY(yl), t, c);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
-		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t);
+		HvlQuadPainter2D.hvlDrawQuad(HvlDisplay.getTransformedX(x), HvlDisplay.getTransformedY(y), HvlDisplay.getScaledX(xl), HvlDisplay.getScaledY(yl), uvx1, uvy1, uvx2, uvy2, t);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
-		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
+		HvlQuadPainter2D.hvlDrawQuad(HvlDisplay.getTransformedX(x), HvlDisplay.getTransformedY(y), HvlDisplay.getScaledX(xl), HvlDisplay.getScaledY(yl), uvx1, uvy1, uvx2, uvy2, t, c);
 	}
 	
 	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
 	
 	public static void hvlRotate(float x, float y, float degrees){
-		HvlSwivel2D.hvlRotate(x, y, degrees);
+		HvlSwivel2D.hvlRotate(HvlDisplay.getTransformedX(x), HvlDisplay.getTransformedY(y), degrees);
 	}
 	
 	public static void hvlResetRotation(){
