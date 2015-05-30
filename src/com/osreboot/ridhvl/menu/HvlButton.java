@@ -60,4 +60,20 @@ public abstract class HvlButton {
 		}
 	}
 	
+	public float getX(){
+		return xLocation;
+	}
+	
+	public float getY(){
+		return yLocation;
+	}
+	
+	public float getXLength(){
+		return xLength;
+	}
+	
+	public float getYLength(){
+		return yLength;
+	}
+	
 }
