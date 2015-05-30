@@ -16,6 +16,7 @@ public class HvlMenu {
 	
 	public static void updateMenus(long delta){
 		if(current != null) current.update(delta);
+		current.draw(delta);
 	}
 	
 	public static ArrayList<HvlMenu> menus = new ArrayList<HvlMenu>();
@@ -35,6 +36,8 @@ public class HvlMenu {
 		for(HvlButton b : buttons) b.update(delta);
 	}
 	
-	public void draw(long delta){}
+	public void draw(long delta){
+		for(HvlButton b : buttons) b.draw(delta);
+	}
 	
 }
