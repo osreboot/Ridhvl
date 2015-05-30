@@ -1,6 +1,8 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.newdawn.slick.Color;
 
@@ -11,10 +13,6 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
 
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 
-	public static void main(String args[]){
-		new TemplateInteg2DBasicTest();
-	}
-	
 	public TemplateInteg2DBasicTest(){
 		super(60, 1280, 720, "Unnamed", 5, HvlDisplayMode.DEFAULT);
 	}

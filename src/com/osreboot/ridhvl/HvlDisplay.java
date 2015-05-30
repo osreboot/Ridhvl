@@ -36,48 +36,48 @@ public class HvlDisplay {
 	
 	public static float getTransformedX(float xArg){
 		switch(displayMode){
-		case ARLOCK: return xArg*Display.getWidth();//TODO work with blank space
-		case SCALABLE: return xArg*Display.getWidth();
+		case ARLOCK: return xArg*Display.getWidth()*aspectRatio;//TODO work with blank space
+		case SCALABLE: return xArg*Display.getWidth()*aspectRatio;
 		default: return xArg;
 		}
 	}
 	
 	public static float getTransformedY(float yArg){
 		switch(displayMode){
-		case ARLOCK: return yArg*Display.getHeight();//TODO work with blank space
-		case SCALABLE: return yArg*Display.getHeight();
+		case ARLOCK: return yArg*Display.getHeight()*(1/aspectRatio);//TODO work with blank space
+		case SCALABLE: return yArg*Display.getHeight()*(1/aspectRatio);
 		default: return yArg;
 		}
 	}
 	
 	public static float getScaledX(float xArg){
 		switch(displayMode){
-		case ARLOCK: return xArg*Display.getWidth();
-		case SCALABLE: return xArg*Display.getWidth();
+		case ARLOCK: return xArg*Display.getWidth()*aspectRatio;
+		case SCALABLE: return xArg*Display.getWidth()*aspectRatio;
 		default: return xArg;
 		}
 	}
 	
 	public static float getScaledY(float yArg){
 		switch(displayMode){
-		case ARLOCK: return yArg*Display.getHeight();
-		case SCALABLE: return yArg*Display.getHeight();
+		case ARLOCK: return yArg*Display.getHeight()*(1/aspectRatio);
+		case SCALABLE: return yArg*Display.getHeight()*(1/aspectRatio);
 		default: return yArg;
 		}
 	}
 	
 	public static float getUnscaledX(float xArg){
 		switch(displayMode){
-		case ARLOCK: return xArg/Display.getWidth();
-		case SCALABLE: return xArg/Display.getWidth();
+		case ARLOCK: return xArg/Display.getWidth()/aspectRatio;
+		case SCALABLE: return xArg/Display.getWidth()/aspectRatio;
 		default: return xArg;
 		}
 	}
 	
 	public static float getUnscaledY(float yArg){
 		switch(displayMode){
-		case ARLOCK: return yArg/Display.getHeight();
-		case SCALABLE: return yArg/Display.getHeight();
+		case ARLOCK: return yArg/Display.getHeight()/(1/aspectRatio);
+		case SCALABLE: return yArg/Display.getHeight()/(1/aspectRatio);
 		default: return yArg;
 		}
 	}
