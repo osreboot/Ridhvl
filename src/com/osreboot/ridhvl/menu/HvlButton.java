@@ -19,7 +19,7 @@ public abstract class HvlButton {
 	}
 
 	public static void updateButtons(){
-		triggered = !Mouse.isButtonDown(0);
+		if(!Mouse.isButtonDown(0)) triggered = false;
 	}
 
 	private static ArrayList<HvlButton> buttons = new ArrayList<HvlButton>();
@@ -59,7 +59,7 @@ public abstract class HvlButton {
 			if(isBeingPressed(1)){
 				onPressing(1);
 			}
-			triggered = false;
+			//triggered = false;
 		}
 	}
 
