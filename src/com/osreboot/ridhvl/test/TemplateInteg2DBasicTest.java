@@ -12,7 +12,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
 
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
-
+	
 	public TemplateInteg2DBasicTest(){
 		super(60, 1280, 720, "Unnamed", 5, HvlDisplayMode.DEFAULT);
 	}
@@ -25,11 +25,11 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 		getTextureLoader().loadResource("White");
 		getTextureLoader().loadResource("Font");
 		
-		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontLayout.SIMPLISTIC, 2048, 2048, 40, 50, 51);
+		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontLayout.SIMPLISTIC, 2048, 2048, 112, 144, 18);
 	}
 
 	@Override
-	public void update(float delta){
+	public void update(float delta){		
 		gradient = gradient < 1280 ? gradient + ((long)delta*1000) : 0;
 		
 		for(int i = 0; i < 360; i++){
