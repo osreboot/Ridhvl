@@ -74,12 +74,12 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 	}
 
 	@Override
-	public void preUpdate(long delta){
+	public void preUpdate(float delta){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	@Override
-	public void postUpdate(long delta){
+	public void postUpdate(float delta){
 		Display.update();
 		Display.sync(frameRate);
 

@@ -13,7 +13,7 @@ public abstract class HvlTemplate{
 
 		timer = new HvlTimer(){
 			@Override
-			public void update(long delta) {
+			public void update(float delta) {
 				tick(delta);
 			}
 		};
@@ -26,14 +26,14 @@ public abstract class HvlTemplate{
 	
 	public abstract void initialize();
 
-	public final void tick(long delta){
+	public final void tick(float delta){
 		preUpdate(delta);
 		update(delta);
 		postUpdate(delta);
 	}
 
-	public void preUpdate(long delta){}
-	public abstract void update(long delta);
-	public void postUpdate(long delta){}
+	public void preUpdate(float delta){}
+	public abstract void update(float delta);
+	public void postUpdate(float delta){}
 
 }

@@ -29,8 +29,8 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 	}
 
 	@Override
-	public void update(long delta){
-		gradient = gradient < 1280 ? gradient + delta : 0;
+	public void update(float delta){
+		gradient = gradient < 1280 ? gradient + ((long)delta*1000) : 0;
 		
 		for(int i = 0; i < 360; i++){
 			hvlDrawQuad(0, i*2, gradient - (i*2), 2, getTextureLoader().getResource(0), new Color(1f, ((float)i - 180)/180, (float)i/360));
