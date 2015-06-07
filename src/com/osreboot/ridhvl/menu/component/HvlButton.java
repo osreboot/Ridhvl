@@ -1,4 +1,6 @@
-package com.osreboot.ridhvl.menu;
+package com.osreboot.ridhvl.menu.component;
+
+import com.osreboot.ridhvl.menu.HvlComponent;
 
 
 public abstract class HvlButton extends HvlComponent{
