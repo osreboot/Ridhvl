@@ -13,6 +13,7 @@ import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.template.HvlColorButton;
+import com.osreboot.ridhvl.menu.component.template.HvlTextureButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
@@ -63,7 +64,7 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 		};
 		testMenu.add(testCheck);
 		
-		testButton = new HvlColorButton(64, 64, 64, 64, 720, Color.red, Color.magenta, Color.pink, textureLoader.getResource(0))
+		testButton = new HvlTextureButton(64, 64, 64, 64, 720, textureLoader.getResource(0), textureLoader.getResource(1), textureLoader.getResource(0))
 		{
 			@Override
 			public void onTriggered()
