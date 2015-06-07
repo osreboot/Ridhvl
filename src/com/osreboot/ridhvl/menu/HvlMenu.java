@@ -21,31 +21,23 @@ public class HvlMenu {
 	
 	public static ArrayList<HvlMenu> menus = new ArrayList<HvlMenu>();
 	
-	private ArrayList<HvlButton> buttons;
-	private ArrayList<HvlCheckbox> checkboxes;
+	private ArrayList<HvlControl> controls;
 	
 	public HvlMenu(){
-		buttons = new ArrayList<HvlButton>();
-		checkboxes = new ArrayList<HvlCheckbox>();
+		controls = new ArrayList<HvlControl>();
 	}
 	
-	public void addButton(HvlButton buttonArg){
-		buttons.add(buttonArg);
-	}
-	
-	public void addCheckbox(HvlCheckbox checkboxArg) {
-		checkboxes.add(checkboxArg);
+	public void add(HvlControl control) {
+		controls.add(control);
 	}
 	
 	public final void update(float delta){
+		for (HvlControl c : controls) c.update(delta);
 		draw(delta);
-		for(HvlButton b : buttons) b.update(delta);
-		for (HvlCheckbox c : checkboxes) c.update(delta);
 	}
 	
 	public void draw(float delta){
-		for(HvlButton b : buttons) b.draw(delta);
-		for(HvlCheckbox c : checkboxes) c.draw(delta);
+		for(HvlControl c : controls) c.draw(delta);
 	}
 	
 }

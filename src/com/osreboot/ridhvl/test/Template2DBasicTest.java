@@ -45,11 +45,11 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 			{
 				if (this.getChecked())
 				{
-					HvlPainter2D.hvlDrawQuad(getX(), getY(), getXLength(), getYLength(), textureLoader.getResource(0), Color.red);
+					HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureLoader.getResource(0), Color.red);
 				}
 				else
 				{
-					HvlPainter2D.hvlDrawQuad(getX(), getY(), getXLength(), getYLength(), textureLoader.getResource(0), Color.blue);
+					HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureLoader.getResource(0), Color.blue);
 				}
 			}
 			
@@ -58,7 +58,7 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 				System.out.println(state);
 			}
 		};
-		testMenu.addCheckbox(testCheck);
+		testMenu.add(testCheck);
 		
 		HvlMenu.setCurrent(testMenu);
 	}
