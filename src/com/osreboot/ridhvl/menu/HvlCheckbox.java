@@ -21,7 +21,7 @@ public abstract class HvlCheckbox {
 	private boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
 	
-	public void onChanged(boolean checked){}
+	public void onChanged(boolean state){}
 	
 	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, float inversionHeightArg) {
 		xLocation = xArg;

@@ -1,16 +1,24 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.menu.HvlCheckbox;
+import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
 public class Template2DBasicTest extends HvlTemplate2DBasic{
+	
+	private HvlMenu testMenu;
+	private HvlCheckbox testCheck;
 	
 	public Template2DBasicTest(){
 		super(60, 1280, 720, "Unnamed", HvlDisplayMode.DEFAULT);
@@ -26,10 +34,37 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 		textureLoader.loadResource("Font");
 		
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontLayout.DEFAULT, 2048, 2048, 40, 50, 51);
+	
+		testMenu = new HvlMenu() {
+			
+		};
+		testCheck = new HvlCheckbox(0, 0, 64, 64, 720, false)
+		{
+			@Override
+			public void draw(float delta)
+			{
+				if (this.getChecked())
+				{
+					HvlPainter2D.hvlDrawQuad(getX(), getY(), getXLength(), getYLength(), textureLoader.getResource(0), Color.red);
+				}
+				else
+				{
+					HvlPainter2D.hvlDrawQuad(getX(), getY(), getXLength(), getYLength(), textureLoader.getResource(0), Color.blue);
+				}
+			}
+			
+			public void onChanged(boolean state)
+			{
+				System.out.println(state);
+			}
+		};
+		testMenu.addCheckbox(testCheck);
+		
+		HvlMenu.setCurrent(testMenu);
 	}
 
 	@Override
-	public void update(float delta){		
+	public void update(float delta){
 		gradient = gradient < 1280 ? gradient + ((long)delta * 1000) : 0;
 		
 		for(int i = 0; i < 360; i++){
@@ -43,6 +78,7 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 		fontPainter.hvlDrawWord("test of the most basic template!", 10, 10, new Color(gradient/1280f, gradient/1280f, gradient/1280f, 1f));
 		fontPainter.hvlDrawWord("and rotation! yay?", 10, 100, new Color(1 - (gradient/1280f), 1 - (gradient/1280f), 1 - (gradient/1280f), 1f));
 
+		HvlMenu.updateMenus(delta);
 	}
 
 }
