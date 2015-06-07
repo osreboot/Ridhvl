@@ -13,13 +13,13 @@ public abstract class HvlTimer {
 	public final void start(){
 		while(running){
 			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
-			delta = (long)(time - last);//TODO if user is not dragging window?
+			delta = (time - last);//TODO if user is not dragging window?
 			last = time;
-			if(delta > 0) update(delta);
+			if(delta > 0 && delta < time) update((float)delta / 1000);
 		}
 	}
 	
-	public abstract void update(long delta);
+	public abstract void update(float delta);
 
 	public long getDelta(){
 		return delta;

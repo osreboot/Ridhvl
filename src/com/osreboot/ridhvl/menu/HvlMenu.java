@@ -14,7 +14,7 @@ public class HvlMenu {
 		current = currentArg;
 	}
 	
-	public static void updateMenus(long delta){
+	public static void updateMenus(float delta){
 		if(current != null) current.update(delta);
 		current.draw(delta);
 	}
@@ -31,12 +31,12 @@ public class HvlMenu {
 		buttons.add(buttonArg);
 	}
 	
-	public final void update(long delta){
+	public final void update(float delta){
 		draw(delta);
 		for(HvlButton b : buttons) b.update(delta);
 	}
 	
-	public void draw(long delta){
+	public void draw(float delta){
 		for(HvlButton b : buttons) b.draw(delta);
 	}
 	
