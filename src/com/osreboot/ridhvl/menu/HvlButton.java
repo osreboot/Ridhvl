@@ -1,8 +1,7 @@
 package com.osreboot.ridhvl.menu;
 
-import org.lwjgl.input.Mouse;
 
-public abstract class HvlButton extends HvlControl{
+public abstract class HvlButton extends HvlComponent{
 
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	
@@ -13,14 +12,6 @@ public abstract class HvlButton extends HvlControl{
 	public void onPressing(int buttonArg){}
 	public void onTriggered(){}
 	public void draw(float delta){}
-
-	public final boolean isBeingPressed(int buttonArg){//TODO account for HvlDisplayMode
-		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
-	}
-
-	public final boolean isHovering(){//TODO account for HvlDisplayMode
-		return Mouse.isInsideWindow() && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
-	}
 
 	public final void update(float delta){
 		previousHover = currentHover;

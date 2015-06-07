@@ -1,8 +1,7 @@
 package com.osreboot.ridhvl.menu;
 
-import org.lwjgl.input.Mouse;
 
-public abstract class HvlCheckbox extends HvlControl {
+public abstract class HvlCheckbox extends HvlComponent {
 
 	private boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
@@ -16,14 +15,6 @@ public abstract class HvlCheckbox extends HvlControl {
 	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, float inversionHeightArg, boolean checkedArg) {
 		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
 		checked = checkedArg;
-	}
-	
-	public final boolean isBeingPressed(int buttonArg){//TODO account for HvlDisplayMode
-		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
-	}
-
-	public final boolean isHovering(){//TODO account for HvlDisplayMode
-		return Mouse.isInsideWindow() && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
 	}
 	
 	public final void update(float delta) {

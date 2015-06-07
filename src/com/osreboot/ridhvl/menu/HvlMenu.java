@@ -21,23 +21,23 @@ public class HvlMenu {
 	
 	public static ArrayList<HvlMenu> menus = new ArrayList<HvlMenu>();
 	
-	private ArrayList<HvlControl> controls;
+	private ArrayList<HvlComponent> controls;
 	
 	public HvlMenu(){
-		controls = new ArrayList<HvlControl>();
+		controls = new ArrayList<HvlComponent>();
 	}
 	
-	public void add(HvlControl control) {
+	public void add(HvlComponent control) {
 		controls.add(control);
 	}
 	
 	public final void update(float delta){
-		for (HvlControl c : controls) c.update(delta);
+		for (HvlComponent c : controls) c.update(delta);
 		draw(delta);
 	}
 	
 	public void draw(float delta){
-		for(HvlControl c : controls) c.draw(delta);
+		for(HvlComponent c : controls) c.draw(delta);
 	}
 	
 }

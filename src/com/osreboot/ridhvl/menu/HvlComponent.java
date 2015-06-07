@@ -1,10 +1,12 @@
 package com.osreboot.ridhvl.menu;
 
-public abstract class HvlControl {
+import org.lwjgl.input.Mouse;
+
+public abstract class HvlComponent {
 	
 	private float x, y, width, height, heightInversion; 
 	
-	public HvlControl(float xArg, float yArg, float wArg, float hArg, float heightInversionArg)
+	public HvlComponent(float xArg, float yArg, float wArg, float hArg, float heightInversionArg)
 	{
 		x = xArg;
 		y = yArg;
@@ -16,6 +18,14 @@ public abstract class HvlControl {
 	public void update(float delta) {}
 	public void draw(float delta) {}
 
+	public final boolean isBeingPressed(int buttonArg){//TODO account for HvlDisplayMode
+		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
+	}
+
+	public final boolean isHovering(){//TODO account for HvlDisplayMode
+		return Mouse.isInsideWindow() && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
+	}
+	
 	public float getX() {
 		return x;
 	}
