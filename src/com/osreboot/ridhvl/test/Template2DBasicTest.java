@@ -10,7 +10,9 @@ import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
+import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
+import com.osreboot.ridhvl.menu.component.template.HvlColorButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
@@ -19,6 +21,7 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 	
 	private HvlMenu testMenu;
 	private HvlCheckbox testCheck;
+	private HvlButton testButton;
 	
 	public Template2DBasicTest(){
 		super(60, 1280, 720, "Unnamed", HvlDisplayMode.DEFAULT);
@@ -59,6 +62,16 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 			}
 		};
 		testMenu.add(testCheck);
+		
+		testButton = new HvlColorButton(64, 64, 64, 64, 720, Color.red, Color.magenta, Color.pink, textureLoader.getResource(0))
+		{
+			@Override
+			public void onTriggered()
+			{
+				System.out.println("BUTTTTOOONN!");
+			}
+		};
+		testMenu.add(testButton);
 		
 		HvlMenu.setCurrent(testMenu);
 	}
