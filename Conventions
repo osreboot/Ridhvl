@@ -1,0 +1,17 @@
+--- Ridhvl Conventions for Code ---
+
+- Conventions for this document -
+ + Conventions should be preferably be written in concise bullet point form.
+ + Start bullet points using the plus sign (+) with one space before it.
+ + Start section headers using "- [section name] -"
+
+- Code Formatting -
+
+
+- Variable Names -
+
+
+- Method/Constructor Argument Names -
+
+
+- Misc. -
