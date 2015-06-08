@@ -12,6 +12,15 @@ public class HvlColorButton extends HvlButton {
 	private Texture texture;
 	
 	public HvlColorButton(float xArg, float yArg, float xlArg, float ylArg,
+			float inversionHeightArg, Color colorOffArg, Color colorOnArg, Texture tArg) {
+		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+		colorOff = colorOffArg;
+		colorHover = colorOffArg;
+		colorOn = colorOnArg;
+		texture = tArg;
+	}
+	
+	public HvlColorButton(float xArg, float yArg, float xlArg, float ylArg,
 			float inversionHeightArg, Color colorOffArg, Color colorHoverArg, Color colorOnArg, Texture tArg) {
 		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
 		colorOff = colorOffArg;
@@ -30,4 +39,39 @@ public class HvlColorButton extends HvlButton {
 		else
 			HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorOff);
 	}
+
+	
+	public Color getColorOff() {
+		return colorOff;
+	}
+
+	public void setColorOff(Color colorOff) {
+		this.colorOff = colorOff;
+	}
+
+	public Color getColorHover() {
+		return colorHover;
+	}
+
+	public void setColorHover(Color colorHover) {
+		this.colorHover = colorHover;
+	}
+
+	public Color getColorOn() {
+		return colorOn;
+	}
+
+	public void setColorOn(Color colorOn) {
+		this.colorOn = colorOn;
+	}
+
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
+	
 }

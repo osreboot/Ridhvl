@@ -12,11 +12,9 @@ import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
-import com.osreboot.ridhvl.menu.component.template.HvlColorButton;
 import com.osreboot.ridhvl.menu.component.template.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.template.HvlTextureButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
 public class Template2DBasicTest extends HvlTemplate2DBasic{

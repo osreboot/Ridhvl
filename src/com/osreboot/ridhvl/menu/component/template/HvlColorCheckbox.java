@@ -12,6 +12,27 @@ public class HvlColorCheckbox extends HvlCheckbox {
 	private Color colorOff, colorHoverOff, colorOn, colorHoverOn;
 
 	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
+			float inversionHeightArg, Color colorOffArg, Color colorOnArg, Texture tArg) {
+		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+		colorOff = colorOffArg;
+		colorHoverOff = colorOffArg;
+		colorOn = colorOnArg;
+		colorHoverOn = colorOnArg;
+		texture = tArg;
+	}
+	
+	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
+			float inversionHeightArg, Color colorOffArg, Color colorOnArg,
+			Texture tArg, boolean checkedArg) {
+		super(xArg, yArg, xlArg, ylArg, inversionHeightArg, checkedArg);
+		colorOff = colorOffArg;
+		colorHoverOff = colorOffArg;
+		colorOn = colorOnArg;
+		colorHoverOn = colorOnArg;
+		texture = tArg;
+	}
+	
+	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
 			float inversionHeightArg, Color colorOffArg, Color colorHoverArg,
 			Color colorOnArg, Texture tArg) {
 		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
@@ -73,4 +94,47 @@ public class HvlColorCheckbox extends HvlCheckbox {
 				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorOff);
 		}
 	}
+
+	
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
+	public Color getColorOff() {
+		return colorOff;
+	}
+
+	public void setColorOff(Color colorOff) {
+		this.colorOff = colorOff;
+	}
+
+	public Color getColorHoverOff() {
+		return colorHoverOff;
+	}
+
+	public void setColorHoverOff(Color colorHoverOff) {
+		this.colorHoverOff = colorHoverOff;
+	}
+
+	public Color getColorOn() {
+		return colorOn;
+	}
+
+	public void setColorOn(Color colorOn) {
+		this.colorOn = colorOn;
+	}
+
+	public Color getColorHoverOn() {
+		return colorHoverOn;
+	}
+
+	public void setColorHoverOn(Color colorHoverOn) {
+		this.colorHoverOn = colorHoverOn;
+	}
+
+
 }
