@@ -13,6 +13,7 @@ import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.template.HvlColorButton;
+import com.osreboot.ridhvl.menu.component.template.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.template.HvlTextureButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
@@ -42,21 +43,8 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 		testMenu = new HvlMenu() {
 			
 		};
-		testCheck = new HvlCheckbox(0, 0, 64, 64, 720, false)
-		{
-			@Override
-			public void draw(float delta)
-			{
-				if (this.getChecked())
-				{
-					HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureLoader.getResource(0), Color.red);
-				}
-				else
-				{
-					HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureLoader.getResource(0), Color.blue);
-				}
-			}
-			
+		testCheck = new HvlColorCheckbox(0, 0, 64, 64, 720, Color.blue, Color.cyan, Color.red, Color.pink, textureLoader.getResource(0))
+		{			
 			public void onChanged(boolean state)
 			{
 				System.out.println(state);
