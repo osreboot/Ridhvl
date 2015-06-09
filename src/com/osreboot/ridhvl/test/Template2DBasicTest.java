@@ -11,8 +11,11 @@ import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
 import com.osreboot.ridhvl.config.ConfigUtils;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
+import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
+import com.osreboot.ridhvl.menu.component.HvlArrangerBox.Alignment;
+import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.template.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.template.HvlTextureButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -21,6 +24,7 @@ import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 public class Template2DBasicTest extends HvlTemplate2DBasic{
 	
 	private HvlMenu testMenu;
+	private HvlArrangerBox testArranger;
 	private HvlCheckbox testCheck;
 	private HvlButton testButton;
 	
@@ -65,9 +69,7 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 			{
 				System.out.println(state);
 			}
-		};
-		testMenu.add(testCheck);
-		
+		};	
 		testButton = new HvlTextureButton(64, 64, 128, 128, 720, textureLoader.getResource(2), textureLoader.getResource(3), textureLoader.getResource(4))
 		{
 			@Override
@@ -76,7 +78,15 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 				System.out.println("BUTTTTOOONN!");
 			}
 		};
-		testMenu.add(testButton);
+		
+		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.VERTICAL);
+		testArranger.add(testCheck);
+		testArranger.add(testButton);
+		testArranger.setAlignment(Alignment.LEFT_TOP);
+		testArranger.setBorderL(64);
+		testArranger.setBorderU(16);
+		testArranger.setBorderD(16);
+		testMenu.add(testArranger);
 		
 		HvlMenu.setCurrent(testMenu);
 	}
@@ -98,5 +108,5 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 
 		HvlMenu.updateMenus(delta);
 	}
-
+	
 }
