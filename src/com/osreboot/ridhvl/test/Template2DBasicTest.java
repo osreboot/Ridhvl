@@ -41,9 +41,12 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 	public void initialize(){
 		TestConfigType type = ConfigUtils.loadConfig(TestConfigType.class, "res/TestConfig.txt");
 		
+		ConfigUtils.loadStaticConfig(TestConfigType.class, "res/TestConfig.txt");
+		
 		System.out.println(type.test);
 		System.out.println(type.someNumber);
 		System.out.println(type.someInt);
+		System.out.println(TestConfigType.wtf);
 		
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
