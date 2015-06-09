@@ -8,10 +8,17 @@
 - Code Formatting -
 
 
+- Class Names -
+ + All non-test classes must begin with "Hvl" followed by a unique name with the first letter of every word capitalized.
+ //TODO non-public classes
+
+
 - Variable Names -
+ + Read-only variables must be completely capitalized. Everything else must start with a lower-case letter, with the first letter of every proceeding new word capitalized.
 
 
 - Method/Constructor Argument Names -
+ + All non-utility static methods must begin with "hvl", with the first letter of every proceeding word capitalized. Everything else must start with a lower-case letter, with the first letter of every proceeding new word capitalized.
 
 
 - Misc. -
