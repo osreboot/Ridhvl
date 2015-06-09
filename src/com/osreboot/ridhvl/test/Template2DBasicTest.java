@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
+import com.osreboot.ridhvl.config.ConfigUtils;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlButton;
@@ -31,8 +32,19 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 	static HvlFontPainter2D fontPainter;
 	long gradient = 0;
 	
+	public static void main(String[] args)
+	{
+		new Template2DBasicTest().start();
+	}
+	
 	@Override
 	public void initialize(){
+		TestConfigType type = ConfigUtils.loadConfig(TestConfigType.class, "res/TestConfig.txt");
+		
+		System.out.println(type.test);
+		System.out.println(type.someNumber);
+		System.out.println(type.someInt);
+		
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
 		textureLoader.loadResource("ButtonUp");
