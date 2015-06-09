@@ -14,7 +14,6 @@ import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
-import com.osreboot.ridhvl.menu.component.HvlArrangerBox.Alignment;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.template.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.template.HvlTextureButton;
@@ -79,13 +78,10 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 			}
 		};
 		
-		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.VERTICAL);
+		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.HORIZONTAL);
 		testArranger.add(testCheck);
 		testArranger.add(testButton);
-		testArranger.setAlignment(Alignment.LEFT_TOP);
-		testArranger.setBorderL(64);
-		testArranger.setBorderU(16);
-		testArranger.setBorderD(16);
+		testArranger.setAlign(0.25f);
 		testMenu.add(testArranger);
 		
 		HvlMenu.setCurrent(testMenu);

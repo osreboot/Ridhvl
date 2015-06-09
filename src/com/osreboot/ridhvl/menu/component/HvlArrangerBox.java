@@ -6,17 +6,13 @@ import java.util.List;
 import com.osreboot.ridhvl.menu.HvlComponent;
 
 public class HvlArrangerBox extends HvlComponent {
-
-	public enum Alignment {
-		LEFT_TOP, RIGHT_BOTTOM, CENTER
-	}
 	
 	public enum ArrangementStyle {
 		VERTICAL, HORIZONTAL
 	}
 
 	private ArrangementStyle style;
-	private Alignment alignment;
+	private float align;
 
 	private List<HvlComponent> children;
 
@@ -27,7 +23,7 @@ public class HvlArrangerBox extends HvlComponent {
 		super(xArg, yArg, wArg, hArg, heightInversionArg);
 		children = new LinkedList<HvlComponent>();
 		style = styleArg;
-		alignment = Alignment.LEFT_TOP;
+		align = 0.0f;
 	}
 
 	@Override
@@ -41,18 +37,9 @@ public class HvlArrangerBox extends HvlComponent {
 			float previousY = 0;
 			for (int i = 0; i < children.size(); i++) {
 				HvlComponent comp = children.get(i);
-				switch (alignment)
-				{
-				case LEFT_TOP:
-					comp.setX(getX() + borderL);
-					break;
-				case RIGHT_BOTTOM:
-					comp.setX(getX() + getWidth() - borderR - comp.getWidth());
-					break;
-				case CENTER:
-					comp.setX(getX() + (getWidth() / 2) - (comp.getWidth() / 2));
-					break;
-				}
+				
+				comp.setX(getX() + (getWidth() * align) - (comp.getWidth() * align));
+				
 				if (i == 0)
 					comp.setY(previousY + borderU);
 				else
@@ -74,18 +61,7 @@ public class HvlArrangerBox extends HvlComponent {
 					comp.setX(previousX + borderL + borderR);
 				previousX += borderL + borderR + comp.getWidth();
 				
-				switch(alignment)
-				{
-				case LEFT_TOP:
-					comp.setY(getY() + borderU);
-					break;
-				case RIGHT_BOTTOM:
-					comp.setY(getY() + getHeight() - borderD - comp.getHeight());
-					break;
-				case CENTER:
-					comp.setY(getY() + (getHeight() / 2) - (comp.getHeight() / 2));
-					break;
-				}
+				comp.setY(getY() + (getHeight() * align) - (comp.getHeight() * align));
 			}
 			break;
 		}
@@ -99,16 +75,9 @@ public class HvlArrangerBox extends HvlComponent {
 		}
 	}
 	
-	public void add(HvlComponent comp) {
+	public void add(HvlComponent comp)
+	{
 		children.add(comp);
-	}
-
-	public Alignment getAlignment() {
-		return alignment;
-	}
-
-	public void setAlignment(Alignment alignment) {
-		this.alignment = alignment;
 	}
 
 	public ArrangementStyle getStyle() {
@@ -145,6 +114,16 @@ public class HvlArrangerBox extends HvlComponent {
 
 	public float getBorderD() {
 		return borderD;
+	}
+	
+
+	public float getAlign() {
+		return align;
+	}
+
+	
+	public void setAlign(float align) {
+		this.align = align;
 	}
 
 	public void setBorderD(float borderD) {
