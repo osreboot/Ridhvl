@@ -35,6 +35,9 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 	public void initialize(){
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
+		textureLoader.loadResource("ButtonUp");
+		textureLoader.loadResource("ButtonHover");
+		textureLoader.loadResource("ButtonDown");
 		
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontLayout.DEFAULT, 2048, 2048, 40, 50, 51);
 	
@@ -50,7 +53,7 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 		};
 		testMenu.add(testCheck);
 		
-		testButton = new HvlTextureButton(64, 64, 64, 64, 720, textureLoader.getResource(0), textureLoader.getResource(1), textureLoader.getResource(0))
+		testButton = new HvlTextureButton(64, 64, 128, 128, 720, textureLoader.getResource(2), textureLoader.getResource(3), textureLoader.getResource(4))
 		{
 			@Override
 			public void onTriggered()
