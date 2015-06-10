@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.menu.component.template;
+package com.osreboot.ridhvl.menu.component.collection;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;

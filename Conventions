@@ -6,7 +6,7 @@
  + Start section headers using "- [section name] -"
 
 - Code Formatting -
-
+ + All example/template classes extending off a parent class must be placed in their own adjacent package titled "collection".
 
 - Class Names -
  + All non-test classes must begin with "Hvl" followed by a unique name with the first letter of every word capitalized.

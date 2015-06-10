@@ -8,15 +8,15 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
-import com.osreboot.ridhvl.config.ConfigUtils;
+import com.osreboot.ridhvl.config.HvlConfigUtil;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
-import com.osreboot.ridhvl.menu.component.template.HvlColorCheckbox;
-import com.osreboot.ridhvl.menu.component.template.HvlTextureButton;
+import com.osreboot.ridhvl.menu.component.collection.HvlColorCheckbox;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
@@ -42,9 +42,9 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 	
 	@Override
 	public void initialize(){
-		TestConfigType type = ConfigUtils.loadConfig(TestConfigType.class, "res/TestConfig.txt");
+		TestConfigType type = HvlConfigUtil.loadConfig(TestConfigType.class, "res/TestConfig.txt");
 		
-		ConfigUtils.loadStaticConfig(TestConfigType.class, "res/TestConfig.txt");
+		HvlConfigUtil.loadStaticConfig(TestConfigType.class, "res/TestConfig.txt");
 		
 		System.out.println(type.test);
 		System.out.println(type.someNumber);

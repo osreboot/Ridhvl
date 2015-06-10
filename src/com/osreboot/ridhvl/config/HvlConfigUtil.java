@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class ConfigUtils {
+public class HvlConfigUtil {
 	
 	public static final String delimeter = ":";
 	public static final String regexDelim = Pattern.quote(delimeter);
