@@ -31,6 +31,11 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	static HvlFontPainter2D fontPainter;
 	
+	public static void main(String[] args)
+	{
+		new ComponentsTest().start();
+	}
+	
 	@Override
 	public void initialize(){		
 		textureLoader.loadResource("White");
