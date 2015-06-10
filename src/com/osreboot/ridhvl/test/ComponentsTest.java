@@ -10,6 +10,7 @@ import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
+import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.collection.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -19,6 +20,7 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 	
 	private HvlMenu testMenu;
 	private HvlArrangerBox testArranger;
+	private HvlLabel testLabel;
 	private HvlCheckbox testCheck;
 	private HvlButton testButton;
 	
@@ -42,6 +44,7 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 		testMenu = new HvlMenu() {
 			
 		};
+		testLabel = new HvlLabel(0, 0, 720, fontPainter, "Testing!", Color.red);
 		testCheck = new HvlColorCheckbox(0, 0, 64, 64, 720, Color.blue, Color.cyan, Color.red, Color.pink, textureLoader.getResource(0))
 		{			
 			public void onChanged(boolean state)
@@ -58,10 +61,11 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 			}
 		};
 		
-		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.HORIZONTAL);
+		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.VERTICAL);
+		testArranger.add(testLabel);
 		testArranger.add(testCheck);
 		testArranger.add(testButton);
-		testArranger.setAlign(0.25f);
+		testArranger.setAlign(0.0f);
 		testMenu.add(testArranger);
 		
 		HvlMenu.setCurrent(testMenu);
