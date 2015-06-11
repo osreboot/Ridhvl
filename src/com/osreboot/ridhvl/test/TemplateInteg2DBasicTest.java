@@ -6,7 +6,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
+import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
@@ -25,7 +25,7 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 		getTextureLoader().loadResource("White");
 		getTextureLoader().loadResource("Font");
 		
-		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontLayout.SIMPLISTIC, 2048, 2048, 112, 144, 18);
+		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontUtil.SIMPLISTIC, 2048, 2048, 112, 144, 18);
 	}
 
 	@Override

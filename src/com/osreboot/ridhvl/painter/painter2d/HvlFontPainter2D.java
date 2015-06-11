@@ -3,18 +3,17 @@ package com.osreboot.ridhvl.painter.painter2d;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.HvlDisplay;
 import com.osreboot.ridhvl.HvlFontUtil;
-import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
+import com.osreboot.ridhvl.display.HvlDisplay;
 
 public class HvlFontPainter2D {
 	
 	private Texture image;
-	private HvlFontLayout layout;
+	private char[] layout;
 	private float textureWidth, textureHeight, fontWidth, fontHeight;
 	private int rowCount;
 	
-	public HvlFontPainter2D(Texture imageArg, HvlFontLayout layoutArg, float textureWidthArg, float textureHeightArg, float fontWidthArg, float fontHeightArg, int rowCountArg){
+	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float textureWidthArg, float textureHeightArg, float fontWidthArg, float fontHeightArg, int rowCountArg){
 		image = imageArg;
 		layout = layoutArg;
 		textureWidth = textureWidthArg;

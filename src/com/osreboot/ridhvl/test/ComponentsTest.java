@@ -2,7 +2,7 @@ package com.osreboot.ridhvl.test;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
+import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
@@ -39,7 +39,7 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 		textureLoader.loadResource("ButtonHover");
 		textureLoader.loadResource("ButtonDown");
 		
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontLayout.DEFAULT, 2048, 2048, 40, 50, 51);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 40, 50, 51);
 	
 		testMenu = new HvlMenu() {
 			

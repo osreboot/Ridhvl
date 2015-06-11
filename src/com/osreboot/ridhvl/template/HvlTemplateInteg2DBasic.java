@@ -15,7 +15,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
-import com.osreboot.ridhvl.HvlDisplay;
+import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
@@ -76,6 +76,8 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 	@Override
 	public void preUpdate(float delta){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		HvlDisplay.update();
 	}
 
 	@Override

@@ -6,6 +6,8 @@ public abstract class HvlDisplayMode {
 	
 	public abstract void configureDisplay();
 	
+	public void update(){}
+	
 	public abstract float getTransformedX(float xArg);
 	public abstract float getTransformedY(float yArg);
 	

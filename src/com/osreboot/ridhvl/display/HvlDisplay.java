@@ -1,6 +1,5 @@
-package com.osreboot.ridhvl;
+package com.osreboot.ridhvl.display;
 
-import com.osreboot.ridhvl.display.HvlDisplayMode;
 
 public class HvlDisplay {
 	
@@ -13,6 +12,10 @@ public class HvlDisplay {
 	
 	public static HvlDisplayMode getDisplayMode(){
 		return displayMode;
+	}
+	
+	public static void update(){
+		displayMode.update();
 	}
 	
 	public static float getTransformedX(float xArg){

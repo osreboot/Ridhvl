@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.HvlDisplay;
+import com.osreboot.ridhvl.display.HvlDisplay;
 
 public class HvlPainter2D {
 
