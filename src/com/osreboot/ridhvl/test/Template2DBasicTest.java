@@ -6,15 +6,15 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
 import com.osreboot.ridhvl.config.HvlConfigUtil;
+import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
+import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
-import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.collection.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -28,17 +28,12 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 	private HvlButton testButton;
 	
 	public Template2DBasicTest(){
-		super(60, 1280, 720, "Unnamed", HvlDisplayMode.DEFAULT);
+		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
 	
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	static HvlFontPainter2D fontPainter;
 	long gradient = 0;
-	
-	public static void main(String[] args)
-	{
-		new Template2DBasicTest().start();
-	}
 	
 	@Override
 	public void initialize(){

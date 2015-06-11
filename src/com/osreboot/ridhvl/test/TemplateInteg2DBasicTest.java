@@ -1,17 +1,20 @@
 package com.osreboot.ridhvl.test;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
+
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
 import com.osreboot.ridhvl.HvlFontUtil.HvlFontLayout;
+import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 	
 	public TemplateInteg2DBasicTest(){
-		super(60, 1280, 720, "Unnamed", 5, HvlDisplayMode.DEFAULT);
+		super(60, 1280, 720, "Unnamed", 5, new HvlDisplayModeDefault());
 	}
 
 	static HvlFontPainter2D fontPainter;
