@@ -17,6 +17,7 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
+import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
 
@@ -25,8 +26,9 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 	private int frameRate, displayWidth, displayHeight;
 	
 	private HvlTextureLoader textureLoader;
+	private HvlSoundLoader soundLoader;
 
-	public HvlTemplateInteg2DBasic(int frameRateArg, int width, int height, String title, int textureLoaderDepth, HvlDisplayMode displayModeArg){
+	public HvlTemplateInteg2DBasic(int frameRateArg, int width, int height, String title, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
 		frameRate = frameRateArg;
 		
 		displayWidth = width;
@@ -45,11 +47,12 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 		hvlGL11Ortho(width, height);
 		
 		textureLoader = new HvlTextureLoader(textureLoaderDepth);
+		soundLoader = new HvlSoundLoader(soundLoaderDepth);
 		
 		start();
 	}
 	
-	public HvlTemplateInteg2DBasic(int frameRateArg, int width, int height, String title, String iconName, int textureLoaderDepth, HvlDisplayMode displayModeArg){
+	public HvlTemplateInteg2DBasic(int frameRateArg, int width, int height, String title, String iconName, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
 		frameRate = frameRateArg;
 
 		displayWidth = width;
@@ -69,6 +72,7 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 		hvlGL11Ortho(width, height);
 		
 		textureLoader = new HvlTextureLoader(textureLoaderDepth);
+		soundLoader = new HvlSoundLoader(soundLoaderDepth);
 		
 		start();
 	}
@@ -94,6 +98,10 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 	
 	public HvlTextureLoader getTextureLoader(){
 		return textureLoader;
+	}
+	
+	public HvlSoundLoader getSoundLoader(){
+		return soundLoader;
 	}
 
 	public int getWidth(){
