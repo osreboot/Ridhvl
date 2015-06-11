@@ -16,7 +16,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.osreboot.ridhvl.HvlDisplay;
-import com.osreboot.ridhvl.HvlDisplay.HvlDisplayMode;
+import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
 
@@ -35,7 +35,7 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 		try{
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.setTitle(title);
-			HvlDisplay.configureDisplay(displayModeArg, (float)width/(float)height);
+			HvlDisplay.setDisplayMode(displayModeArg);
 			Display.create();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.setIcon(new ByteBuffer[]{new ImageIOImageData().imageToByteBuffer(ImageIO.read(new FileInputStream("res/" + iconName + ".png")), false, false, null)});
 			Display.setTitle(title);
-			HvlDisplay.configureDisplay(displayModeArg, (float)width/(float)height);
+			HvlDisplay.setDisplayMode(displayModeArg);
 			Display.create();
 		}catch(Exception e){
 			e.printStackTrace();
