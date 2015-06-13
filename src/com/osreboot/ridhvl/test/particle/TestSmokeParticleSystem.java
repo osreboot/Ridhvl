@@ -11,7 +11,6 @@ public class TestSmokeParticleSystem extends HvlParticleSystem {
 	
 	public TestSmokeParticleSystem(float x, float y, Texture tArg) {
 		super(x, y);
-		this.setMaxParticles(-1);
 		this.setMinTimeToSpawn(0.1f);
 		this.setMaxTimeToSpawn(0.1f);
 		this.setParticlesPerSpawn(5);

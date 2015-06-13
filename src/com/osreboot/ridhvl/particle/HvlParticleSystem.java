@@ -15,7 +15,8 @@ public abstract class HvlParticleSystem {
 	
 	public HvlParticleSystem(float xArg, float yArg)
 	{
-		maxParticles = -1; // Unlimited by defualt
+		maxParticles = -1; // Unlimited by default
+		particlesPerSpawn = 1;
 		particles = new LinkedList<HvlParticle>();
 		spawnOnTimer = true;
 		this.x = xArg;
