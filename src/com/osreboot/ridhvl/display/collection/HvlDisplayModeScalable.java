@@ -17,32 +17,32 @@ public class HvlDisplayModeScalable extends HvlDisplayMode{
 	
 	@Override
 	public float getTransformedX(float xArg){
-		return xArg/initialWidth*Display.getWidth();
+		return xArg/initialWidth*(float)Display.getWidth();
 	}
 
 	@Override
 	public float getTransformedY(float yArg){
-		return yArg/initialHeight*Display.getHeight();
+		return yArg/initialHeight*(float)Display.getHeight();
 	}
 
 	@Override
 	public float getScaledX(float xArg){
-		return xArg/initialWidth*Display.getWidth();
+		return xArg/initialWidth*(float)Display.getWidth();
 	}
 
 	@Override
 	public float getScaledY(float yArg){
-		return yArg/initialHeight*Display.getHeight();
+		return yArg/initialHeight*(float)Display.getHeight();
 	}
 
 	@Override
 	public float getUnscaledX(float xArg){
-		return xArg*initialWidth/Display.getWidth();
+		return xArg*initialWidth/(float)Display.getWidth();
 	}
 
 	@Override
 	public float getUnscaledY(float yArg){
-		return yArg*initialHeight/Display.getHeight();
+		return yArg*initialHeight/(float)Display.getHeight();
 	}
 
 }
