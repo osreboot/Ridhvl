@@ -49,7 +49,6 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 
 	@Override
 	public HvlParticle generateParticle() {
-		System.out.println("Gen");
 		HvlCoord spawnPos = HvlMath.randomPointInCircle(spawnRadius);
 		float xVel = HvlMath.randomBetween(minXVel, maxXVel);
 		float yVel = HvlMath.randomBetween(minYVel, maxYVel);
