@@ -2,7 +2,20 @@ package com.osreboot.ridhvl;
 
 
 public class HvlMath {
-
+	public static class HvlCoord
+	{
+		public float x, y;
+		
+		public HvlCoord() {
+			
+		}
+		
+		public HvlCoord(float xArg, float yArg) {
+			this.x = xArg;
+			this.y = yArg;
+		}
+	}
+	
 	/**
 	 * Returns arg1 progressed towards goalArg by modifierArg amount (ignores negative 
 	 * modifierArg). Returns goalArg if arg1 plus or minus a fraction of modifierArg equals 
@@ -44,4 +57,13 @@ public class HvlMath {
 		return (float)Math.sqrt(Math.pow(xArg1 - xArg2, 2) + Math.pow(yArg1 - yArg2, 2));
 	}
 	
+	public static float randomBetween(float min, float max)	{
+		return min + ((float) Math.random() * (max - min));
+	}
+
+	public static HvlCoord randomPointInCircle(float radius) {
+		float theta = randomBetween(0, 360);
+		return new HvlCoord((float) Math.cos(theta) * radius,
+				(float) Math.sin(theta) * radius);
+	}
 }

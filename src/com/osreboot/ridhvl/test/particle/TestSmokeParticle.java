@@ -3,6 +3,7 @@ package com.osreboot.ridhvl.test.particle;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.HvlColorUtil;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
@@ -27,12 +28,7 @@ public class TestSmokeParticle extends HvlParticle {
 	public TestSmokeParticle(float xArg, float yArg, HvlParticleSystem parentArg, Texture tArg) {
 		super(xArg, yArg, parentArg);
 		
-		float lerp = (float) Math.random();
-		float r = Color.darkGray.r + ((Color.lightGray.r - Color.darkGray.r) * lerp);
-		float g = Color.darkGray.g + ((Color.lightGray.g - Color.darkGray.g) * lerp);
-		float b = Color.darkGray.b + ((Color.lightGray.b - Color.darkGray.b) * lerp);
-		c = new Color(r, g, b);
-		
+		c = HvlColorUtil.lerpColor(Color.darkGray, Color.lightGray, (float) Math.random());
 		this.rotVel = ((float)Math.random() * 720f) - 360f;
 		this.t = tArg;
 		scale = minScale + ((float) Math.random() * (1.0f - minScale));
