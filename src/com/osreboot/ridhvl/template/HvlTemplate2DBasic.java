@@ -17,7 +17,7 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
 public abstract class HvlTemplate2DBasic extends HvlTemplate{
 
@@ -38,7 +38,7 @@ public abstract class HvlTemplate2DBasic extends HvlTemplate{
 			e.printStackTrace();
 		}
 
-		hvlGL11Init(HvlPainter2DTemplate.DEFAULT);
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
 		
 		start();
@@ -60,7 +60,7 @@ public abstract class HvlTemplate2DBasic extends HvlTemplate{
 			e.printStackTrace();
 		}
 
-		hvlGL11Init(HvlPainter2DTemplate.DEFAULT);
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
 		
 		start();

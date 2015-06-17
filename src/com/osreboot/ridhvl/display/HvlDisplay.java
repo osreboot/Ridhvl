@@ -18,6 +18,7 @@ public class HvlDisplay {
 		displayMode.update();
 	}
 	
+	@Deprecated
 	public static float getTransformedX(float xArg){
 		return displayMode.getTransformedX(xArg);
 		/*
@@ -26,6 +27,7 @@ public class HvlDisplay {
 		}*/
 	}
 	
+	@Deprecated
 	public static float getTransformedY(float yArg){
 		return displayMode.getTransformedY(yArg);
 		/*
@@ -34,6 +36,7 @@ public class HvlDisplay {
 		}*/
 	}
 	
+	@Deprecated
 	public static float getScaledX(float xArg){
 		return displayMode.getScaledX(xArg);
 		/*
@@ -42,6 +45,7 @@ public class HvlDisplay {
 		}*/
 	}
 	
+	@Deprecated
 	public static float getScaledY(float yArg){
 		return displayMode.getScaledY(yArg);
 		/*
@@ -50,6 +54,7 @@ public class HvlDisplay {
 		}*/
 	}
 	
+	@Deprecated
 	public static float getUnscaledX(float xArg){
 		return displayMode.getUnscaledX(xArg);
 		/*
@@ -58,6 +63,7 @@ public class HvlDisplay {
 		}*/
 	}
 	
+	@Deprecated
 	public static float getUnscaledY(float yArg){
 		return displayMode.getUnscaledY(yArg);
 		/*

@@ -19,7 +19,7 @@ import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DTemplate;
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
 public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 
@@ -43,7 +43,7 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 			e.printStackTrace();
 		}
 		
-		hvlGL11Init(HvlPainter2DTemplate.DEFAULT);
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
 		
 		textureLoader = new HvlTextureLoader(textureLoaderDepth);
@@ -68,7 +68,7 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 			e.printStackTrace();
 		}
 
-		hvlGL11Init(HvlPainter2DTemplate.DEFAULT);
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
 		
 		textureLoader = new HvlTextureLoader(textureLoaderDepth);
