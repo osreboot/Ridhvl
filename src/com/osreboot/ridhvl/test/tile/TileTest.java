@@ -4,6 +4,7 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 import com.osreboot.ridhvl.tile.TileMap;
+import com.osreboot.ridhvl.tile.collection.AnimatedTile;
 import com.osreboot.ridhvl.tile.collection.SimpleTile;
 
 public class TileTest extends HvlTemplate2DBasic{
@@ -31,6 +32,7 @@ public class TileTest extends HvlTemplate2DBasic{
 		tilemap.setTile(0, 0, new SimpleTile(32));
 		tilemap.setTile(1, 1, new SimpleTile(0));
 		tilemap.setTile(1, 2, new SimpleTile(35));
+		tilemap.setTile(2, 1, new AnimatedTile(1.0f, 44, 45));
 	}
 
 	@Override
