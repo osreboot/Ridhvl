@@ -10,8 +10,8 @@ public class HvlPainter2D {
 		DEFAULT
 	}
 
-	public static void hvlGL11Init(HvlPainter2DProfile type){
-		switch(type){
+	public static void hvlGL11Init(HvlPainter2DProfile profile){
+		switch(profile){
 		default:
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			GL11.glEnable(GL11.GL_COLOR_MATERIAL);

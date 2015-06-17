@@ -4,7 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
-import com.osreboot.ridhvl.display.HvlDisplay;
 
 public class HvlFontPainter2D {
 	
@@ -41,7 +40,7 @@ public class HvlFontPainter2D {
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
 				int ypos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) / rowCount;
 				
-				HvlPainter2D.hvlDrawQuad(x + (i*HvlDisplay.getUnscaledX(fontWidth)), y, HvlDisplay.getUnscaledX(fontWidth), HvlDisplay.getUnscaledY(fontHeight), (fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos, (fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight), image, c);
+				HvlPainter2D.hvlDrawQuad(x + (i*fontWidth), y, fontWidth, fontHeight, (fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos, (fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight), image, c);
 			}
 		}
 	}
@@ -52,7 +51,7 @@ public class HvlFontPainter2D {
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
 				int ypos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) / rowCount;
 				
-				HvlPainter2D.hvlDrawQuad(x + (i*HvlDisplay.getUnscaledX(fontWidth)*scale), y, HvlDisplay.getUnscaledX(fontWidth*scale), HvlDisplay.getUnscaledY(fontHeight*scale), (fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos, (fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight), image, c);
+				HvlPainter2D.hvlDrawQuad(x + (i*fontWidth*scale), y, fontWidth*scale, fontHeight*scale, (fontWidth/textureWidth)*xpos, (fontHeight/textureHeight)*ypos, (fontWidth/textureWidth)*xpos + (fontWidth/textureHeight), (fontHeight/textureHeight)*ypos + (fontHeight/textureHeight), image, c);
 			}
 		}
 	}
