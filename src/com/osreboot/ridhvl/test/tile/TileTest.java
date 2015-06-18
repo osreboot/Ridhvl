@@ -1,5 +1,11 @@
 package com.osreboot.ridhvl.test.tile;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
@@ -27,12 +33,19 @@ public class TileTest extends HvlTemplate2DBasic{
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("TestTilesheet");
 		
-		tilemap = new TileMap(textureLoader.getResource(1), 8, 8, 8, 8, 0, 0, 64, 64);
-		tilemap.fill(new SimpleTile(63));
-		tilemap.setTile(0, 0, new SimpleTile(32));
-		tilemap.setTile(1, 1, new SimpleTile(0));
-		tilemap.setTile(1, 2, new SimpleTile(35));
-		tilemap.setTile(2, 1, new AnimatedTile(1.0f, 44, 45));
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("res/TestLevelSave.txt"));
+			StringBuilder sb = new StringBuilder();
+			String current;
+			while ((current = reader.readLine()) != null)
+			{
+				sb.append(current);
+				sb.append(System.lineSeparator());
+			}
+			tilemap = TileMap.load(sb.toString(), textureLoader.getResource(1), 0, 0, 64, 64);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

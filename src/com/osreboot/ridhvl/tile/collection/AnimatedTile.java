@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.tile.collection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.newdawn.slick.Color;
 
@@ -52,4 +53,55 @@ public class AnimatedTile extends Tile {
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2, info.texture, Color.white);
 	}
 
+	public List<Integer> getTileCoords() {
+		return tileCoords;
+	}
+
+	public float getTimeBetweenAnimations() {
+		return timeBetweenAnimations;
+	}
+
+	public void setTimeBetweenAnimations(float timeBetweenAnimations) {
+		this.timeBetweenAnimations = timeBetweenAnimations;
+	}
+
+	public static String save(AnimatedTile tile)
+	{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(String.format("TimeBetweenAnimations:%f%n", tile.getTimeBetweenAnimations()));
+		for (Integer i : tile.getTileCoords())
+		{
+			sb.append(String.format("AnimationFrame:%d%n", i));
+		}
+		
+		return sb.toString();
+	}
+	
+	public static AnimatedTile load(String in)
+	{
+		String[] lines = in.split(Pattern.quote(System.lineSeparator()));
+		
+		float timeBetweenAnimations = 0.0f;
+		List<Integer> frames = new ArrayList<>();
+		
+		for (String line : lines)
+		{
+			if (line.startsWith("TimeBetweenAnimations:"))
+			{
+				timeBetweenAnimations = Float.parseFloat(line.replaceFirst(Pattern.quote("TimeBetweenAnimations:"), "").trim());
+			}
+			if (line.startsWith("AnimationFrame:"))
+			{
+				frames.add(Integer.parseInt(line.replaceFirst(Pattern.quote("AnimationFrame:"), "").trim()));
+			}
+		}
+		
+		int[] framesArray = new int[frames.size()];
+		
+		for (int i = 0; i < frames.size(); i++)
+			framesArray[i] = frames.get(i);
+		
+		return new AnimatedTile(timeBetweenAnimations, framesArray);
+	}
 }
