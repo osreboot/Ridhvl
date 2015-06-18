@@ -30,12 +30,6 @@ public class HvlPainter2D {
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 	
-	public static void hvlGL11FitToChanged(int oldWidth, int oldHeight, int newWidth, int newHeight){
-		GL11.glViewport(0, 0, newWidth < oldWidth ? oldWidth : newWidth, newHeight < oldHeight ? oldHeight : newHeight);
-		GL11.glLoadIdentity();
-		GL11.glOrtho(0, newWidth < oldWidth ? oldWidth : newWidth, 0, newHeight < oldHeight ? oldHeight : newHeight, 1, -1);
-	}
-	
 	//TODO account for HvlDisplayMode
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
