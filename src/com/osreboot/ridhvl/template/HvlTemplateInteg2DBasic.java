@@ -46,6 +46,8 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
 		
+		HvlDisplay.initializeDisplayMode();
+		
 		textureLoader = new HvlTextureLoader(textureLoaderDepth);
 		soundLoader = new HvlSoundLoader(soundLoaderDepth);
 		
@@ -71,6 +73,8 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
 		
+		HvlDisplay.initializeDisplayMode();
+		
 		textureLoader = new HvlTextureLoader(textureLoaderDepth);
 		soundLoader = new HvlSoundLoader(soundLoaderDepth);
 		
@@ -79,13 +83,15 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 
 	@Override
 	public void preUpdate(float delta){
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		HvlDisplay.preUpdate(delta);
 		
-		HvlDisplay.update();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	@Override
 	public void postUpdate(float delta){
+		HvlDisplay.postUpdate(delta);
+		
 		Display.update();
 		Display.sync(frameRate);
 

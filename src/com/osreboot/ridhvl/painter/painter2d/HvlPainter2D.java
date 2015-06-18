@@ -29,7 +29,6 @@ public class HvlPainter2D {
 		GL11.glOrtho(0, displayWidth, displayHeight, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
-
 	
 	//TODO account for HvlDisplayMode
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){

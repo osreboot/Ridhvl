@@ -42,7 +42,6 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 		
 		fontPainter.hvlDrawWord("test of the most basic template!", 10, 10, 1260, 100, new Color(gradient/1280f, gradient/1280f, gradient/1280f));
 		fontPainter.hvlDrawWord("and rotation! yay?", 10, 100, 0.5f, new Color(1 - (gradient/1280f), 1 - (gradient/1280f), 1 - (gradient/1280f)));
-
 	}
 
 }

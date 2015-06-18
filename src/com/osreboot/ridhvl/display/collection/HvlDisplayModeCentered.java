@@ -11,7 +11,7 @@ import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
-public class HvlDisplayModeScalable extends HvlDisplayMode{
+public class HvlDisplayModeCentered extends HvlDisplayMode{
 	
 	private HvlRenderFrame renderFrame;
 	
@@ -40,7 +40,7 @@ public class HvlDisplayModeScalable extends HvlDisplayMode{
 	public void postUpdate(float delta){
 		HvlRenderFrame.setCurrentRenderFrame(0);
 		
-		HvlPainter2D.hvlDrawQuad(0, Display.getHeight(), Display.getWidth(), -Display.getHeight(), renderFrame.getTextureID());
+		HvlPainter2D.hvlDrawQuad((Display.getWidth()/2) - (getCoordinateWidth()/2), (Display.getHeight()/2) + (getCoordinateHeight()/2), getCoordinateWidth(), -getCoordinateHeight(), renderFrame.getTextureID());
 	}
-
+	
 }

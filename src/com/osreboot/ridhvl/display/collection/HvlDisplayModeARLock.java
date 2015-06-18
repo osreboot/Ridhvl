@@ -1,54 +1,49 @@
 package com.osreboot.ridhvl.display.collection;
 
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+
 import org.lwjgl.opengl.Display;
 
 import com.osreboot.ridhvl.display.HvlDisplayMode;
+import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
+@Deprecated
 public class HvlDisplayModeARLock extends HvlDisplayMode{
 
-	private float aspectRatio, initialHeight, initialWidth;
+	private HvlRenderFrame renderFrame;
 
 	@Override
 	public void configureDisplay(){
-		initialHeight = Display.getHeight();
-		initialWidth = Display.getWidth();
-		aspectRatio = (float)Display.getWidth()/(float)Display.getHeight();
 		Display.setResizable(true);
 	}
 
 	@Override
-	public void update(){
-		aspectRatio = (float)Display.getWidth()/(float)Display.getHeight();
-	}
-	
-	@Override
-	public float getTransformedX(float xArg){
-		return xArg;
+	public void initialize(){
+		super.initialize();
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, getCoordinateWidth(), getCoordinateHeight());
 	}
 
 	@Override
-	public float getTransformedY(float yArg){
-		return yArg;
+	public void preUpdate(float delta){
+		resizePerspective(getCoordinateWidth(), getCoordinateHeight(), Display.getWidth(), Display.getHeight());//TODO resize check
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame.getID());
 	}
 
 	@Override
-	public float getScaledX(float xArg){
-		return xArg;
-	}
+	public void postUpdate(float delta){
+		HvlRenderFrame.setCurrentRenderFrame(0);
 
-	@Override
-	public float getScaledY(float yArg){
-		return yArg;
-	}
-
-	@Override
-	public float getUnscaledX(float xArg){
-		return xArg;
-	}
-
-	@Override
-	public float getUnscaledY(float yArg){
-		return yArg;
+		int oldAR = getCoordinateWidth()/getCoordinateHeight();
+		int newAR = Display.getWidth()/Display.getHeight();
+		
+		HvlPainter2D.hvlDrawQuad(oldAR >= newAR ? 0 : (Display.getWidth()/2) - ((oldAR * Display.getHeight())/2), Display.getHeight(), oldAR >= newAR ? Display.getWidth() : (Display.getWidth()/2) - (oldAR * Display.getHeight()), -Display.getHeight(), renderFrame.getTextureID());
 	}
 
 }

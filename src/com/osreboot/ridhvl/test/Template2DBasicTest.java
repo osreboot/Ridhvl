@@ -13,7 +13,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
 public class Template2DBasicTest extends HvlTemplate2DBasic{
-
+	
 	public Template2DBasicTest(){
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -23,7 +23,7 @@ public class Template2DBasicTest extends HvlTemplate2DBasic{
 	float gradient = 0;
 
 	@Override
-	public void initialize(){		
+	public void initialize(){
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
 
