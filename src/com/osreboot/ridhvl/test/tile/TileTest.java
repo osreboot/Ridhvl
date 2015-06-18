@@ -1,17 +1,13 @@
 package com.osreboot.ridhvl.test.tile;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
-import com.osreboot.ridhvl.tile.TileMap;
-import com.osreboot.ridhvl.tile.collection.AnimatedTile;
-import com.osreboot.ridhvl.tile.collection.SimpleTile;
+import com.osreboot.ridhvl.tile.HvlTileMap;
 
 public class TileTest extends HvlTemplate2DBasic{
 
@@ -21,7 +17,7 @@ public class TileTest extends HvlTemplate2DBasic{
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	
-	private TileMap tilemap;
+	private HvlTileMap tilemap;
 
 	public static void main(String[] args)
 	{
@@ -42,7 +38,8 @@ public class TileTest extends HvlTemplate2DBasic{
 				sb.append(current);
 				sb.append(System.lineSeparator());
 			}
-			tilemap = TileMap.load(sb.toString(), textureLoader.getResource(1), 0, 0, 64, 64);
+			tilemap = HvlTileMap.load(sb.toString(), textureLoader.getResource(1), 0, 0, 64, 64);
+			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

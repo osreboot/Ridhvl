@@ -7,16 +7,16 @@ import java.util.regex.Pattern;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
-import com.osreboot.ridhvl.tile.Tile;
-import com.osreboot.ridhvl.tile.TileMap.TileMapInfo;
+import com.osreboot.ridhvl.tile.HvlTile;
+import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;
 
-public class AnimatedTile extends Tile {
+public class HvlAnimatedTile extends HvlTile {
 
 	private List<Integer> tileCoords;
 	private int currentTile;
 	private float timer, timeBetweenAnimations;
 	
-	public AnimatedTile(float timeArg, int... tilesArg) {
+	public HvlAnimatedTile(float timeArg, int... tilesArg) {
 		if (tilesArg.length == 0)
 			throw new IllegalArgumentException("You must have at least one tile in an AnimatedTile.");
 
@@ -65,7 +65,7 @@ public class AnimatedTile extends Tile {
 		this.timeBetweenAnimations = timeBetweenAnimations;
 	}
 
-	public static String save(AnimatedTile tile)
+	public static String save(HvlAnimatedTile tile)
 	{
 		StringBuilder sb = new StringBuilder();
 		
@@ -78,7 +78,7 @@ public class AnimatedTile extends Tile {
 		return sb.toString();
 	}
 	
-	public static AnimatedTile load(String in)
+	public static HvlAnimatedTile load(String in)
 	{
 		String[] lines = in.split(Pattern.quote(System.lineSeparator()));
 		
@@ -102,6 +102,6 @@ public class AnimatedTile extends Tile {
 		for (int i = 0; i < frames.size(); i++)
 			framesArray[i] = frames.get(i);
 		
-		return new AnimatedTile(timeBetweenAnimations, framesArray);
+		return new HvlAnimatedTile(timeBetweenAnimations, framesArray);
 	}
 }

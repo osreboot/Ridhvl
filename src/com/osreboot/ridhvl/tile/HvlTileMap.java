@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import org.newdawn.slick.opengl.Texture;
 
-public class TileMap {
+public class HvlTileMap {
 
 	public class TileMapInfo {
 		public TileMapInfo(Texture texture, int tileWidth, int tileHeight) {
@@ -21,12 +21,12 @@ public class TileMap {
 	}
 
 	private TileMapInfo info;
-	private Tile[] tiles;
+	private HvlTile[] tiles;
 	private float tileWidth, tileHeight;
 	private int mapWidth, mapHeight;
 	private float x, y;
 
-	public TileMap(Texture tArg, int tilesAcrossArg, int tilesTallArg,
+	public HvlTileMap(Texture tArg, int tilesAcrossArg, int tilesTallArg,
 			int mapWidthArg, int mapHeightArg, float xArg, float yArg,
 			float tileWidthArg, float tileHeightArg) {
 		this.info = new TileMapInfo(tArg, tilesAcrossArg, tilesTallArg);
@@ -36,13 +36,13 @@ public class TileMap {
 		this.tileHeight = tileHeightArg;
 		this.x = xArg;
 		this.y = yArg;
-		this.tiles = new Tile[mapWidth * mapHeight];
+		this.tiles = new HvlTile[mapWidth * mapHeight];
 	}
 
 	public void draw(float delta) {
 		for (int currentX = 0; currentX < mapWidth; currentX++) {
 			for (int currentY = 0; currentY < mapHeight; currentY++) {
-				Tile current = tiles[mapWidth * currentY + currentX];
+				HvlTile current = tiles[mapWidth * currentY + currentX];
 				if (current == null)
 					continue;
 
@@ -52,15 +52,15 @@ public class TileMap {
 		}
 	}
 
-	public Tile getTile(int xArg, int yArg) {
+	public HvlTile getTile(int xArg, int yArg) {
 		return tiles[yArg * mapWidth + xArg];
 	}
 
-	public void setTile(int xArg, int yArg, Tile tile) {
+	public void setTile(int xArg, int yArg, HvlTile tile) {
 		tiles[yArg * mapWidth + xArg] = tile;
 	}
 
-	public void fill(Tile tile) {
+	public void fill(HvlTile tile) {
 		for (int currentX = 0; currentX < mapWidth; currentX++) {
 			for (int currentY = 0; currentY < mapHeight; currentY++) {
 				setTile(currentX, currentY, tile);
@@ -124,7 +124,7 @@ public class TileMap {
 		this.y = y;
 	}
 
-	public static String save(TileMap map) {
+	public static String save(HvlTileMap map) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(String.format("[TileMap %d, %d, %d, %d] {%n",
@@ -132,7 +132,7 @@ public class TileMap {
 				map.getMapWidth(), map.getMapHeight()));
 		for (int currentX = 0; currentX < map.getMapWidth(); currentX++) {
 			for (int currentY = 0; currentY < map.getMapHeight(); currentY++) {
-				Tile tile = map.getTile(currentX, currentY);
+				HvlTile tile = map.getTile(currentX, currentY);
 				if (tile == null)
 					continue;
 
@@ -156,7 +156,7 @@ public class TileMap {
 		return sb.toString();
 	}
 
-	public static TileMap load(String inArg, Texture texArg, float xArg,
+	public static HvlTileMap load(String inArg, Texture texArg, float xArg,
 			float yArg, float tileWidthArg, float tileHeightArg) {
 		String[] tileMapHeaderArgs = inArg.split(System.lineSeparator())[0]
 				.replaceFirst(Pattern.quote("[TileMap "), "")
@@ -166,7 +166,7 @@ public class TileMap {
 		int tilesTall = Integer.parseInt(tileMapHeaderArgs[1].trim());
 		int mapWidth = Integer.parseInt(tileMapHeaderArgs[2].trim());
 		int mapHeight = Integer.parseInt(tileMapHeaderArgs[3].trim());
-		TileMap toReturn = new TileMap(texArg, tilesAcross, tilesTall,
+		HvlTileMap toReturn = new HvlTileMap(texArg, tilesAcross, tilesTall,
 				mapWidth, mapHeight, xArg, yArg, tileWidthArg, tileHeightArg);
 
 		Pattern p = Pattern.compile("\\[(\\S+),(\\d+),(\\d+)\\] \\{([^}]*)\\}");
@@ -177,7 +177,7 @@ public class TileMap {
 
 			try {
 				Class<?> tileClass = Class.forName(m.group(1));
-				Tile created = (Tile) tileClass.getMethod("load", String.class).invoke(null,
+				HvlTile created = (HvlTile) tileClass.getMethod("load", String.class).invoke(null,
 						m.group(4));
 				toReturn.setTile(coordX, coordY, created);
 				

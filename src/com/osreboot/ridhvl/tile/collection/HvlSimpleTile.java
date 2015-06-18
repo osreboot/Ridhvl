@@ -5,14 +5,14 @@ import java.util.regex.Pattern;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
-import com.osreboot.ridhvl.tile.Tile;
-import com.osreboot.ridhvl.tile.TileMap.TileMapInfo;
+import com.osreboot.ridhvl.tile.HvlTile;
+import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;
 
-public class SimpleTile extends Tile {
+public class HvlSimpleTile extends HvlTile {
 
 	private int tile;
 
-	public SimpleTile(int tileArg) {
+	public HvlSimpleTile(int tileArg) {
 		this.tile = tileArg;
 	}
 
@@ -39,11 +39,11 @@ public class SimpleTile extends Tile {
 		this.tile = tile;
 	}
 
-	public static String save(SimpleTile tile) {
+	public static String save(HvlSimpleTile tile) {
 		return String.format("Tile:%d", tile.getTile());
 	}
 
-	public static SimpleTile load(String in) {
-		return new SimpleTile(Integer.parseInt(in.split(Pattern.quote(":"))[1].trim()));
+	public static HvlSimpleTile load(String in) {
+		return new HvlSimpleTile(Integer.parseInt(in.split(Pattern.quote(":"))[1].trim()));
 	}
 }
