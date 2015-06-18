@@ -2,12 +2,15 @@ package com.osreboot.ridhvl.config;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
 
 public class HvlConfigUtil {
 	
@@ -23,7 +26,7 @@ public class HvlConfigUtil {
 			TConfigType toReturn = type.newInstance();
 			
 			scan = new Scanner(new FileInputStream(path));
-
+			
 			while (scan.hasNextLine()) {
 				String ln = scan.nextLine();
 				
@@ -34,6 +37,19 @@ public class HvlConfigUtil {
 				{					
 					if (fields[i].getName().equals(propName))
 					{
+						boolean shouldBeIgnored = false;
+						for (Annotation a : fields[i].getDeclaredAnnotations())
+						{
+							if (a.annotationType().equals(HvlConfigIgnore.class))
+							{
+								HvlConfigIgnore ign = (HvlConfigIgnore) a;
+								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD)
+									shouldBeIgnored = true;
+								break;
+							}
+						}
+						if (shouldBeIgnored) break;
+						
 						if (fields[i].getType().equals(int.class) ||
 								fields[i].getType().equals(Integer.class))
 						{
@@ -119,6 +135,19 @@ public class HvlConfigUtil {
 				{					
 					if (fields[i].getName().equals(propName))
 					{
+						boolean shouldBeIgnored = false;
+						for (Annotation a : fields[i].getDeclaredAnnotations())
+						{
+							if (a.annotationType().equals(HvlConfigIgnore.class))
+							{
+								HvlConfigIgnore ign = (HvlConfigIgnore) a;
+								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD)
+									shouldBeIgnored = true;
+								break;
+							}
+						}
+						if (shouldBeIgnored) break;
+						
 						if (fields[i].getType().equals(int.class) ||
 								fields[i].getType().equals(Integer.class))
 						{
@@ -209,6 +238,19 @@ public class HvlConfigUtil {
 				{
 					if (f.getName().equals(propName))
 					{
+						boolean shouldBeIgnored = false;
+						for (Annotation a : f.getDeclaredAnnotations())
+						{
+							if (a.annotationType().equals(HvlConfigIgnore.class))
+							{
+								HvlConfigIgnore ign = (HvlConfigIgnore) a;
+								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD)
+									shouldBeIgnored = true;
+								break;
+							}
+						}
+						if (shouldBeIgnored) break;
+						
 						if (f.getType().equals(int.class) ||
 								f.getType().equals(Integer.class))
 						{
@@ -273,4 +315,6 @@ public class HvlConfigUtil {
 				scan.close();
 		}
 	}
+
+	
 }
