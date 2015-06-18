@@ -6,15 +6,9 @@ public abstract class HvlDisplayMode {
 	
 	public abstract void configureDisplay();
 	
-	public void update(){}
+	public void initialize(){}
 	
-	public abstract float getTransformedX(float xArg);
-	public abstract float getTransformedY(float yArg);
-	
-	public abstract float getScaledX(float xArg);
-	public abstract float getScaledY(float yArg);
-	
-	public abstract float getUnscaledX(float xArg);
-	public abstract float getUnscaledY(float yArg);
+	public void preUpdate(float delta){}
+	public void postUpdate(float delta){}
 	
 }
