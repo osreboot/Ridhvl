@@ -33,10 +33,16 @@ public class HvlExpandableRectButton extends HvlButton {
 	public void draw(float delta) {
 		rectOff.setTotalWidth(getWidth());
 		rectOff.setTotalHeight(getHeight());
+		rectOff.setX(getX());
+		rectOff.setY(getY());
 		rectHover.setTotalWidth(getWidth());
 		rectHover.setTotalHeight(getHeight());
+		rectHover.setX(getX());
+		rectHover.setY(getY());
 		rectOn.setTotalWidth(getWidth());
 		rectOn.setTotalHeight(getHeight());
+		rectOn.setX(getX());
+		rectOn.setY(getY());
 		
 		if (isBeingPressed(0))
 			rectOn.draw();
