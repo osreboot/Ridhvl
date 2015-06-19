@@ -1,10 +1,7 @@
 package com.osreboot.ridhvl.menu.component.collection;
 
-import org.newdawn.slick.opengl.Texture;
-
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.painter.painter2d.HvlExpandingRectangle;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlExpandableRectButton extends HvlButton {
 
