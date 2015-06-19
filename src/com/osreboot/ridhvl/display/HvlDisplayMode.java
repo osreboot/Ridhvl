@@ -38,9 +38,9 @@ public abstract class HvlDisplayMode {
 	}
 	
 	protected void resizePerspective(int oldWidth, int oldHeight, int newWidth, int newHeight, boolean orientation){
-		GL11.glViewport(0, 0, newWidth < oldWidth ? oldWidth : newWidth, newHeight < oldHeight ? oldHeight : newHeight);
+		GL11.glViewport(0, 0, newWidth < oldWidth ? oldWidth : newWidth, newHeight);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(0, newWidth < oldWidth ? oldWidth : newWidth, newHeight < oldHeight ? oldHeight : newHeight, 0, 1, -1);
+		GL11.glOrtho(0, newWidth < oldWidth ? oldWidth : newWidth, newHeight, 0, 1, -1);
 	}
 	
 	public int getCoordinateWidth(){
