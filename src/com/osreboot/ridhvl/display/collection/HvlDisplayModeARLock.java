@@ -29,7 +29,7 @@ public class HvlDisplayModeARLock extends HvlDisplayMode{
 
 	@Override
 	public void preUpdate(float delta){
-		resizePerspective(getCoordinateWidth(), getCoordinateHeight(), Display.getWidth(), Display.getHeight());//TODO resize check
+		if(hasBeenResized()) resizePerspective(getCoordinateWidth(), getCoordinateHeight(), Display.getWidth(), Display.getHeight());
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
