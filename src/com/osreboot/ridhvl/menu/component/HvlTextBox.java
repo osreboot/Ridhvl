@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.menu.component;
 
+import java.util.regex.Pattern;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -10,6 +12,9 @@ public abstract class HvlTextBox extends HvlComponent {
 	private String text;
 	private boolean isFocused;
 	private int maxCharacters;
+	private boolean forceUppercase, forceLowercase;
+	private boolean numbersOnly;
+	private String blacklistCharacters;
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg,
 			float heightInversionArg, String textArg) {
@@ -41,14 +46,12 @@ public abstract class HvlTextBox extends HvlComponent {
 								|| key == Keyboard.KEY_LMETA
 								|| key == Keyboard.KEY_RMETA)
 							continue;
-						
+
 						if (Keyboard.getEventKey() == Keyboard.KEY_BACK) {
 							if (text.length() > 0)
 								text = text.substring(0,
 										Math.max(text.length() - 1, 0));
-						}
-						else
-						{
+						} else {
 							text = text.concat(keyChar.toString());
 						}
 					}
@@ -60,6 +63,17 @@ public abstract class HvlTextBox extends HvlComponent {
 			if (text.length() > maxCharacters)
 				text = text.substring(0, maxCharacters);
 		}
+
+		if (forceLowercase)
+			text = text.toLowerCase();
+		if (forceUppercase)
+			text = text.toUpperCase();
+		if (numbersOnly)
+			text = text.replaceAll("\\D", "");
+		if (blacklistCharacters != null && !blacklistCharacters.isEmpty())
+			text = text.replaceAll(
+					String.format("[%s]", Pattern.quote(blacklistCharacters)),
+					"");
 	}
 
 	public String getText() {
@@ -84,5 +98,37 @@ public abstract class HvlTextBox extends HvlComponent {
 
 	public void setMaxCharacters(int maxCharacters) {
 		this.maxCharacters = maxCharacters;
+	}
+
+	public boolean isForceUppercase() {
+		return forceUppercase;
+	}
+
+	public void setForceUppercase(boolean forceUppercase) {
+		this.forceUppercase = forceUppercase;
+	}
+
+	public boolean isForceLowercase() {
+		return forceLowercase;
+	}
+
+	public void setForceLowercase(boolean forceLowercase) {
+		this.forceLowercase = forceLowercase;
+	}
+
+	public boolean isNumbersOnly() {
+		return numbersOnly;
+	}
+
+	public void setNumbersOnly(boolean numbersOnly) {
+		this.numbersOnly = numbersOnly;
+	}
+
+	public String getBlacklistCharacters() {
+		return blacklistCharacters;
+	}
+
+	public void setBlacklistCharacters(String blacklistCharacters) {
+		this.blacklistCharacters = blacklistCharacters;
 	}
 }
