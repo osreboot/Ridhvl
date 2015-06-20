@@ -34,6 +34,11 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	static HvlFontPainter2D fontPainter;
 	
+	public static void main(String[] args)
+	{
+		new ComponentsTest().start();
+	}
+	
 	@Override
 	public void initialize(){
 		Keyboard.enableRepeatEvents(true);		
@@ -64,10 +69,12 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 				System.out.println("BUTTTTOOONN!");
 			}
 		};
-		testTextBox = new HvlTextureTextBox(0, 0, 256, 128, 720, "hey", textureLoader.getResource(2), textureLoader.getResource(4), fontPainter);
+		testTextBox = new HvlTextureTextBox(0, 0, 512, 96, 720, "hey", textureLoader.getResource(2), textureLoader.getResource(4), fontPainter);
 		testTextBox.setTextScale(0.5f);
 		testTextBox.setMaxCharacters(5);
 		testTextBox.setForceLowercase(true);
+		testTextBox.setOffsetX(12f);
+		testTextBox.setOffsetY(12f);
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.VERTICAL);
 		testArranger.add(testLabel);

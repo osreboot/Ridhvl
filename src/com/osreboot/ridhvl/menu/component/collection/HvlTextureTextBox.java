@@ -13,6 +13,7 @@ public class HvlTextureTextBox extends HvlTextBox {
 	private HvlFontPainter2D fontPainter;
 	private Color textColor;
 	private float textScale;
+	private float offsetX, offsetY;
 
 	public HvlTextureTextBox(float xArg, float yArg, float wArg, float hArg,
 			float heightInversionArg, String textArg, Texture focusedArg,
@@ -29,7 +30,8 @@ public class HvlTextureTextBox extends HvlTextBox {
 	public void draw(float delta) {
 		HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
 				isFocused() ? focusedTexture : unfocusedTexture, Color.white);
-		fontPainter.hvlDrawWord(getText(), getX(), getY(), textScale, textColor);
+		fontPainter.hvlDrawWord(getText(), getX() + offsetX, getY() + offsetY,
+				textScale, textColor);
 	}
 
 	public Texture getFocusedTexture() {
@@ -70,5 +72,21 @@ public class HvlTextureTextBox extends HvlTextBox {
 
 	public void setTextScale(float textScale) {
 		this.textScale = textScale;
+	}
+
+	public float getOffsetX() {
+		return offsetX;
+	}
+
+	public void setOffsetX(float offsetX) {
+		this.offsetX = offsetX;
+	}
+
+	public float getOffsetY() {
+		return offsetY;
+	}
+
+	public void setOffsetY(float offsetY) {
+		this.offsetY = offsetY;
 	}
 }
