@@ -31,6 +31,11 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
 	
+	public static void main(String[] args)
+	{
+		new ComponentsTest().start();
+	}
+	
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	static HvlFontPainter2D fontPainter;
 	
@@ -66,6 +71,7 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 		};
 		testTextBox = new HvlTextureTextBox(0, 0, 256, 128, 720, "hey", textureLoader.getResource(2), textureLoader.getResource(4), fontPainter);
 		testTextBox.setTextScale(0.5f);
+		testTextBox.setMaxCharacters(5);
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.VERTICAL);
 		testArranger.add(testLabel);

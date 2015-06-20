@@ -9,12 +9,14 @@ public abstract class HvlTextBox extends HvlComponent {
 
 	private String text;
 	private boolean isFocused;
+	private int maxCharacters;
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg,
 			float heightInversionArg, String textArg) {
 		super(xArg, yArg, wArg, hArg, heightInversionArg);
 		text = textArg;
 		isFocused = false;
+		maxCharacters = -1;
 	}
 
 	@Override
@@ -28,15 +30,35 @@ public abstract class HvlTextBox extends HvlComponent {
 			if (Keyboard.getNumKeyboardEvents() > 0) {
 				while (Keyboard.next()) {
 					if (Keyboard.getEventKeyState()) {
-						Character key = Keyboard.getEventCharacter();
-						text = text.concat(key.toString());
+						Character keyChar = Keyboard.getEventCharacter();
+						int key = Keyboard.getEventKey();
+						if (key == Keyboard.KEY_LSHIFT
+								|| key == Keyboard.KEY_RSHIFT
+								|| key == Keyboard.KEY_LCONTROL
+								|| key == Keyboard.KEY_RCONTROL
+								|| key == Keyboard.KEY_LMENU
+								|| key == Keyboard.KEY_RMENU
+								|| key == Keyboard.KEY_LMETA
+								|| key == Keyboard.KEY_RMETA)
+							continue;
+						
 						if (Keyboard.getEventKey() == Keyboard.KEY_BACK) {
 							if (text.length() > 0)
-								text = text.substring(0, Math.max(text.length() - 2, 0));
+								text = text.substring(0,
+										Math.max(text.length() - 1, 0));
+						}
+						else
+						{
+							text = text.concat(keyChar.toString());
 						}
 					}
 				}
 			}
+		}
+
+		if (maxCharacters > 0) {
+			if (text.length() > maxCharacters)
+				text = text.substring(0, maxCharacters);
 		}
 	}
 
@@ -54,5 +76,13 @@ public abstract class HvlTextBox extends HvlComponent {
 
 	public void setFocused(boolean isFocused) {
 		this.isFocused = isFocused;
+	}
+
+	public int getMaxCharacters() {
+		return maxCharacters;
+	}
+
+	public void setMaxCharacters(int maxCharacters) {
+		this.maxCharacters = maxCharacters;
 	}
 }
