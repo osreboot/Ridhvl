@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl.test;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
@@ -13,6 +14,7 @@ import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.collection.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextureTextBox;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
@@ -23,6 +25,7 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 	private HvlLabel testLabel;
 	private HvlCheckbox testCheck;
 	private HvlButton testButton;
+	private HvlTextureTextBox testTextBox;
 	
 	public ComponentsTest(){
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
@@ -32,19 +35,20 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 	static HvlFontPainter2D fontPainter;
 	
 	@Override
-	public void initialize(){		
+	public void initialize(){
+		Keyboard.enableRepeatEvents(true);		
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
 		textureLoader.loadResource("ButtonUp");
 		textureLoader.loadResource("ButtonHover");
 		textureLoader.loadResource("ButtonDown");
 		
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 40, 50, 51);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
 	
 		testMenu = new HvlMenu() {
 			
 		};
-		testLabel = new HvlLabel(0, 0, 720, fontPainter, "Testing!", Color.red);
+		testLabel = new HvlLabel(0, 0, 720, fontPainter, "testing!", Color.red);
 		testCheck = new HvlColorCheckbox(0, 0, 64, 64, 720, Color.blue, Color.cyan, Color.red, Color.pink, textureLoader.getResource(0))
 		{			
 			public void onChanged(boolean state)
@@ -60,11 +64,14 @@ public class ComponentsTest extends HvlTemplate2DBasic{
 				System.out.println("BUTTTTOOONN!");
 			}
 		};
+		testTextBox = new HvlTextureTextBox(0, 0, 256, 128, 720, "hey", textureLoader.getResource(2), textureLoader.getResource(4), fontPainter);
+		testTextBox.setTextScale(0.5f);
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720, ArrangementStyle.VERTICAL);
 		testArranger.add(testLabel);
 		testArranger.add(testCheck);
 		testArranger.add(testButton);
+		testArranger.add(testTextBox);
 		testArranger.setAlign(0.0f);
 		testMenu.add(testArranger);
 		
