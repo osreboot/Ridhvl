@@ -1,18 +1,13 @@
 package com.osreboot.ridhvl.test.tile;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
-import com.osreboot.ridhvl.tile.HvlTileMap;
-import com.osreboot.ridhvl.tile.collection.HvlAnimatedTile;
-import com.osreboot.ridhvl.tile.collection.HvlSimpleTile;
 
 public class TileTest extends HvlTemplate2DBasic {
 
@@ -23,6 +18,10 @@ public class TileTest extends HvlTemplate2DBasic {
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 
 	private HvlLayeredTileMap tilemaps;
+
+	public static void main(String[] args) {
+		new TileTest().start();
+	}
 
 	@Override
 	public void initialize() {
