@@ -19,10 +19,6 @@ public class TileTest extends HvlTemplate2DBasic {
 
 	private HvlLayeredTileMap tilemaps;
 
-	public static void main(String[] args) {
-		new TileTest().start();
-	}
-
 	@Override
 	public void initialize() {
 		textureLoader.loadResource("White");
