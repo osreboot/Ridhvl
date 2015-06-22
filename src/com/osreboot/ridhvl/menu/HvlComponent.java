@@ -6,6 +6,8 @@ public abstract class HvlComponent {
 	
 	private float x, y, width, height, heightInversion; 
 	
+	private boolean enabled, visible;
+	
 	public HvlComponent(float xArg, float yArg, float wArg, float hArg, float heightInversionArg)
 	{
 		x = xArg;
@@ -19,10 +21,14 @@ public abstract class HvlComponent {
 	public void draw(float delta) {}
 
 	public final boolean isBeingPressed(int buttonArg){//TODO account for HvlDisplayMode
+		if (!enabled) return false;
+		
 		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
 	}
 
 	public final boolean isHovering(){//TODO account for HvlDisplayMode
+		if (!enabled) return false;
+		
 		return Mouse.isInsideWindow() && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
 	}
 	
@@ -65,6 +71,24 @@ public abstract class HvlComponent {
 	public void setHeightInversion(float heightInversion) {
 		this.heightInversion = heightInversion;
 	}
+
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
 	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	
+	public boolean isVisible() {
+		return visible;
+	}
+
+	
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 }

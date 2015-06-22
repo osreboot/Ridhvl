@@ -26,6 +26,12 @@ public abstract class HvlTextBox extends HvlComponent {
 
 	@Override
 	public void update(float delta) {
+		if(!isEnabled())
+		{
+			isFocused = false;
+			return;
+		}
+		
 		if (Mouse.isButtonDown(0)) {
 			isFocused = isBeingPressed(0);
 		}
