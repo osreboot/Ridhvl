@@ -44,4 +44,17 @@ public class HvlLayeredTileMap {
 				HvlTileMap.load(inArg, tArg, xArg, yArg, tileWidthArg,
 						tileHeightArg));
 	}
+	
+	public static String save(HvlLayeredTileMap map)
+	{
+		StringBuilder sb = new StringBuilder();
+		
+		for (HvlTileMap layer : map.layers)
+		{
+			sb.append(HvlTileMap.save(layer));
+			sb.append(System.lineSeparator());
+		}
+		
+		return sb.toString();
+	}
 }
