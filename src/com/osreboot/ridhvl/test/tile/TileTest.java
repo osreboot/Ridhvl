@@ -9,6 +9,7 @@ import java.io.IOException;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
+import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 import com.osreboot.ridhvl.tile.HvlTileMap;
 import com.osreboot.ridhvl.tile.collection.HvlAnimatedTile;
 import com.osreboot.ridhvl.tile.collection.HvlSimpleTile;
@@ -21,7 +22,7 @@ public class TileTest extends HvlTemplate2DBasic {
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 
-	private HvlTileMap[] tilemaps;
+	private HvlLayeredTileMap tilemaps;
 
 	public static void main(String[] args) {
 		new TileTest().start();
@@ -57,8 +58,7 @@ public class TileTest extends HvlTemplate2DBasic {
 				sb.append(current);
 				sb.append(System.lineSeparator());
 			}
-			tilemaps = HvlTileMap.load(sb.toString(),
-					textureLoader.getResource(1), 0, 0, 64, 64);
+			tilemaps = HvlLayeredTileMap.load(0,  0,  64, 64, textureLoader.getResource(1), sb.toString());
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -69,10 +69,7 @@ public class TileTest extends HvlTemplate2DBasic {
 	public void update(float delta) {
 		if (tilemaps != null)
 		{
-			for (HvlTileMap map : tilemaps)
-			{
-				map.draw(delta);
-			}
+			tilemaps.draw(delta);
 		}
 	}
 
