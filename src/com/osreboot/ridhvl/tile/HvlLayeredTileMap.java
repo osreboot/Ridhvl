@@ -38,8 +38,8 @@ public class HvlLayeredTileMap {
 		return layers.get(layerArg);
 	}
 
-	public static HvlLayeredTileMap load(float xArg, float yArg, float tileWidthArg,
-			float tileHeightArg, Texture tArg, String inArg) {
+	public static HvlLayeredTileMap load(Texture tArg, String inArg, float xArg,
+			float yArg, float tileWidthArg, float tileHeightArg) {
 		return new HvlLayeredTileMap(xArg, yArg, tileWidthArg, tileHeightArg,
 				HvlTileMap.load(inArg, tArg, xArg, yArg, tileWidthArg,
 						tileHeightArg));
