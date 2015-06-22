@@ -59,6 +59,11 @@ public class HvlLayeredTileMap {
 	}
 
 	
+	public int getLayerCount()
+	{
+		return layers.size();
+	}
+	
 	public float getX() {
 		return x;
 	}

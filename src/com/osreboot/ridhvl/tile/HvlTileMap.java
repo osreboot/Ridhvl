@@ -187,6 +187,7 @@ public class HvlTileMap {
 
 				try {
 					Class<?> tileClass = Class.forName(m.group(1));
+					
 					HvlTile created = (HvlTile) tileClass.getMethod("load",
 							String.class).invoke(null, m.group(4));
 					toReturn.setTile(coordX, coordY, created);
@@ -201,5 +202,24 @@ public class HvlTileMap {
 			loaded.add(toReturn);
 		}
 		return loaded.toArray(new HvlTileMap[0]);
+	}
+
+	public void resize(int widthArg, int heightArg)
+	{
+		HvlTile[] newTiles = new HvlTile[widthArg*heightArg];
+		for (int x = 0; x < widthArg; x++)
+		{
+			for (int y = 0; y < heightArg; y++)
+			{
+				if (x < getMapWidth() && y < getMapHeight())
+				{
+					newTiles[y*widthArg+x] = getTile(x, y);
+				}
+			}
+		}
+		
+		this.tiles = newTiles;
+		this.mapWidth = widthArg;
+		this.mapHeight = heightArg;
 	}
 }

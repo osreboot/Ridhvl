@@ -345,7 +345,7 @@ public class HvlConfigUtil {
 				}
 				if (Modifier.isStatic(f.getModifiers()) && !includeStatic)
 					shouldBeIgnored = true;
-
+				
 				if (shouldBeIgnored)
 					continue;
 
