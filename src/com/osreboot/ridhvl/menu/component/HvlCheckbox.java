@@ -41,8 +41,6 @@ public abstract class HvlCheckbox extends HvlComponent {
 		draw(delta);
 	}
 	
-	public void draw(float delta){}
-	
 	public boolean getChecked(){
 		return checked;
 	}

@@ -37,19 +37,5 @@ public abstract class HvlButton extends HvlComponent{
 		{
 			onPressing(0);
 		}
-		
-//		draw(delta);
-//		if(isBeingPressed(0)){
-//			onPressing(0);
-//			if(!triggered){
-//				onTriggered();
-//				triggered = true;
-//			}
-//		}else{
-//			if(isBeingPressed(1)){
-//				onPressing(1);
-//			}
-//			//triggered = false;
-//		}
 	}
 }
