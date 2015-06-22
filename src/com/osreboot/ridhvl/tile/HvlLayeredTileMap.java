@@ -33,6 +33,10 @@ public class HvlLayeredTileMap {
 			map.draw(delta);
 		}
 	}
+	
+	public HvlTileMap getLayer(int layerArg) {
+		return layers.get(layerArg);
+	}
 
 	public static HvlLayeredTileMap load(float xArg, float yArg, float tileWidthArg,
 			float tileHeightArg, Texture tArg, String inArg) {
