@@ -1,5 +1,11 @@
 package com.osreboot.ridhvl.tile.collection;
 
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_LINEAR;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -49,8 +55,12 @@ public class HvlAnimatedTile extends HvlTile {
 		float uvy1 = (float) tileY / info.tileHeight;
 		float uvx2 = (float) (tileX + 1) / info.tileWidth;
 		float uvy2 = (float) (tileY + 1) / info.tileHeight;
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2, info.texture, Color.white);
+		
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
 	public List<Integer> getTileCoords() {

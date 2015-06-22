@@ -1,6 +1,8 @@
 package com.osreboot.ridhvl.tile;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -124,71 +126,80 @@ public class HvlTileMap {
 		this.y = y;
 	}
 
-	public static String save(HvlTileMap map) {
+	public static String save(HvlTileMap... maps) {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(String.format("[TileMap %d, %d, %d, %d] {%n",
-				map.getInfo().tileWidth, map.getInfo().tileHeight,
-				map.getMapWidth(), map.getMapHeight()));
-		for (int currentX = 0; currentX < map.getMapWidth(); currentX++) {
-			for (int currentY = 0; currentY < map.getMapHeight(); currentY++) {
-				HvlTile tile = map.getTile(currentX, currentY);
-				if (tile == null)
-					continue;
+		for (HvlTileMap map : maps) {
+			sb.append(String.format("<TileMap %d, %d, %d, %d>%n",
+					map.getInfo().tileWidth, map.getInfo().tileHeight,
+					map.getMapWidth(), map.getMapHeight()));
+			for (int currentX = 0; currentX < map.getMapWidth(); currentX++) {
+				for (int currentY = 0; currentY < map.getMapHeight(); currentY++) {
+					HvlTile tile = map.getTile(currentX, currentY);
+					if (tile == null)
+						continue;
 
-				sb.append(String.format("[%s,%d,%d] {%n", tile.getClass()
-						.getName(), currentX, currentY));
-				try {
-					sb.append((String) tile.getClass()
-							.getMethod("save", tile.getClass())
-							.invoke(null, tile));
-				} catch (IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | NoSuchMethodException
-						| SecurityException e) {
-					e.printStackTrace();
+					sb.append(String.format("<%s, %d, %d>%n", tile.getClass()
+							.getName(), currentX, currentY));
+					try {
+						sb.append((String) tile.getClass()
+								.getMethod("save", tile.getClass())
+								.invoke(null, tile));
+					} catch (IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException | NoSuchMethodException
+							| SecurityException e) {
+						e.printStackTrace();
+					}
+					sb.append(String.format("%n</%s>%n", tile.getClass()
+							.getName()));
 				}
-				sb.append(String.format("%n}"));
 			}
-		}
 
-		sb.append(String.format("%n}"));
+			sb.append(String.format("</TileMap>"));
+		}
 
 		return sb.toString();
 	}
 
-	public static HvlTileMap load(String inArg, Texture texArg, float xArg,
+	public static HvlTileMap[] load(String inArg, Texture texArg, float xArg,
 			float yArg, float tileWidthArg, float tileHeightArg) {
-		String[] tileMapHeaderArgs = inArg.split(System.lineSeparator())[0]
-				.replaceFirst(Pattern.quote("[TileMap "), "")
-				.replace("] {", "").split(",");
 
-		int tilesAcross = Integer.parseInt(tileMapHeaderArgs[0].trim());
-		int tilesTall = Integer.parseInt(tileMapHeaderArgs[1].trim());
-		int mapWidth = Integer.parseInt(tileMapHeaderArgs[2].trim());
-		int mapHeight = Integer.parseInt(tileMapHeaderArgs[3].trim());
-		HvlTileMap toReturn = new HvlTileMap(texArg, tilesAcross, tilesTall,
-				mapWidth, mapHeight, xArg, yArg, tileWidthArg, tileHeightArg);
+		List<HvlTileMap> loaded = new ArrayList<>();
+		
+		Pattern headerPattern = Pattern.compile("\\<TileMap (\\d+), (\\d+), (\\d+), (\\d+)\\>([\\s\\S]*?)\\<\\/TileMap\\>");
+		Matcher headerMatcher = headerPattern.matcher(inArg);
+		
+		while (headerMatcher.find()) {
+			int tilesAcross = Integer.parseInt(headerMatcher.group(1).trim());
+			int tilesTall = Integer.parseInt(headerMatcher.group(2).trim());
+			int mapWidth = Integer.parseInt(headerMatcher.group(3).trim());
+			int mapHeight = Integer.parseInt(headerMatcher.group(4).trim());
+			HvlTileMap toReturn = new HvlTileMap(texArg, tilesAcross,
+					tilesTall, mapWidth, mapHeight, xArg, yArg, tileWidthArg,
+					tileHeightArg);
 
-		Pattern p = Pattern.compile("\\[(\\S+),(\\d+),(\\d+)\\] \\{([^}]*)\\}");
-		Matcher m = p.matcher(inArg);
-		while (m.find()) {
-			int coordX = Integer.parseInt(m.group(2));
-			int coordY = Integer.parseInt(m.group(3));
+			Pattern p = Pattern
+					.compile("\\<(\\S+), (\\d+), (\\d+)\\>([\\s\\S]*?)<\\/\\1>");
+			Matcher m = p.matcher(headerMatcher.group(5));
+			while (m.find()) {
+				int coordX = Integer.parseInt(m.group(2));
+				int coordY = Integer.parseInt(m.group(3));
 
-			try {
-				Class<?> tileClass = Class.forName(m.group(1));
-				HvlTile created = (HvlTile) tileClass.getMethod("load", String.class).invoke(null,
-						m.group(4));
-				toReturn.setTile(coordX, coordY, created);
-				
-			} catch (ClassNotFoundException | NoSuchMethodException
-					| SecurityException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+				try {
+					Class<?> tileClass = Class.forName(m.group(1));
+					HvlTile created = (HvlTile) tileClass.getMethod("load",
+							String.class).invoke(null, m.group(4));
+					toReturn.setTile(coordX, coordY, created);
+
+				} catch (ClassNotFoundException | NoSuchMethodException
+						| SecurityException | IllegalAccessException
+						| IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
 			}
+
+			loaded.add(toReturn);
 		}
-
-		return toReturn;
+		return loaded.toArray(new HvlTileMap[0]);
 	}
-
 }
