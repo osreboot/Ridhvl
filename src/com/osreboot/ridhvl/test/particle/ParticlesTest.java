@@ -62,13 +62,71 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 			toAdd.setMaxXVel(32);
 			toAdd.setMinTimeToSpawn(1.5f);
 			toAdd.setMaxTimeToSpawn(0.5f);
-			toAdd.setParticlesPerSpawn(25);
+			toAdd.setParticlesPerSpawn(15);
+			toAdd.setStartColorOne(Color.blue);
+			toAdd.setStartColorTwo(Color.blue);
+			toAdd.setEndColorOne(Color.blue);
+			toAdd.setEndColorTwo(Color.cyan);
+			toAdd.setX(i * (Display.getWidth() / count));
+			toAdd.setY(-64);
+			particles.add(toAdd);
+		}
+		
+		for (int i = 0; i < count; i++) {
+			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(1280 / 2, 720 / 2,
+					textureLoader.getResource(0), 16, 16);
+			toAdd.setSpawnRadius(24.0f);
+			toAdd.setMinScale(.15f);
+			toAdd.setMaxScale(0.725f);
+			toAdd.setxVelDecay(0.99f);
+			toAdd.setyVelDecay(1.0f);
+			toAdd.setScaleDecay(0.99f);
+			toAdd.setMinRotVel(-360);
+			toAdd.setMaxRotVel(360);
+			toAdd.setMinLifetime(2f);
+			toAdd.setMaxLifetime(6f);
+			toAdd.setMinYVel(-64);
+			toAdd.setMaxYVel(-8);
+			toAdd.setMinXVel(0);
+			toAdd.setMaxXVel(32);
+			toAdd.setMinTimeToSpawn(1.5f);
+			toAdd.setMaxTimeToSpawn(0.5f);
+			toAdd.setParticlesPerSpawn(5);
 			toAdd.setStartColorOne(Color.red);
-			toAdd.setStartColorTwo(Color.red);
+			toAdd.setStartColorTwo(Color.orange);
 			toAdd.setEndColorOne(Color.orange);
 			toAdd.setEndColorTwo(Color.yellow);
 			toAdd.setX(i * (Display.getWidth() / count));
-			toAdd.setY(-64);
+			toAdd.setY(Display.getHeight());
+			particles.add(toAdd);
+		}
+		
+		for (int i = 0; i < count; i++) {
+			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(1280 / 2, 720 / 2,
+					textureLoader.getResource(0), 16, 16);
+			toAdd.setSpawnRadius(24.0f);
+			toAdd.setMinScale(.15f);
+			toAdd.setMaxScale(0.725f);
+			toAdd.setxVelDecay(0.99f);
+			toAdd.setyVelDecay(1.0f);
+			toAdd.setScaleDecay(0.99f);
+			toAdd.setMinRotVel(-360);
+			toAdd.setMaxRotVel(360);
+			toAdd.setMinLifetime(2f);
+			toAdd.setMaxLifetime(6f);
+			toAdd.setMinYVel(-128);
+			toAdd.setMaxYVel(-8);
+			toAdd.setMinXVel(0);
+			toAdd.setMaxXVel(32);
+			toAdd.setMinTimeToSpawn(1.5f);
+			toAdd.setMaxTimeToSpawn(0.5f);
+			toAdd.setParticlesPerSpawn(5);
+			toAdd.setStartColorOne(Color.darkGray);
+			toAdd.setStartColorTwo(Color.gray);
+			toAdd.setEndColorOne(Color.gray);
+			toAdd.setEndColorTwo(Color.lightGray);
+			toAdd.setX(i * (Display.getWidth() / count));
+			toAdd.setY(Display.getHeight());
 			particles.add(toAdd);
 		}
 	}
