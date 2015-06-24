@@ -56,11 +56,11 @@ public class HvlAnimatedTile extends HvlTile {
 		float uvx2 = (float) (tileX + 1) / info.tileWidth;
 		float uvy2 = (float) (tileY + 1) / info.tileHeight;
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		HvlPainter2D.TEXMAGBLUR.disable();
 		
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2, info.texture, Color.white);
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		HvlPainter2D.TEXMAGBLUR.enable();
 	}
 
 	public List<Integer> getTileCoords() {
