@@ -1,6 +1,5 @@
 package com.osreboot.ridhvl.display;
 
-
 public class HvlDisplay {
 	
 	private static HvlDisplayMode displayMode;
@@ -25,5 +24,4 @@ public class HvlDisplay {
 	public static void postUpdate(float delta){
 		displayMode.postUpdate(delta);
 	}
-	
 }
