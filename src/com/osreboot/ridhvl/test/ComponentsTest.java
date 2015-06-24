@@ -51,7 +51,8 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		textureLoader.loadResource("ButtonHover");
 		textureLoader.loadResource("ButtonDown");
 		textureLoader.loadResource("SliderBG");
-		textureLoader.loadResource("SliderHandle");
+		textureLoader.loadResource("SliderHandleOff");
+		textureLoader.loadResource("SliderHandleOn");
 
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1),
 				HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
@@ -86,10 +87,10 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testTextBox.setOffsetX(12f);
 		testTextBox.setOffsetY(12f);
 		testSlider = new HvlTextureSlider(0, 0, 32, 512, 720,
-				textureLoader.getResource(5), textureLoader.getResource(6),
+				textureLoader.getResource(5), textureLoader.getResource(6), textureLoader.getResource(7),
 				SliderDirection.VERTICAL, 16, 16, 0.0f);
-		testSlider.setHandleStartOffset(32);
-		testSlider.setHandleEndOffset(32);
+		testSlider.setHandleStartOffset(0);
+		testSlider.setHandleEndOffset(0);
 		
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
