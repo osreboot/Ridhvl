@@ -85,19 +85,19 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testTextBox.setForceLowercase(true);
 		testTextBox.setOffsetX(12f);
 		testTextBox.setOffsetY(12f);
-		testSlider = new HvlTextureSlider(0, 0, 512, 32, 720,
+		testSlider = new HvlTextureSlider(0, 0, 32, 512, 720,
 				textureLoader.getResource(5), textureLoader.getResource(6),
-				SliderDirection.HORIZONTAL, 16, 16, 0.0f);
+				SliderDirection.VERTICAL, 16, 16, 0.0f);
 		testSlider.setHandleStartOffset(32);
 		testSlider.setHandleEndOffset(32);
 		
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
 				ArrangementStyle.VERTICAL);
-		testArranger.add(testLabel);
-		testArranger.add(testCheck);
-		testArranger.add(testButton);
-		testArranger.add(testTextBox);
+//		testArranger.add(testLabel);
+//		testArranger.add(testCheck);
+//		testArranger.add(testButton);
+//		testArranger.add(testTextBox);
 		testArranger.add(testSlider);
 		testArranger.setAlign(0.0f);
 		testMenu.add(testArranger);
