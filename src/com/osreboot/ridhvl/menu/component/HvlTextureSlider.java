@@ -1,7 +1,6 @@
 package com.osreboot.ridhvl.menu.component;
 
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -37,14 +36,29 @@ public class HvlTextureSlider extends HvlComponent {
 		value = valueArg;
 	}
 
+	public HvlTextureSlider(float xArg, float yArg, float wArg, float hArg,
+			float heightInversionArg, Texture backgroundArg,
+			Texture handleUpArg, Texture handleDownArg, SliderDirection dirArg,
+			float handleHeightArg, float handleWidthArg, float valueArg) {
+		super(xArg, yArg, wArg, hArg, heightInversionArg);
+
+		backgroundTexture = backgroundArg;
+		handleUpTexture = handleUpArg;
+		handleDownTexture = handleDownArg;
+		direction = dirArg;
+		handleHeight = handleHeightArg;
+		handleWidth = handleWidthArg;
+		value = valueArg;
+	}
+
 	@Override
 	public void update(float delta) {
 		switch (direction) {
 		case HORIZONTAL: {
 			float minX = getX() + handleStartOffset;
 			float maxX = getX() + getWidth() - handleWidth - handleEndOffset;
-			float handleMinX = minX + (value * (maxX - minX));
-			float handleMaxX = handleMinX + handleWidth;
+			float handleMinX = minX + (value * (maxX - minX)) - (handleWidth / 2);
+			float handleMaxX = handleMinX + (2 * handleWidth);
 
 			float handleMinY = getY() + (getHeight() / 2) - (handleHeight / 2);
 			float handleMaxY = getY() + (getHeight() / 2) + (handleHeight / 2);
@@ -62,12 +76,12 @@ public class HvlTextureSlider extends HvlComponent {
 		case VERTICAL: {
 			float minY = getY() + handleStartOffset;
 			float maxY = getY() + getHeight() - handleHeight - handleEndOffset;
-			float handleMinY = minY + (value * (maxY - minY));
-			float handleMaxY = handleMinY + handleHeight;
+			float handleMinY = minY + (value * (maxY - minY)) - (handleHeight / 2);
+			float handleMaxY = handleMinY + (2 * handleHeight);
 
 			float handleMinX = getX() + (getWidth() / 2) - (handleWidth / 2);
 			float handleMaxX = getX() + (getWidth() / 2) + (handleWidth / 2);
-			
+
 			if (Mouse.isButtonDown(0) && Mouse.getX() > handleMinX
 					&& Mouse.getX() < handleMaxX
 					&& (getHeightInversion() - Mouse.getY()) > handleMinY
@@ -84,7 +98,7 @@ public class HvlTextureSlider extends HvlComponent {
 			switch (direction) {
 			case HORIZONTAL: {
 				float minX = getX() + handleStartOffset;
-				float maxX = getX() + getWidth() - handleWidth
+				float maxX = getX() + getWidth()
 						- handleEndOffset;
 				float adjusted = Mouse.getX() - minX;
 				value = adjusted / (maxX - minX);
@@ -93,7 +107,7 @@ public class HvlTextureSlider extends HvlComponent {
 				break;
 			case VERTICAL: {
 				float minY = getY() + handleStartOffset;
-				float maxY = getY() + getHeight() - handleHeight
+				float maxY = getY() + getHeight()
 						- handleEndOffset;
 				float adjusted = (getHeightInversion() - Mouse.getY()) - minY;
 				value = adjusted / (maxY - minY);
@@ -111,21 +125,21 @@ public class HvlTextureSlider extends HvlComponent {
 		switch (direction) {
 		case HORIZONTAL: {
 			float min = getX() + handleStartOffset;
-			float max = getX() + getWidth() - handleWidth - handleEndOffset;
+			float max = getX() + getWidth() - handleEndOffset;
 			float lerpedX = min + (value * (max - min));
 
-			HvlPainter2D.hvlDrawQuad(lerpedX, getY() + (getHeight() / 2)
+			HvlPainter2D.hvlDrawQuad(lerpedX - (handleWidth / 2), getY() + (getHeight() / 2)
 					- (handleHeight / 2), handleWidth, handleHeight,
-					handleUpTexture, Color.white);
+					isBeingHeld ? handleDownTexture : handleUpTexture, Color.white);
 		}
 			break;
 		case VERTICAL: {
 			float min = getY() + handleStartOffset;
-			float max = getY() + getHeight() - handleHeight - handleEndOffset;
+			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
 			HvlPainter2D.hvlDrawQuad(getX() + (getWidth() / 2)
-					- (handleWidth / 2), lerpedY, handleWidth, handleHeight,
-					handleUpTexture, Color.white);
+					- (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight,
+					isBeingHeld ? handleDownTexture : handleUpTexture, Color.white);
 		}
 			break;
 		}
