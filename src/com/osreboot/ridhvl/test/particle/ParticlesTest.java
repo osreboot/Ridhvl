@@ -9,7 +9,6 @@ import org.newdawn.slick.Color;
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
-import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 import com.osreboot.ridhvl.particle.collection.HvlRadialParticleSystem;
@@ -19,10 +18,6 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 
 	public ParticlesTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
-	}
-
-	public static void main(String[] args) {
-		new ParticlesTest();
 	}
 
 	// HvlRadialParticleSystem particles;
