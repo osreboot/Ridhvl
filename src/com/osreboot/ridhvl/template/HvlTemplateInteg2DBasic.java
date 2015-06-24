@@ -19,6 +19,7 @@ import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
 public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
@@ -90,6 +91,8 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 
 	@Override
 	public void postUpdate(float delta){
+		HvlCursor.drawCursor();
+		
 		HvlDisplay.postUpdate(delta);
 		
 		Display.update();

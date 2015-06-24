@@ -34,11 +34,13 @@ public class HvlPainter2D {
 		@Override
 		public void enable(){
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		}
 		
 		@Override
 		public void disable(){
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		}
 	};
 	
@@ -72,6 +74,10 @@ public class HvlPainter2D {
 	
 	public static void hvlResetRotation(){
 		HvlSwivel2D.hvlResetRotation();
+	}
+	
+	public static void hvlSetMouseCursor(Texture texture, int xHotSpot, int yHotSpot){
+		
 	}
 
 }

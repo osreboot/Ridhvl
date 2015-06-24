@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
+import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
 
@@ -24,8 +25,14 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 	public void initialize(){
 		getTextureLoader().loadResource("White");
 		getTextureLoader().loadResource("Font");
+		getTextureLoader().loadResource("Cursor");
 		
 		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
+		
+		HvlCursor.setNativeHidden(true);
+		HvlCursor.setTexture(getTextureLoader().getResource(2));
+		HvlCursor.setOffset(-6);
+		HvlCursor.applyScale(0.5f);
 	}
 
 	@Override
