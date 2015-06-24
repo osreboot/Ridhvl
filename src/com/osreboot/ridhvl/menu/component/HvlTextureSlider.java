@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.menu.component;
 
+import java.math.BigInteger;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -18,6 +20,7 @@ public class HvlTextureSlider extends HvlComponent {
 	private float value;
 	private float handleHeight, handleWidth;
 	private float handleStartOffset, handleEndOffset;
+	private float snapInterval;
 
 	private boolean isBeingHeld;
 
@@ -57,7 +60,8 @@ public class HvlTextureSlider extends HvlComponent {
 		case HORIZONTAL: {
 			float minX = getX() + handleStartOffset;
 			float maxX = getX() + getWidth() - handleWidth - handleEndOffset;
-			float handleMinX = minX + (value * (maxX - minX)) - (handleWidth / 2);
+			float handleMinX = minX + (value * (maxX - minX))
+					- (handleWidth / 2);
 			float handleMaxX = handleMinX + (2 * handleWidth);
 
 			float handleMinY = getY() + (getHeight() / 2) - (handleHeight / 2);
@@ -76,7 +80,8 @@ public class HvlTextureSlider extends HvlComponent {
 		case VERTICAL: {
 			float minY = getY() + handleStartOffset;
 			float maxY = getY() + getHeight() - handleHeight - handleEndOffset;
-			float handleMinY = minY + (value * (maxY - minY)) - (handleHeight / 2);
+			float handleMinY = minY + (value * (maxY - minY))
+					- (handleHeight / 2);
 			float handleMaxY = handleMinY + (2 * handleHeight);
 
 			float handleMinX = getX() + (getWidth() / 2) - (handleWidth / 2);
@@ -98,8 +103,7 @@ public class HvlTextureSlider extends HvlComponent {
 			switch (direction) {
 			case HORIZONTAL: {
 				float minX = getX() + handleStartOffset;
-				float maxX = getX() + getWidth()
-						- handleEndOffset;
+				float maxX = getX() + getWidth() - handleEndOffset;
 				float adjusted = Mouse.getX() - minX;
 				value = adjusted / (maxX - minX);
 				value = Math.max(0, Math.min(value, 1.0f));
@@ -107,8 +111,7 @@ public class HvlTextureSlider extends HvlComponent {
 				break;
 			case VERTICAL: {
 				float minY = getY() + handleStartOffset;
-				float maxY = getY() + getHeight()
-						- handleEndOffset;
+				float maxY = getY() + getHeight() - handleEndOffset;
 				float adjusted = (getHeightInversion() - Mouse.getY()) - minY;
 				value = adjusted / (maxY - minY);
 				value = Math.max(0, Math.min(value, 1.0f));
@@ -116,6 +119,12 @@ public class HvlTextureSlider extends HvlComponent {
 				break;
 			}
 		}
+
+		if (!Mouse.isButtonDown(0)) {
+			value = snapInterval * Math.round(value / snapInterval);
+		}
+
+		value = Math.max(0.0f, Math.min(value, 1.0f));
 	}
 
 	@Override
@@ -128,9 +137,10 @@ public class HvlTextureSlider extends HvlComponent {
 			float max = getX() + getWidth() - handleEndOffset;
 			float lerpedX = min + (value * (max - min));
 
-			HvlPainter2D.hvlDrawQuad(lerpedX - (handleWidth / 2), getY() + (getHeight() / 2)
-					- (handleHeight / 2), handleWidth, handleHeight,
-					isBeingHeld ? handleDownTexture : handleUpTexture, Color.white);
+			HvlPainter2D.hvlDrawQuad(lerpedX - (handleWidth / 2), getY()
+					+ (getHeight() / 2) - (handleHeight / 2), handleWidth,
+					handleHeight, isBeingHeld ? handleDownTexture
+							: handleUpTexture, Color.white);
 		}
 			break;
 		case VERTICAL: {
@@ -138,8 +148,9 @@ public class HvlTextureSlider extends HvlComponent {
 			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
 			HvlPainter2D.hvlDrawQuad(getX() + (getWidth() / 2)
-					- (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight,
-					isBeingHeld ? handleDownTexture : handleUpTexture, Color.white);
+					- (handleWidth / 2), lerpedY - (handleHeight / 2),
+					handleWidth, handleHeight, isBeingHeld ? handleDownTexture
+							: handleUpTexture, Color.white);
 		}
 			break;
 		}
@@ -159,5 +170,69 @@ public class HvlTextureSlider extends HvlComponent {
 
 	public void setHandleEndOffset(float handleEndOffset) {
 		this.handleEndOffset = handleEndOffset;
+	}
+
+	public Texture getBackgroundTexture() {
+		return backgroundTexture;
+	}
+
+	public void setBackgroundTexture(Texture backgroundTexture) {
+		this.backgroundTexture = backgroundTexture;
+	}
+
+	public Texture getHandleUpTexture() {
+		return handleUpTexture;
+	}
+
+	public void setHandleUpTexture(Texture handleUpTexture) {
+		this.handleUpTexture = handleUpTexture;
+	}
+
+	public Texture getHandleDownTexture() {
+		return handleDownTexture;
+	}
+
+	public void setHandleDownTexture(Texture handleDownTexture) {
+		this.handleDownTexture = handleDownTexture;
+	}
+
+	public SliderDirection getDirection() {
+		return direction;
+	}
+
+	public void setDirection(SliderDirection direction) {
+		this.direction = direction;
+	}
+
+	public float getValue() {
+		return value;
+	}
+
+	public void setValue(float value) {
+		this.value = value;
+	}
+
+	public float getHandleHeight() {
+		return handleHeight;
+	}
+
+	public void setHandleHeight(float handleHeight) {
+		this.handleHeight = handleHeight;
+	}
+
+	public float getHandleWidth() {
+		return handleWidth;
+	}
+
+	public void setHandleWidth(float handleWidth) {
+		this.handleWidth = handleWidth;
+	}
+
+	public float getSnapInterval() {
+		return snapInterval;
+	}
+
+	public void setSnapInterval(float snapInterval) {
+		this.snapInterval = snapInterval;
 	}
 }

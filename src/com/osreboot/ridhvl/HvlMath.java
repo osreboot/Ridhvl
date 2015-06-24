@@ -63,7 +63,8 @@ public class HvlMath {
 
 	public static HvlCoord randomPointInCircle(float radius) {
 		float theta = randomBetween(0, 360);
-		return new HvlCoord((float) Math.cos(theta) * radius,
-				(float) Math.sin(theta) * radius);
+		float d = (float) Math.random();
+		return new HvlCoord((float) Math.cos(theta) * radius * d,
+				(float) Math.sin(theta) * radius * d);
 	}
 }

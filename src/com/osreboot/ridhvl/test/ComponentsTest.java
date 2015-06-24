@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.config.HvlConfigUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
@@ -86,11 +87,13 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testTextBox.setForceLowercase(true);
 		testTextBox.setOffsetX(12f);
 		testTextBox.setOffsetY(12f);
-		testSlider = new HvlTextureSlider(0, 0, 32, 512, 720,
+		testSlider = new HvlTextureSlider(0, 0, 512, 32, 720,
 				textureLoader.getResource(5), textureLoader.getResource(6), textureLoader.getResource(7),
-				SliderDirection.VERTICAL, 16, 16, 0.0f);
-		testSlider.setHandleStartOffset(0);
-		testSlider.setHandleEndOffset(0);
+				SliderDirection.HORIZONTAL, 16, 16, 0.0f);
+		testSlider.setHandleStartOffset(32);
+		testSlider.setHandleEndOffset(32);
+		testSlider.setSnapInterval(0.05f);
+		
 		
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
