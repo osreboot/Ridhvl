@@ -8,7 +8,7 @@ public abstract class HvlTemplate{
 
 	public HvlTemplate(){}
 
-	public final void start(){
+	final void start(){
 		initialize();
 
 		timer = new HvlTimer(){
