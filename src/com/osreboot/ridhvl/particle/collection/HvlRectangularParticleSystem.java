@@ -8,7 +8,7 @@ import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 
-public class HvlLinearParticleSystem extends HvlParticleSystem {
+public class HvlRectangularParticleSystem extends HvlParticleSystem {
 
 	private boolean isColorCoordinated;
 	private float spawnX1, spawnY1, spawnX2, spawnY2;
@@ -26,7 +26,7 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 	private float scaleDecay;
 	private float minLifetime, maxLifetime;
 
-	public HvlLinearParticleSystem(float xArg, float yArg, Texture tArg,
+	public HvlRectangularParticleSystem(float xArg, float yArg, Texture tArg,
 			float pWidthArg, float pHeightArg, float sX1Arg, float sY1Arg,
 			float sX2Arg, float sY2Arg) {
 		super(xArg, yArg);
@@ -53,9 +53,8 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 
 	@Override
 	public HvlParticle generateParticle() {
-		float lerpValue = (float) Math.random();
-		float spawnX = spawnX1 + (spawnX2 - spawnX1) * lerpValue;
-		float spawnY = spawnY1 + (spawnY2 - spawnY1) * lerpValue;
+		float spawnX = spawnX1 + (spawnX2 - spawnX1) * (float) Math.random();
+		float spawnY = spawnY1 + (spawnY2 - spawnY1) * (float) Math.random();
 		float xVel = HvlMath.randomBetween(minXVel, maxXVel);
 		float yVel = HvlMath.randomBetween(minYVel, maxYVel);
 		float rot = HvlMath.randomBetween(minRot, maxRot);

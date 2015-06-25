@@ -11,8 +11,8 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
-import com.osreboot.ridhvl.particle.collection.HvlLinearParticleSystem;
 import com.osreboot.ridhvl.particle.collection.HvlRadialParticleSystem;
+import com.osreboot.ridhvl.particle.collection.HvlRectangularParticleSystem;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
 public class ParticlesTest extends HvlTemplate2DBasic {
@@ -40,9 +40,9 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 		final int count = 25;
 
 		for (int i = 0; i < count; i++) {
-			HvlLinearParticleSystem toAdd = new HvlLinearParticleSystem(
+			HvlRectangularParticleSystem toAdd = new HvlRectangularParticleSystem(
 					1280 / 2, 720 / 2, textureLoader.getResource(0), 16, 16, 0,
-					Display.getHeight(), Display.getWidth(),
+					0, Display.getWidth(),
 					Display.getHeight());
 			toAdd.setMaxParticles(250);
 			toAdd.setMinScale(0.25f);
@@ -50,10 +50,10 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 			toAdd.setxVelDecay(-0.1f);
 			toAdd.setyVelDecay(-0.1f);
 			toAdd.setScaleDecay(-0.25f);
-			toAdd.setMinRot(67.5f);
-			toAdd.setMaxRot(67.5f);
-			toAdd.setMinRotVel(0);
-			toAdd.setMaxRotVel(0);
+			toAdd.setMinRot(0f);
+			toAdd.setMaxRot(360f);
+			toAdd.setMinRotVel(-360);
+			toAdd.setMaxRotVel(360);
 			toAdd.setMinLifetime(2f);
 			toAdd.setMaxLifetime(6f);
 			toAdd.setMinYVel(-128);
