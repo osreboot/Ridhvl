@@ -1,7 +1,5 @@
 package com.osreboot.ridhvl.menu.component;
 
-import java.math.BigInteger;
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;

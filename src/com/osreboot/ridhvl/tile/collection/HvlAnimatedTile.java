@@ -1,11 +1,5 @@
 package com.osreboot.ridhvl.tile.collection;
 
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
-import static org.lwjgl.opengl.GL11.glTexParameteri;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
