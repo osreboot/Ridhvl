@@ -30,7 +30,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlButton testButton;
 	private HvlExpandableRectTextBox testTextBox;
 	private HvlTextureSlider testSlider;
-
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -93,11 +93,11 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
 				ArrangementStyle.VERTICAL);
-		testArranger.add(testLabel);
-		testArranger.add(testCheck);
-		testArranger.add(testButton);
-		testArranger.add(testTextBox);
-		testArranger.add(testSlider);
+		testArranger.addChild(testLabel);
+		testArranger.addChild(testCheck);
+		testArranger.addChild(testButton);
+		testArranger.addChild(testTextBox);
+		testArranger.addChild(testSlider);
 		testArranger.setAlign(0.0f);
 		testMenu.add(testArranger);
 
