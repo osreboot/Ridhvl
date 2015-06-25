@@ -6,15 +6,15 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.painter.HvlCursor;
-import com.osreboot.ridhvl.painter.painter2d.HvlExpandingRectangle;
+import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
-public class HvlExpandableRectSlider extends HvlComponent {
+public class HvlTiledRectSlider extends HvlComponent {
 	public enum SliderDirection {
 		VERTICAL, HORIZONTAL
 	}
 
-	private HvlExpandingRectangle backgroundRect;
+	private HvlTiledRect backgroundRect;
 	private Texture handleUpTexture, handleDownTexture;
 	private SliderDirection direction;
 	private float value;
@@ -24,8 +24,8 @@ public class HvlExpandableRectSlider extends HvlComponent {
 
 	private boolean isBeingHeld;
 
-	public HvlExpandableRectSlider(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, HvlExpandingRectangle backgroundArg, Texture handleArg,
+	public HvlTiledRectSlider(float xArg, float yArg, float wArg, float hArg,
+			float heightInversionArg, HvlTiledRect backgroundArg, Texture handleArg,
 			SliderDirection dirArg, float handleHeightArg,
 			float handleWidthArg, float valueArg) {
 		super(xArg, yArg, wArg, hArg, heightInversionArg);
@@ -39,8 +39,8 @@ public class HvlExpandableRectSlider extends HvlComponent {
 		value = valueArg;
 	}
 
-	public HvlExpandableRectSlider(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, HvlExpandingRectangle backgroundArg,
+	public HvlTiledRectSlider(float xArg, float yArg, float wArg, float hArg,
+			float heightInversionArg, HvlTiledRect backgroundArg,
 			Texture handleUpArg, Texture handleDownArg, SliderDirection dirArg,
 			float handleHeightArg, float handleWidthArg, float valueArg) {
 		super(xArg, yArg, wArg, hArg, heightInversionArg);
@@ -175,11 +175,11 @@ public class HvlExpandableRectSlider extends HvlComponent {
 		this.handleEndOffset = handleEndOffset;
 	}
 
-	public HvlExpandingRectangle getBackgroundTexture() {
+	public HvlTiledRect getBackgroundTexture() {
 		return backgroundRect;
 	}
 
-	public void setBackgroundTexture(HvlExpandingRectangle backgroundTexture) {
+	public void setBackgroundTexture(HvlTiledRect backgroundTexture) {
 		this.backgroundRect = backgroundTexture;
 	}
 

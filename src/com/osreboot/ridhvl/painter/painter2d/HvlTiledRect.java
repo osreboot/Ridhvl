@@ -3,7 +3,7 @@ package com.osreboot.ridhvl.painter.painter2d;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-public class HvlExpandingRectangle {
+public class HvlTiledRect {
 
 	private Texture texture;
 	private float x, y;
@@ -13,7 +13,7 @@ public class HvlExpandingRectangle {
 	private float uvTop, uvBottom;
 	private Color color;
 
-	public HvlExpandingRectangle(Texture tArg, float uvLeftArg,
+	public HvlTiledRect(Texture tArg, float uvLeftArg,
 			float uvRightArg, float uvTopArg, float uvBottomArg, float xArg,
 			float yArg, float totalWidthArg, float totalHeightArg,
 			float horizontalBarHeightArg, float verticalBarWidthArg) {
