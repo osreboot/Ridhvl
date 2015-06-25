@@ -75,4 +75,124 @@ public class HvlSimpleParticle extends HvlParticle {
 		return timeAlive > lifetime;
 	}
 
+	public final Color getStartColor() {
+		return startColor;
+	}
+
+	public final void setStartColor(Color startColor) {
+		this.startColor = startColor;
+	}
+
+	public final Color getEndColor() {
+		return endColor;
+	}
+
+	public final void setEndColor(Color endColor) {
+		this.endColor = endColor;
+	}
+
+	public final Texture getTexture() {
+		return texture;
+	}
+
+	public final void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
+	public final float getxVel() {
+		return xVel;
+	}
+
+	public final void setxVel(float xVel) {
+		this.xVel = xVel;
+	}
+
+	public final float getyVel() {
+		return yVel;
+	}
+
+	public final void setyVel(float yVel) {
+		this.yVel = yVel;
+	}
+
+	public final float getxVelDecay() {
+		return xVelDecay;
+	}
+
+	public final void setxVelDecay(float xVelDecay) {
+		this.xVelDecay = xVelDecay;
+	}
+
+	public final float getyVelDecay() {
+		return yVelDecay;
+	}
+
+	public final void setyVelDecay(float yVelDecay) {
+		this.yVelDecay = yVelDecay;
+	}
+
+	public final float getRot() {
+		return rot;
+	}
+
+	public final void setRot(float rot) {
+		this.rot = rot;
+	}
+
+	public final float getRotVel() {
+		return rotVel;
+	}
+
+	public final void setRotVel(float rotVel) {
+		this.rotVel = rotVel;
+	}
+
+	public final float getRotVelDecay() {
+		return rotVelDecay;
+	}
+
+	public final void setRotVelDecay(float rotVelDecay) {
+		this.rotVelDecay = rotVelDecay;
+	}
+
+	public final float getBaseWidth() {
+		return baseWidth;
+	}
+
+	public final void setBaseWidth(float baseWidth) {
+		this.baseWidth = baseWidth;
+	}
+
+	public final float getBaseHeight() {
+		return baseHeight;
+	}
+
+	public final void setBaseHeight(float baseHeight) {
+		this.baseHeight = baseHeight;
+	}
+
+	public final float getScale() {
+		return scale;
+	}
+
+	public final void setScale(float scale) {
+		this.scale = scale;
+	}
+
+	public final float getScaleDecay() {
+		return scaleDecay;
+	}
+
+	public final void setScaleDecay(float scaleDecay) {
+		this.scaleDecay = scaleDecay;
+	}
+
+	public final float getLifetime() {
+		return lifetime;
+	}
+
+	public final void setLifetime(float lifetime) {
+		this.lifetime = lifetime;
+	}
+
 }

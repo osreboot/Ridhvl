@@ -13,6 +13,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 import com.osreboot.ridhvl.particle.collection.HvlRadialParticleSystem;
 import com.osreboot.ridhvl.particle.collection.HvlRectangularParticleSystem;
+import com.osreboot.ridhvl.particle.correlation.collection.HvlParticleVelocityToAngleCorrelator;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
 public class ParticlesTest extends HvlTemplate2DBasic {
@@ -41,7 +42,7 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 
 		for (int i = 0; i < count; i++) {
 			HvlRectangularParticleSystem toAdd = new HvlRectangularParticleSystem(
-					1280 / 2, 720 / 2, 16, 16, 0, 0, Display.getWidth(),
+					1280 / 2, 720 / 2, 16, 64, 0, 0, Display.getWidth(),
 					Display.getHeight(), textureLoader.getResource(0), textureLoader.getResource(1));
 			toAdd.setMaxParticles(250);
 			toAdd.setMinScale(0.25f);
@@ -69,6 +70,7 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 			toAdd.setX(i * (Display.getWidth() / count));
 			toAdd.setY(Display.getHeight());
 			toAdd.setColorCoordinated(false);
+			toAdd.addCorrelator(new HvlParticleVelocityToAngleCorrelator());
 			particles.add(toAdd);
 		}
 

@@ -10,11 +10,21 @@ public class ConfigUtilTest {
 	
 	public void start()
 	{
-		TestConfigType loaded = HvlConfigUtil.loadConfig(TestConfigType.class, "res/TestConfig.txt");
+		TestConfigType loaded = HvlConfigUtil.loadConfig(TestConfigType.class, "res/TestSaveConfig.txt");
+		HvlConfigUtil.loadStaticConfig(TestConfigType.class, "res/TestSaveConfig.txt");
 		
-		HvlConfigUtil.loadStaticConfig(TestConfigType.class, "res/TestConfig.txt");
+		System.out.println(loaded.someInt);
+		System.out.println(loaded.someNumber);
+		System.out.println(loaded.test);
+		for (String i : TestConfigType.arr)
+		{
+			System.out.println(" - " + i);
+		}
+		System.out.println(TestConfigType.wtf);
 		
-		HvlConfigUtil.saveConfig(loaded, "res/TestSaveConfig.txt", false);
+		TestConfigType.arr = new String[] {"HEY!", "BAI!", "MAGIC!" };
+		
+		HvlConfigUtil.saveConfig(loaded, "res/TestSaveConfig.txt", true);
 		HvlConfigUtil.saveStaticConfig(TestConfigType.class, "res/TestStaticSaveConfig.txt");
 	}
 }

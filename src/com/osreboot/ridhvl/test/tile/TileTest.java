@@ -18,11 +18,6 @@ public class TileTest extends HvlTemplate2DBasic {
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 
 	private HvlLayeredTileMap tilemaps;
-
-	public static void main(String[] args)
-	{
-		new TileTest();
-	}
 	
 	@Override
 	public void initialize() {

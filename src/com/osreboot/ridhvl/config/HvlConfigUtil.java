@@ -6,11 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
@@ -53,60 +55,35 @@ public class HvlConfigUtil {
 						if (shouldBeIgnored)
 							continue;
 
-						if (fields[i].getType().equals(int.class)
-								|| fields[i].getType().equals(Integer.class)) {
+						if (fields[i].getType().isArray()) {
+							Pattern pattern = Pattern.compile("'(.*?)'");
+							Matcher match = pattern.matcher(split[1]);
+							Class<?> arrayType = getArrayType(fields[i]
+									.getType());
+							List<String> matches = new LinkedList<>();
+							while (match.find())
+							{
+								matches.add(match.group(1));
+							}
+							
+							Object arr = Array.newInstance(arrayType, matches.size());
+							for (int j = 0; j < matches.size(); j++)
+							{
+								Array.set(arr, j, getValue(arrayType, matches.get(j)));
+							}
+							
+							fields[i].set(toReturn, arr);
+						} else {
 							try {
 								toReturn.getClass()
 										.getField(propName)
-										.setInt(toReturn,
-												Integer.parseInt(split[1]));
+										.set(toReturn,
+												getValue(toReturn.getClass()
+														.getField(propName)
+														.getType(), split[1]));
 							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (fields[i].getType().equals(float.class)
-								|| fields[i].getType().equals(Float.class)) {
-							try {
-								toReturn.getClass()
-										.getField(propName)
-										.setFloat(toReturn,
-												Float.parseFloat(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (fields[i].getType().equals(double.class)
-								|| fields[i].getType().equals(Double.class)) {
-							try {
-								toReturn.getClass()
-										.getField(propName)
-										.setDouble(toReturn,
-												Double.parseDouble(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (fields[i].getType().equals(boolean.class)
-								|| fields[i].getType().equals(Boolean.class)) {
-							try {
-								toReturn.getClass()
-										.getField(propName)
-										.setBoolean(toReturn,
-												Boolean.parseBoolean(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (fields[i].getType().equals(String.class)) {
-							try {
-								toReturn.getClass().getField(propName)
-										.set(toReturn, split[1]);
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
+									| NoSuchFieldException | SecurityException e1) {
+								e1.printStackTrace();
 							}
 						}
 					}
@@ -155,62 +132,94 @@ public class HvlConfigUtil {
 						if (shouldBeIgnored)
 							continue;
 
-						if (fields[i].getType().equals(int.class)
-								|| fields[i].getType().equals(Integer.class)) {
+						if (fields[i].getType().isArray()) {
+							Pattern pattern = Pattern.compile("'(.*?)'");
+							Matcher match = pattern.matcher(split[1]);
+							Class<?> arrayType = getArrayType(fields[i]
+									.getType());
+							List<String> matches = new LinkedList<>();
+							while (match.find())
+							{
+								matches.add(match.group(1));
+							}
+							
+							Object arr = Array.newInstance(arrayType, matches.size());
+							for (int j = 0; j < matches.size(); j++)
+							{
+								Array.set(arr, j, getValue(arrayType, matches.get(j)));
+							}
+							
+							fields[i].set(toReturn, arr);
+						} else {
 							try {
 								toReturn.getClass()
 										.getField(propName)
-										.setInt(toReturn,
-												Integer.parseInt(split[1]));
+										.set(toReturn,
+												getValue(toReturn.getClass()
+														.getField(propName)
+														.getType(), split[1]));
 							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
+									| NoSuchFieldException | SecurityException e1) {
+								e1.printStackTrace();
 							}
 						}
-
-						if (fields[i].getType().equals(float.class)
-								|| fields[i].getType().equals(Float.class)) {
-							try {
-								toReturn.getClass()
-										.getField(propName)
-										.setFloat(toReturn,
-												Float.parseFloat(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (fields[i].getType().equals(double.class)
-								|| fields[i].getType().equals(Double.class)) {
-							try {
-								toReturn.getClass()
-										.getField(propName)
-										.setDouble(toReturn,
-												Double.parseDouble(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (fields[i].getType().equals(boolean.class)
-								|| fields[i].getType().equals(Boolean.class)) {
-							try {
-								toReturn.getClass()
-										.getField(propName)
-										.setBoolean(toReturn,
-												Boolean.parseBoolean(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (fields[i].getType().equals(String.class)) {
-							try {
-								toReturn.getClass().getField(propName)
-										.set(toReturn, split[1]);
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
+						
+//						if (fields[i].getType().equals(int.class)
+//								|| fields[i].getType().equals(Integer.class)) {
+//							try {
+//								toReturn.getClass()
+//										.getField(propName)
+//										.setInt(toReturn,
+//												Integer.parseInt(split[1]));
+//							} catch (IllegalArgumentException
+//									| NoSuchFieldException | SecurityException e) {
+//							}
+//						}
+//
+//						if (fields[i].getType().equals(float.class)
+//								|| fields[i].getType().equals(Float.class)) {
+//							try {
+//								toReturn.getClass()
+//										.getField(propName)
+//										.setFloat(toReturn,
+//												Float.parseFloat(split[1]));
+//							} catch (IllegalArgumentException
+//									| NoSuchFieldException | SecurityException e) {
+//							}
+//						}
+//
+//						if (fields[i].getType().equals(double.class)
+//								|| fields[i].getType().equals(Double.class)) {
+//							try {
+//								toReturn.getClass()
+//										.getField(propName)
+//										.setDouble(toReturn,
+//												Double.parseDouble(split[1]));
+//							} catch (IllegalArgumentException
+//									| NoSuchFieldException | SecurityException e) {
+//							}
+//						}
+//
+//						if (fields[i].getType().equals(boolean.class)
+//								|| fields[i].getType().equals(Boolean.class)) {
+//							try {
+//								toReturn.getClass()
+//										.getField(propName)
+//										.setBoolean(toReturn,
+//												Boolean.parseBoolean(split[1]));
+//							} catch (IllegalArgumentException
+//									| NoSuchFieldException | SecurityException e) {
+//							}
+//						}
+//
+//						if (fields[i].getType().equals(String.class)) {
+//							try {
+//								toReturn.getClass().getField(propName)
+//										.set(toReturn, split[1]);
+//							} catch (IllegalArgumentException
+//									| NoSuchFieldException | SecurityException e) {
+//							}
+//						}
 					}
 				}
 			}
@@ -259,60 +268,35 @@ public class HvlConfigUtil {
 						if (shouldBeIgnored)
 							continue;
 
-						if (f.getType().equals(int.class)
-								|| f.getType().equals(Integer.class)) {
-							try {
-								type.getClass()
-										.getField(propName)
-										.setInt(null,
-												Integer.parseInt(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
+						if (f.getType().isArray()) {
+							Pattern pattern = Pattern.compile("'(.*?)'");
+							Matcher match = pattern.matcher(split[1]);
+							Class<?> arrayType = getArrayType(f
+									.getType());
+							List<String> matches = new LinkedList<>();
+							while (match.find())
+							{
+								matches.add(match.group(1));
 							}
-						}
-
-						if (f.getType().equals(float.class)
-								|| f.getType().equals(Float.class)) {
-							try {
-								type.getClass()
-										.getField(propName)
-										.setFloat(null,
-												Float.parseFloat(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
+							
+							Object arr = Array.newInstance(arrayType, matches.size());
+							for (int j = 0; j < matches.size(); j++)
+							{
+								Array.set(arr, j, getValue(arrayType, matches.get(j)));
 							}
-						}
-
-						if (f.getType().equals(double.class)
-								|| f.getType().equals(Double.class)) {
+							
+							f.set(null, arr);
+						} else {
 							try {
-								type.getClass()
+								type
 										.getField(propName)
-										.setDouble(null,
-												Double.parseDouble(split[1]));
+										.set(null,
+												getValue(type
+														.getField(propName)
+														.getType(), split[1]));
 							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (f.getType().equals(boolean.class)
-								|| f.getType().equals(Boolean.class)) {
-							try {
-								type.getClass()
-										.getField(propName)
-										.setBoolean(null,
-												Boolean.parseBoolean(split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
-							}
-						}
-
-						if (f.getType().equals(String.class)) {
-							try {
-								type.getClass().getField(propName)
-										.set(null, split[1]);
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e) {
+									| NoSuchFieldException | SecurityException e1) {
+								e1.printStackTrace();
 							}
 						}
 					}
@@ -345,37 +329,75 @@ public class HvlConfigUtil {
 				}
 				if (Modifier.isStatic(f.getModifiers()) && !includeStatic)
 					shouldBeIgnored = true;
-				
+
 				if (shouldBeIgnored)
 					continue;
 
-				// If we support the type
-				if (f.getType().equals(String.class)
-						|| f.getType().equals(Integer.class)
-						|| f.getType().equals(int.class)
-						|| f.getType().equals(Float.class)
-						|| f.getType().equals(float.class)
-						|| f.getType().equals(Double.class)
-						|| f.getType().equals(double.class)
-						|| f.getType().equals(Boolean.class)
-						|| f.getType().equals(boolean.class)) {
-					try {
-						writer.write(f.getName() + delimeter + f.get(in));
+				
+				if (f.getType().isArray())
+				{
+					Class<?> arrType = getArrayType(f.getType());
+					if (arrType.equals(String.class)
+							|| arrType.equals(Integer.class)
+							|| arrType.equals(int.class)
+							|| arrType.equals(Float.class)
+							|| arrType.equals(float.class)
+							|| arrType.equals(Double.class)
+							|| arrType.equals(double.class)
+							|| arrType.equals(Boolean.class)
+							|| arrType.equals(boolean.class)) {
+						int l = Array.getLength(f.get(in));
+						
+						StringBuilder sb = new StringBuilder();
+						sb.append(f.getName() + delimeter);
+						sb.append("{");
+						if (l > 0)
+						{
+							for (int j = 0; j < l - 1; j++)
+							{
+
+								sb.append("'" + Array.get(f.get(in), j) + "', ");
+							}
+							
+							sb.append("'" + Array.get(f.get(in), l - 1) + "'");
+						}
+						
+						sb.append("}");
+						
+						writer.write(sb.toString());
 						writer.write(System.lineSeparator());
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
+					}
+				}
+				else
+				{
+					// If we support the type
+					if (f.getType().equals(String.class)
+							|| f.getType().equals(Integer.class)
+							|| f.getType().equals(int.class)
+							|| f.getType().equals(Float.class)
+							|| f.getType().equals(float.class)
+							|| f.getType().equals(Double.class)
+							|| f.getType().equals(double.class)
+							|| f.getType().equals(Boolean.class)
+							|| f.getType().equals(boolean.class)) {
+						try {
+							writer.write(f.getName() + delimeter + f.get(in));
+							writer.write(System.lineSeparator());
+						} catch (IllegalArgumentException | IllegalAccessException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
-			
+
 			writer.close();
-		} catch (IOException e1) {
+		} catch (IOException | IllegalArgumentException | IllegalAccessException e1) {
 			e1.printStackTrace();
 		}
 	}
 
-	public static void saveStaticConfig(Class<? extends Object> type, String path)
-	{
+	public static void saveStaticConfig(Class<? extends Object> type,
+			String path) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
@@ -396,28 +418,109 @@ public class HvlConfigUtil {
 				if (shouldBeIgnored)
 					continue;
 
-				// If we support the type
-				if (f.getType().equals(String.class)
-						|| f.getType().equals(Integer.class)
-						|| f.getType().equals(int.class)
-						|| f.getType().equals(Float.class)
-						|| f.getType().equals(float.class)
-						|| f.getType().equals(Double.class)
-						|| f.getType().equals(double.class)
-						|| f.getType().equals(Boolean.class)
-						|| f.getType().equals(boolean.class)) {
-					try {
-						writer.write(f.getName() + delimeter + f.get(null));
+				if (f.getType().isArray())
+				{
+					Class<?> arrType = getArrayType(f.getType());
+					if (arrType.equals(String.class)
+							|| arrType.equals(Integer.class)
+							|| arrType.equals(int.class)
+							|| arrType.equals(Float.class)
+							|| arrType.equals(float.class)
+							|| arrType.equals(Double.class)
+							|| arrType.equals(double.class)
+							|| arrType.equals(Boolean.class)
+							|| arrType.equals(boolean.class)) {
+						int l = Array.getLength(f.get(null));
+						
+						StringBuilder sb = new StringBuilder();
+						sb.append(f.getName() + delimeter);
+						sb.append("{");
+						if (l > 0)
+						{
+							for (int j = 0; j < l - 1; j++)
+							{
+
+								sb.append("'" + Array.get(f.get(null), j) + "', ");
+							}
+							
+							sb.append("'" + Array.get(f.get(null), l - 1) + "'");
+						}
+						
+						sb.append("}");
+						
+						writer.write(sb.toString());
 						writer.write(System.lineSeparator());
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
+					}
+				}
+				else
+				{
+					// If we support the type
+					if (f.getType().equals(String.class)
+							|| f.getType().equals(Integer.class)
+							|| f.getType().equals(int.class)
+							|| f.getType().equals(Float.class)
+							|| f.getType().equals(float.class)
+							|| f.getType().equals(Double.class)
+							|| f.getType().equals(double.class)
+							|| f.getType().equals(Boolean.class)
+							|| f.getType().equals(boolean.class)) {
+						try {
+							writer.write(f.getName() + delimeter + f.get(null));
+							writer.write(System.lineSeparator());
+						} catch (IllegalArgumentException | IllegalAccessException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
-			
+
 			writer.close();
-		} catch (IOException e1) {
+		} catch (IOException | ArrayIndexOutOfBoundsException | IllegalArgumentException | IllegalAccessException e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	private static Class<?> getArrayType(Class<?> in) {
+		if (!in.isArray())
+			return in;
+
+		String thing = in.getName().replaceFirst("\\[", "");
+
+		if (thing.endsWith(";"))
+			thing = thing.substring(0, thing.length() - 1);
+
+		if (thing.equals("I"))
+			return int.class;
+		if (thing.equals("F"))
+			return float.class;
+		if (thing.equals("D"))
+			return double.class;
+		if (thing.equals("L"))
+			return long.class;
+		if (thing.equals("S"))
+			return short.class;
+		if (thing.equals("B"))
+			return boolean.class;
+		if (thing.equals("C"))
+			return char.class;
+
+		try {
+			return Class.forName(thing.replaceFirst("L", ""));
+		} catch (ClassNotFoundException e) {
+		}
+		return null;
+	}
+
+	private static Object getValue(Class<?> type, String in) {
+		if (type.equals(int.class) || type.equals(Integer.class))
+			return Integer.parseInt(in);
+		if (type.equals(float.class) || type.equals(Float.class))
+			return Float.parseFloat(in);
+		if (type.equals(double.class) || type.equals(Double.class))
+			return Double.parseDouble(in);
+		if (type.equals(boolean.class) || type.equals(Boolean.class))
+			return Boolean.parseBoolean(in);
+
+		return in;
 	}
 }
