@@ -27,6 +27,11 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	static HvlFontPainter2D fontPainter;
 
+	public static void main(String[] args)
+	{
+		new ParticlesTest();
+	}
+	
 	@Override
 	public void initialize() {
 		particles = new LinkedList<>();
@@ -41,9 +46,8 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 
 		for (int i = 0; i < count; i++) {
 			HvlRectangularParticleSystem toAdd = new HvlRectangularParticleSystem(
-					1280 / 2, 720 / 2, textureLoader.getResource(0), 16, 16, 0,
-					0, Display.getWidth(),
-					Display.getHeight());
+					1280 / 2, 720 / 2, 16, 16, 0, 0, Display.getWidth(),
+					Display.getHeight(), textureLoader.getResource(0), textureLoader.getResource(1));
 			toAdd.setMaxParticles(250);
 			toAdd.setMinScale(0.25f);
 			toAdd.setMaxScale(1);
@@ -75,7 +79,7 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 
 		for (int i = 0; i < 0; i++) {
 			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(
-					1280 / 2, 720 / 2, textureLoader.getResource(0), 16, 16);
+					1280 / 2, 720 / 2, 16, 16, textureLoader.getResource(0));
 			toAdd.setSpawnRadius(24.0f);
 			toAdd.setMinScale(.25f);
 			toAdd.setMaxScale(0.725f);
@@ -104,7 +108,7 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 
 		for (int i = 0; i < 0; i++) {
 			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(
-					1280 / 2, 720 / 2, textureLoader.getResource(0), 16, 16);
+					1280 / 2, 720 / 2, 16, 16, textureLoader.getResource(0));
 			toAdd.setSpawnRadius(24.0f);
 			toAdd.setMinScale(.15f);
 			toAdd.setMaxScale(0.725f);

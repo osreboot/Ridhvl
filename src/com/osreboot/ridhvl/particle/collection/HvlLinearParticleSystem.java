@@ -1,5 +1,8 @@
 package com.osreboot.ridhvl.particle.collection;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -14,7 +17,7 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 	private float spawnX1, spawnY1, spawnX2, spawnY2;
 	private Color startColorOne, startColorTwo;
 	private Color endColorOne, endColorTwo;
-	private Texture particleTexture;
+	private List<Texture> particleTextures;
 	private float minXVel, maxXVel;
 	private float minYVel, maxYVel;
 	private float xVelDecay, yVelDecay;
@@ -26,9 +29,9 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 	private float scaleDecay;
 	private float minLifetime, maxLifetime;
 
-	public HvlLinearParticleSystem(float xArg, float yArg, Texture tArg,
-			float pWidthArg, float pHeightArg, float sX1Arg, float sY1Arg,
-			float sX2Arg, float sY2Arg) {
+	public HvlLinearParticleSystem(float xArg, float yArg, float pWidthArg,
+			float pHeightArg, float sX1Arg, float sY1Arg, float sX2Arg,
+			float sY2Arg, Texture... tArg) {
 		super(xArg, yArg);
 		spawnX1 = sX1Arg;
 		spawnY1 = sY1Arg;
@@ -36,7 +39,11 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 		spawnY2 = sY2Arg;
 		startColorOne = startColorTwo = Color.white;
 		endColorOne = endColorTwo = Color.white;
-		particleTexture = tArg;
+		particleTextures = new ArrayList<>();
+		for (Texture t : tArg)
+		{
+			particleTextures.add(t);
+		}
 		minXVel = maxXVel = 0;
 		minYVel = maxYVel = 0;
 		xVelDecay = yVelDecay = 0;
@@ -56,12 +63,12 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 		float lerpValue = (float) Math.random();
 		float spawnX = spawnX1 + (spawnX2 - spawnX1) * lerpValue;
 		float spawnY = spawnY1 + (spawnY2 - spawnY1) * lerpValue;
-		float xVel = HvlMath.randomBetween(minXVel, maxXVel);
-		float yVel = HvlMath.randomBetween(minYVel, maxYVel);
-		float rot = HvlMath.randomBetween(minRot, maxRot);
-		float rotVel = HvlMath.randomBetween(minRotVel, maxRotVel);
-		float scale = HvlMath.randomBetween(minScale, maxScale);
-		float lifetime = HvlMath.randomBetween(minLifetime, maxLifetime);
+		float xVel = HvlMath.randomFloatBetween(minXVel, maxXVel);
+		float yVel = HvlMath.randomFloatBetween(minYVel, maxYVel);
+		float rot = HvlMath.randomFloatBetween(minRot, maxRot);
+		float rotVel = HvlMath.randomFloatBetween(minRotVel, maxRotVel);
+		float scale = HvlMath.randomFloatBetween(minScale, maxScale);
+		float lifetime = HvlMath.randomFloatBetween(minLifetime, maxLifetime);
 		Color startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo,
 				(float) Math.random());
 		Color endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo,
@@ -80,6 +87,9 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 					(float) Math.random(), (float) Math.random(),
 					(float) Math.random(), (float) Math.random());
 		}
+		
+		Texture particleTexture = particleTextures.get(HvlMath
+				.randomIntBetween(0, particleTextures.size()));
 
 		return createParticleFromSpecs(spawnX, spawnY, xVel, yVel, xVelDecay,
 				yVelDecay, rot, rotVel, rotVelDecay, baseWidth, baseHeight,
@@ -131,12 +141,16 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 		this.endColorTwo = endColorTwo;
 	}
 
-	public Texture getParticleTexture() {
-		return particleTexture;
+	public List<Texture> getParticleTextures() {
+		return particleTextures;
 	}
 
-	public void setParticleTexture(Texture particleTexture) {
-		this.particleTexture = particleTexture;
+	public void setParticleTexture(List<Texture> particleTextures) {
+		this.particleTextures = particleTextures;
+	}
+	
+	public void addParticleTexture(Texture particleTexture) {
+		particleTextures.add(particleTexture);
 	}
 
 	public float getMinXVel() {

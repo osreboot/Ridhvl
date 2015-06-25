@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl;
 
+import java.util.Random;
+
 
 public class HvlMath {
 	public static class HvlCoord
@@ -57,12 +59,17 @@ public class HvlMath {
 		return (float)Math.sqrt(Math.pow(xArg1 - xArg2, 2) + Math.pow(yArg1 - yArg2, 2));
 	}
 	
-	public static float randomBetween(float min, float max)	{
+	public static int randomIntBetween(int min, int max)	{
+		Random rand = new Random();
+		return min + rand.nextInt(max - min);
+	}
+	
+	public static float randomFloatBetween(float min, float max)	{
 		return min + ((float) Math.random() * (max - min));
 	}
 
 	public static HvlCoord randomPointInCircle(float radius) {
-		float theta = randomBetween(0, 360);
+		float theta = randomFloatBetween(0, 360);
 		float d = (float) Math.random();
 		return new HvlCoord((float) Math.cos(theta) * radius * d,
 				(float) Math.sin(theta) * radius * d);
