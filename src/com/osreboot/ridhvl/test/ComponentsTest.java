@@ -31,10 +31,6 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlExpandableRectTextBox testTextBox;
 	private HvlTextureSlider testSlider;
 
-	public static void main(String[] args) {
-		new ComponentsTest();
-	}
-
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
