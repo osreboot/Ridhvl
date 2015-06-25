@@ -1,12 +1,11 @@
 package com.osreboot.ridhvl.menu.component;
 
-import java.math.BigInteger;
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlTextureSlider extends HvlComponent {
@@ -67,10 +66,10 @@ public class HvlTextureSlider extends HvlComponent {
 			float handleMinY = getY() + (getHeight() / 2) - (handleHeight / 2);
 			float handleMaxY = getY() + (getHeight() / 2) + (handleHeight / 2);
 
-			if (Mouse.isButtonDown(0) && Mouse.getX() > handleMinX
-					&& Mouse.getX() < handleMaxX
-					&& (getHeightInversion() - Mouse.getY()) > handleMinY
-					&& (getHeightInversion() - Mouse.getY()) < handleMaxY) {
+			if (Mouse.isButtonDown(0) &&  HvlCursor.getCursorX() > handleMinX
+					&& HvlCursor.getCursorX() < handleMaxX
+					&& HvlCursor.getCursorY() > handleMinY
+					&& HvlCursor.getCursorY() < handleMaxY) {
 				isBeingHeld = true;
 			} else if (!Mouse.isButtonDown(0)) {
 				isBeingHeld = false;
@@ -87,10 +86,10 @@ public class HvlTextureSlider extends HvlComponent {
 			float handleMinX = getX() + (getWidth() / 2) - (handleWidth / 2);
 			float handleMaxX = getX() + (getWidth() / 2) + (handleWidth / 2);
 
-			if (Mouse.isButtonDown(0) && Mouse.getX() > handleMinX
-					&& Mouse.getX() < handleMaxX
-					&& (getHeightInversion() - Mouse.getY()) > handleMinY
-					&& (getHeightInversion() - Mouse.getY()) < handleMaxY) {
+			if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > handleMinX
+					&& HvlCursor.getCursorX() < handleMaxX
+					&& HvlCursor.getCursorY() > handleMinY
+					&& HvlCursor.getCursorY() < handleMaxY) {
 				isBeingHeld = true;
 			} else if (!Mouse.isButtonDown(0)) {
 				isBeingHeld = false;
@@ -104,7 +103,7 @@ public class HvlTextureSlider extends HvlComponent {
 			case HORIZONTAL: {
 				float minX = getX() + handleStartOffset;
 				float maxX = getX() + getWidth() - handleEndOffset;
-				float adjusted = Mouse.getX() - minX;
+				float adjusted = HvlCursor.getCursorX() - minX;
 				value = adjusted / (maxX - minX);
 				value = Math.max(0, Math.min(value, 1.0f));
 			}
@@ -112,7 +111,7 @@ public class HvlTextureSlider extends HvlComponent {
 			case VERTICAL: {
 				float minY = getY() + handleStartOffset;
 				float maxY = getY() + getHeight() - handleEndOffset;
-				float adjusted = (getHeightInversion() - Mouse.getY()) - minY;
+				float adjusted = HvlCursor.getCursorY() - minY;
 				value = adjusted / (maxY - minY);
 				value = Math.max(0, Math.min(value, 1.0f));
 			}

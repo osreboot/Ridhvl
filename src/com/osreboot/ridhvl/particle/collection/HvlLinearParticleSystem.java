@@ -8,14 +8,13 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlColorUtil;
 import com.osreboot.ridhvl.HvlMath;
-import com.osreboot.ridhvl.HvlMath.HvlCoord;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 
-public class HvlRadialParticleSystem extends HvlParticleSystem {
+public class HvlLinearParticleSystem extends HvlParticleSystem {
 
 	private boolean isColorCoordinated;
-	private float spawnRadius;
+	private float spawnX1, spawnY1, spawnX2, spawnY2;
 	private Color startColorOne, startColorTwo;
 	private Color endColorOne, endColorTwo;
 	private List<Texture> particleTextures;
@@ -30,10 +29,14 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 	private float scaleDecay;
 	private float minLifetime, maxLifetime;
 
-	public HvlRadialParticleSystem(float xArg, float yArg, float pWidthArg,
-			float pHeightArg, Texture... tArg) {
+	public HvlLinearParticleSystem(float xArg, float yArg, float pWidthArg,
+			float pHeightArg, float sX1Arg, float sY1Arg, float sX2Arg,
+			float sY2Arg, Texture... tArg) {
 		super(xArg, yArg);
-		spawnRadius = 0;
+		spawnX1 = sX1Arg;
+		spawnY1 = sY1Arg;
+		spawnX2 = sX2Arg;
+		spawnY2 = sY2Arg;
 		startColorOne = startColorTwo = Color.white;
 		endColorOne = endColorTwo = Color.white;
 		particleTextures = new ArrayList<>();
@@ -57,7 +60,9 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 
 	@Override
 	public HvlParticle generateParticle() {
-		HvlCoord spawnPos = HvlMath.randomPointInCircle(spawnRadius);
+		float lerpValue = (float) Math.random();
+		float spawnX = spawnX1 + (spawnX2 - spawnX1) * lerpValue;
+		float spawnY = spawnY1 + (spawnY2 - spawnY1) * lerpValue;
 		float xVel = HvlMath.randomFloatBetween(minXVel, maxXVel);
 		float yVel = HvlMath.randomFloatBetween(minYVel, maxYVel);
 		float rot = HvlMath.randomFloatBetween(minRot, maxRot);
@@ -85,11 +90,11 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 		
 		Texture particleTexture = particleTextures.get(HvlMath
 				.randomIntBetween(0, particleTextures.size()));
-		
-		return createParticleFromSpecs(getX() + spawnPos.x,
-				getY() + spawnPos.y, xVel, yVel, xVelDecay, yVelDecay, rot,
-				rotVel, rotVelDecay, baseWidth, baseHeight, scale, scaleDecay,
-				lifetime, startColor, endColor, particleTexture);
+
+		return createParticleFromSpecs(spawnX, spawnY, xVel, yVel, xVelDecay,
+				yVelDecay, rot, rotVel, rotVelDecay, baseWidth, baseHeight,
+				scale, scaleDecay, lifetime, startColor, endColor,
+				particleTexture);
 	}
 
 	public HvlParticle createParticleFromSpecs(float xArg, float yArg,
@@ -102,14 +107,6 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 				endColorArg, tArg, xVelArg, yVelArg, xVelDecayArg,
 				yVelDecayArg, rotArg, rotRateArg, rotVelDecayArg, baseWidthArg,
 				baseHeightArg, scaleArg, scaleDecayArg, lifetimeArg);
-	}
-
-	public float getSpawnRadius() {
-		return spawnRadius;
-	}
-
-	public void setSpawnRadius(float spawnRadius) {
-		this.spawnRadius = spawnRadius;
 	}
 
 	public Color getStartColorOne() {
@@ -144,7 +141,7 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 		this.endColorTwo = endColorTwo;
 	}
 
-	public List<Texture> getParticleTexture() {
+	public List<Texture> getParticleTextures() {
 		return particleTextures;
 	}
 
@@ -306,5 +303,37 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 
 	public void setColorCoordinated(boolean isColorCoordinated) {
 		this.isColorCoordinated = isColorCoordinated;
+	}
+
+	public float getSpawnX1() {
+		return spawnX1;
+	}
+
+	public void setSpawnX1(float spawnX1) {
+		this.spawnX1 = spawnX1;
+	}
+
+	public float getSpawnY1() {
+		return spawnY1;
+	}
+
+	public void setSpawnY1(float spawnY1) {
+		this.spawnY1 = spawnY1;
+	}
+
+	public float getSpawnX2() {
+		return spawnX2;
+	}
+
+	public void setSpawnX2(float spawnX2) {
+		this.spawnX2 = spawnX2;
+	}
+
+	public float getSpawnY2() {
+		return spawnY2;
+	}
+
+	public void setSpawnY2(float spawnY2) {
+		this.spawnY2 = spawnY2;
 	}
 }

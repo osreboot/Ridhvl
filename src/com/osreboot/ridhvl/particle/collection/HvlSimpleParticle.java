@@ -53,13 +53,13 @@ public class HvlSimpleParticle extends HvlParticle {
 		setX(getX() + (xVel * delta));
 		setY(getY() + (yVel * delta));
 		
-		xVel *= xVelDecay;
-		yVel *= yVelDecay;
+		xVel *= Math.pow(Math.E, delta * xVelDecay);
+		yVel *= Math.pow(Math.E, delta * yVelDecay);
 		
 		rot += rotVel * delta;
-		rotVel *= rotVelDecay;
+		rotVel *= Math.pow(Math.E, delta * rotVelDecay);
 		
-		scale *= scaleDecay;
+		scale *= Math.pow(Math.E, delta * scaleDecay);
 		
 		HvlPainter2D.hvlRotate(getX(), getY(), rot);
 		
