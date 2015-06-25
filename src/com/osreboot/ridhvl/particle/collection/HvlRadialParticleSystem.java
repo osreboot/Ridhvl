@@ -11,6 +11,7 @@ import com.osreboot.ridhvl.particle.HvlParticleSystem;
 
 public class HvlRadialParticleSystem extends HvlParticleSystem {
 
+	private boolean isColorCoordinated;
 	private float spawnRadius;
 	private Color startColorOne, startColorTwo;
 	private Color endColorOne, endColorTwo;
@@ -25,7 +26,7 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 	private float minScale, maxScale;
 	private float scaleDecay;
 	private float minLifetime, maxLifetime;
-	
+
 	public HvlRadialParticleSystem(float xArg, float yArg, Texture tArg,
 			float pWidthArg, float pHeightArg) {
 		super(xArg, yArg);
@@ -35,15 +36,15 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 		particleTexture = tArg;
 		minXVel = maxXVel = 0;
 		minYVel = maxYVel = 0;
-		xVelDecay = yVelDecay = 1.0f;
+		xVelDecay = yVelDecay = 0;
 		minRot = 0;
 		maxRot = 360;
 		minRotVel = maxRotVel = 0;
-		rotVelDecay = 1.0f;
+		rotVelDecay = 0f;
 		baseWidth = pWidthArg;
 		baseHeight = pHeightArg;
 		minScale = maxScale = 1.0f;
-		scaleDecay = 1.0f;
+		scaleDecay = 0f;
 		minLifetime = maxLifetime = 5.0f;
 	}
 
@@ -56,31 +57,43 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 		float rotVel = HvlMath.randomBetween(minRotVel, maxRotVel);
 		float scale = HvlMath.randomBetween(minScale, maxScale);
 		float lifetime = HvlMath.randomBetween(minLifetime, maxLifetime);
-		Color startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo, (float) Math.random());
-		Color endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo, (float) Math.random());
-		
-		return createParticleFromSpecs(getX() + spawnPos.x, getY() + spawnPos.y,
-				xVel, yVel,
-				xVelDecay, yVelDecay,
-				rot, rotVel, rotVelDecay,
-				baseWidth, baseHeight, scale,
-				scaleDecay, lifetime,
-				startColor, endColor, particleTexture);
+		Color startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo,
+				(float) Math.random());
+		Color endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo,
+				(float) Math.random());
+
+		if (isColorCoordinated) {
+			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo,
+					(float) Math.random());
+			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo,
+					(float) Math.random());
+		} else {
+			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo,
+					(float) Math.random(), (float) Math.random(),
+					(float) Math.random(), (float) Math.random());
+			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo,
+					(float) Math.random(), (float) Math.random(),
+					(float) Math.random(), (float) Math.random());
+		}
+
+		return createParticleFromSpecs(getX() + spawnPos.x,
+				getY() + spawnPos.y, xVel, yVel, xVelDecay, yVelDecay, rot,
+				rotVel, rotVelDecay, baseWidth, baseHeight, scale, scaleDecay,
+				lifetime, startColor, endColor, particleTexture);
 	}
 
 	public HvlParticle createParticleFromSpecs(float xArg, float yArg,
-			float xVelArg, float yVelArg,
-			float xVelDecayArg, float yVelDecayArg,
-			float rotArg, float rotRateArg, float rotVelDecayArg,
-			float baseWidthArg, float baseHeightArg, float scaleArg,
-			float scaleDecayArg, float lifetimeArg,
-			Color startColorArg, Color endColorArg, Texture tArg)
-	{
-		return new HvlSimpleParticle(xArg, yArg, this, startColorArg, endColorArg,
-				tArg, xVelArg, yVelArg, xVelDecayArg, yVelDecayArg, rotArg, rotRateArg,
-				rotVelDecayArg, baseWidthArg, baseHeightArg, scaleArg, scaleDecayArg, lifetimeArg);
+			float xVelArg, float yVelArg, float xVelDecayArg,
+			float yVelDecayArg, float rotArg, float rotRateArg,
+			float rotVelDecayArg, float baseWidthArg, float baseHeightArg,
+			float scaleArg, float scaleDecayArg, float lifetimeArg,
+			Color startColorArg, Color endColorArg, Texture tArg) {
+		return new HvlSimpleParticle(xArg, yArg, this, startColorArg,
+				endColorArg, tArg, xVelArg, yVelArg, xVelDecayArg,
+				yVelDecayArg, rotArg, rotRateArg, rotVelDecayArg, baseWidthArg,
+				baseHeightArg, scaleArg, scaleDecayArg, lifetimeArg);
 	}
-	
+
 	public float getSpawnRadius() {
 		return spawnRadius;
 	}
@@ -271,5 +284,15 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 
 	public void setMaxLifetime(float maxLifetime) {
 		this.maxLifetime = maxLifetime;
+	}
+
+
+	public boolean isColorCoordinated() {
+		return isColorCoordinated;
+	}
+
+	
+	public void setColorCoordinated(boolean isColorCoordinated) {
+		this.isColorCoordinated = isColorCoordinated;
 	}
 }

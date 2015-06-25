@@ -2,6 +2,8 @@ package com.osreboot.ridhvl.menu;
 
 import org.lwjgl.input.Mouse;
 
+import com.osreboot.ridhvl.painter.HvlCursor;
+
 public abstract class HvlComponent {
 	
 	private float x, y, width, height, heightInversion; 
@@ -24,13 +26,13 @@ public abstract class HvlComponent {
 	public final boolean isBeingPressed(int buttonArg){//TODO account for HvlDisplayMode
 		if (!enabled) return false;
 		
-		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
+		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY() && HvlCursor.getCursorX() < getX() + getWidth() && HvlCursor.getCursorY() < getY() + getHeight();
 	}
 
 	public final boolean isHovering(){//TODO account for HvlDisplayMode
 		if (!enabled) return false;
 		
-		return Mouse.isInsideWindow() && Mouse.getX() > getX() && getHeightInversion() - Mouse.getY() > getY() && Mouse.getX() < getX() + getWidth() && getHeightInversion() - Mouse.getY() < getY() + getHeight();
+		return Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY() && HvlCursor.getCursorX() < getX() + getWidth() && HvlCursor.getCursorY() < getY() + getHeight();
 	}
 	
 	public float getX() {

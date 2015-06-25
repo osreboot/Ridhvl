@@ -18,7 +18,7 @@ import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 public class ParticlesTest extends HvlTemplate2DBasic {
 
 	public ParticlesTest() {
-		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(600, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
 
 	public static void main(String[] args) {
@@ -45,38 +45,42 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 		
 		for (int i = 0; i < count; i++) {
 			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(1280 / 2, 720 / 2,
-					textureLoader.getResource(0), 16, 16);
+					textureLoader.getResource(0), 256, 4);
+			toAdd.setMaxParticles(250);
 			toAdd.setSpawnRadius(24.0f);
-			toAdd.setMinScale(.15f);
-			toAdd.setMaxScale(0.725f);
-			toAdd.setxVelDecay(1.01f);
-			toAdd.setyVelDecay(1.02f);
-			toAdd.setScaleDecay(0.999f);
-			toAdd.setMinRotVel(-360);
-			toAdd.setMaxRotVel(360);
+			toAdd.setMinScale(0.75f);
+			toAdd.setMaxScale(1);
+			toAdd.setxVelDecay(0.5f);
+			toAdd.setyVelDecay(0.5f);
+			toAdd.setScaleDecay(0f);
+			toAdd.setMinRot(67.5f);
+			toAdd.setMaxRot(67.5f);
+			toAdd.setMinRotVel(0);
+			toAdd.setMaxRotVel(0);
 			toAdd.setMinLifetime(2f);
 			toAdd.setMaxLifetime(6f);
-			toAdd.setMinYVel(32);
-			toAdd.setMaxYVel(128);
-			toAdd.setMinXVel(0);
-			toAdd.setMaxXVel(32);
+			toAdd.setMinYVel(256);
+			toAdd.setMaxYVel(1024);
+			toAdd.setMinXVel(256);
+			toAdd.setMaxXVel(1024);
 			toAdd.setMinTimeToSpawn(1.5f);
 			toAdd.setMaxTimeToSpawn(0.5f);
-			toAdd.setParticlesPerSpawn(15);
-			toAdd.setStartColorOne(Color.blue);
-			toAdd.setStartColorTwo(Color.blue);
+			toAdd.setParticlesPerSpawn(10);
+			toAdd.setStartColorOne(Color.black);
+			toAdd.setStartColorTwo(Color.white);
 			toAdd.setEndColorOne(Color.blue);
-			toAdd.setEndColorTwo(Color.cyan);
-			toAdd.setX(i * (Display.getWidth() / count));
-			toAdd.setY(-64);
+			toAdd.setEndColorTwo(Color.blue);
+			toAdd.setX(i * (Display.getWidth() / count) - 768);
+			toAdd.setY(-256);
+			toAdd.setColorCoordinated(false);
 			particles.add(toAdd);
 		}
 		
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < 0; i++) {
 			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(1280 / 2, 720 / 2,
 					textureLoader.getResource(0), 16, 16);
 			toAdd.setSpawnRadius(24.0f);
-			toAdd.setMinScale(.15f);
+			toAdd.setMinScale(.25f);
 			toAdd.setMaxScale(0.725f);
 			toAdd.setxVelDecay(0.99f);
 			toAdd.setyVelDecay(1.0f);
@@ -85,7 +89,7 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 			toAdd.setMaxRotVel(360);
 			toAdd.setMinLifetime(2f);
 			toAdd.setMaxLifetime(6f);
-			toAdd.setMinYVel(-64);
+			toAdd.setMinYVel(-16);
 			toAdd.setMaxYVel(-8);
 			toAdd.setMinXVel(0);
 			toAdd.setMaxXVel(32);
@@ -101,7 +105,7 @@ public class ParticlesTest extends HvlTemplate2DBasic {
 			particles.add(toAdd);
 		}
 		
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < 0; i++) {
 			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(1280 / 2, 720 / 2,
 					textureLoader.getResource(0), 16, 16);
 			toAdd.setSpawnRadius(24.0f);
