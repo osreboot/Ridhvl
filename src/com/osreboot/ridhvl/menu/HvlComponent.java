@@ -6,17 +6,16 @@ import com.osreboot.ridhvl.painter.HvlCursor;
 
 public abstract class HvlComponent {
 	
-	private float x, y, width, height, heightInversion; 
+	private float x, y, width, height; 
 	
 	private boolean enabled, visible;
 	
-	public HvlComponent(float xArg, float yArg, float wArg, float hArg, float heightInversionArg)
+	public HvlComponent(float xArg, float yArg, float wArg, float hArg)
 	{
 		x = xArg;
 		y = yArg;
 		width = wArg;
 		height = hArg;
-		heightInversion = heightInversionArg;
 		visible = true;
 		enabled = true;
 	}
@@ -67,15 +66,6 @@ public abstract class HvlComponent {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-
-	public float getHeightInversion() {
-		return heightInversion;
-	}
-
-	public void setHeightInversion(float heightInversion) {
-		this.heightInversion = heightInversion;
-	}
-
 	
 	public boolean isEnabled() {
 		return enabled;

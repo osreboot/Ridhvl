@@ -23,10 +23,9 @@ public abstract class HvlSlider extends HvlComponent {
 	private boolean isBeingHeld;
 
 	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, SliderDirection dirArg,
-			float handleWidthArg, float handleHeightArg, float value,
-			Texture handleArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg);
+			SliderDirection dirArg, float handleWidthArg,
+			float handleHeightArg, float value, Texture handleArg) {
+		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
@@ -35,10 +34,10 @@ public abstract class HvlSlider extends HvlComponent {
 	}
 
 	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, SliderDirection dirArg,
-			float handleWidthArg, float handleHeightArg, float value,
-			Texture handleUpArg, Texture handleDownArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg);
+			SliderDirection dirArg, float handleWidthArg,
+			float handleHeightArg, float value, Texture handleUpArg,
+			Texture handleDownArg) {
+		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
@@ -48,8 +47,9 @@ public abstract class HvlSlider extends HvlComponent {
 
 	@Override
 	public void update(float delta) {
-		if (!isEnabled()) return;
-		
+		if (!isEnabled())
+			return;
+
 		switch (direction) {
 		case HORIZONTAL: {
 			float minX = getX() + handleStartOffset;
@@ -114,9 +114,9 @@ public abstract class HvlSlider extends HvlComponent {
 			}
 		}
 
-//		if (!Mouse.isButtonDown(0)) {
-			value = snapInterval * Math.round(value / snapInterval);
-//		}
+		// if (!Mouse.isButtonDown(0)) {
+		value = snapInterval * Math.round(value / snapInterval);
+		// }
 
 		value = Math.max(0.0f, Math.min(value, 1.0f));
 	}
@@ -148,7 +148,6 @@ public abstract class HvlSlider extends HvlComponent {
 		}
 	}
 
-	
 	public final Texture getHandleUpTexture() {
 		return handleUpTexture;
 	}

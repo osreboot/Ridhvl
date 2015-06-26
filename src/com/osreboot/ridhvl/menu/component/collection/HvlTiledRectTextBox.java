@@ -14,11 +14,10 @@ public class HvlTiledRectTextBox extends HvlTextBox {
 	private float textScale;
 	private float offsetX, offsetY;
 
-	public HvlTiledRectTextBox(float xArg, float yArg, float wArg,
-			float hArg, float heightInversionArg, String textArg,
-			HvlTiledRect focusedArg,
-			HvlTiledRect unfocusedArg, HvlFontPainter2D fontArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg, textArg);
+	public HvlTiledRectTextBox(float xArg, float yArg, float wArg, float hArg,
+			String textArg, HvlTiledRect focusedArg, HvlTiledRect unfocusedArg,
+			HvlFontPainter2D fontArg) {
+		super(xArg, yArg, wArg, hArg, textArg);
 		focusedRect = focusedArg;
 		unfocusedRect = unfocusedArg;
 		fontPainter = fontArg;
@@ -36,7 +35,7 @@ public class HvlTiledRectTextBox extends HvlTextBox {
 		unfocusedRect.setY(getY());
 		unfocusedRect.setTotalWidth(getWidth());
 		unfocusedRect.setTotalHeight(getHeight());
-		
+
 		if (isFocused())
 			focusedRect.draw();
 		else

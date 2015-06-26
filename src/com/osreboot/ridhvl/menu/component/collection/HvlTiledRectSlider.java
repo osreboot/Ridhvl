@@ -10,23 +10,21 @@ public class HvlTiledRectSlider extends HvlSlider {
 	private HvlTiledRect backgroundRect;
 
 	public HvlTiledRectSlider(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, SliderDirection dirArg,
-			float handleWidthArg, float handleHeightArg, float valueArg,
-			Texture handleArg, HvlTiledRect backgroundArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg, dirArg,
-				handleWidthArg, handleHeightArg, valueArg, handleArg);
+			SliderDirection dirArg, float handleWidthArg,
+			float handleHeightArg, float valueArg, Texture handleArg,
+			HvlTiledRect backgroundArg) {
+		super(xArg, yArg, wArg, hArg, dirArg, handleWidthArg, handleHeightArg,
+				valueArg, handleArg);
 
 		backgroundRect = backgroundArg;
 	}
 
 	public HvlTiledRectSlider(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, SliderDirection dirArg,
-			float handleWidthArg, float handleHeightArg, float valueArg,
-			Texture handleUpArg, Texture handleDownArg,
-			HvlTiledRect backgroundArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg, dirArg,
-				handleWidthArg, handleHeightArg, valueArg, handleUpArg,
-				handleDownArg);
+			SliderDirection dirArg, float handleWidthArg,
+			float handleHeightArg, float valueArg, Texture handleUpArg,
+			Texture handleDownArg, HvlTiledRect backgroundArg) {
+		super(xArg, yArg, wArg, hArg, dirArg, handleWidthArg, handleHeightArg,
+				valueArg, handleUpArg, handleDownArg);
 
 		backgroundRect = backgroundArg;
 	}

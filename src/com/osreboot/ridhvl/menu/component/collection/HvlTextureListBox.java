@@ -34,11 +34,11 @@ public class HvlTextureListBox extends HvlComponent {
 	private Texture background;
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, HvlSlider scrollArg, HvlButton upArg,
-			HvlButton downArg, HvlFontPainter2D fontArg,
-			Texture itemBackgroundOffArg, Texture itemBackgroundOnArg,
-			float itemHeightArg, int maxVisibleItemsArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg);
+			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
+			HvlFontPainter2D fontArg, Texture itemBackgroundOffArg,
+			Texture itemBackgroundOnArg, float itemHeightArg,
+			int maxVisibleItemsArg) {
+		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
 		scrollUpButton = upArg;
 		scrollDownButton = downArg;
@@ -49,8 +49,7 @@ public class HvlTextureListBox extends HvlComponent {
 		itemHeight = itemHeightArg;
 		maxVisibleItems = maxVisibleItemsArg;
 
-		scrollBox = new HvlArrangerBox(0, 0, 0, 0, heightInversionArg,
-				ArrangementStyle.VERTICAL);
+		scrollBox = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
 		scrollBox.addChild(upArg);
 		scrollBox.addChild(scrollArg);
 		scrollBox.addChild(downArg);
@@ -65,12 +64,11 @@ public class HvlTextureListBox extends HvlComponent {
 	}
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, HvlSlider scrollArg, HvlButton upArg,
-			HvlButton downArg, HvlFontPainter2D fontArg,
-			Texture itemBackgroundOffArg, Texture itemBackgroundHoverArg,
-			Texture itemBackgroundOnArg, float itemHeightArg,
-			int maxVisibleItemsArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg);
+			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
+			HvlFontPainter2D fontArg, Texture itemBackgroundOffArg,
+			Texture itemBackgroundHoverArg, Texture itemBackgroundOnArg,
+			float itemHeightArg, int maxVisibleItemsArg) {
+		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
 		scrollUpButton = upArg;
 		scrollDownButton = downArg;
@@ -81,8 +79,7 @@ public class HvlTextureListBox extends HvlComponent {
 		itemHeight = itemHeightArg;
 		maxVisibleItems = maxVisibleItemsArg;
 
-		scrollBox = new HvlArrangerBox(0, 0, 0, 0, heightInversionArg,
-				ArrangementStyle.VERTICAL);
+		scrollBox = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
 		scrollBox.addChild(upArg);
 		scrollBox.addChild(scrollArg);
 		scrollBox.addChild(downArg);

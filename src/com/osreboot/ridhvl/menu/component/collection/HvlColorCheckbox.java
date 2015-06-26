@@ -12,30 +12,41 @@ public class HvlColorCheckbox extends HvlCheckbox {
 	private Color colorOff, colorHoverOff, colorOn, colorHoverOn;
 
 	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorOnArg, Texture tArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+			Color colorOffArg, Color colorOnArg, Texture tArg) {
+		super(xArg, yArg, xlArg, ylArg);
 		colorOff = colorOffArg;
 		colorHoverOff = colorOffArg;
 		colorOn = colorOnArg;
 		colorHoverOn = colorOnArg;
 		texture = tArg;
 	}
-	
+
 	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorOnArg,
+			Color colorOffArg, Color colorOnArg, Texture tArg,
+			boolean checkedArg) {
+		super(xArg, yArg, xlArg, ylArg, checkedArg);
+		colorOff = colorOffArg;
+		colorHoverOff = colorOffArg;
+		colorOn = colorOnArg;
+		colorHoverOn = colorOnArg;
+		texture = tArg;
+	}
+
+	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
+			Color colorOffArg, Color colorHoverArg, Color colorOnArg,
+			Texture tArg) {
+		super(xArg, yArg, xlArg, ylArg);
+		colorOff = colorOffArg;
+		colorHoverOff = colorHoverArg;
+		colorOn = colorOnArg;
+		colorHoverOn = colorHoverArg;
+		texture = tArg;
+	}
+
+	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
+			Color colorOffArg, Color colorHoverArg, Color colorOnArg,
 			Texture tArg, boolean checkedArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg, checkedArg);
-		colorOff = colorOffArg;
-		colorHoverOff = colorOffArg;
-		colorOn = colorOnArg;
-		colorHoverOn = colorOnArg;
-		texture = tArg;
-	}
-	
-	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorHoverArg,
-			Color colorOnArg, Texture tArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+		super(xArg, yArg, xlArg, ylArg, checkedArg);
 		colorOff = colorOffArg;
 		colorHoverOff = colorHoverArg;
 		colorOn = colorOnArg;
@@ -44,20 +55,9 @@ public class HvlColorCheckbox extends HvlCheckbox {
 	}
 
 	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorHoverArg,
-			Color colorOnArg, Texture tArg, boolean checkedArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg, checkedArg);
-		colorOff = colorOffArg;
-		colorHoverOff = colorHoverArg;
-		colorOn = colorOnArg;
-		colorHoverOn = colorHoverArg;
-		texture = tArg;
-	}
-
-	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorHoverOffArg,
-			Color colorOnArg, Color colorHoverOnArg, Texture tArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+			Color colorOffArg, Color colorHoverOffArg, Color colorOnArg,
+			Color colorHoverOnArg, Texture tArg) {
+		super(xArg, yArg, xlArg, ylArg);
 		colorOff = colorOffArg;
 		colorHoverOff = colorHoverOffArg;
 		colorOn = colorOnArg;
@@ -66,9 +66,9 @@ public class HvlColorCheckbox extends HvlCheckbox {
 	}
 
 	public HvlColorCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorHoverOffArg,
-			Color colorOnArg, Color colorHoverOnArg, Texture tArg, boolean checkedArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg, checkedArg);
+			Color colorOffArg, Color colorHoverOffArg, Color colorOnArg,
+			Color colorHoverOnArg, Texture tArg, boolean checkedArg) {
+		super(xArg, yArg, xlArg, ylArg, checkedArg);
 		colorOff = colorOffArg;
 		colorHoverOff = colorHoverOffArg;
 		colorOn = colorOnArg;
@@ -77,25 +77,24 @@ public class HvlColorCheckbox extends HvlCheckbox {
 	}
 
 	@Override
-	public void draw(float delta)
-	{
-		if (getChecked())
-		{
+	public void draw(float delta) {
+		if (getChecked()) {
 			if (isHovering())
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorHoverOn);
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), texture, colorHoverOn);
 			else
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorOn);
-		}
-		else
-		{
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), texture, colorOn);
+		} else {
 			if (isHovering())
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorHoverOff);
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), texture, colorHoverOff);
 			else
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorOff);
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), texture, colorOff);
 		}
 	}
 
-	
 	public Texture getTexture() {
 		return texture;
 	}
@@ -135,6 +134,5 @@ public class HvlColorCheckbox extends HvlCheckbox {
 	public void setColorHoverOn(Color colorHoverOn) {
 		this.colorHoverOn = colorHoverOn;
 	}
-
 
 }

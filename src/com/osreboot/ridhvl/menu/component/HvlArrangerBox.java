@@ -3,7 +3,7 @@ package com.osreboot.ridhvl.menu.component;
 import com.osreboot.ridhvl.menu.HvlComponent;
 
 public class HvlArrangerBox extends HvlPanel {
-	
+
 	public enum ArrangementStyle {
 		VERTICAL, HORIZONTAL
 	}
@@ -14,8 +14,8 @@ public class HvlArrangerBox extends HvlPanel {
 	private float borderL, borderR, borderU, borderD;
 
 	public HvlArrangerBox(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, ArrangementStyle styleArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg);
+			ArrangementStyle styleArg) {
+		super(xArg, yArg, wArg, hArg);
 		style = styleArg;
 		align = 0.0f;
 	}
@@ -29,31 +29,32 @@ public class HvlArrangerBox extends HvlPanel {
 			float previousY = getY();
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
-				
-				comp.setX(getX() + (getWidth() * align) - (comp.getWidth() * align));
-				
+
+				comp.setX(getX() + (getWidth() * align)
+						- (comp.getWidth() * align));
+
 				if (i == 0)
 					comp.setY(previousY + borderU);
 				else
 					comp.setY(previousY + borderU + borderD);
-				
+
 				previousY += borderU + borderD + comp.getHeight();
 			}
 			break;
 		}
 		case HORIZONTAL: {
 			float previousX = getX();
-			for (int i = 0; i < getChildCount(); i++)
-			{
+			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
-				
+
 				if (i == 0)
 					comp.setX(previousX + borderL);
 				else
 					comp.setX(previousX + borderL + borderR);
 				previousX += borderL + borderR + comp.getWidth();
-				
-				comp.setY(getY() + (getHeight() * align) - (comp.getHeight() * align));
+
+				comp.setY(getY() + (getHeight() * align)
+						- (comp.getHeight() * align));
 			}
 			break;
 		}
@@ -95,13 +96,11 @@ public class HvlArrangerBox extends HvlPanel {
 	public float getBorderD() {
 		return borderD;
 	}
-	
 
 	public float getAlign() {
 		return align;
 	}
 
-	
 	public void setAlign(float align) {
 		this.align = align;
 	}

@@ -6,9 +6,8 @@ public abstract class HvlButton extends HvlComponent {
 
 	private boolean previousHover, currentHover, previousClick, currentClick;
 
-	public HvlButton(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+	public HvlButton(float xArg, float yArg, float xlArg, float ylArg) {
+		super(xArg, yArg, xlArg, ylArg);
 	}
 
 	public void onPressing(int buttonArg) {
