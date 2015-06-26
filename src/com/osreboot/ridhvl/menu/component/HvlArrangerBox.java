@@ -26,7 +26,7 @@ public class HvlArrangerBox extends HvlPanel {
 
 		switch (style) {
 		case VERTICAL: {
-			float previousY = 0;
+			float previousY = getY();
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
 				
@@ -42,7 +42,7 @@ public class HvlArrangerBox extends HvlPanel {
 			break;
 		}
 		case HORIZONTAL: {
-			float previousX = 0;
+			float previousX = getX();
 			for (int i = 0; i < getChildCount(); i++)
 			{
 				HvlComponent comp = get(i);

@@ -18,6 +18,7 @@ public abstract class HvlComponent {
 		height = hArg;
 		heightInversion = heightInversionArg;
 		visible = true;
+		enabled = true;
 	}
 	
 	public void update(float delta) {}

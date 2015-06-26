@@ -15,7 +15,7 @@ public abstract class HvlButton extends HvlComponent{
 	public void onTriggered(){}
 	public void draw(float delta){}
 
-	public final void update(float delta){
+	public final void update(float delta){	
 		previousHover = currentHover;
 		previousClick = currentClick;
 		

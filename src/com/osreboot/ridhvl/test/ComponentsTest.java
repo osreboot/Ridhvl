@@ -9,6 +9,7 @@ import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
+import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
@@ -30,7 +31,12 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlButton testButton;
 	private HvlTiledRectTextBox testTextBox;
 	private HvlTextureSlider testSlider;
-	
+	private HvlListBox testListBox;
+
+	public static void main(String[] args) {
+		new ComponentsTest();
+	}
+
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -63,7 +69,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 				System.out.println(state);
 			}
 		};
-		testButton = new HvlTextureButton(64, 64, 128, 128, 720,
+		testButton = new HvlTextureButton(64, 64, 32, 32, 720,
 				textureLoader.getResource(2), textureLoader.getResource(3),
 				textureLoader.getResource(4)) {
 			@Override
@@ -72,33 +78,48 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 			}
 		};
 		testTextBox = new HvlTiledRectTextBox(0, 0, 512, 96, 720, "hey",
-				new HvlTiledRect(textureLoader.getResource(2), 0.125f,
-						0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16),
-				new HvlTiledRect(textureLoader.getResource(4), 0.125f,
-						0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16),
-				fontPainter);
+				new HvlTiledRect(textureLoader.getResource(2), 0.125f, 0.875f,
+						0.125f, 0.875f, 0, 0, 0, 0, 16, 16), new HvlTiledRect(
+						textureLoader.getResource(4), 0.125f, 0.875f, 0.125f,
+						0.875f, 0, 0, 0, 0, 16, 16), fontPainter);
 		testTextBox.setTextScale(0.4f);
 		testTextBox.setMaxCharacters(10);
 		testTextBox.setForceLowercase(true);
 		testTextBox.setOffsetX(12f);
 		testTextBox.setOffsetY(12f);
-		testSlider = new HvlTextureSlider(0, 0, 512, 32, 720,
-				SliderDirection.HORIZONTAL, 16, 16,
-				0.0f, textureLoader.getResource(6), textureLoader.getResource(7), textureLoader.getResource(5));
-		testSlider.setHandleStartOffset(32);
-		testSlider.setHandleEndOffset(32);
-		testSlider.setSnapInterval(0.05f);
-		
-		
-		
+		testSlider = new HvlTextureSlider(0, 0, 32, 512, 720,
+				SliderDirection.VERTICAL, 16, 16, 0.0f,
+				textureLoader.getResource(6), textureLoader.getResource(7),
+				textureLoader.getResource(5));
+		testSlider.setHandleStartOffset(8);
+		testSlider.setHandleEndOffset(8);
+		testSlider.setSnapInterval(0.1f);
+
+		testListBox = new HvlListBox(0, 0, 256, 256, 720, testSlider,
+				new HvlTextureButton(64, 64, 32, 32, 720, textureLoader
+						.getResource(2), textureLoader.getResource(3),
+						textureLoader.getResource(4)), new HvlTextureButton(64,
+						64, 32, 32, 720, textureLoader.getResource(2),
+						textureLoader.getResource(3),
+						textureLoader.getResource(4)), fontPainter,
+				textureLoader.getResource(6), textureLoader.getResource(7), 32,
+				3);
+//		testListBox.addItem("Hey");
+//		testListBox.addItem("Nice to meet you");
+//		testListBox.addItem("Nice to be you");
+//		testListBox.addItem("DERP!");
+//		testListBox.addItem("DERP2!");
+//		testListBox.addItem("DERP3!");
+
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
 				ArrangementStyle.VERTICAL);
 		testArranger.addChild(testLabel);
 		testArranger.addChild(testCheck);
 		testArranger.addChild(testButton);
 		testArranger.addChild(testTextBox);
-		testArranger.addChild(testSlider);
-		testArranger.setAlign(0.0f);
+		// testArranger.addChild(testSlider);
+		testArranger.addChild(testListBox);
+		testArranger.setAlign(0.5f);
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);
