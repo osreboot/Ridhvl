@@ -1,25 +1,24 @@
 package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlButton extends HvlComponent {
 
 	private boolean previousHover, currentHover, previousClick, currentClick;
-	private HvlComponentDrawable off, hover, on;
+	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
 	
 	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
-		off = offArg;
-		hover = offArg;
-		on = onArg;
+		offDrawable = offArg;
+		hoverDrawable = offArg;
+		onDrawable = onArg;
 	}
 	
 	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
-		off = offArg;
-		hover = hoverArg;
-		on = onArg;
+		offDrawable = offArg;
+		hoverDrawable = hoverArg;
+		onDrawable = onArg;
 	}
 
 	public void onPressing(int buttonArg) {
@@ -34,11 +33,11 @@ public class HvlButton extends HvlComponent {
 
 	public void draw(float delta) {
 		if (isBeingPressed(0))
-			on.draw(delta, getX(), getY(), getWidth(), getHeight());
+			onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		else if (isHovering())
-			hover.draw(delta, getX(), getY(), getWidth(), getHeight());
+			hoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		else
-			off.draw(delta, getX(), getY(), getWidth(), getHeight());
+			offDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 	}
 
 	public final void update(float delta) {
@@ -59,5 +58,29 @@ public class HvlButton extends HvlComponent {
 		} else if (currentClick) {
 			onPressing(0);
 		}
+	}
+
+	public HvlComponentDrawable getOffDrawable() {
+		return offDrawable;
+	}
+
+	public void setOffDrawable(HvlComponentDrawable offDrawable) {
+		this.offDrawable = offDrawable;
+	}
+
+	public HvlComponentDrawable getHoverDrawable() {
+		return hoverDrawable;
+	}
+
+	public void setHoverDrawable(HvlComponentDrawable hoverDrawable) {
+		this.hoverDrawable = hoverDrawable;
+	}
+
+	public HvlComponentDrawable getOnDrawable() {
+		return onDrawable;
+	}
+
+	public void setOnDrawable(HvlComponentDrawable onDrawable) {
+		this.onDrawable = onDrawable;
 	}
 }
