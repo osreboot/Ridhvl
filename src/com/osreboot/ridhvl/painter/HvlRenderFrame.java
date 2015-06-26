@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.painter;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import java.nio.ByteBuffer;
 
 import org.lwjgl.opengl.Display;
@@ -14,7 +16,7 @@ public class HvlRenderFrame {
 
 	private static boolean hasPushed = false;
 	
-	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame){
+	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame){//TODO clean this up
 		if(hasPushed){
 			GL11.glPopMatrix();
 			hasPushed = false;
@@ -24,6 +26,7 @@ public class HvlRenderFrame {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}else{
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 		}
