@@ -33,13 +33,13 @@ public class FragmentShaderTest extends HvlTemplateInteg2DBasic{
 
 	@Override
 	public void update(float delta){
-		gradient = gradient < 1280 ? gradient + (delta*1000) : 0;
+		gradient = gradient < 1280 ? gradient + (delta*500) : 0;
 		
 		hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(1));
 		
 		HvlShader.setCurrentShader(shader.getID());
 		hvlRotate((getWidth()/2), (getHeight()/2), gradient/1280f*360f);
-		hvlDrawQuad((getWidth()/2) - 100, (getHeight()/2) - 100, 200, 200, getTextureLoader().getResource(0));
+		hvlDrawQuad((getWidth()/2) - 200, (getHeight()/2) - 200, 400, 400, getTextureLoader().getResource(1));
 		hvlResetRotation();
 		HvlShader.setCurrentShader(0);
 	}
