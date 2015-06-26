@@ -33,6 +33,11 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlTextureSlider testSlider;
 	private HvlTextureListBox testListBox;
 
+	public static void main(String[] args)
+	{
+		new ComponentsTest();
+	}
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -104,6 +109,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 				textureLoader.getResource(7), 32, 5);
 		testListBox.setTextScale(0.25f);
 		testListBox.setAutoSize(true);
+		testListBox.setBackground(textureLoader.getResource(2));
 		testListBox.addItem("hey");
 		testListBox.addItem("nice to meet you");
 		testListBox.addItem("nice to be you");
