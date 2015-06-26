@@ -16,7 +16,6 @@ import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
-import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureSlider;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectTextBox;
@@ -76,9 +75,10 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 				System.out.println(state);
 			}
 		};
-		testButton = new HvlTextureButton(64, 64, 32, 32,
-				textureLoader.getResource(2), textureLoader.getResource(3),
-				textureLoader.getResource(4)) {
+		testButton = new HvlButton(64, 64, 32, 32, new HvlTextureDrawable(
+				textureLoader.getResource(2)), new HvlTextureDrawable(
+				textureLoader.getResource(3)), new HvlTextureDrawable(
+				textureLoader.getResource(4))) {
 			@Override
 			public void onTriggered() {
 				System.out.println("BUTTTTOOONN!");
@@ -102,19 +102,19 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testSlider.setHandleEndOffset(8);
 		testSlider.setSnapInterval(0.1f);
 
-		testListBox = new HvlListBox(0, 0, 512, 256, testSlider,
-				new HvlTextureButton(64, 64, 32, 32,
-						textureLoader.getResource(2),
-						textureLoader.getResource(3),
-						textureLoader.getResource(4)), new HvlTextureButton(64,
-						64, 32, 32, textureLoader.getResource(2),
-						textureLoader.getResource(3),
-						textureLoader.getResource(4)), new HvlFontPainter2D(
-						textureLoader.getResource(1), HvlFontUtil.DEFAULT,
-						2048, 2048, 112, 144, 18), new HvlTextureDrawable(
-						textureLoader.getResource(5)), new HvlTextureDrawable(
-						textureLoader.getResource(6)), new HvlTextureDrawable(
-						textureLoader.getResource(7)), 32, 5);
+		testListBox = new HvlListBox(0, 0, 512, 256, testSlider, new HvlButton(
+				64, 64, 32, 32, new HvlTextureDrawable(
+						textureLoader.getResource(2)), new HvlTextureDrawable(
+						textureLoader.getResource(3)), new HvlTextureDrawable(
+						textureLoader.getResource(4))), new HvlButton(64, 64,
+				32, 32, new HvlTextureDrawable(textureLoader.getResource(2)),
+				new HvlTextureDrawable(textureLoader.getResource(3)),
+				new HvlTextureDrawable(textureLoader.getResource(4))),
+				new HvlFontPainter2D(textureLoader.getResource(1),
+						HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18),
+				new HvlTextureDrawable(textureLoader.getResource(5)),
+				new HvlTextureDrawable(textureLoader.getResource(6)),
+				new HvlTextureDrawable(textureLoader.getResource(7)), 32, 5);
 		testListBox.setTextScale(0.25f);
 		testListBox.setAutoSize(true);
 		testListBox.setBackground(textureLoader.getResource(2));
