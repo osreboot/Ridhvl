@@ -40,6 +40,7 @@ public class HvlTextureListBox extends HvlComponent {
 	private int sizeIntervalsForScroll;
 
 	private HvlRenderFrame renderFrame;
+	private float pX, pY, pWidth, pHeight;
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
 			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
@@ -70,6 +71,10 @@ public class HvlTextureListBox extends HvlComponent {
 		selectedIndex = -1;
 		fullBackground = false;
 		sizeIntervalsForScroll = 10;
+		
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
+				(int) getX(), (int) getY(), (int) getWidth(),
+				(int) getHeight());
 	}
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
@@ -100,6 +105,10 @@ public class HvlTextureListBox extends HvlComponent {
 		textColor = Color.white;
 		selectedIndex = -1;
 		sizeIntervalsForScroll = 10;
+		
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
+				(int) getX(), (int) getY(), (int) getWidth(),
+				(int) getHeight());
 	}
 
 	@Override
@@ -153,10 +162,17 @@ public class HvlTextureListBox extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
-		// TODO This probably isn't a good idea, wait until the screen is
-		// resized to re-instantiate.
-		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
-				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		if (pX != getX() || pY != getY() || pWidth != getWidth()
+				|| pHeight != getHeight()) {
+			renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
+					(int) getX(), (int) getY(), (int) getWidth(),
+					(int) getHeight());
+		}
+
+		pX = getX();
+		pY = getY();
+		pWidth = getWidth();
+		pHeight = getHeight();
 
 		// TODO: an HvlRenderFrame is not required, this can be done through uvs
 		// and altering hvlDrawQuad dimensions (more memory efficient)
