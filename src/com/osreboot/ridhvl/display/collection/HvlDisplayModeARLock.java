@@ -31,12 +31,12 @@ public class HvlDisplayModeARLock extends HvlDisplayMode{
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		HvlRenderFrame.setCurrentRenderFrame(renderFrame.getID());
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 	}
 
 	@Override
 	public void postUpdate(float delta){
-		HvlRenderFrame.setCurrentRenderFrame(0);
+		HvlRenderFrame.setCurrentRenderFrame(null);
 
 		int oldAR = getCoordinateWidth()/getCoordinateHeight();
 		int newAR = Display.getWidth()/Display.getHeight();

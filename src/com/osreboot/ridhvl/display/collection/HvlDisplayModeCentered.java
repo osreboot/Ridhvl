@@ -30,13 +30,13 @@ public class HvlDisplayModeCentered extends HvlDisplayMode{
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		HvlRenderFrame.setCurrentRenderFrame(renderFrame.getID());
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void postUpdate(float delta){
-		HvlRenderFrame.setCurrentRenderFrame(0);
+		HvlRenderFrame.setCurrentRenderFrame(null);
 		
 		HvlPainter2D.hvlDrawQuad((Display.getWidth()/2) - (getCoordinateWidth()/2), (Display.getHeight()/2) + (getCoordinateHeight()/2), getCoordinateWidth(), -getCoordinateHeight(), renderFrame.getTextureID());
 	}

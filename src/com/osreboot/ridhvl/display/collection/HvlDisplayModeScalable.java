@@ -30,13 +30,13 @@ public class HvlDisplayModeScalable extends HvlDisplayMode{
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		HvlRenderFrame.setCurrentRenderFrame(renderFrame.getID());
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void postUpdate(float delta){
-		HvlRenderFrame.setCurrentRenderFrame(0);
+		HvlRenderFrame.setCurrentRenderFrame(null);
 		
 		HvlPainter2D.hvlDrawQuad(0, Display.getHeight(), Display.getWidth(), -Display.getHeight(), renderFrame.getTextureID());
 	}
