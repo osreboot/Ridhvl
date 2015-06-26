@@ -6,15 +6,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
+import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
-import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
@@ -133,7 +132,7 @@ public class HvlTextureListBox extends HvlComponent {
 		scrollBar
 				.setValue(scrollBar.getValue()
 						+ ((-Mouse.getDWheel() / 120)
-								* scrollBar.getSnapInterval() * 10));
+								* scrollBar.getSnapInterval() * sizeIntervalsForScroll));
 
 		scrollBar
 				.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
