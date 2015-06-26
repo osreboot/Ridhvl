@@ -22,7 +22,7 @@ public abstract class HvlDisplayMode {
 	public void preUpdate(float delta){}
 	public void postUpdate(float delta){}
 	
-	protected boolean hasBeenResized(){
+	protected boolean hasBeenResized(){//TODO make this available as a static
 		if(oldWidth != Display.getWidth() || oldHeight != Display.getHeight()){
 			oldWidth = Display.getWidth();
 			oldHeight = Display.getHeight();

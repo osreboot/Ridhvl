@@ -147,9 +147,9 @@ public class HvlTextureListBox extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
-		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());//TODO This probably isn't a good idea, wait until the screen is resized to re-instantiate
 		
-		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame);//TODO a HvlRenderFrame is not required, this can be done through uvs and altering hvlDrawQuad dimensions (more memory efficient)
 		if (background != null)
 			HvlPainter2D.hvlDrawQuad(
 					getX(),
