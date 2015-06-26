@@ -34,7 +34,7 @@ public class HvlListBox extends HvlComponent {
 	private Color textColor;
 	private int selectedIndex;
 	private boolean fullBackground;
-	private Texture background;
+	private HvlComponentDrawable background;
 
 	private int sizeIntervalsForScroll;
 
@@ -185,11 +185,7 @@ public class HvlListBox extends HvlComponent {
 		// and altering hvlDrawQuad dimensions (more memory efficient)
 		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 		if (background != null)
-			HvlPainter2D.hvlDrawQuad(
-					getX(),
-					getY(),
-					fullBackground ? getWidth() : getWidth()
-							- scrollBox.getWidth(), getHeight(), background);
+			background.draw(delta, getX(), getY(), fullBackground ? getWidth() : getWidth() - scrollBox.getWidth(), getHeight());
 
 		scrollBox.draw(delta);
 
@@ -355,11 +351,11 @@ public class HvlListBox extends HvlComponent {
 		this.fullBackground = fullBackground;
 	}
 
-	public Texture getBackground() {
+	public HvlComponentDrawable getBackground() {
 		return background;
 	}
 
-	public void setBackground(Texture background) {
+	public void setBackground(HvlComponentDrawable background) {
 		this.background = background;
 	}
 

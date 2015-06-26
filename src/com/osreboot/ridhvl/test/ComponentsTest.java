@@ -120,7 +120,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 				new HvlTextureDrawable(textureLoader.getResource(7)), 32, 5);
 		testListBox.setTextScale(0.25f);
 		testListBox.setAutoSize(true);
-		testListBox.setBackground(textureLoader.getResource(2));
+		testListBox.setBackground(new HvlTextureDrawable(textureLoader.getResource(2)));
 		testListBox.setFullBackground(true);
 		testListBox.addItem("hey");
 		testListBox.addItem("nice to meet you");
