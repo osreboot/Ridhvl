@@ -1,9 +1,5 @@
-attribute vec4 position;
-attribute vec4 color;
-
-varying vec4 pcolor;
 
 void main(){
 	gl_Position = gl_ModelViewProjectionMatrix*gl_Vertex;
-	pcolor = color;
+	gl_TexCoord[0] = gl_MultiTexCoord0;
 }
