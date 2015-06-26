@@ -100,7 +100,7 @@ public class HvlTextureListBox extends HvlComponent {
 		scrollDownButton.setEnabled(!scrollBar.isBeingHeld());
 
 		scrollBar.setEnabled(items.size() > maxVisibleItems);
-		if (items.size() == 0) {
+		if (items.size() - maxVisibleItems <= 0) {
 			scrollBar.setSnapInterval(0.0f);
 		} else {
 			scrollBar.setSnapInterval(1.0f / (items.size() - maxVisibleItems));
@@ -110,17 +110,18 @@ public class HvlTextureListBox extends HvlComponent {
 		scrollBox.update(delta);
 
 		if (scrollUpButton.isTriggered())
-			scrollBar.setValue(scrollBar.getValue()
-					- scrollBar.getSnapInterval());
+			scrollBar.setValue(Math.max(scrollBar.getValue()
+					- scrollBar.getSnapInterval(), 0.0f));
 		if (scrollDownButton.isTriggered())
-			scrollBar.setValue(scrollBar.getValue()
-					+ scrollBar.getSnapInterval());
+			scrollBar.setValue(Math.min(scrollBar.getValue()
+					+ scrollBar.getSnapInterval(), 1.0f));
 		scrollBar.setValue(scrollBar.getValue() + ((-Mouse.getDWheel() / 120) * scrollBar.getSnapInterval()));
 		
 		scrollBar
 				.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
-
+		
 		int topItem = (int) (scrollBar.getValue() * (items.size() - maxVisibleItems));
+		System.out.println(scrollBar.getSnapInterval());
 		for (int i = topItem; i < Math.min(items.size(), topItem
 				+ maxVisibleItems); i++) {
 			if (Mouse.isButtonDown(0)

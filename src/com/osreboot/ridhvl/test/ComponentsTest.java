@@ -33,10 +33,6 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlTextureSlider testSlider;
 	private HvlTextureListBox testListBox;
 
-	public static void main(String[] args) {
-		new ComponentsTest();
-	}
-
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
