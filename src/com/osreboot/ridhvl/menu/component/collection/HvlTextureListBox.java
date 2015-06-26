@@ -37,7 +37,9 @@ public class HvlTextureListBox extends HvlComponent {
 	private int selectedIndex;
 	private boolean fullBackground;
 	private Texture background;
-	
+
+	private int sizeIntervalsForScroll;
+
 	private HvlRenderFrame renderFrame;
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
@@ -68,6 +70,7 @@ public class HvlTextureListBox extends HvlComponent {
 		textColor = Color.white;
 		selectedIndex = -1;
 		fullBackground = false;
+		sizeIntervalsForScroll = 10;
 	}
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
@@ -97,6 +100,7 @@ public class HvlTextureListBox extends HvlComponent {
 		textScale = 1.0f;
 		textColor = Color.white;
 		selectedIndex = -1;
+		sizeIntervalsForScroll = 10;
 	}
 
 	@Override
@@ -111,7 +115,8 @@ public class HvlTextureListBox extends HvlComponent {
 		if (items.size() - maxVisibleItems <= 0) {
 			scrollBar.setSnapInterval(0.0f);
 		} else {
-			scrollBar.setSnapInterval(1.0f / (items.size() - maxVisibleItems));
+			scrollBar.setSnapInterval((1.0f / sizeIntervalsForScroll)
+					/ (items.size() - maxVisibleItems));
 		}
 
 		layoutUpdate();
@@ -119,19 +124,22 @@ public class HvlTextureListBox extends HvlComponent {
 
 		if (scrollUpButton.isTriggered())
 			scrollBar.setValue(Math.max(
-					scrollBar.getValue() - scrollBar.getSnapInterval(), 0.0f));
+					scrollBar.getValue() - scrollBar.getSnapInterval()
+							* sizeIntervalsForScroll, 0.0f));
 		if (scrollDownButton.isTriggered())
 			scrollBar.setValue(Math.min(
-					scrollBar.getValue() + scrollBar.getSnapInterval(), 1.0f));
-		scrollBar.setValue(scrollBar.getValue()
-				+ ((-Mouse.getDWheel() / 120) * scrollBar.getSnapInterval()));
+					scrollBar.getValue() + scrollBar.getSnapInterval()
+							* sizeIntervalsForScroll, 1.0f));
+		scrollBar
+				.setValue(scrollBar.getValue()
+						+ ((-Mouse.getDWheel() / 120)
+								* scrollBar.getSnapInterval() * 10));
 
 		scrollBar
 				.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
 
-		int topItem = (int) (scrollBar.getValue() * (items.size() - maxVisibleItems));
-		for (int i = topItem; i < Math.min(items.size(), topItem
-				+ maxVisibleItems); i++) {
+		float topItem = (scrollBar.getValue() * (items.size() - maxVisibleItems));
+		for (int i = 0; i < Math.min(items.size(), topItem + maxVisibleItems); i++) {
 			if (Mouse.isButtonDown(0)
 					&& HvlCursor.getCursorX() > getX()
 					&& HvlCursor.getCursorX() < getX() + getWidth()
@@ -139,17 +147,21 @@ public class HvlTextureListBox extends HvlComponent {
 					&& HvlCursor.getCursorY() > getY()
 							+ ((i - topItem) * itemHeight)
 					&& HvlCursor.getCursorY() < getY()
-							+ (((i + 1) - topItem) * itemHeight)) {
+							+ (((i + 1) - topItem) * itemHeight))
 				selectedIndex = i;
-			}
 		}
 	}
 
 	@Override
 	public void draw(float delta) {
-		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());//TODO This probably isn't a good idea, wait until the screen is resized to re-instantiate
-		
-		HvlRenderFrame.setCurrentRenderFrame(renderFrame);//TODO a HvlRenderFrame is not required, this can be done through uvs and altering hvlDrawQuad dimensions (more memory efficient)
+		// TODO This probably isn't a good idea, wait until the screen is
+		// resized to re-instantiate.
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
+				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+
+		// TODO: an HvlRenderFrame is not required, this can be done through uvs
+		// and altering hvlDrawQuad dimensions (more memory efficient)
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 		if (background != null)
 			HvlPainter2D.hvlDrawQuad(
 					getX(),
@@ -158,10 +170,9 @@ public class HvlTextureListBox extends HvlComponent {
 							- scrollBox.getWidth(), getHeight(), background);
 
 		scrollBox.draw(delta);
-		
-		int topItem = (int) (scrollBar.getValue() * (items.size() - maxVisibleItems));
-		for (int i = topItem; i < Math.min(items.size(), topItem
-				+ maxVisibleItems); i++) {
+
+		float topItem = (scrollBar.getValue() * (items.size() - maxVisibleItems));
+		for (int i = 0; i < Math.min(items.size(), topItem + maxVisibleItems); i++) {
 			if (i == selectedIndex)
 				HvlPainter2D.hvlDrawQuad(getX(), getY()
 						+ ((i - topItem) * itemHeight),
@@ -186,10 +197,12 @@ public class HvlTextureListBox extends HvlComponent {
 			font.hvlDrawWord(items.get(i).toString(), getX(), getY()
 					+ ((i - topItem) * itemHeight), textScale, textColor);
 		}
-		HvlPainter2D.hvlDrawQuad(0f, 0f, 0f, 0f, itemBackgroundOff, Color.transparent);//WHY DO I NEED TO DO THIS???
+		HvlPainter2D.hvlDrawQuad(0f, 0f, 0f, 0f, itemBackgroundOff,
+				Color.transparent);// TODO: WHY DO I NEED TO DO THIS???
 		HvlRenderFrame.setCurrentRenderFrame(null);
-		
-		hvlDrawQuad(getX(), getY() + getHeight(), getWidth(), -getHeight(), renderFrame.getTextureID());
+
+		hvlDrawQuad(getX(), getY() + getHeight(), getWidth(), -getHeight(),
+				renderFrame.getTextureID());
 	}
 
 	private void layoutUpdate() {
@@ -329,6 +342,14 @@ public class HvlTextureListBox extends HvlComponent {
 
 	public void setBackground(Texture background) {
 		this.background = background;
+	}
+
+	public int getSizeIntervalsForScroll() {
+		return sizeIntervalsForScroll;
+	}
+
+	public void setSizeIntervalsForScroll(int sizeIntervalsForScroll) {
+		this.sizeIntervalsForScroll = sizeIntervalsForScroll;
 	}
 
 	public Object getSelectedItem() {
