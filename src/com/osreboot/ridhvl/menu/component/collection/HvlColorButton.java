@@ -10,37 +10,39 @@ public class HvlColorButton extends HvlButton {
 
 	private Color colorOff, colorHover, colorOn;
 	private Texture texture;
-	
+
 	public HvlColorButton(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorOnArg, Texture tArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+			Color colorOffArg, Color colorOnArg, Texture tArg) {
+		super(xArg, yArg, xlArg, ylArg);
 		colorOff = colorOffArg;
 		colorHover = colorOffArg;
 		colorOn = colorOnArg;
 		texture = tArg;
 	}
-	
+
 	public HvlColorButton(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Color colorOffArg, Color colorHoverArg, Color colorOnArg, Texture tArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+			Color colorOffArg, Color colorHoverArg, Color colorOnArg,
+			Texture tArg) {
+		super(xArg, yArg, xlArg, ylArg);
 		colorOff = colorOffArg;
 		colorHover = colorHoverArg;
 		colorOn = colorOnArg;
 		texture = tArg;
 	}
-	
+
 	@Override
-	public void draw(float delta)
-	{
+	public void draw(float delta) {
 		if (isBeingPressed(0))
-			HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorOn);
+			HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
+					texture, colorOn);
 		else if (isHovering())
-			HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorHover);
+			HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
+					texture, colorHover);
 		else
-			HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, colorOff);
+			HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
+					texture, colorOff);
 	}
 
-	
 	public Color getColorOff() {
 		return colorOff;
 	}
@@ -73,5 +75,4 @@ public class HvlColorButton extends HvlButton {
 		this.texture = texture;
 	}
 
-	
 }

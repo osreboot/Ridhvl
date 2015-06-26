@@ -8,28 +8,28 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 public class HvlTextureCheckbox extends HvlCheckbox {
 
 	private Texture textureOff, textureOffHover, textureOn, textureOnHover;
-	
+
 	public HvlTextureCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Texture offArg, Texture onArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+			Texture offArg, Texture onArg) {
+		super(xArg, yArg, xlArg, ylArg);
 		textureOff = offArg;
 		textureOffHover = offArg;
 		textureOn = onArg;
 		textureOnHover = onArg;
 	}
-	
+
 	public HvlTextureCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Texture offArg, Texture onArg, boolean checkedArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg, checkedArg);
+			Texture offArg, Texture onArg, boolean checkedArg) {
+		super(xArg, yArg, xlArg, ylArg, checkedArg);
 		textureOff = offArg;
 		textureOffHover = offArg;
 		textureOn = onArg;
 		textureOnHover = onArg;
 	}
-	
+
 	public HvlTextureCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Texture offArg, Texture hoverArg, Texture onArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+			Texture offArg, Texture hoverArg, Texture onArg) {
+		super(xArg, yArg, xlArg, ylArg);
 		textureOff = offArg;
 		textureOffHover = hoverArg;
 		textureOn = onArg;
@@ -37,50 +37,50 @@ public class HvlTextureCheckbox extends HvlCheckbox {
 	}
 
 	public HvlTextureCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Texture offArg, Texture hoverArg, Texture onArg, boolean checkedArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg, checkedArg);
+			Texture offArg, Texture hoverArg, Texture onArg, boolean checkedArg) {
+		super(xArg, yArg, xlArg, ylArg, checkedArg);
 		textureOff = offArg;
 		textureOffHover = hoverArg;
 		textureOn = onArg;
 		textureOnHover = hoverArg;
 	}
-	
+
 	public HvlTextureCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Texture offArg, Texture offHoverArg, Texture onArg,
+			Texture offArg, Texture offHoverArg, Texture onArg,
 			Texture onHoverArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+		super(xArg, yArg, xlArg, ylArg);
 		textureOff = offArg;
 		textureOffHover = offHoverArg;
 		textureOn = onArg;
 		textureOnHover = onHoverArg;
 	}
-	
+
 	public HvlTextureCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			float inversionHeightArg, Texture offArg, Texture offHoverArg, Texture onArg,
+			Texture offArg, Texture offHoverArg, Texture onArg,
 			Texture onHoverArg, boolean checkedArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg, checkedArg);
+		super(xArg, yArg, xlArg, ylArg, checkedArg);
 		textureOff = offArg;
 		textureOffHover = offHoverArg;
 		textureOn = onArg;
 		textureOnHover = onHoverArg;
 	}
-	
+
 	@Override
-	public void draw(float delta)
-	{
-		if (getChecked())
-		{
+	public void draw(float delta) {
+		if (getChecked()) {
 			if (isHovering())
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureOnHover);
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), textureOnHover);
 			else
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureOn);
-		}
-		else
-		{
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), textureOn);
+		} else {
 			if (isHovering())
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureOffHover);
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), textureOffHover);
 			else
-				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), textureOff);
+				HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+						getHeight(), textureOff);
 		}
 	}
 

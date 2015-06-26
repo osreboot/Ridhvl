@@ -16,9 +16,9 @@ public class HvlTextureTextBox extends HvlTextBox {
 	private float offsetX, offsetY;
 
 	public HvlTextureTextBox(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, String textArg, Texture focusedArg,
-			Texture unfocusedArg, HvlFontPainter2D fontArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg, textArg);
+			String textArg, Texture focusedArg, Texture unfocusedArg,
+			HvlFontPainter2D fontArg) {
+		super(xArg, yArg, wArg, hArg, textArg);
 		focusedTexture = focusedArg;
 		unfocusedTexture = unfocusedArg;
 		fontPainter = fontArg;

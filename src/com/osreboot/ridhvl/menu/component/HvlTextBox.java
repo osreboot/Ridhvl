@@ -17,8 +17,8 @@ public abstract class HvlTextBox extends HvlComponent {
 	private String blacklistCharacters;
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg, String textArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg);
+			String textArg) {
+		super(xArg, yArg, wArg, hArg);
 		text = textArg;
 		isFocused = false;
 		maxCharacters = -1;
@@ -26,12 +26,11 @@ public abstract class HvlTextBox extends HvlComponent {
 
 	@Override
 	public void update(float delta) {
-		if(!isEnabled())
-		{
+		if (!isEnabled()) {
 			isFocused = false;
 			return;
 		}
-		
+
 		if (Mouse.isButtonDown(0)) {
 			isFocused = isBeingPressed(0);
 		}

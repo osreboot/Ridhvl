@@ -7,20 +7,18 @@ public class HvlTiledRectButton extends HvlButton {
 
 	private HvlTiledRect rectOff, rectHover, rectOn;
 
-	public HvlTiledRectButton(float xArg, float yArg, float xlArg,
-			float ylArg, float inversionHeightArg,
+	public HvlTiledRectButton(float xArg, float yArg, float xlArg, float ylArg,
 			HvlTiledRect rectOffArg, HvlTiledRect rectOnArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+		super(xArg, yArg, xlArg, ylArg);
 		rectOff = rectOffArg;
 		rectHover = rectOffArg;
 		rectOn = rectOnArg;
 	}
 
-	public HvlTiledRectButton(float xArg, float yArg, float xlArg,
-			float ylArg, float inversionHeightArg,
+	public HvlTiledRectButton(float xArg, float yArg, float xlArg, float ylArg,
 			HvlTiledRect rectOffArg, HvlTiledRect rectHoverArg,
 			HvlTiledRect rectOnArg) {
-		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
+		super(xArg, yArg, xlArg, ylArg);
 		rectOff = rectOffArg;
 		rectHover = rectHoverArg;
 		rectOn = rectOnArg;
@@ -40,7 +38,7 @@ public class HvlTiledRectButton extends HvlButton {
 		rectOn.setTotalHeight(getHeight());
 		rectOn.setX(getX());
 		rectOn.setY(getY());
-		
+
 		if (isBeingPressed(0))
 			rectOn.draw();
 		else if (isHovering())

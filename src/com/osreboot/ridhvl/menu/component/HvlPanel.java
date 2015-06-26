@@ -9,9 +9,8 @@ public class HvlPanel extends HvlComponent {
 
 	private List<HvlComponent> children;
 
-	public HvlPanel(float xArg, float yArg, float wArg, float hArg,
-			float heightInversionArg) {
-		super(xArg, yArg, wArg, hArg, heightInversionArg);
+	public HvlPanel(float xArg, float yArg, float wArg, float hArg) {
+		super(xArg, yArg, wArg, hArg);
 		children = new LinkedList<>();
 	}
 
