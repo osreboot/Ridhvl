@@ -41,6 +41,7 @@ public class HvlTextureListBox extends HvlComponent {
 
 	private HvlRenderFrame renderFrame;
 	private float pX, pY, pWidth, pHeight;
+	private boolean isFocused;
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
 			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
@@ -71,10 +72,9 @@ public class HvlTextureListBox extends HvlComponent {
 		selectedIndex = -1;
 		fullBackground = false;
 		sizeIntervalsForScroll = 10;
-		
+
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
-				(int) getX(), (int) getY(), (int) getWidth(),
-				(int) getHeight());
+				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
@@ -105,16 +105,20 @@ public class HvlTextureListBox extends HvlComponent {
 		textColor = Color.white;
 		selectedIndex = -1;
 		sizeIntervalsForScroll = 10;
-		
+
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
-				(int) getX(), (int) getY(), (int) getWidth(),
-				(int) getHeight());
+				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
 	@Override
 	public void update(float delta) {
 		if (autoSize)
 			setHeight(itemHeight * maxVisibleItems);
+
+		if (this.isBeingPressed(0))
+			isFocused = true;
+		else if (Mouse.isButtonDown(0))
+			isFocused = false;
 
 		scrollUpButton.setEnabled(!scrollBar.isBeingHeld());
 		scrollDownButton.setEnabled(!scrollBar.isBeingHeld());
@@ -138,10 +142,11 @@ public class HvlTextureListBox extends HvlComponent {
 			scrollBar.setValue(Math.min(
 					scrollBar.getValue() + scrollBar.getSnapInterval()
 							* sizeIntervalsForScroll, 1.0f));
-		scrollBar
-				.setValue(scrollBar.getValue()
-						+ ((-Mouse.getDWheel() / 120)
-								* scrollBar.getSnapInterval() * sizeIntervalsForScroll));
+		if (isFocused)
+			scrollBar
+					.setValue(scrollBar.getValue()
+							+ ((-Mouse.getDWheel() / 120)
+									* scrollBar.getSnapInterval() * sizeIntervalsForScroll));
 
 		scrollBar
 				.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));

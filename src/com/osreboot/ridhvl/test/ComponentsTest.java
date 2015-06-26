@@ -1,6 +1,7 @@
 package com.osreboot.ridhvl.test;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
@@ -32,7 +33,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlTiledRectTextBox testTextBox;
 	private HvlTextureSlider testSlider;
 	private HvlTextureListBox testListBox;
-
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
@@ -133,6 +134,8 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 
 	@Override
 	public void update(float delta) {
+		testArranger.setWidth(Display.getWidth());
+		testArranger.setHeight(Display.getHeight());
 		HvlMenu.updateMenus(delta);
 	}
 
