@@ -3,7 +3,6 @@ package com.osreboot.ridhvl.menu.component.collection;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.component.HvlSlider;
-import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 
 public class HvlTiledRectSlider extends HvlSlider {

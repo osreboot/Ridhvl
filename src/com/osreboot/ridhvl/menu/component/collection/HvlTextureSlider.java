@@ -4,7 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.component.HvlSlider;
-import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlTextureSlider extends HvlSlider {
