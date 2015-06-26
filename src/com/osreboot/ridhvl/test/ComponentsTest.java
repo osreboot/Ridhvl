@@ -9,12 +9,12 @@ import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
-import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.collection.HvlColorCheckbox;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextureListBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureSlider;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
@@ -31,7 +31,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlButton testButton;
 	private HvlTiledRectTextBox testTextBox;
 	private HvlTextureSlider testSlider;
-	private HvlListBox testListBox;
+	private HvlTextureListBox testListBox;
 
 	public static void main(String[] args) {
 		new ComponentsTest();
@@ -95,21 +95,25 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testSlider.setHandleEndOffset(8);
 		testSlider.setSnapInterval(0.1f);
 
-		testListBox = new HvlListBox(0, 0, 256, 256, 720, testSlider,
+		testListBox = new HvlTextureListBox(0, 0, 512, 256, 720, testSlider,
 				new HvlTextureButton(64, 64, 32, 32, 720, textureLoader
 						.getResource(2), textureLoader.getResource(3),
 						textureLoader.getResource(4)), new HvlTextureButton(64,
 						64, 32, 32, 720, textureLoader.getResource(2),
 						textureLoader.getResource(3),
-						textureLoader.getResource(4)), fontPainter,
-				textureLoader.getResource(6), textureLoader.getResource(7), 32,
-				3);
-//		testListBox.addItem("Hey");
-//		testListBox.addItem("Nice to meet you");
-//		testListBox.addItem("Nice to be you");
-//		testListBox.addItem("DERP!");
-//		testListBox.addItem("DERP2!");
-//		testListBox.addItem("DERP3!");
+						textureLoader.getResource(4)), new HvlFontPainter2D(
+						textureLoader.getResource(1), HvlFontUtil.DEFAULT,
+						2048, 2048, 112, 144, 18),
+				textureLoader.getResource(5), textureLoader.getResource(6),
+				textureLoader.getResource(7), 32, 5);
+		testListBox.setTextScale(0.25f);
+		testListBox.setAutoSize(true);
+		testListBox.addItem("hey");
+		testListBox.addItem("nice to meet you");
+		testListBox.addItem("nice to be you");
+		testListBox.addItem("derp!");
+		testListBox.addItem("derp2!");
+		testListBox.addItem("derp3!");
 
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
 				ArrangementStyle.VERTICAL);
