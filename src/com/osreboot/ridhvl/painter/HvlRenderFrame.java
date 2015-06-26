@@ -12,13 +12,19 @@ public class HvlRenderFrame {
 		DEFAULT
 	}
 
+	private static boolean hasPushed = false;
+	
 	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame){
+		if(hasPushed){
+			GL11.glPopMatrix();
+			hasPushed = false;
+		}
 		if(renderFrame != null){
+			hasPushed = true;
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
 		}else{
-			GL11.glPopMatrix();
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 		}
 	}

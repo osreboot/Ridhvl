@@ -1,9 +1,12 @@
 package com.osreboot.ridhvl.menu.component.collection;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+
 import java.util.LinkedList;
 import java.util.List;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -13,6 +16,8 @@ import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.painter.HvlCursor;
+import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
@@ -32,6 +37,8 @@ public class HvlTextureListBox extends HvlComponent {
 	private int selectedIndex;
 	private boolean fullBackground;
 	private Texture background;
+	
+	private HvlRenderFrame renderFrame;
 
 	public HvlTextureListBox(float xArg, float yArg, float wArg, float hArg,
 			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
@@ -140,6 +147,9 @@ public class HvlTextureListBox extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
+		
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 		if (background != null)
 			HvlPainter2D.hvlDrawQuad(
 					getX(),
@@ -148,7 +158,7 @@ public class HvlTextureListBox extends HvlComponent {
 							- scrollBox.getWidth(), getHeight(), background);
 
 		scrollBox.draw(delta);
-
+		
 		int topItem = (int) (scrollBar.getValue() * (items.size() - maxVisibleItems));
 		for (int i = topItem; i < Math.min(items.size(), topItem
 				+ maxVisibleItems); i++) {
@@ -176,6 +186,10 @@ public class HvlTextureListBox extends HvlComponent {
 			font.hvlDrawWord(items.get(i).toString(), getX(), getY()
 					+ ((i - topItem) * itemHeight), textScale, textColor);
 		}
+		HvlPainter2D.hvlDrawQuad(0f, 0f, 0f, 0f, itemBackgroundOff, Color.transparent);//WHY DO I NEED TO DO THIS???
+		HvlRenderFrame.setCurrentRenderFrame(null);
+		
+		hvlDrawQuad(getX(), getY() + getHeight(), getWidth(), -getHeight(), renderFrame.getTextureID());
 	}
 
 	private void layoutUpdate() {
