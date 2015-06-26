@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
-import org.lwjgl.opengl.GL20;
 
 public class HvlShaderCombined {
 

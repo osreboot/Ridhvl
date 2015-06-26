@@ -23,3 +23,6 @@
  //TODO abbreviations
 
 - Misc. -
+
+- Terminology -
+"Component": A menu item capable of aligning to layouts.
