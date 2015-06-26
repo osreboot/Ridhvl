@@ -9,15 +9,15 @@ import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
+import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
-import com.osreboot.ridhvl.menu.component.HvlTextureSlider;
-import com.osreboot.ridhvl.menu.component.HvlTextureSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.collection.HvlColorCheckbox;
-import com.osreboot.ridhvl.menu.component.collection.HvlExpandableRectTextBox;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextureSlider;
+import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
-import com.osreboot.ridhvl.painter.painter2d.HvlExpandingRectangle;
+import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
@@ -28,13 +28,9 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlLabel testLabel;
 	private HvlCheckbox testCheck;
 	private HvlButton testButton;
-	private HvlExpandableRectTextBox testTextBox;
+	private HvlTiledRectTextBox testTextBox;
 	private HvlTextureSlider testSlider;
-
-	public static void main(String[] args) {
-		new ComponentsTest();
-	}
-
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -75,10 +71,10 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 				System.out.println("BUTTTTOOONN!");
 			}
 		};
-		testTextBox = new HvlExpandableRectTextBox(0, 0, 512, 96, 720, "hey",
-				new HvlExpandingRectangle(textureLoader.getResource(2), 0.125f,
+		testTextBox = new HvlTiledRectTextBox(0, 0, 512, 96, 720, "hey",
+				new HvlTiledRect(textureLoader.getResource(2), 0.125f,
 						0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16),
-				new HvlExpandingRectangle(textureLoader.getResource(4), 0.125f,
+				new HvlTiledRect(textureLoader.getResource(4), 0.125f,
 						0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16),
 				fontPainter);
 		testTextBox.setTextScale(0.4f);
@@ -87,8 +83,8 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testTextBox.setOffsetX(12f);
 		testTextBox.setOffsetY(12f);
 		testSlider = new HvlTextureSlider(0, 0, 512, 32, 720,
-				textureLoader.getResource(5), textureLoader.getResource(6), textureLoader.getResource(7),
-				SliderDirection.HORIZONTAL, 16, 16, 0.0f);
+				SliderDirection.HORIZONTAL, 16, 16,
+				0.0f, textureLoader.getResource(6), textureLoader.getResource(7), textureLoader.getResource(5));
 		testSlider.setHandleStartOffset(32);
 		testSlider.setHandleEndOffset(32);
 		testSlider.setSnapInterval(0.05f);
@@ -97,11 +93,11 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
 				ArrangementStyle.VERTICAL);
-		testArranger.add(testLabel);
-		testArranger.add(testCheck);
-		testArranger.add(testButton);
-		testArranger.add(testTextBox);
-		testArranger.add(testSlider);
+		testArranger.addChild(testLabel);
+		testArranger.addChild(testCheck);
+		testArranger.addChild(testButton);
+		testArranger.addChild(testTextBox);
+		testArranger.addChild(testSlider);
 		testArranger.setAlign(0.0f);
 		testMenu.add(testArranger);
 

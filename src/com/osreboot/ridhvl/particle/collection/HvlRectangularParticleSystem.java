@@ -10,6 +10,7 @@ import com.osreboot.ridhvl.HvlColorUtil;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
+import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
 
 public class HvlRectangularParticleSystem extends HvlParticleSystem {
 
@@ -90,10 +91,15 @@ public class HvlRectangularParticleSystem extends HvlParticleSystem {
 		Texture particleTexture = particleTextures.get(HvlMath
 				.randomIntBetween(0, particleTextures.size()));
 
-		return createParticleFromSpecs(spawnX, spawnY, xVel, yVel, xVelDecay,
+		HvlParticle p = createParticleFromSpecs(spawnX, spawnY, xVel, yVel, xVelDecay,
 				yVelDecay, rot, rotVel, rotVelDecay, baseWidth, baseHeight,
 				scale, scaleDecay, lifetime, startColor, endColor,
 				particleTexture);
+		for (HvlParticleCorrelator corr : correlators)
+		{
+			corr.correlate(p, this);
+		}
+		return p;
 	}
 
 	public HvlParticle createParticleFromSpecs(float xArg, float yArg,

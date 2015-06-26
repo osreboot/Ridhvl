@@ -3,21 +3,21 @@ package com.osreboot.ridhvl.menu.component.collection;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
-import com.osreboot.ridhvl.painter.painter2d.HvlExpandingRectangle;
+import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
-public class HvlExpandableRectTextBox extends HvlTextBox {
+public class HvlTiledRectTextBox extends HvlTextBox {
 
-	private HvlExpandingRectangle focusedRect, unfocusedRect;
+	private HvlTiledRect focusedRect, unfocusedRect;
 	private HvlFontPainter2D fontPainter;
 	private Color textColor;
 	private float textScale;
 	private float offsetX, offsetY;
 
-	public HvlExpandableRectTextBox(float xArg, float yArg, float wArg,
+	public HvlTiledRectTextBox(float xArg, float yArg, float wArg,
 			float hArg, float heightInversionArg, String textArg,
-			HvlExpandingRectangle focusedArg,
-			HvlExpandingRectangle unfocusedArg, HvlFontPainter2D fontArg) {
+			HvlTiledRect focusedArg,
+			HvlTiledRect unfocusedArg, HvlFontPainter2D fontArg) {
 		super(xArg, yArg, wArg, hArg, heightInversionArg, textArg);
 		focusedRect = focusedArg;
 		unfocusedRect = unfocusedArg;
@@ -45,19 +45,19 @@ public class HvlExpandableRectTextBox extends HvlTextBox {
 				textScale, textColor);
 	}
 
-	public HvlExpandingRectangle getFocusedRect() {
+	public HvlTiledRect getFocusedRect() {
 		return focusedRect;
 	}
 
-	public void setFocusedRect(HvlExpandingRectangle focusedRect) {
+	public void setFocusedRect(HvlTiledRect focusedRect) {
 		this.focusedRect = focusedRect;
 	}
 
-	public HvlExpandingRectangle getUnfocusedRect() {
+	public HvlTiledRect getUnfocusedRect() {
 		return unfocusedRect;
 	}
 
-	public void setUnfocusedRect(HvlExpandingRectangle unfocusedRect) {
+	public void setUnfocusedRect(HvlTiledRect unfocusedRect) {
 		this.unfocusedRect = unfocusedRect;
 	}
 

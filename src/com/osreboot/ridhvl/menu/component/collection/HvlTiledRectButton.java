@@ -1,25 +1,25 @@
 package com.osreboot.ridhvl.menu.component.collection;
 
 import com.osreboot.ridhvl.menu.component.HvlButton;
-import com.osreboot.ridhvl.painter.painter2d.HvlExpandingRectangle;
+import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 
-public class HvlExpandableRectButton extends HvlButton {
+public class HvlTiledRectButton extends HvlButton {
 
-	private HvlExpandingRectangle rectOff, rectHover, rectOn;
+	private HvlTiledRect rectOff, rectHover, rectOn;
 
-	public HvlExpandableRectButton(float xArg, float yArg, float xlArg,
+	public HvlTiledRectButton(float xArg, float yArg, float xlArg,
 			float ylArg, float inversionHeightArg,
-			HvlExpandingRectangle rectOffArg, HvlExpandingRectangle rectOnArg) {
+			HvlTiledRect rectOffArg, HvlTiledRect rectOnArg) {
 		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
 		rectOff = rectOffArg;
 		rectHover = rectOffArg;
 		rectOn = rectOnArg;
 	}
 
-	public HvlExpandableRectButton(float xArg, float yArg, float xlArg,
+	public HvlTiledRectButton(float xArg, float yArg, float xlArg,
 			float ylArg, float inversionHeightArg,
-			HvlExpandingRectangle rectOffArg, HvlExpandingRectangle rectHoverArg,
-			HvlExpandingRectangle rectOnArg) {
+			HvlTiledRect rectOffArg, HvlTiledRect rectHoverArg,
+			HvlTiledRect rectOnArg) {
 		super(xArg, yArg, xlArg, ylArg, inversionHeightArg);
 		rectOff = rectOffArg;
 		rectHover = rectHoverArg;
@@ -49,27 +49,27 @@ public class HvlExpandableRectButton extends HvlButton {
 			rectOff.draw();
 	}
 
-	public HvlExpandingRectangle getRectOff() {
+	public HvlTiledRect getRectOff() {
 		return rectOff;
 	}
 
-	public void setRectOff(HvlExpandingRectangle rectOff) {
+	public void setRectOff(HvlTiledRect rectOff) {
 		this.rectOff = rectOff;
 	}
 
-	public HvlExpandingRectangle getRectHover() {
+	public HvlTiledRect getRectHover() {
 		return rectHover;
 	}
 
-	public void setRectHover(HvlExpandingRectangle rectHover) {
+	public void setRectHover(HvlTiledRect rectHover) {
 		this.rectHover = rectHover;
 	}
 
-	public HvlExpandingRectangle getRectOn() {
+	public HvlTiledRect getRectOn() {
 		return rectOn;
 	}
 
-	public void setRectOn(HvlExpandingRectangle rectOn) {
+	public void setRectOn(HvlTiledRect rectOn) {
 		this.rectOn = rectOn;
 	}
 }

@@ -1,11 +1,8 @@
 package com.osreboot.ridhvl.menu.component;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.osreboot.ridhvl.menu.HvlComponent;
 
-public class HvlArrangerBox extends HvlComponent {
+public class HvlArrangerBox extends HvlPanel {
 	
 	public enum ArrangementStyle {
 		VERTICAL, HORIZONTAL
@@ -14,29 +11,24 @@ public class HvlArrangerBox extends HvlComponent {
 	private ArrangementStyle style;
 	private float align;
 
-	private List<HvlComponent> children;
-
 	private float borderL, borderR, borderU, borderD;
 
 	public HvlArrangerBox(float xArg, float yArg, float wArg, float hArg,
 			float heightInversionArg, ArrangementStyle styleArg) {
 		super(xArg, yArg, wArg, hArg, heightInversionArg);
-		children = new LinkedList<HvlComponent>();
 		style = styleArg;
 		align = 0.0f;
 	}
 
 	@Override
 	public void update(float delta) {
-		for (HvlComponent comp : children) {
-			comp.update(delta);
-		}
+		super.update(delta);
 
 		switch (style) {
 		case VERTICAL: {
 			float previousY = 0;
-			for (int i = 0; i < children.size(); i++) {
-				HvlComponent comp = children.get(i);
+			for (int i = 0; i < getChildCount(); i++) {
+				HvlComponent comp = get(i);
 				
 				comp.setX(getX() + (getWidth() * align) - (comp.getWidth() * align));
 				
@@ -51,9 +43,9 @@ public class HvlArrangerBox extends HvlComponent {
 		}
 		case HORIZONTAL: {
 			float previousX = 0;
-			for (int i = 0; i < children.size(); i++)
+			for (int i = 0; i < getChildCount(); i++)
 			{
-				HvlComponent comp = children.get(i);
+				HvlComponent comp = get(i);
 				
 				if (i == 0)
 					comp.setX(previousX + borderL);
@@ -66,18 +58,6 @@ public class HvlArrangerBox extends HvlComponent {
 			break;
 		}
 		}
-	}
-
-	@Override
-	public void draw(float delta) {
-		for (HvlComponent comp : children) {
-			comp.draw(delta);
-		}
-	}
-	
-	public void add(HvlComponent comp)
-	{
-		children.add(comp);
 	}
 
 	public ArrangementStyle getStyle() {

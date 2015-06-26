@@ -4,80 +4,77 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
+
 public abstract class HvlParticleSystem {
 	protected Queue<HvlParticle> particles;
+	protected List<HvlParticleCorrelator> correlators;
 	private int maxParticles;
 	private int particlesPerSpawn;
 	private float minTimeToSpawn, maxTimeToSpawn;
 	private float timeToSpawn, spawnTimer;
 	private boolean spawnOnTimer;
 	private float x, y;
-	
-	public HvlParticleSystem(float xArg, float yArg)
-	{
+
+	public HvlParticleSystem(float xArg, float yArg) {
 		maxParticles = -1; // Unlimited by default
 		particlesPerSpawn = 1;
 		particles = new LinkedList<HvlParticle>();
 		spawnOnTimer = true;
 		this.x = xArg;
 		this.y = yArg;
+		correlators = new LinkedList<>();
 	}
-	
-	public void draw(float delta)
-	{
-		if (spawnOnTimer)
-		{
+
+	public void draw(float delta) {
+		if (spawnOnTimer) {
 			spawnTimer += delta;
-			
-			if (spawnTimer >= timeToSpawn)
-			{
-				timeToSpawn = minTimeToSpawn + ((float)Math.random() * (maxTimeToSpawn - minTimeToSpawn));
+
+			if (spawnTimer >= timeToSpawn) {
+				timeToSpawn = minTimeToSpawn
+						+ ((float) Math.random() * (maxTimeToSpawn - minTimeToSpawn));
 				spawnTimer = 0;
 				spawnParticles(particlesPerSpawn);
 			}
 		}
-		
+
 		// Keep the count down to the maximum amount of particles
 		// If it's negative don't bother (unlimited)
-		while (maxParticles >= 0 && particles.size() > maxParticles)
-		{
+		while (maxParticles >= 0 && particles.size() > maxParticles) {
 			particles.poll();
 		}
-		
+
 		List<HvlParticle> toRemove = new LinkedList<HvlParticle>();
-		
-		for (HvlParticle p : particles)
-		{
+
+		for (HvlParticle p : particles) {
+			for (HvlParticleCorrelator corr : correlators)
+				if (corr.isContinuous())
+					corr.correlate(p, this);
 			p.draw(delta);
 			if (p.shouldBeDestroyed())
 				toRemove.add(p);
 		}
-		
+
 		for (HvlParticle p : toRemove)
 			particles.remove(p);
 	}
-	
-	public void spawnParticles(int count)
-	{
-		for (int i = 0; i < count; i++)
-		{
+
+	public void spawnParticles(int count) {
+		for (int i = 0; i < count; i++) {
 			spawnIndividualParticle();
 		}
 	}
-	
-	public void spawnAllParticles()
-	{
+
+	public void spawnAllParticles() {
 		spawnParticles(maxParticles);
 	}
 
-	public void spawnIndividualParticle()
-	{
+	public void spawnIndividualParticle() {
 		particles.add(generateParticle());
 	}
 
 	public abstract HvlParticle generateParticle();
 
-	
 	public int getMaxParticles() {
 		return maxParticles;
 	}
@@ -132,5 +129,10 @@ public abstract class HvlParticleSystem {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+
+	public void addCorrelator(HvlParticleCorrelator corr)
+	{
+		correlators.add(corr);
 	}
 }

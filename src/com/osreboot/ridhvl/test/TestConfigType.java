@@ -6,4 +6,5 @@ public class TestConfigType {
 	public double someNumber;
 	public int someInt;
 	public static String wtf;
+	public static String[] arr;
 }
