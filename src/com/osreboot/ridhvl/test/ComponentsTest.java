@@ -1,10 +1,12 @@
 package com.osreboot.ridhvl.test;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
+import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
@@ -39,7 +41,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	}
 	
 	public ComponentsTest() {
-		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(10);
@@ -110,12 +112,17 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testListBox.setTextScale(0.25f);
 		testListBox.setAutoSize(true);
 		testListBox.setBackground(textureLoader.getResource(2));
+		testListBox.setFullBackground(true);
 		testListBox.addItem("hey");
 		testListBox.addItem("nice to meet you");
 		testListBox.addItem("nice to be you");
 		testListBox.addItem("derp!");
 		testListBox.addItem("derp2!");
 		testListBox.addItem("derp3!");
+		testListBox.addItem("derp4!");
+		testListBox.addItem("derp5!");
+		testListBox.addItem("derp6!");
+		testListBox.addItem("derp7!");
 
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720, 720,
 				ArrangementStyle.VERTICAL);
