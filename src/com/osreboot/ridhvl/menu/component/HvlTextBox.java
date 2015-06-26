@@ -4,11 +4,18 @@ import java.util.regex.Pattern;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
-public abstract class HvlTextBox extends HvlComponent {
+public class HvlTextBox extends HvlComponent {
 
+	private HvlComponentDrawable focusedDrawable, unfocusedDrawable;
+	private float offsetX, offsetY;
+	private float textScale;
+	private Color textColor;
+	private HvlFontPainter2D fontPainter;
 	private String text;
 	private boolean isFocused;
 	private int maxCharacters;
@@ -17,11 +24,17 @@ public abstract class HvlTextBox extends HvlComponent {
 	private String blacklistCharacters;
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg,
-			String textArg) {
+			String textArg, HvlComponentDrawable focusedArg,
+			HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
 		super(xArg, yArg, wArg, hArg);
 		text = textArg;
 		isFocused = false;
 		maxCharacters = -1;
+		focusedDrawable = focusedArg;
+		unfocusedDrawable = unfocusedArg;
+		fontPainter = fontArg;
+		textColor = Color.black;
+		textScale = 1.0f;
 	}
 
 	@Override
@@ -80,6 +93,21 @@ public abstract class HvlTextBox extends HvlComponent {
 					String.format("[%s]", Pattern.quote(blacklistCharacters)),
 					"");
 	}
+	
+	@Override
+	public void draw(float delta)
+	{
+		if (isFocused)
+		{
+			focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+		}
+		else
+		{
+			unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+		}
+		fontPainter.hvlDrawWord(getText(), getX() + offsetX, getY() + offsetY,
+				textScale, textColor);
+	}
 
 	public String getText() {
 		return text;
@@ -135,5 +163,61 @@ public abstract class HvlTextBox extends HvlComponent {
 
 	public void setBlacklistCharacters(String blacklistCharacters) {
 		this.blacklistCharacters = blacklistCharacters;
+	}
+
+	public HvlComponentDrawable getFocusedDrawable() {
+		return focusedDrawable;
+	}
+
+	public void setFocusedDrawable(HvlComponentDrawable focusedDrawable) {
+		this.focusedDrawable = focusedDrawable;
+	}
+
+	public HvlComponentDrawable getUnfocusedDrawable() {
+		return unfocusedDrawable;
+	}
+
+	public void setUnfocusedDrawable(HvlComponentDrawable unfocusedDrawable) {
+		this.unfocusedDrawable = unfocusedDrawable;
+	}
+
+	public float getOffsetX() {
+		return offsetX;
+	}
+
+	public void setOffsetX(float offsetX) {
+		this.offsetX = offsetX;
+	}
+
+	public float getOffsetY() {
+		return offsetY;
+	}
+
+	public void setOffsetY(float offsetY) {
+		this.offsetY = offsetY;
+	}
+
+	public float getTextScale() {
+		return textScale;
+	}
+
+	public void setTextScale(float textScale) {
+		this.textScale = textScale;
+	}
+
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(Color textColor) {
+		this.textColor = textColor;
+	}
+
+	public HvlFontPainter2D getFontPainter() {
+		return fontPainter;
+	}
+
+	public void setFontPainter(HvlFontPainter2D fontPainter) {
+		this.fontPainter = fontPainter;
 	}
 }

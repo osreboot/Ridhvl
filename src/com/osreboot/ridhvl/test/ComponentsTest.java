@@ -16,9 +16,10 @@ import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
+import com.osreboot.ridhvl.menu.component.HvlTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureSlider;
-import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectTextBox;
+import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
@@ -30,7 +31,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlLabel testLabel;
 	private HvlCheckbox testCheck;
 	private HvlButton testButton;
-	private HvlTiledRectTextBox testTextBox;
+	private HvlTextBox testTextBox;
 	private HvlTextureSlider testSlider;
 	private HvlListBox testListBox;
 
@@ -84,11 +85,13 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 				System.out.println("BUTTTTOOONN!");
 			}
 		};
-		testTextBox = new HvlTiledRectTextBox(0, 0, 512, 96, "hey",
-				new HvlTiledRect(textureLoader.getResource(2), 0.125f, 0.875f,
-						0.125f, 0.875f, 0, 0, 0, 0, 16, 16), new HvlTiledRect(
-						textureLoader.getResource(4), 0.125f, 0.875f, 0.125f,
-						0.875f, 0, 0, 0, 0, 16, 16), fontPainter);
+		testTextBox = new HvlTextBox(0, 0, 512, 96, "hey",
+				new HvlTiledRectDrawable(new HvlTiledRect(textureLoader
+						.getResource(2), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0,
+						0, 0, 16, 16)), new HvlTiledRectDrawable(
+						new HvlTiledRect(textureLoader.getResource(4), 0.125f,
+								0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)),
+				fontPainter);
 		testTextBox.setTextScale(0.4f);
 		testTextBox.setMaxCharacters(10);
 		testTextBox.setForceLowercase(true);
