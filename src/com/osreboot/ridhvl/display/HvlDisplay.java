@@ -1,6 +1,10 @@
 package com.osreboot.ridhvl.display;
 
+import org.lwjgl.opengl.Display;
+
 public class HvlDisplay {
+	
+	private static int oldWidth, oldHeight;
 	
 	private static HvlDisplayMode displayMode;
 	
@@ -23,5 +27,14 @@ public class HvlDisplay {
 	
 	public static void postUpdate(float delta){
 		displayMode.postUpdate(delta);
+	}
+	
+	public static boolean hasBeenResized(){
+		if(oldWidth != Display.getWidth() || oldHeight != Display.getHeight()){
+			oldWidth = Display.getWidth();
+			oldHeight = Display.getHeight();
+			return true;
+		}
+		return false;
 	}
 }
