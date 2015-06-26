@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlMenu;
@@ -13,10 +14,10 @@ import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
+import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
-import com.osreboot.ridhvl.menu.component.collection.HvlColorCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureButton;
-import com.osreboot.ridhvl.menu.component.collection.HvlTextureListBox;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureSlider;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectTextBox;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -32,8 +33,12 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlButton testButton;
 	private HvlTiledRectTextBox testTextBox;
 	private HvlTextureSlider testSlider;
-	private HvlTextureListBox testListBox;
-	
+	private HvlListBox testListBox;
+
+	public static void main(String[] args) {
+		new ComponentsTest();
+	}
+
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
@@ -60,8 +65,13 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 
 		};
 		testLabel = new HvlLabel(0, 0, fontPainter, "testing!", Color.red);
-		testCheck = new HvlColorCheckbox(0, 0, 64, 64, Color.blue, Color.cyan,
-				Color.red, Color.pink, textureLoader.getResource(0)) {
+		testCheck = new HvlCheckbox(0, 0, 64, 64, new HvlTextureDrawable(
+				HvlTextureUtil.getColoredRect(64, 64, Color.blue)),
+				new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64,
+						Color.cyan)), new HvlTextureDrawable(
+						HvlTextureUtil.getColoredRect(64, 64, Color.red)),
+				new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64,
+						Color.pink))) {
 			public void onChanged(boolean state) {
 				System.out.println(state);
 			}
@@ -92,17 +102,19 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testSlider.setHandleEndOffset(8);
 		testSlider.setSnapInterval(0.1f);
 
-		testListBox = new HvlTextureListBox(0, 0, 512, 256, testSlider,
-				new HvlTextureButton(64, 64, 32, 32, textureLoader
-						.getResource(2), textureLoader.getResource(3),
+		testListBox = new HvlListBox(0, 0, 512, 256, testSlider,
+				new HvlTextureButton(64, 64, 32, 32,
+						textureLoader.getResource(2),
+						textureLoader.getResource(3),
 						textureLoader.getResource(4)), new HvlTextureButton(64,
 						64, 32, 32, textureLoader.getResource(2),
 						textureLoader.getResource(3),
 						textureLoader.getResource(4)), new HvlFontPainter2D(
 						textureLoader.getResource(1), HvlFontUtil.DEFAULT,
-						2048, 2048, 112, 144, 18),
-				textureLoader.getResource(5), textureLoader.getResource(6),
-				textureLoader.getResource(7), 32, 5);
+						2048, 2048, 112, 144, 18), new HvlTextureDrawable(
+						textureLoader.getResource(5)), new HvlTextureDrawable(
+						textureLoader.getResource(6)), new HvlTextureDrawable(
+						textureLoader.getResource(7)), 32, 5);
 		testListBox.setTextScale(0.25f);
 		testListBox.setAutoSize(true);
 		testListBox.setBackground(textureLoader.getResource(2));
