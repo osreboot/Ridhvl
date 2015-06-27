@@ -13,10 +13,6 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
 
 public class ShaderTest extends HvlTemplateInteg2DBasic{
 	
-	public static void main(String args[]){
-		new ShaderTest();
-	}
-	
 	public ShaderTest(){
 		super(60, 1280, 720, "Unnamed", 5, 5, new HvlDisplayModeDefault());
 	}
@@ -57,9 +53,7 @@ public class ShaderTest extends HvlTemplateInteg2DBasic{
 		
 		HvlShader.setCurrentShader(shader);
 		shader.sendFloat("blurAmount", 0.003f);
-		
 		hvlDrawQuad(0, 0, 1280, 720, frame);
-		
 		HvlShader.setCurrentShader(null);
 	}
 
