@@ -140,6 +140,9 @@ public class HvlSlider extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
+		if (background != null)
+			background.draw(delta, getX(), getY(), getWidth(), getHeight());
+		
 		switch (direction) {
 		case HORIZONTAL: {
 			float min = getX() + handleStartOffset;

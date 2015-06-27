@@ -27,12 +27,8 @@ public class HvlSimpleTile extends HvlTile {
 		float uvx2 = (float) (tileX + 1) / info.tileWidth;
 		float uvy2 = (float) (tileY + 1) / info.tileHeight;
 
-		HvlPainter2D.TEXMAGBLUR.disable();
-		
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2,
 				info.texture, Color.white);
-		
-		HvlPainter2D.TEXMAGBLUR.enable();
 	}
 
 	public int getTile() {

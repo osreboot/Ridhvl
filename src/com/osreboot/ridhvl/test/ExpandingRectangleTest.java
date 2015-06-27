@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
 
@@ -16,15 +17,21 @@ public class ExpandingRectangleTest extends HvlTemplate2DBasic {
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	HvlTiledRect testRect;
 
+	public static void main(String[] args)
+	{
+		new ExpandingRectangleTest();
+	}
+	
 	@Override
 	public void initialize() {
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("ButtonDown");
-		testRect = new HvlTiledRect(textureLoader.getResource(1), 0.09375f, 0.90625f, 0.09375f, 0.90625f, 0, 0, 512, 256, 16, 16);
+		testRect = new HvlTiledRect(textureLoader.getResource(1), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 512, 256, 16, 16);
 	}
 
 	@Override
 	public void update(float delta) {
+		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, textureLoader.getResource(0));
 		testRect.draw();
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
