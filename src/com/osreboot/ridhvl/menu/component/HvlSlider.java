@@ -17,6 +17,8 @@ public class HvlSlider extends HvlComponent {
 	private float handleHeight, handleWidth;
 	private float handleStartOffset, handleEndOffset;
 	private float snapInterval;
+	
+	private boolean liveSnap;
 
 	private boolean isBeingHeld;
 
@@ -30,6 +32,7 @@ public class HvlSlider extends HvlComponent {
 		handleUpDrawable = handleArg;
 		handleDownDrawable = handleArg;
 		background = backgroundArg;
+		liveSnap = true;
 	}
 
 	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
@@ -43,6 +46,7 @@ public class HvlSlider extends HvlComponent {
 		handleUpDrawable = handleUpArg;
 		handleDownDrawable = handleDownArg;
 		background = backgroundArg;
+		liveSnap = true;
 	}
 
 	@Override
@@ -114,9 +118,9 @@ public class HvlSlider extends HvlComponent {
 			}
 		}
 
-		// if (!Mouse.isButtonDown(0)) {
-		value = snapInterval * Math.round(value / snapInterval);
-		// }
+		if (liveSnap || !Mouse.isButtonDown(0)) {
+			value = snapInterval * Math.round(value / snapInterval);
+		}
 
 		value = Math.max(0.0f, Math.min(value, 1.0f));
 	}
@@ -236,5 +240,13 @@ public class HvlSlider extends HvlComponent {
 
 	public boolean isBeingHeld() {
 		return isBeingHeld;
+	}
+
+	public boolean isLiveSnap() {
+		return liveSnap;
+	}
+
+	public void setLiveSnap(boolean liveSnap) {
+		this.liveSnap = liveSnap;
 	}
 }
