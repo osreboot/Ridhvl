@@ -28,11 +28,11 @@ public class HvlPanel extends HvlComponent {
 		}
 	}
 
-	public void addChild(HvlComponent toAdd) {
+	public void add(HvlComponent toAdd) {
 		children.add(toAdd);
 	}
 
-	public void removeChild(HvlComponent toRemove) {
+	public void remove(HvlComponent toRemove) {
 		children.remove(toRemove);
 	}
 

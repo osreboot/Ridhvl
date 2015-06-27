@@ -137,12 +137,12 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 
 		testArranger = new HvlArrangerBox(0, 0, 1280, 720,
 				ArrangementStyle.VERTICAL);
-		testArranger.addChild(testLabel);
-		testArranger.addChild(testCheck);
-		testArranger.addChild(testButton);
-		testArranger.addChild(testTextBox);
+		testArranger.add(testLabel);
+		testArranger.add(testCheck);
+		testArranger.add(testButton);
+		testArranger.add(testTextBox);
 		// testArranger.addChild(testSlider);
-		testArranger.addChild(testListBox);
+		testArranger.add(testListBox);
 		testArranger.setAlign(0.5f);
 		testMenu.add(testArranger);
 

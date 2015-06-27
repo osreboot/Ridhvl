@@ -24,7 +24,7 @@ public class HvlLabel extends HvlComponent {
 		updateDimensions();
 	}
 
-	public HvlLabel(float xArg, float yArg, float heightInversionArg,
+	public HvlLabel(float xArg, float yArg,
 			HvlFontPainter2D fontArg, String textArg, Color colorArg,
 			float scaleArg) {
 		// The dimensions are 0 because

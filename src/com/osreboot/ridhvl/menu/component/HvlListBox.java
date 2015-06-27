@@ -60,9 +60,9 @@ public class HvlListBox extends HvlComponent {
 		maxVisibleItems = maxVisibleItemsArg;
 
 		scrollBox = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
-		scrollBox.addChild(upArg);
-		scrollBox.addChild(scrollArg);
-		scrollBox.addChild(downArg);
+		scrollBox.add(upArg);
+		scrollBox.add(scrollArg);
+		scrollBox.add(downArg);
 		scrollBox.setAlign(0.5f);
 		items = new LinkedList<>();
 		autoSize = false;
@@ -96,9 +96,9 @@ public class HvlListBox extends HvlComponent {
 		maxVisibleItems = maxVisibleItemsArg;
 
 		scrollBox = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
-		scrollBox.addChild(upArg);
-		scrollBox.addChild(scrollArg);
-		scrollBox.addChild(downArg);
+		scrollBox.add(upArg);
+		scrollBox.add(scrollArg);
+		scrollBox.add(downArg);
 		scrollBox.setAlign(0.5f);
 		items = new LinkedList<>();
 		autoSize = false;

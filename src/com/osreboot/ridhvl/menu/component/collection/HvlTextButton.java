@@ -21,6 +21,8 @@ public class HvlTextButton extends HvlButton {
 		text = textArg;
 		textScale = 1.0f;
 		textColor = Color.white;
+		xAlign = 0.5f;
+		yAlign = 0.5f;
 	}
 
 	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg,
@@ -31,6 +33,8 @@ public class HvlTextButton extends HvlButton {
 		text = textArg;
 		textScale = 1.0f;
 		textColor = Color.white;
+		xAlign = 0.5f;
+		yAlign = 0.5f;
 	}
 	
 	@Override
