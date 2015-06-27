@@ -15,10 +15,10 @@ import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
+import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
-import com.osreboot.ridhvl.menu.component.collection.HvlTextureSlider;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
@@ -32,7 +32,7 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlCheckbox testCheck;
 	private HvlButton testButton;
 	private HvlTextBox testTextBox;
-	private HvlTextureSlider testSlider;
+	private HvlSlider testSlider;
 	private HvlListBox testListBox;
 
 	public static void main(String[] args) {
@@ -97,10 +97,10 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 		testTextBox.setForceLowercase(true);
 		testTextBox.setOffsetX(12f);
 		testTextBox.setOffsetY(12f);
-		testSlider = new HvlTextureSlider(0, 0, 32, 512,
+		testSlider = new HvlSlider(0, 0, 32, 512,
 				SliderDirection.VERTICAL, 16, 16, 0.0f,
-				textureLoader.getResource(6), textureLoader.getResource(7),
-				textureLoader.getResource(5));
+				new HvlTextureDrawable(textureLoader.getResource(6)), new HvlTextureDrawable(textureLoader.getResource(7)),
+				new HvlTextureDrawable(textureLoader.getResource(5)));
 		testSlider.setHandleStartOffset(8);
 		testSlider.setHandleEndOffset(8);
 		testSlider.setSnapInterval(0.1f);

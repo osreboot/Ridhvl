@@ -1,19 +1,17 @@
 package com.osreboot.ridhvl.menu.component;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.painter.HvlCursor;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
-public abstract class HvlSlider extends HvlComponent {
+public class HvlSlider extends HvlComponent {
 	public enum SliderDirection {
 		VERTICAL, HORIZONTAL
 	}
 
-	private Texture handleUpTexture, handleDownTexture;
+	private HvlComponentDrawable handleUpDrawable, handleDownDrawable;
+	private HvlComponentDrawable background;
 	private SliderDirection direction;
 	private float value;
 	private float handleHeight, handleWidth;
@@ -24,25 +22,27 @@ public abstract class HvlSlider extends HvlComponent {
 
 	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
 			SliderDirection dirArg, float handleWidthArg,
-			float handleHeightArg, float value, Texture handleArg) {
+			float handleHeightArg, float value, HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
-		handleUpTexture = handleArg;
-		handleDownTexture = handleArg;
+		handleUpDrawable = handleArg;
+		handleDownDrawable = handleArg;
+		background = backgroundArg;
 	}
 
 	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
 			SliderDirection dirArg, float handleWidthArg,
-			float handleHeightArg, float value, Texture handleUpArg,
-			Texture handleDownArg) {
+			float handleHeightArg, float value,
+			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
-		handleUpTexture = handleUpArg;
-		handleDownTexture = handleDownArg;
+		handleUpDrawable = handleUpArg;
+		handleDownDrawable = handleDownArg;
+		background = backgroundArg;
 	}
 
 	@Override
@@ -129,39 +129,53 @@ public abstract class HvlSlider extends HvlComponent {
 			float max = getX() + getWidth() - handleEndOffset;
 			float lerpedX = min + (value * (max - min));
 
-			HvlPainter2D.hvlDrawQuad(lerpedX - (handleWidth / 2), getY()
-					+ (getHeight() / 2) - (handleHeight / 2), handleWidth,
-					handleHeight, isBeingHeld ? handleDownTexture
-							: handleUpTexture, Color.white);
+			if (isBeingHeld)
+				handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2),
+						getY() + (getHeight() / 2) - (handleHeight / 2),
+						handleWidth, handleHeight);
+			else
+				handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2),
+						getY() + (getHeight() / 2) - (handleHeight / 2),
+						handleWidth, handleHeight);
 		}
 			break;
 		case VERTICAL: {
 			float min = getY() + handleStartOffset;
 			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
-			HvlPainter2D.hvlDrawQuad(getX() + (getWidth() / 2)
-					- (handleWidth / 2), lerpedY - (handleHeight / 2),
-					handleWidth, handleHeight, isBeingHeld ? handleDownTexture
-							: handleUpTexture, Color.white);
+			if (isBeingHeld)
+				handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2),
+						lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+			else
+				handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2),
+						lerpedY - (handleHeight / 2), handleWidth, handleHeight);
 		}
 			break;
 		}
 	}
 
-	public final Texture getHandleUpTexture() {
-		return handleUpTexture;
+	public HvlComponentDrawable getHandleUpDrawable() {
+		return handleUpDrawable;
 	}
 
-	public final void setHandleUpTexture(Texture handleUpTexture) {
-		this.handleUpTexture = handleUpTexture;
+	public void setHandleUpDrawable(HvlComponentDrawable handleUpDrawable) {
+		this.handleUpDrawable = handleUpDrawable;
 	}
 
-	public final Texture getHandleDownTexture() {
-		return handleDownTexture;
+	public HvlComponentDrawable getHandleDownDrawable() {
+		return handleDownDrawable;
 	}
 
-	public final void setHandleDownTexture(Texture handleDownTexture) {
-		this.handleDownTexture = handleDownTexture;
+	public void setHandleDownDrawable(HvlComponentDrawable handleDownDrawable) {
+		this.handleDownDrawable = handleDownDrawable;
+	}
+
+	public HvlComponentDrawable getBackground() {
+		return background;
+	}
+
+	public void setBackground(HvlComponentDrawable background) {
+		this.background = background;
 	}
 
 	public final SliderDirection getDirection() {
