@@ -33,12 +33,11 @@ public class HvlDisplayModeScalable extends HvlDisplayMode{
 		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void postUpdate(float delta){
 		HvlRenderFrame.setCurrentRenderFrame(null);
 		
-		HvlPainter2D.hvlDrawQuad(0, Display.getHeight(), Display.getWidth(), -Display.getHeight(), renderFrame.getTextureID());
+		HvlPainter2D.hvlDrawQuad(0, Display.getHeight(), Display.getWidth(), -Display.getHeight(), renderFrame);
 	}
 
 }

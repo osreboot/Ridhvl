@@ -221,8 +221,8 @@ public class HvlTextureListBox extends HvlComponent {
 				Color.transparent);// TODO: WHY DO I NEED TO DO THIS???
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
-		hvlDrawQuad(getX(), getY() + getHeight(), getWidth(), -getHeight(),
-				renderFrame.getTextureID());
+		hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
+				renderFrame);
 	}
 
 	private void layoutUpdate() {

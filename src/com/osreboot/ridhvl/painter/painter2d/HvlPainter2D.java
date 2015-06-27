@@ -1,8 +1,11 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
 import static org.lwjgl.opengl.GL11.*;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
+
+import com.osreboot.ridhvl.painter.HvlRenderFrame;
 
 public class HvlPainter2D {
 
@@ -61,9 +64,8 @@ public class HvlPainter2D {
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
 	}
 	
-	@Deprecated
-	public static void hvlDrawQuad(float x, float y, float xl, float yl, int textureID){
-		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, textureID);
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, renderFrame);
 	}
 	
 	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)

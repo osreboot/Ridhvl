@@ -41,7 +41,7 @@ public class HvlDisplayModeARLock extends HvlDisplayMode{
 		int oldAR = getCoordinateWidth()/getCoordinateHeight();
 		int newAR = Display.getWidth()/Display.getHeight();
 		
-		HvlPainter2D.hvlDrawQuad(oldAR >= newAR ? 0 : (Display.getWidth()/2) - ((oldAR * Display.getHeight())/2), Display.getHeight(), oldAR >= newAR ? Display.getWidth() : (Display.getWidth()/2) - (oldAR * Display.getHeight()), -Display.getHeight(), renderFrame.getTextureID());
+		HvlPainter2D.hvlDrawQuad(oldAR >= newAR ? 0 : (Display.getWidth()/2) - ((oldAR * Display.getHeight())/2), Display.getHeight(), oldAR >= newAR ? Display.getWidth() : (Display.getWidth()/2) - (oldAR * Display.getHeight()), -Display.getHeight(), renderFrame);
 	}
 
 }

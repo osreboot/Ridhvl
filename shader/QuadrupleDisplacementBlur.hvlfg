@@ -1,0 +1,11 @@
+uniform sampler2D texture1;
+
+uniform float blurAmount;
+
+void main(){
+	vec4 color = texture2D(texture1, float2(gl_TexCoord[0].s + blurAmount, gl_TexCoord[0].t + blurAmount));
+	vec4 color2 = texture2D(texture1, float2(gl_TexCoord[0].s - blurAmount, gl_TexCoord[0].t + blurAmount));
+	vec4 color3 = texture2D(texture1, float2(gl_TexCoord[0].s + blurAmount, gl_TexCoord[0].t - blurAmount));
+	vec4 color4 = texture2D(texture1, float2(gl_TexCoord[0].s - blurAmount, gl_TexCoord[0].t - blurAmount));
+	gl_FragColor = (color + color2 + color3 + color4)/4.0;
+}

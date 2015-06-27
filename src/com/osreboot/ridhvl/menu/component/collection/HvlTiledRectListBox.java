@@ -208,8 +208,8 @@ public class HvlTiledRectListBox extends HvlComponent {
 				itemBackgroundOff.getTexture(), Color.transparent);
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
-		HvlPainter2D.hvlDrawQuad(getX(), getY() + getHeight(), getWidth(),
-				-getHeight(), renderFrame.getTextureID());
+		HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
+				getHeight(), renderFrame);
 	}
 
 	private void layoutUpdate() {

@@ -80,7 +80,6 @@ public class HvlRenderFrame {
 		return frameID;
 	}
 
-	@Deprecated
 	public int getTextureID(){
 		return textureID;
 	}
