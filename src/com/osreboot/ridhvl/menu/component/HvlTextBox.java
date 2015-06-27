@@ -17,6 +17,7 @@ public class HvlTextBox extends HvlComponent {
 	private Color textColor;
 	private HvlFontPainter2D fontPainter;
 	private String text;
+	private String pText;
 	private boolean isFocused;
 	private int maxCharacters;
 	private boolean forceUppercase, forceLowercase;
@@ -37,6 +38,9 @@ public class HvlTextBox extends HvlComponent {
 		textScale = 1.0f;
 	}
 
+	public void onTextChanged(String text) {
+	}
+	
 	@Override
 	public void update(float delta) {
 		if (!isEnabled()) {
@@ -92,6 +96,11 @@ public class HvlTextBox extends HvlComponent {
 			text = text.replaceAll(
 					String.format("[%s]", Pattern.quote(blacklistCharacters)),
 					"");
+		
+		if (!pText.equals(text))
+			onTextChanged(text);
+		
+		pText = text;
 	}
 	
 	@Override

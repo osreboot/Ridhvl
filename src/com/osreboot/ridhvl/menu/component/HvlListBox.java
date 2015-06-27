@@ -32,6 +32,7 @@ public class HvlListBox extends HvlComponent {
 	private float textScale;
 	private Color textColor;
 	private int selectedIndex;
+	private int pSelectedIndex;
 	private boolean fullBackground;
 	private HvlComponentDrawable background;
 
@@ -111,6 +112,9 @@ public class HvlListBox extends HvlComponent {
 				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
+	public void onSelectionChanged(int indexArg, Object selArg) {
+	}
+
 	@Override
 	public void update(float delta) {
 		if (autoSize)
@@ -164,6 +168,11 @@ public class HvlListBox extends HvlComponent {
 							+ (((i + 1) - topItem) * itemHeight))
 				selectedIndex = i;
 		}
+
+		if (selectedIndex != pSelectedIndex)
+			onSelectionChanged(selectedIndex, getSelectedItem());
+
+		pSelectedIndex = selectedIndex;
 	}
 
 	@Override
@@ -184,7 +193,8 @@ public class HvlListBox extends HvlComponent {
 		// and altering hvlDrawQuad dimensions (more memory efficient)
 		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 		if (background != null)
-			background.draw(delta, getX(), getY(), fullBackground ? getWidth() : getWidth() - scrollBox.getWidth(), getHeight());
+			background.draw(delta, getX(), getY(), fullBackground ? getWidth()
+					: getWidth() - scrollBox.getWidth(), getHeight());
 
 		scrollBox.draw(delta);
 
@@ -211,7 +221,8 @@ public class HvlListBox extends HvlComponent {
 			font.hvlDrawWord(items.get(i).toString(), getX(), getY()
 					+ ((i - topItem) * itemHeight), textScale, textColor);
 		}
-		HvlPainter2D.hvlDrawQuad(0f, 0f, 0f, 0f, HvlTextureUtil.getColoredRect(1, 1, Color.transparent),
+		HvlPainter2D.hvlDrawQuad(0f, 0f, 0f, 0f,
+				HvlTextureUtil.getColoredRect(1, 1, Color.transparent),
 				Color.transparent);// TODO: WHY DO I NEED TO DO THIS???
 		HvlRenderFrame.setCurrentRenderFrame(null);
 

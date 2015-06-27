@@ -14,17 +14,19 @@ public class HvlSlider extends HvlComponent {
 	private HvlComponentDrawable background;
 	private SliderDirection direction;
 	private float value;
+	private float pValue;
 	private float handleHeight, handleWidth;
 	private float handleStartOffset, handleEndOffset;
 	private float snapInterval;
-	
+
 	private boolean liveSnap;
 
 	private boolean isBeingHeld;
 
 	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
 			SliderDirection dirArg, float handleWidthArg,
-			float handleHeightArg, float value, HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
+			float handleHeightArg, float value, HvlComponentDrawable handleArg,
+			HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
@@ -38,7 +40,9 @@ public class HvlSlider extends HvlComponent {
 	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
 			SliderDirection dirArg, float handleWidthArg,
 			float handleHeightArg, float value,
-			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
+			HvlComponentDrawable handleUpArg,
+			HvlComponentDrawable handleDownArg,
+			HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
@@ -47,6 +51,9 @@ public class HvlSlider extends HvlComponent {
 		handleDownDrawable = handleDownArg;
 		background = backgroundArg;
 		liveSnap = true;
+	}
+
+	public void onValueChanged(float value) {
 	}
 
 	@Override
@@ -123,6 +130,12 @@ public class HvlSlider extends HvlComponent {
 		}
 
 		value = Math.max(0.0f, Math.min(value, 1.0f));
+		
+		if (pValue != value)
+			onValueChanged(value);
+		
+		pValue = value;
+			
 	}
 
 	@Override
@@ -148,11 +161,13 @@ public class HvlSlider extends HvlComponent {
 			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
 			if (isBeingHeld)
-				handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2),
-						lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+				handleDownDrawable.draw(delta, getX() + (getWidth() / 2)
+						- (handleWidth / 2), lerpedY - (handleHeight / 2),
+						handleWidth, handleHeight);
 			else
-				handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2),
-						lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+				handleUpDrawable.draw(delta, getX() + (getWidth() / 2)
+						- (handleWidth / 2), lerpedY - (handleHeight / 2),
+						handleWidth, handleHeight);
 		}
 			break;
 		}
