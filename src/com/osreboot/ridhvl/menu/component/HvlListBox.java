@@ -1,4 +1,6 @@
-package com.osreboot.ridhvl.menu.component.collection;
+package com.osreboot.ridhvl.menu.component;
+
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -6,25 +8,22 @@ import java.util.List;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.menu.HvlComponent;
-import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
-import com.osreboot.ridhvl.menu.component.HvlButton;
-import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
-import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 
-public class HvlTiledRectListBox extends HvlComponent {
+public class HvlListBox extends HvlComponent {
 
 	private HvlSlider scrollBar;
 	private HvlButton scrollUpButton, scrollDownButton;
 	private HvlArrangerBox scrollBox;
 	private HvlFontPainter2D font;
-	private HvlTiledRect itemBackgroundOff, itemBackgroundHover,
+	private HvlComponentDrawable itemBackgroundOff, itemBackgroundHover,
 			itemBackgroundOn;
 	private List<Object> items;
 	private float itemHeight;
@@ -33,17 +32,21 @@ public class HvlTiledRectListBox extends HvlComponent {
 	private float textScale;
 	private Color textColor;
 	private int selectedIndex;
+	private int pSelectedIndex;
 	private boolean fullBackground;
-	private HvlTiledRect background;
+	private HvlComponentDrawable background;
 
 	private int sizeIntervalsForScroll;
 
 	private HvlRenderFrame renderFrame;
+	private float pX, pY, pWidth, pHeight;
+	private boolean isFocused;
 
-	public HvlTiledRectListBox(float xArg, float yArg, float wArg, float hArg,
+	public HvlListBox(float xArg, float yArg, float wArg, float hArg,
 			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
-			HvlFontPainter2D fontArg, HvlTiledRect itemBackgroundOffArg,
-			HvlTiledRect itemBackgroundOnArg, float itemHeightArg,
+			HvlFontPainter2D fontArg,
+			HvlComponentDrawable itemBackgroundOffArg,
+			HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg,
 			int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
@@ -68,15 +71,18 @@ public class HvlTiledRectListBox extends HvlComponent {
 		textColor = Color.white;
 		selectedIndex = -1;
 		fullBackground = false;
-
 		sizeIntervalsForScroll = 10;
+
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
+				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	public HvlTiledRectListBox(float xArg, float yArg, float wArg, float hArg,
+	public HvlListBox(float xArg, float yArg, float wArg, float hArg,
 			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
-			HvlFontPainter2D fontArg, HvlTiledRect itemBackgroundOffArg,
-			HvlTiledRect itemBackgroundHoverArg,
-			HvlTiledRect itemBackgroundOnArg, float itemHeightArg,
+			HvlFontPainter2D fontArg,
+			HvlComponentDrawable itemBackgroundOffArg,
+			HvlComponentDrawable itemBackgroundHoverArg,
+			HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg,
 			int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
@@ -100,14 +106,24 @@ public class HvlTiledRectListBox extends HvlComponent {
 		textScale = 1.0f;
 		textColor = Color.white;
 		selectedIndex = -1;
-
 		sizeIntervalsForScroll = 10;
+
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
+				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+	}
+
+	public void onSelectionChanged(int indexArg, Object selArg) {
 	}
 
 	@Override
 	public void update(float delta) {
 		if (autoSize)
 			setHeight(itemHeight * maxVisibleItems);
+
+		if (this.isBeingPressed(0))
+			isFocused = true;
+		else if (Mouse.isButtonDown(0))
+			isFocused = false;
 
 		scrollUpButton.setEnabled(!scrollBar.isBeingHeld());
 		scrollDownButton.setEnabled(!scrollBar.isBeingHeld());
@@ -131,10 +147,11 @@ public class HvlTiledRectListBox extends HvlComponent {
 			scrollBar.setValue(Math.min(
 					scrollBar.getValue() + scrollBar.getSnapInterval()
 							* sizeIntervalsForScroll, 1.0f));
-		scrollBar
-				.setValue(scrollBar.getValue()
-						+ ((-Mouse.getDWheel() / 120)
-								* scrollBar.getSnapInterval() * sizeIntervalsForScroll));
+		if (isFocused)
+			scrollBar
+					.setValue(scrollBar.getValue()
+							+ ((-Mouse.getDWheel() / 120)
+									* scrollBar.getSnapInterval() * sizeIntervalsForScroll));
 
 		scrollBar
 				.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
@@ -148,48 +165,45 @@ public class HvlTiledRectListBox extends HvlComponent {
 					&& HvlCursor.getCursorY() > getY()
 							+ ((i - topItem) * itemHeight)
 					&& HvlCursor.getCursorY() < getY()
-							+ (((i + 1) - topItem) * itemHeight)) {
+							+ (((i + 1) - topItem) * itemHeight))
 				selectedIndex = i;
-			}
 		}
+
+		if (selectedIndex != pSelectedIndex)
+			onSelectionChanged(selectedIndex, getSelectedItem());
+
+		pSelectedIndex = selectedIndex;
 	}
 
 	@Override
 	public void draw(float delta) {
-		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
-				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
-
-		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
-
-		if (background != null) {
-			background.setX(getX());
-			background.setY(getY());
-			background.setTotalWidth(fullBackground ? getWidth() : getWidth()
-					- scrollBox.getWidth());
-			background.setTotalHeight(getHeight());
-			background.draw();
+		if (pX != getX() || pY != getY() || pWidth != getWidth()
+				|| pHeight != getHeight()) {
+			renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
+					(int) getX(), (int) getY(), (int) getWidth(),
+					(int) getHeight());
 		}
+
+		pX = getX();
+		pY = getY();
+		pWidth = getWidth();
+		pHeight = getHeight();
+
+		// TODO: an HvlRenderFrame is not required, this can be done through uvs
+		// and altering hvlDrawQuad dimensions (more memory efficient)
+		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
+		if (background != null)
+			background.draw(delta, getX(), getY(), fullBackground ? getWidth()
+					: getWidth() - scrollBox.getWidth(), getHeight());
 
 		scrollBox.draw(delta);
 
 		float topItem = (scrollBar.getValue() * (items.size() - maxVisibleItems));
 		for (int i = 0; i < Math.min(items.size(), topItem + maxVisibleItems); i++) {
-			itemBackgroundOff.setX(getX());
-			itemBackgroundOff.setY(getY() + ((i - topItem) * itemHeight));
-			itemBackgroundOff.setTotalWidth(getWidth() - scrollBox.getWidth());
-			itemBackgroundOff.setTotalHeight(itemHeight);
-			itemBackgroundHover.setX(getX());
-			itemBackgroundHover.setY(getY() + ((i - topItem) * itemHeight));
-			itemBackgroundHover
-					.setTotalWidth(getWidth() - scrollBox.getWidth());
-			itemBackgroundHover.setTotalHeight(itemHeight);
-			itemBackgroundOn.setX(getX());
-			itemBackgroundOn.setY(getY() + ((i - topItem) * itemHeight));
-			itemBackgroundOn.setTotalWidth(getWidth() - scrollBox.getWidth());
-			itemBackgroundOn.setTotalHeight(itemHeight);
-
 			if (i == selectedIndex)
-				itemBackgroundOn.draw();
+				itemBackgroundOn.draw(delta, getX(), getY()
+						+ ((i - topItem) * itemHeight),
+						getWidth() - scrollBox.getWidth(), itemHeight);
 			else if (HvlCursor.getCursorX() > getX()
 					&& HvlCursor.getCursorX() < getX() + getWidth()
 							- scrollBox.getWidth()
@@ -197,19 +211,23 @@ public class HvlTiledRectListBox extends HvlComponent {
 							+ ((i - topItem) * itemHeight)
 					&& HvlCursor.getCursorY() < getY()
 							+ (((i + 1) - topItem) * itemHeight))
-				itemBackgroundHover.draw();
+				itemBackgroundHover.draw(delta, getX(), getY()
+						+ ((i - topItem) * itemHeight),
+						getWidth() - scrollBox.getWidth(), itemHeight);
 			else
-				itemBackgroundOff.draw();
+				itemBackgroundOff.draw(delta, getX(), getY()
+						+ ((i - topItem) * itemHeight),
+						getWidth() - scrollBox.getWidth(), itemHeight);
 			font.hvlDrawWord(items.get(i).toString(), getX(), getY()
 					+ ((i - topItem) * itemHeight), textScale, textColor);
 		}
-
 		HvlPainter2D.hvlDrawQuad(0f, 0f, 0f, 0f,
-				itemBackgroundOff.getTexture(), Color.transparent);
+				HvlTextureUtil.getColoredRect(1, 1, Color.transparent),
+				Color.transparent);// TODO: WHY DO I NEED TO DO THIS???
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
-		HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(),
-				getHeight(), renderFrame);
+		hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
+				renderFrame);
 	}
 
 	private void layoutUpdate() {
@@ -263,27 +281,27 @@ public class HvlTiledRectListBox extends HvlComponent {
 		this.font = font;
 	}
 
-	public HvlTiledRect getItemBackgroundOff() {
+	public HvlComponentDrawable getItemBackgroundOff() {
 		return itemBackgroundOff;
 	}
 
-	public void setItemBackgroundOff(HvlTiledRect itemBackgroundOff) {
+	public void setItemBackgroundOff(HvlComponentDrawable itemBackgroundOff) {
 		this.itemBackgroundOff = itemBackgroundOff;
 	}
 
-	public HvlTiledRect getItemBackgroundHover() {
+	public HvlComponentDrawable getItemBackgroundHover() {
 		return itemBackgroundHover;
 	}
 
-	public void setItemBackgroundHover(HvlTiledRect itemBackgroundHover) {
+	public void setItemBackgroundHover(HvlComponentDrawable itemBackgroundHover) {
 		this.itemBackgroundHover = itemBackgroundHover;
 	}
 
-	public HvlTiledRect getItemBackgroundOn() {
+	public HvlComponentDrawable getItemBackgroundOn() {
 		return itemBackgroundOn;
 	}
 
-	public void setItemBackgroundOn(HvlTiledRect itemBackgroundOn) {
+	public void setItemBackgroundOn(HvlComponentDrawable itemBackgroundOn) {
 		this.itemBackgroundOn = itemBackgroundOn;
 	}
 
@@ -343,11 +361,11 @@ public class HvlTiledRectListBox extends HvlComponent {
 		this.fullBackground = fullBackground;
 	}
 
-	public HvlTiledRect getBackground() {
+	public HvlComponentDrawable getBackground() {
 		return background;
 	}
 
-	public void setBackground(HvlTiledRect background) {
+	public void setBackground(HvlComponentDrawable background) {
 		this.background = background;
 	}
 
