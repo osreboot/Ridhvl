@@ -18,6 +18,7 @@ import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextButton;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -30,14 +31,10 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 	private HvlArrangerBox testArranger;
 	private HvlLabel testLabel;
 	private HvlCheckbox testCheck;
-	private HvlButton testButton;
+	private HvlTextButton testButton;
 	private HvlTextBox testTextBox;
 	private HvlSlider testSlider;
 	private HvlListBox testListBox;
-
-	public static void main(String[] args) {
-		new ComponentsTest();
-	}
 
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
@@ -76,15 +73,20 @@ public class ComponentsTest extends HvlTemplate2DBasic {
 				System.out.println(state);
 			}
 		};
-		testButton = new HvlButton(64, 64, 32, 32, new HvlTextureDrawable(
+		testButton = new HvlTextButton(64, 64, 256, 128, new HvlTextureDrawable(
 				textureLoader.getResource(2)), new HvlTextureDrawable(
 				textureLoader.getResource(3)), new HvlTextureDrawable(
-				textureLoader.getResource(4))) {
+				textureLoader.getResource(4)), fontPainter, "hey!") {
 			@Override
 			public void onTriggered() {
 				System.out.println("BUTTTTOOONN!");
 			}
 		};
+		testButton.setTextScale(0.5f);
+		testButton.setTextColor(Color.red);
+		testButton.setxAlign(0.5f);
+		testButton.setyAlign(0.5f);
+		
 		testTextBox = new HvlTextBox(0, 0, 512, 96, "hey",
 				new HvlTiledRectDrawable(new HvlTiledRect(textureLoader
 						.getResource(2), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0,
