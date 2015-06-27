@@ -36,6 +36,7 @@ public class HvlTextBox extends HvlComponent {
 		fontPainter = fontArg;
 		textColor = Color.black;
 		textScale = 1.0f;
+		pText = textArg;
 	}
 
 	public void onTextChanged(String text) {
