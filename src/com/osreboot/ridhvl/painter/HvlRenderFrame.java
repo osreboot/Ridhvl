@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 
 public class HvlRenderFrame {
 
@@ -76,6 +77,12 @@ public class HvlRenderFrame {
 		setCurrentRenderFrame(null);
 	}
 
+	public void bindTexture(int texture){
+		GL13.glActiveTexture(texture);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+	}
+	
 	public int getID(){
 		return frameID;
 	}

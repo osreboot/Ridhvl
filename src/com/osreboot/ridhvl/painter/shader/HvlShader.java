@@ -51,6 +51,11 @@ public class HvlShader {
 		GL20.glUniform1f(loc, value);
 	}
 	
+	public void sendTexture(String key, int value){
+		int loc = GL20.glGetUniformLocation(shaderID, key);
+		GL20.glUniform1i(loc, value);
+	}
+	
 	private String readFile(String file){
 		StringBuilder builder = new StringBuilder();
 		try{
