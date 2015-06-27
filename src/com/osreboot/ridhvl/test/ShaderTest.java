@@ -33,7 +33,7 @@ public class ShaderTest extends HvlTemplateInteg2DBasic{
 		
 		frame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, 1280, 720);
 		
-		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_QUADRUPLE_DISPLACEMENT_BLUR);
+		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_HIGHLIGHTER);
 		HvlPainter2D.TEXMAGBLUR.disable();
 	}
 
@@ -41,20 +41,19 @@ public class ShaderTest extends HvlTemplateInteg2DBasic{
 	public void update(float delta){
 		gradient = gradient < 1280 ? gradient + (delta*500) : 0;
 		
-		HvlRenderFrame.setCurrentRenderFrame(frame);
-		
 		hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(1));
+		
+		HvlRenderFrame.setCurrentRenderFrame(frame);
+		HvlShader.setCurrentShader(shader);
 		
 		hvlRotate((getWidth()/2), (getHeight()/2), gradient/1280f*360f);
 		hvlDrawQuad((getWidth()/2) - 200, (getHeight()/2) - 200, 400, 400, getTextureLoader().getResource(2));
 		hvlResetRotation();
 		
+		HvlShader.setCurrentShader(null);
 		HvlRenderFrame.setCurrentRenderFrame(null);
 		
-		HvlShader.setCurrentShader(shader);
-		shader.sendFloat("blurAmount", 0.003f);
 		hvlDrawQuad(0, 0, 1280, 720, frame);
-		HvlShader.setCurrentShader(null);
 	}
 
 }
