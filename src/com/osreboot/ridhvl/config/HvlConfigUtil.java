@@ -488,8 +488,6 @@ public class HvlConfigUtil {
 
 		if (thing.endsWith(";"))
 			thing = thing.substring(0, thing.length() - 1);
-
-		System.out.println(thing);
 		
 		if (thing.equals("I"))
 			return int.class;
