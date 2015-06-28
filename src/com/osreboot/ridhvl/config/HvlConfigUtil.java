@@ -489,6 +489,8 @@ public class HvlConfigUtil {
 		if (thing.endsWith(";"))
 			thing = thing.substring(0, thing.length() - 1);
 
+		System.out.println(thing);
+		
 		if (thing.equals("I"))
 			return int.class;
 		if (thing.equals("F"))
@@ -499,7 +501,7 @@ public class HvlConfigUtil {
 			return long.class;
 		if (thing.equals("S"))
 			return short.class;
-		if (thing.equals("B"))
+		if (thing.equals("Z"))
 			return boolean.class;
 		if (thing.equals("C"))
 			return char.class;
