@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 
 public class HvlPainter2D {
@@ -78,8 +79,9 @@ public class HvlPainter2D {
 		HvlSwivel2D.hvlResetRotation();
 	}
 	
-	public static void hvlSetMouseCursor(Texture texture, int xHotSpot, int yHotSpot){
-		
+	@Deprecated
+	public static void hvlForceRefresh(){
+		hvlDrawQuad(0f, 0f, 0f, 0f, HvlTextureUtil.getColoredRect(1, 1, Color.transparent), Color.transparent);
 	}
 
 }

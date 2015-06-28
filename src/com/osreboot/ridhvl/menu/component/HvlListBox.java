@@ -221,9 +221,7 @@ public class HvlListBox extends HvlComponent {
 			font.hvlDrawWord(items.get(i).toString(), getX(), getY()
 					+ ((i - topItem) * itemHeight), textScale, textColor);
 		}
-		HvlPainter2D.hvlDrawQuad(0f, 0f, 0f, 0f,
-				HvlTextureUtil.getColoredRect(1, 1, Color.transparent),
-				Color.transparent);// TODO: WHY DO I NEED TO DO THIS???
+		HvlPainter2D.hvlForceRefresh();
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
 		hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
