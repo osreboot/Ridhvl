@@ -19,7 +19,9 @@ import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
 
 public class HvlConfigUtil {
 
+	@HvlConfigIgnore
 	public static final String delimeter = ":";
+	@HvlConfigIgnore
 	public static final String regexDelim = Pattern.quote(delimeter);
 
 	public static <TConfigType> TConfigType loadConfig(
