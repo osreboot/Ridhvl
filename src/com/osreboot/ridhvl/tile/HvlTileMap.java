@@ -29,6 +29,8 @@ public class HvlTileMap {
 	private float tileWidth, tileHeight;
 	private int mapWidth, mapHeight;
 	private float x, y;
+	private boolean cutOff;
+	private float xLeft, xRight, yTop, yBottom;
 
 	public HvlTileMap(Texture tArg, int tilesAcrossArg, int tilesTallArg,
 			int mapWidthArg, int mapHeightArg, float xArg, float yArg,
@@ -52,8 +54,14 @@ public class HvlTileMap {
 				if (current == null)
 					continue;
 
-				current.draw(info, x + (tileWidth * currentX), y
-						+ (tileHeight * currentY), tileWidth, tileHeight, delta);
+				float xMin = x + (tileWidth * currentX);
+				float yMin = y + (tileHeight * currentY);
+				float xMax = xMin + tileWidth;
+				float yMax = yMin + tileHeight;
+				
+				boolean inRange = xMax > xLeft && xMin < xRight && yMax > yTop && yMin < yBottom;
+				
+				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, cutOff ? inRange : true);
 			}
 		}
 
@@ -227,5 +235,55 @@ public class HvlTileMap {
 		this.tiles = newTiles;
 		this.mapWidth = widthArg;
 		this.mapHeight = heightArg;
+	}
+
+	
+	public boolean isCutOff() {
+		return cutOff;
+	}
+
+	
+	public void setCutOff(boolean cutOff) {
+		this.cutOff = cutOff;
+	}
+
+	
+	public float getxLeft() {
+		return xLeft;
+	}
+
+	
+	public void setxLeft(float xLeft) {
+		this.xLeft = xLeft;
+	}
+
+	
+	public float getxRight() {
+		return xRight;
+	}
+
+	
+	public void setxRight(float xRight) {
+		this.xRight = xRight;
+	}
+
+	
+	public float getyTop() {
+		return yTop;
+	}
+
+	
+	public void setyTop(float yTop) {
+		this.yTop = yTop;
+	}
+
+	
+	public float getyBottom() {
+		return yBottom;
+	}
+
+	
+	public void setyBottom(float yBottom) {
+		this.yBottom = yBottom;
 	}
 }

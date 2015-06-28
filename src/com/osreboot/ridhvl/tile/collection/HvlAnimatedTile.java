@@ -31,7 +31,7 @@ public class HvlAnimatedTile extends HvlTile {
 
 	@Override
 	public void draw(TileMapInfo info, float x, float y,
-			float width, float height, float delta) {
+			float width, float height, float delta, boolean inRange) {
 		timer += delta;
 		
 		if (timer >= timeBetweenAnimations)
@@ -41,6 +41,8 @@ public class HvlAnimatedTile extends HvlTile {
 			if (currentTile >= tileCoords.size())
 				currentTile = 0;
 		}
+		
+		if (!inRange) return;
 		
 		int tileX = tileCoords.get(currentTile) % info.tileWidth;
 		int tileY = tileCoords.get(currentTile) / info.tileHeight;

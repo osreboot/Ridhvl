@@ -54,7 +54,12 @@ public class TileTest extends HvlTemplate2DBasic {
 				sb.append(current);
 				sb.append(System.lineSeparator());
 			}
-			tilemaps = HvlLayeredTileMap.load(sb.toString(),  textureLoader.getResource(1),  0, 0, 64, 64);
+			tilemaps = HvlLayeredTileMap.load(sb.toString(),  textureLoader.getResource(1),  -32, 0, 64, 64);
+			tilemaps.setCutOff(true);
+			tilemaps.setxLeft(0);
+			tilemaps.setxRight(512);
+			tilemaps.setyTop(0);
+			tilemaps.setyBottom(256);
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();

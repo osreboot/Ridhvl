@@ -18,7 +18,9 @@ public class HvlSimpleTile extends HvlTile {
 
 	@Override
 	public void draw(TileMapInfo info, float x, float y, float width,
-			float height, float delta) {
+			float height, float delta, boolean inRange) {
+		if (!inRange) return;
+		
 		int tileX = tile % info.tileWidth;
 		int tileY = tile / info.tileHeight;
 

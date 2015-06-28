@@ -10,6 +10,9 @@ public class HvlLayeredTileMap {
 	private float x, y;
 	private float tileWidth, tileHeight;
 
+	private boolean cutOff;
+	private float xLeft, xRight, yTop, yBottom;
+	
 	public HvlLayeredTileMap(float xArg, float yArg, float tileWidthArg,
 			float tileHeightArg, HvlTileMap... layersArg) {
 		x = xArg;
@@ -30,6 +33,11 @@ public class HvlLayeredTileMap {
 			map.setY(y);
 			map.setTileWidth(tileWidth);
 			map.setTileHeight(tileHeight);
+			map.setCutOff(cutOff);
+			map.setxLeft(xLeft);
+			map.setxRight(xRight);
+			map.setyTop(yTop);
+			map.setyBottom(yBottom);
 			map.draw(delta);
 		}
 	}
@@ -94,5 +102,45 @@ public class HvlLayeredTileMap {
 
 	public void setTileHeight(float tileHeight) {
 		this.tileHeight = tileHeight;
+	}
+
+	public boolean isCutOff() {
+		return cutOff;
+	}
+
+	public void setCutOff(boolean cutOff) {
+		this.cutOff = cutOff;
+	}
+
+	public float getxLeft() {
+		return xLeft;
+	}
+
+	public void setxLeft(float xLeft) {
+		this.xLeft = xLeft;
+	}
+
+	public float getxRight() {
+		return xRight;
+	}
+
+	public void setxRight(float xRight) {
+		this.xRight = xRight;
+	}
+
+	public float getyTop() {
+		return yTop;
+	}
+
+	public void setyTop(float yTop) {
+		this.yTop = yTop;
+	}
+
+	public float getyBottom() {
+		return yBottom;
+	}
+
+	public void setyBottom(float yBottom) {
+		this.yBottom = yBottom;
 	}
 }
