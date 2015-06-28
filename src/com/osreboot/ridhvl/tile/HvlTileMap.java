@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
-
 public class HvlTileMap {
 
 	public class TileMapInfo {
@@ -45,9 +43,7 @@ public class HvlTileMap {
 		this.tiles = new HvlTile[mapWidth * mapHeight];
 	}
 
-	public void draw(float delta) {
-		HvlPainter2D.TEXMAGBLUR.disable();
-		
+	public void draw(float delta) {		
 		for (int currentX = 0; currentX < mapWidth; currentX++) {
 			for (int currentY = 0; currentY < mapHeight; currentY++) {
 				HvlTile current = tiles[mapWidth * currentY + currentX];
@@ -64,8 +60,6 @@ public class HvlTileMap {
 				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, cutOff ? inRange : true);
 			}
 		}
-
-		HvlPainter2D.TEXMAGBLUR.enable();
 	}
 
 	public HvlTile getTile(int xArg, int yArg) {
