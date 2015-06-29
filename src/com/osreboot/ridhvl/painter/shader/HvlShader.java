@@ -3,12 +3,12 @@ package com.osreboot.ridhvl.painter.shader;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.IntBuffer;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 
 public class HvlShader {
@@ -56,6 +56,14 @@ public class HvlShader {
 	public void sendTexture(String key, int value){
 		int loc = GL20.glGetUniformLocation(shaderID, key);
 		GL20.glUniform1i(loc, value);
+	}
+	
+	public void sendIntArray(String key, int[] value){
+		IntBuffer buffer = BufferUtils.createIntBuffer(value.length);
+		buffer.put(value);
+		buffer.rewind();
+		int loc = GL20.glGetUniformLocation(shaderID, key);
+		GL20.glUniform1(loc, buffer);
 	}
 	
 	private String readFile(String file){
