@@ -135,4 +135,8 @@ public abstract class HvlParticleSystem {
 	{
 		correlators.add(corr);
 	}
+
+	public Queue<HvlParticle> getParticles() {
+		return particles;
+	}
 }

@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
-
 public class HvlTileMap {
 
 	public class TileMapInfo {
@@ -53,8 +51,6 @@ public class HvlTileMap {
 			{
 				float xMin = x + (tileWidth * 0);
 				float yMin = y + (tileHeight * 0);
-				float xMax = xMin + tileWidth;
-				float yMax = yMin + tileHeight;
 				
 				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, true);
 			}
