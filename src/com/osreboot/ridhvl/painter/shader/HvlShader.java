@@ -7,11 +7,13 @@ import java.io.InputStreamReader;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 
 public class HvlShader {
 
-	private static final String PATH_SHADER_DEFAULT = "shader\\", SUFFIX_VERTEX = ".hvlvt", SUFFIX_FRAGMENT = ".hvlfg";
+	public static final String PATH_SHADER_DEFAULT = "shader\\", SUFFIX_VERTEX = ".hvlvt", SUFFIX_FRAGMENT = ".hvlfg";
 	
 	public static final String
 	VERTEX_DEFAULT 							= PATH_SHADER_DEFAULT + "Default" + SUFFIX_VERTEX,
@@ -51,7 +53,9 @@ public class HvlShader {
 		GL20.glUniform1f(loc, value);
 	}
 	
-	public void sendTexture(String key, int value){
+	public void sendTexture(String key, int unit, int value){
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + unit);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, value);
 		int loc = GL20.glGetUniformLocation(shaderID, key);
 		GL20.glUniform1i(loc, value);
 	}
