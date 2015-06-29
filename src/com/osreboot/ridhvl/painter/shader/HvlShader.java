@@ -53,9 +53,7 @@ public class HvlShader {
 		GL20.glUniform1f(loc, value);
 	}
 	
-	public void sendTexture(String key, int unit, int value){
-		GL13.glActiveTexture(GL13.GL_TEXTURE0 + unit);
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, value);
+	public void sendTexture(String key, int value){
 		int loc = GL20.glGetUniformLocation(shaderID, key);
 		GL20.glUniform1i(loc, value);
 	}

@@ -32,6 +32,22 @@ public class HvlRenderFrame {
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 		}
 	}
+	
+	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame, boolean clear){//TODO clean this up
+		if(hasPushed){
+			GL11.glPopMatrix();
+			hasPushed = false;
+		}
+		if(renderFrame != null){
+			hasPushed = true;
+			GL11.glPushMatrix();
+			GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
+			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
+			if(clear) glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}else{
+			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
+		}
+	}
 
 	private int frameID, textureID, width, height, x = 0, y = 0;
 
