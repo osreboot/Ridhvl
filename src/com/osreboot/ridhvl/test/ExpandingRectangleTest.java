@@ -6,9 +6,9 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
-import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
+import com.osreboot.ridhvl.template.HvlTemplate2D;
 
-public class ExpandingRectangleTest extends HvlTemplate2DBasic {
+public class ExpandingRectangleTest extends HvlTemplate2D {
 
 	public ExpandingRectangleTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());

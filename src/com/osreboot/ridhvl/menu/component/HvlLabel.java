@@ -40,7 +40,7 @@ public class HvlLabel extends HvlComponent {
 	@Override
 	public void draw(float delta) {
 		updateDimensions(); // Force the width and height.
-		font.hvlDrawWord(text, getX(), getY(), scale, color);
+		font.drawWord(text, getX(), getY(), scale, color);
 	}
 
 	public HvlFontPainter2D getFont() {

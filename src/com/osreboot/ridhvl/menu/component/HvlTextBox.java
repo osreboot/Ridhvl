@@ -115,7 +115,7 @@ public class HvlTextBox extends HvlComponent {
 		{
 			unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		}
-		fontPainter.hvlDrawWord(getText(), getX() + offsetX, getY() + offsetY,
+		fontPainter.drawWord(getText(), getX() + offsetX, getY() + offsetY,
 				textScale, textColor);
 	}
 

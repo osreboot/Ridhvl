@@ -23,9 +23,9 @@ import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
-import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
+import com.osreboot.ridhvl.template.HvlTemplate2D;
 
-public class ComponentsTest extends HvlTemplate2DBasic {
+public class ComponentsTest extends HvlTemplate2D {
 
 	private HvlMenu testMenu;
 	private HvlArrangerBox testArranger;

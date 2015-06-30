@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
-
 public class HvlTileMap {
 
 	public class TileMapInfo {

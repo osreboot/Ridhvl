@@ -43,7 +43,7 @@ public class HvlTextButton extends HvlButton {
 		super.draw(delta);
 		float xOffset = (getWidth() - (font.getLineWidth(text) * textScale)) * xAlign;
 		float yOffset = (getHeight() - (font.getFontHeight() * textScale)) * yAlign;
-		font.hvlDrawWord(text, getX() + xOffset, getY() + yOffset, textScale, textColor);
+		font.drawWord(text, getX() + xOffset, getY() + yOffset, textScale, textColor);
 	}
 
 	public HvlFontPainter2D getFont() {

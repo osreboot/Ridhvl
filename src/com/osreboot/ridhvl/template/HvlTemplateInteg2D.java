@@ -22,14 +22,14 @@ import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
-public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
+public abstract class HvlTemplateInteg2D extends HvlTemplate{
 
 	private int frameRate, displayWidth, displayHeight;
 	
 	private HvlTextureLoader textureLoader;
 	private HvlSoundLoader soundLoader;
 
-	public HvlTemplateInteg2DBasic(int frameRateArg, int width, int height, String title, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
+	public HvlTemplateInteg2D(int frameRateArg, int width, int height, String title, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
 		frameRate = frameRateArg;
 		
 		displayWidth = width;
@@ -55,7 +55,7 @@ public abstract class HvlTemplateInteg2DBasic extends HvlTemplate{
 		start();
 	}
 	
-	public HvlTemplateInteg2DBasic(int frameRateArg, int width, int height, String title, String iconName, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
+	public HvlTemplateInteg2D(int frameRateArg, int width, int height, String title, String iconName, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
 		frameRate = frameRateArg;
 
 		displayWidth = width;

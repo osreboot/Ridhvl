@@ -22,7 +22,7 @@ public class HvlFontPainter2D {
 		rowCount = rowCountArg;
 	}
 	
-	public void hvlDrawWord(String word, float x, float y, float width, float height, Color c){
+	public void drawWord(String word, float x, float y, float width, float height, Color c){
 		for(int i = 0; i < word.toCharArray().length; i++){
 			if(HvlFontUtil.containsChar(layout, word.toCharArray()[i])){
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
@@ -34,7 +34,7 @@ public class HvlFontPainter2D {
 		}
 	}
 	
-	public void hvlDrawWord(String word, float x, float y, Color c){
+	public void drawWord(String word, float x, float y, Color c){
 		for(int i = 0; i < word.toCharArray().length; i++){
 			if(HvlFontUtil.containsChar(layout, word.toCharArray()[i])){
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;
@@ -45,7 +45,7 @@ public class HvlFontPainter2D {
 		}
 	}
 	
-	public void hvlDrawWord(String word, float x, float y, float scale, Color c){
+	public void drawWord(String word, float x, float y, float scale, Color c){
 		for(int i = 0; i < word.toCharArray().length; i++){
 			if(HvlFontUtil.containsChar(layout, word.toCharArray()[i])){
 				int xpos = HvlFontUtil.indexOfChar(layout, word.toCharArray()[i]) % rowCount;

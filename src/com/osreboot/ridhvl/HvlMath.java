@@ -4,6 +4,7 @@ import java.util.Random;
 
 
 public class HvlMath {
+	@Deprecated
 	public static class HvlCoord
 	{
 		public float x, y;
@@ -16,6 +17,10 @@ public class HvlMath {
 			this.x = xArg;
 			this.y = yArg;
 		}
+	}
+	
+	public static float lerp(float arg1, float arg2, float alpha){
+		return arg1 + alpha * (arg2 - arg1);
 	}
 	
 	/**

@@ -218,7 +218,7 @@ public class HvlListBox extends HvlComponent {
 				itemBackgroundOff.draw(delta, getX(), getY()
 						+ ((i - topItem) * itemHeight),
 						getWidth() - scrollBox.getWidth(), itemHeight);
-			font.hvlDrawWord(items.get(i).toString(), getX(), getY()
+			font.drawWord(items.get(i).toString(), getX(), getY()
 					+ ((i - topItem) * itemHeight), textScale, textColor);
 		}
 		HvlPainter2D.hvlForceRefresh();

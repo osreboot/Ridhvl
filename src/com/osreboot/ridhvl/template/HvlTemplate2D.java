@@ -20,11 +20,11 @@ import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
-public abstract class HvlTemplate2DBasic extends HvlTemplate{
+public abstract class HvlTemplate2D extends HvlTemplate{
 
 	private int frameRate, displayWidth, displayHeight;
 
-	public HvlTemplate2DBasic(int frameRateArg, int width, int height, String title, HvlDisplayMode displayModeArg){
+	public HvlTemplate2D(int frameRateArg, int width, int height, String title, HvlDisplayMode displayModeArg){
 		frameRate = frameRateArg;
 		
 		displayWidth = width;
@@ -47,7 +47,7 @@ public abstract class HvlTemplate2DBasic extends HvlTemplate{
 		start();
 	}
 	
-	public HvlTemplate2DBasic(int frameRateArg, int width, int height, String title, String iconName, HvlDisplayMode displayModeArg){
+	public HvlTemplate2D(int frameRateArg, int width, int height, String title, String iconName, HvlDisplayMode displayModeArg){
 		frameRate = frameRateArg;
 
 		displayWidth = width;

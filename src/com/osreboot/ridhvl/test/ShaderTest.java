@@ -9,9 +9,9 @@ import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.painter.shader.HvlShader;
-import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
+import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
-public class ShaderTest extends HvlTemplateInteg2DBasic{
+public class ShaderTest extends HvlTemplateInteg2D{
 	
 	public ShaderTest(){
 		super(60, 1280, 720, "Unnamed", 5, 5, new HvlDisplayModeDefault());

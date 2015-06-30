@@ -14,9 +14,9 @@ import com.osreboot.ridhvl.particle.HvlParticleSystem;
 import com.osreboot.ridhvl.particle.collection.HvlRadialParticleSystem;
 import com.osreboot.ridhvl.particle.collection.HvlRectangularParticleSystem;
 import com.osreboot.ridhvl.particle.correlation.collection.HvlParticleVelocityToAngleCorrelator;
-import com.osreboot.ridhvl.template.HvlTemplate2DBasic;
+import com.osreboot.ridhvl.template.HvlTemplate2D;
 
-public class ParticlesTest extends HvlTemplate2DBasic {
+public class ParticlesTest extends HvlTemplate2D {
 
 	public ParticlesTest() {
 		super(600, 1280, 720, "Unnamed", new HvlDisplayModeDefault());

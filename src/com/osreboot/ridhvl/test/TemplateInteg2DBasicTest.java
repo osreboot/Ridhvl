@@ -8,9 +8,9 @@ import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
-import com.osreboot.ridhvl.template.HvlTemplateInteg2DBasic;
+import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
-public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
+public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D{
 	
 	public TemplateInteg2DBasicTest(){
 		super(60, 1280, 720, "Unnamed", 5, 5, new HvlDisplayModeDefault());
@@ -45,8 +45,8 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2DBasic{
 		hvlDrawQuad(250, 250, 100, 100, getTextureLoader().getResource(0));
 		hvlResetRotation();
 		
-		fontPainter.hvlDrawWord("test of the most basic template!", 10, 10, 1260, 100, new Color(gradient/1280f, gradient/1280f, gradient/1280f));
-		fontPainter.hvlDrawWord("and rotation! yay?", 10, 100, 0.5f, new Color(1 - (gradient/1280f), 1 - (gradient/1280f), 1 - (gradient/1280f)));
+		fontPainter.drawWord("test of the most basic template!", 10, 10, 1260, 100, new Color(gradient/1280f, gradient/1280f, gradient/1280f));
+		fontPainter.drawWord("and rotation! yay?", 10, 100, 0.5f, new Color(1 - (gradient/1280f), 1 - (gradient/1280f), 1 - (gradient/1280f)));
 	}
 
 }
