@@ -397,4 +397,15 @@ public class HvlListBox extends HvlComponent {
 	public void removeItem(Object item) {
 		items.remove(item);
 	}
+
+	public int getItemCount() {
+		return items.size();
+	}
+	
+	public Object getItem(int index) {
+		if (index >= items.size() || index < 0)
+			return null;
+		
+		return items.get(index);
+	}
 }
