@@ -29,6 +29,7 @@ public class HvlArrangerBox extends HvlPanel {
 			float previousY = getY();
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
+				if (comp == null) continue;
 
 				comp.setX(getX() + (getWidth() * align)
 						- (comp.getWidth() * align));
@@ -46,6 +47,7 @@ public class HvlArrangerBox extends HvlPanel {
 			float previousX = getX();
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
+				if (comp == null) continue;
 
 				if (i == 0)
 					comp.setX(previousX + borderL);
