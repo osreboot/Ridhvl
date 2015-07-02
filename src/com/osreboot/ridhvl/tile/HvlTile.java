@@ -5,7 +5,7 @@ public abstract class HvlTile {
 		
 	}
 	
-	public abstract void draw(HvlTileMap.TileMapInfo info, float x, float y, float width, float height, float delta, boolean inRange);
+	public abstract void draw(HvlTileMap.TileMapInfo info, float x, float y, float width, float height, float delta, boolean inRange, float opacity);
 
 	// NOTE: This isn't "overridable", but to use it
 	// it MUST be called "save" and take a tile parameter

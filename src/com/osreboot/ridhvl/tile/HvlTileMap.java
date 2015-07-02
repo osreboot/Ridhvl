@@ -29,6 +29,7 @@ public class HvlTileMap {
 	private float x, y;
 	private boolean cutOff;
 	private float xLeft, xRight, yTop, yBottom;
+	private float opacity;
 
 	public HvlTileMap(Texture tArg, int tilesAcrossArg, int tilesTallArg,
 			int mapWidthArg, int mapHeightArg, float xArg, float yArg,
@@ -41,6 +42,7 @@ public class HvlTileMap {
 		this.x = xArg;
 		this.y = yArg;
 		this.tiles = new HvlTile[mapWidth * mapHeight];
+		this.opacity = 1.0f;
 	}
 
 	public void draw(float delta) {
@@ -52,7 +54,7 @@ public class HvlTileMap {
 				float xMin = x + (tileWidth * 0);
 				float yMin = y + (tileHeight * 0);
 				
-				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, true);
+				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, true, opacity);
 			}
 		}
 		
@@ -69,7 +71,7 @@ public class HvlTileMap {
 				
 				boolean inRange = xMax > xLeft && xMin < xRight && yMax > yTop && yMin < yBottom;
 				
-				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, cutOff ? inRange : true);
+				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, cutOff ? inRange : true, opacity);
 			}
 		}
 	}
@@ -291,5 +293,13 @@ public class HvlTileMap {
 	
 	public void setyBottom(float yBottom) {
 		this.yBottom = yBottom;
+	}
+
+	public float getOpacity() {
+		return opacity;
+	}
+
+	public void setOpacity(float opacity) {
+		this.opacity = opacity;
 	}
 }

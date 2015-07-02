@@ -18,7 +18,7 @@ public class HvlSimpleTile extends HvlTile {
 
 	@Override
 	public void draw(TileMapInfo info, float x, float y, float width,
-			float height, float delta, boolean inRange) {
+			float height, float delta, boolean inRange, float opacity) {
 		if (!inRange) return;
 		
 		int tileX = tile % info.tileWidth;
@@ -32,7 +32,7 @@ public class HvlSimpleTile extends HvlTile {
 		HvlPainter2D.TEXMAGBLUR.disable();
 		
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2,
-				info.texture, Color.white);
+				info.texture, new Color(1.0f, 1.0f, 1.0f, opacity));
 		
 		HvlPainter2D.TEXMAGBLUR.enable();
 	}

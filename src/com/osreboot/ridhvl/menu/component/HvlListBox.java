@@ -8,7 +8,6 @@ import java.util.List;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.painter.HvlCursor;

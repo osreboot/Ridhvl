@@ -16,11 +16,6 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 	
 	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
 	HvlTiledRect testRect;
-
-	public static void main(String[] args)
-	{
-		new ExpandingRectangleTest();
-	}
 	
 	@Override
 	public void initialize() {
