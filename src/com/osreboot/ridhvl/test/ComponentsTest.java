@@ -36,6 +36,11 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlSlider testSlider;
 	private HvlListBox testListBox;
 
+	public static void main(String[] args)
+	{
+		new ComponentsTest();
+	}
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
@@ -107,14 +112,20 @@ public class ComponentsTest extends HvlTemplate2D {
 		testSlider.setHandleEndOffset(8);
 		testSlider.setSnapInterval(0.1f);
 
-		testListBox = new HvlListBox(0, 0, 512, 256, testSlider, new HvlButton(
-				64, 64, 32, 32, new HvlTextureDrawable(
-						textureLoader.getResource(2)), new HvlTextureDrawable(
-						textureLoader.getResource(3)), new HvlTextureDrawable(
-						textureLoader.getResource(4))), new HvlButton(64, 64,
-				32, 32, new HvlTextureDrawable(textureLoader.getResource(2)),
-				new HvlTextureDrawable(textureLoader.getResource(3)),
-				new HvlTextureDrawable(textureLoader.getResource(4))),
+//		testListBox = new HvlListBox(0, 0, 512, 256, testSlider, new HvlButton(
+//				64, 64, 32, 32, new HvlTextureDrawable(
+//						textureLoader.getResource(2)), new HvlTextureDrawable(
+//						textureLoader.getResource(3)), new HvlTextureDrawable(
+//						textureLoader.getResource(4))), new HvlButton(64, 64,
+//				32, 32, new HvlTextureDrawable(textureLoader.getResource(2)),
+//				new HvlTextureDrawable(textureLoader.getResource(3)),
+//				new HvlTextureDrawable(textureLoader.getResource(4))),
+//				new HvlFontPainter2D(textureLoader.getResource(1),
+//						HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18),
+//				new HvlTextureDrawable(textureLoader.getResource(5)),
+//				new HvlTextureDrawable(textureLoader.getResource(6)),
+//				new HvlTextureDrawable(textureLoader.getResource(7)), 32, 5);
+		testListBox = new HvlListBox(0, 0, 512, 256, testSlider, null, null,
 				new HvlFontPainter2D(textureLoader.getResource(1),
 						HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18),
 				new HvlTextureDrawable(textureLoader.getResource(5)),

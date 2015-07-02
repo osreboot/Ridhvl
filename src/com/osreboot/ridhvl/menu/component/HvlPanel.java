@@ -17,6 +17,7 @@ public class HvlPanel extends HvlComponent {
 	@Override
 	public void update(float delta) {
 		for (HvlComponent comp : children) {
+			if (comp == null) continue;
 			comp.update(delta);
 		}
 	}
@@ -24,6 +25,7 @@ public class HvlPanel extends HvlComponent {
 	@Override
 	public void draw(float delta) {
 		for (HvlComponent comp : children) {
+			if (comp == null) continue;
 			comp.draw(delta);
 		}
 	}

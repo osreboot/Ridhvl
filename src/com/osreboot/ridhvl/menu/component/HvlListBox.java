@@ -124,8 +124,11 @@ public class HvlListBox extends HvlComponent {
 		else if (Mouse.isButtonDown(0))
 			isFocused = false;
 
-		scrollUpButton.setEnabled(!scrollBar.isBeingHeld());
-		scrollDownButton.setEnabled(!scrollBar.isBeingHeld());
+		if (scrollUpButton != null)
+			scrollUpButton.setEnabled(!scrollBar.isBeingHeld());
+		
+		if (scrollDownButton != null)
+			scrollDownButton.setEnabled(!scrollBar.isBeingHeld());
 
 		scrollBar.setEnabled(items.size() > maxVisibleItems);
 		if (items.size() - maxVisibleItems <= 0) {
@@ -138,11 +141,11 @@ public class HvlListBox extends HvlComponent {
 		layoutUpdate();
 		scrollBox.update(delta);
 
-		if (scrollUpButton.isTriggered())
+		if (scrollUpButton != null && scrollUpButton.isTriggered())
 			scrollBar.setValue(Math.max(
 					scrollBar.getValue() - scrollBar.getSnapInterval()
 							* sizeIntervalsForScroll, 0.0f));
-		if (scrollDownButton.isTriggered())
+		if (scrollDownButton != null && scrollDownButton.isTriggered())
 			scrollBar.setValue(Math.min(
 					scrollBar.getValue() + scrollBar.getSnapInterval()
 							* sizeIntervalsForScroll, 1.0f));
@@ -230,12 +233,12 @@ public class HvlListBox extends HvlComponent {
 	private void layoutUpdate() {
 		scrollBox.setY(getY());
 		scrollBox.setWidth(Math.max(
-				Math.max(scrollBar.getWidth(), scrollUpButton.getWidth()),
-				scrollDownButton.getWidth()));
+				Math.max(scrollBar.getWidth(), scrollUpButton == null ? 0 : scrollUpButton.getWidth()),
+				scrollDownButton == null ? 0 : scrollDownButton.getWidth()));
 		scrollBox.setX(getX() + getWidth() - scrollBox.getWidth());
 		scrollBox.setHeight(getHeight());
-		scrollBar.setHeight(getHeight() - scrollUpButton.getHeight()
-				- scrollDownButton.getHeight());
+		scrollBar.setHeight(getHeight() - (scrollUpButton == null ? 0 : scrollUpButton.getHeight())
+				- (scrollDownButton == null ? 0 : scrollDownButton.getHeight()));
 	}
 
 	public HvlSlider getScrollBar() {
