@@ -139,7 +139,7 @@ public class HvlSlider extends HvlComponent {
 	}
 
 	@Override
-	public void draw(float delta) {
+	public void draw(float delta) {		
 		if (background != null)
 			background.draw(delta, getX(), getY(), getWidth(), getHeight());
 		

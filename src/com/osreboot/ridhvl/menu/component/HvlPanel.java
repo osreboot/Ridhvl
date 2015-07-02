@@ -26,7 +26,8 @@ public class HvlPanel extends HvlComponent {
 	public void draw(float delta) {
 		for (HvlComponent comp : children) {
 			if (comp == null) continue;
-			comp.draw(delta);
+			if (comp.isVisible())
+				comp.draw(delta);
 		}
 	}
 

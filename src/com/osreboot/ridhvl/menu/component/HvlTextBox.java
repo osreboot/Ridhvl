@@ -106,7 +106,7 @@ public class HvlTextBox extends HvlComponent {
 	
 	@Override
 	public void draw(float delta)
-	{
+	{		
 		if (isFocused)
 		{
 			focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
