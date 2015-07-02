@@ -88,10 +88,12 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		Display.sync(frameRate);
 
 		getTimer().setRunning(!Display.isCloseRequested());
-		if(!getTimer().isRunning()){
-			Display.destroy();
-			System.exit(1);
-		}
+		if(!getTimer().isRunning()) exit();
+	}
+	
+	public void exit(){
+		Display.destroy();
+		System.exit(0);
 	}
 	
 	public int getWidth(){

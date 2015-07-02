@@ -97,12 +97,14 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		
 		Display.update();
 		Display.sync(frameRate);
-
+		
 		getTimer().setRunning(!Display.isCloseRequested());
-		if(!getTimer().isRunning()){
-			Display.destroy();
-			System.exit(1);
-		}
+		if(!getTimer().isRunning()) exit();
+	}
+	
+	public void exit(){
+		Display.destroy();
+		System.exit(0);
 	}
 	
 	public HvlTextureLoader getTextureLoader(){
