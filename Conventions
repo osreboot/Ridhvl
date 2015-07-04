@@ -11,6 +11,7 @@
 - Class Names -
  + All non-test classes must begin with "Hvl" followed by a unique name with the first letter of every word capitalized.
  + Classes extending from a parent class must begin with the complete name of the parent followed by the name of the variation.
+ + Test classes must start with the goal of the test followed by "Test".
  //TODO non-public classes
  //TODO abbreviations
 
