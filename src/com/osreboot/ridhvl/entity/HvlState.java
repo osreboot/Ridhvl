@@ -57,4 +57,15 @@ public abstract class HvlState {
 	{
 		return entities.containsValue(entity);
 	}
+
+	public String getUniqueName(String baseName)
+	{
+		if (!entities.containsKey(baseName)) return baseName;
+		
+		int index = -1;
+		
+		while (entities.containsKey(baseName + ++index));
+		
+		return baseName + index;
+	}
 }

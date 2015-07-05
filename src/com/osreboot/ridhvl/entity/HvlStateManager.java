@@ -57,4 +57,15 @@ public class HvlStateManager {
 	{
 		return states.containsValue(state);
 	}
+
+	public String getUniqueName(String baseName)
+	{
+		if (!states.containsKey(baseName)) return baseName;
+		
+		int index = -1;
+		
+		while (states.containsKey(baseName + ++index));
+		
+		return baseName + index;
+	}
 }
