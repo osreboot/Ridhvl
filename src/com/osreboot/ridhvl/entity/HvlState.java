@@ -46,4 +46,15 @@ public abstract class HvlState {
 		
 		return entities.get(name);
 	}
+
+	public boolean containsEntity(String name)
+	{
+		return entities.containsKey(name);
+	}
+	
+	// TODO: Might not work without overriding .equals
+	public boolean containsEntity(HvlEntity entity)
+	{
+		return entities.containsValue(entity);
+	}
 }

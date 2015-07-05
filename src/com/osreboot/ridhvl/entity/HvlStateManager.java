@@ -46,4 +46,15 @@ public class HvlStateManager {
 		
 		return states.get(name);
 	}
+
+	public boolean containsState(String name)
+	{
+		return states.containsKey(name);
+	}
+	
+	// TODO: This might not work without overriding .equals
+	public boolean containsState(HvlState state)
+	{
+		return states.containsValue(state);
+	}
 }
