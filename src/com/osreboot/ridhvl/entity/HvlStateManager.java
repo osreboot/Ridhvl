@@ -30,9 +30,17 @@ public class HvlStateManager {
 	public boolean addState(String name, HvlState state)
 	{
 		if (states.containsKey(name)) return false;
-		
 		states.put(name, state);
+		state.initialize();
 		return true;
+	}
+	
+	public String addStateUniqueName(String nameBase, HvlState state)
+	{
+		String name = getUniqueName(nameBase);
+		states.put(name, state);
+		state.initialize();
+		return name;
 	}
 
 	public void removeState(String name)

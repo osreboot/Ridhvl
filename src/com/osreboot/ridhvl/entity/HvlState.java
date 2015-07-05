@@ -6,7 +6,7 @@ import java.util.Map;
 public abstract class HvlState {
 	private Map<String, HvlEntity> entities;
 	
-	public HvlState()
+	public void initialize()
 	{
 		entities = new HashMap<>();
 	}
@@ -27,12 +27,21 @@ public abstract class HvlState {
 		}
 	}
 
-	public boolean addEntity(String name, HvlEntity state)
+	public boolean addEntity(String name, HvlEntity entity)
 	{
 		if (entities.containsKey(name)) return false;
 		
-		entities.put(name, state);
+		entities.put(name, entity);
+		entity.initialize();
 		return true;
+	}
+	
+	public String addEntityUniqueName(String nameBase, HvlEntity entity)
+	{
+		String name = getUniqueName(nameBase);
+		entities.put(name, entity);
+		entity.initialize();
+		return name;
 	}
 
 	public void removeEntity(String name)
