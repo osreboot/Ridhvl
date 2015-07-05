@@ -19,6 +19,14 @@ public class HvlStateManager {
 		}
 	}
 	
+	public void draw(float delta)
+	{
+		for (Map.Entry<String, HvlState> entry : states.entrySet())
+		{
+			entry.getValue().draw(delta);
+		}
+	}
+	
 	public boolean addState(String name, HvlState state)
 	{
 		if (states.containsKey(name)) return false;
