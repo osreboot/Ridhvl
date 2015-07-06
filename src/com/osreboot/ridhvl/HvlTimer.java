@@ -5,7 +5,7 @@ import org.lwjgl.Sys;
 
 public abstract class HvlTimer {
 
-	private float dilation = 1f;
+	private float dilation = 1f, total = 0;
 	
 	private long delta, time, last;
 	private boolean running = true;
@@ -17,6 +17,7 @@ public abstract class HvlTimer {
 			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
 			delta = (time - last);//TODO if user is not dragging window?
 			last = time;
+			total += ((float)delta / 1000)*dilation;
 			if(delta > 0 && delta < time) update(((float)delta / 1000)*dilation);
 		}
 	}
@@ -37,6 +38,10 @@ public abstract class HvlTimer {
 	
 	public void setDilation(float dilationArg){
 		dilation = dilationArg;
+	}
+	
+	public float getTotalTime(){
+		return total;
 	}
 
 }
