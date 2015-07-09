@@ -1,0 +1,22 @@
+uniform sampler2D texture1;
+
+void main(){
+	vec4 color = texture2D(texture1, gl_TexCoord[0].st);
+	float average = (color.r + color.g + color.b)/3.0;
+	
+	if(average > 0.8333f){
+		if(max(mod(gl_TexCoord[0].x*1280, 16f), mod(gl_TexCoord[0].y*720, 16f)) > 1f) average = 1; else average = 0;
+	}else if(average > 0.6666f){
+		if(max(mod(gl_TexCoord[0].x*1280, 8f), mod(gl_TexCoord[0].y*720, 8f)) > 1f) average = 1; else average = 0;
+	}else if(average > 0.4999f){
+		if(max(mod(gl_TexCoord[0].x*1280, 4f), mod(gl_TexCoord[0].y*720, 4f)) > 1f) average = 1; else average = 0;
+	}else if(average > 0.3333f){
+		if(max(mod(gl_TexCoord[0].x*1280, 2f), mod(gl_TexCoord[0].y*720, 2f)) > 1f) average = 1; else average = 0;
+	}else if(average > 0.1666f){
+		if(max(mod(gl_TexCoord[0].x*1280, 2f), mod(gl_TexCoord[0].y*720, 2f)) < 1f) average = 1; else average = 0;
+	}else{
+		if(max(mod(gl_TexCoord[0].x*1280, 4f), mod(gl_TexCoord[0].y*720, 4f)) < 1f) average = 1; else average = 0;
+	}
+	
+	gl_FragColor = vec4(average, average, average, color.a);
+}
