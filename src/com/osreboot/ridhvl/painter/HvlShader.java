@@ -9,6 +9,8 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 
 public class HvlShader {
@@ -54,9 +56,16 @@ public class HvlShader {
 		GL20.glUniform1f(loc, value);
 	}
 	
-	public void sendTexture(String key, int value){
+	private void sendTexture(String key, int value){
 		int loc = GL20.glGetUniformLocation(shaderID, key);
 		GL20.glUniform1i(loc, value);
+	}
+	
+	public void sendRenderFrame(String key, int id, HvlRenderFrame renderFrame){
+		sendTexture(key, id);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + id);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, renderFrame.getTextureID());
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
 	
 	public void sendIntArray(String key, int[] value){
