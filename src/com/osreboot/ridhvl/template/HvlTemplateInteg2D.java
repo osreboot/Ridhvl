@@ -31,6 +31,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	private HvlSoundLoader soundLoader;
 
 	public HvlTemplateInteg2D(int frameRateArg, int width, int height, String title, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 		
 		displayWidth = width;
@@ -57,6 +59,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	}
 	
 	public HvlTemplateInteg2D(int frameRateArg, int width, int height, String title, String iconName, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 
 		displayWidth = width;

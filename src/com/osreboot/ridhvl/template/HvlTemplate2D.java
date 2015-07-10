@@ -26,6 +26,8 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 	private int frameRate, displayWidth, displayHeight;
 
 	public HvlTemplate2D(int frameRateArg, int width, int height, String title, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 		
 		displayWidth = width;
@@ -49,6 +51,8 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 	}
 	
 	public HvlTemplate2D(int frameRateArg, int width, int height, String title, String iconName, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 
 		displayWidth = width;
