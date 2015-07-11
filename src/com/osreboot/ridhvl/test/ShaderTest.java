@@ -7,6 +7,7 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
 import com.osreboot.ridhvl.painter.HvlShader;
@@ -40,7 +41,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_SIMPLE_GRAYSCALE);
 		HvlPainter2D.TEXMAGBLUR.disable();
 		
-		texture = new HvlAnimatedTexture(new Texture[]{
+		texture = new HvlAnimatedTextureArray(new Texture[]{
 				getTextureLoader().getResource(0),
 				getTextureLoader().getResource(1),
 				getTextureLoader().getResource(2)}, 0.5f);
