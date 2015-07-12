@@ -7,8 +7,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlColorUtil;
+import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlMath;
-import com.osreboot.ridhvl.HvlMath.HvlCoord;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
