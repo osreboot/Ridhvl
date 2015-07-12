@@ -11,8 +11,13 @@ public class HvlImageComponent extends HvlComponent {
 	private Texture texture;
 	private Color color;
 
-	public HvlImageComponent(float xArg, float yArg, float wArg, float hArg,
-			Texture tArg) {
+	public HvlImageComponent(float wArg, float hArg, Texture tArg) {
+		super(wArg, hArg);
+		texture = tArg;
+		color = Color.white;
+	}
+
+	public HvlImageComponent(float xArg, float yArg, float wArg, float hArg, Texture tArg) {
 		super(xArg, yArg, wArg, hArg);
 		texture = tArg;
 		color = Color.white;
@@ -20,8 +25,7 @@ public class HvlImageComponent extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
-		HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
-				texture, color);
+		HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, color);
 	}
 
 	public Texture getTexture() {

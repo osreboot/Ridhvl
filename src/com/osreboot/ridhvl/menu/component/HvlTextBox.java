@@ -24,9 +24,21 @@ public class HvlTextBox extends HvlComponent {
 	private boolean numbersOnly;
 	private String blacklistCharacters;
 
-	public HvlTextBox(float xArg, float yArg, float wArg, float hArg,
-			String textArg, HvlComponentDrawable focusedArg,
-			HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
+	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
+		super(wArg, hArg);
+		text = textArg;
+		isFocused = false;
+		maxCharacters = -1;
+		focusedDrawable = focusedArg;
+		unfocusedDrawable = unfocusedArg;
+		fontPainter = fontArg;
+		textColor = Color.black;
+		textScale = 1.0f;
+		pText = textArg;
+	}
+
+	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
+			HvlFontPainter2D fontArg) {
 		super(xArg, yArg, wArg, hArg);
 		text = textArg;
 		isFocused = false;
@@ -41,7 +53,7 @@ public class HvlTextBox extends HvlComponent {
 
 	public void onTextChanged(String text) {
 	}
-	
+
 	@Override
 	public void update(float delta) {
 		if (!isEnabled()) {
@@ -60,20 +72,13 @@ public class HvlTextBox extends HvlComponent {
 					if (Keyboard.getEventKeyState()) {
 						Character keyChar = Keyboard.getEventCharacter();
 						int key = Keyboard.getEventKey();
-						if (key == Keyboard.KEY_LSHIFT
-								|| key == Keyboard.KEY_RSHIFT
-								|| key == Keyboard.KEY_LCONTROL
-								|| key == Keyboard.KEY_RCONTROL
-								|| key == Keyboard.KEY_LMENU
-								|| key == Keyboard.KEY_RMENU
-								|| key == Keyboard.KEY_LMETA
-								|| key == Keyboard.KEY_RMETA)
+						if (key == Keyboard.KEY_LSHIFT || key == Keyboard.KEY_RSHIFT || key == Keyboard.KEY_LCONTROL || key == Keyboard.KEY_RCONTROL
+								|| key == Keyboard.KEY_LMENU || key == Keyboard.KEY_RMENU || key == Keyboard.KEY_LMETA || key == Keyboard.KEY_RMETA)
 							continue;
 
 						if (Keyboard.getEventKey() == Keyboard.KEY_BACK) {
 							if (text.length() > 0)
-								text = text.substring(0,
-										Math.max(text.length() - 1, 0));
+								text = text.substring(0, Math.max(text.length() - 1, 0));
 						} else {
 							text = text.concat(keyChar.toString());
 						}
@@ -94,29 +99,22 @@ public class HvlTextBox extends HvlComponent {
 		if (numbersOnly)
 			text = text.replaceAll("[^\\d-]", "");
 		if (blacklistCharacters != null && !blacklistCharacters.isEmpty())
-			text = text.replaceAll(
-					String.format("[%s]", Pattern.quote(blacklistCharacters)),
-					"");
-		
+			text = text.replaceAll(String.format("[%s]", Pattern.quote(blacklistCharacters)), "");
+
 		if (!pText.equals(text))
 			onTextChanged(text);
-		
+
 		pText = text;
 	}
-	
+
 	@Override
-	public void draw(float delta)
-	{		
-		if (isFocused)
-		{
+	public void draw(float delta) {
+		if (isFocused) {
 			focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-		}
-		else
-		{
+		} else {
 			unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		}
-		fontPainter.drawWord(getText(), getX() + offsetX, getY() + offsetY,
-				textScale, textColor);
+		fontPainter.drawWord(getText(), getX() + offsetX, getY() + offsetY, textScale, textColor);
 	}
 
 	public String getText() {

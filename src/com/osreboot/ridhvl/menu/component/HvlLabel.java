@@ -12,8 +12,29 @@ public class HvlLabel extends HvlComponent {
 	private Color color;
 	private float scale;
 
-	public HvlLabel(float xArg, float yArg, HvlFontPainter2D fontArg,
-			String textArg, Color colorArg) {
+	public HvlLabel(HvlFontPainter2D fontArg, String textArg, Color colorArg) {
+		// The dimensions are 0 because
+		// they get immediately reset anyways.
+		super(0, 0);
+		font = fontArg;
+		text = textArg;
+		color = colorArg;
+		scale = 1.0f;
+		updateDimensions();
+	}
+
+	public HvlLabel(HvlFontPainter2D fontArg, String textArg, Color colorArg, float scaleArg) {
+		// The dimensions are 0 because
+		// they get immediately reset anyways.
+		super(0, 0);
+		font = fontArg;
+		text = textArg;
+		color = colorArg;
+		scale = scaleArg;
+		updateDimensions();
+	}
+
+	public HvlLabel(float xArg, float yArg, HvlFontPainter2D fontArg, String textArg, Color colorArg) {
 		// The dimensions are 0 because
 		// they get immediately reset anyways.
 		super(xArg, yArg, 0, 0);
@@ -24,9 +45,7 @@ public class HvlLabel extends HvlComponent {
 		updateDimensions();
 	}
 
-	public HvlLabel(float xArg, float yArg,
-			HvlFontPainter2D fontArg, String textArg, Color colorArg,
-			float scaleArg) {
+	public HvlLabel(float xArg, float yArg, HvlFontPainter2D fontArg, String textArg, Color colorArg, float scaleArg) {
 		// The dimensions are 0 because
 		// they get immediately reset anyways.
 		super(xArg, yArg, 0, 0);

@@ -9,6 +9,11 @@ public class HvlPanel extends HvlComponent {
 
 	private List<HvlComponent> children;
 
+	public HvlPanel(float wArg, float hArg) {
+		super(wArg, hArg);
+		children = new LinkedList<>();
+	}
+
 	public HvlPanel(float xArg, float yArg, float wArg, float hArg) {
 		super(xArg, yArg, wArg, hArg);
 		children = new LinkedList<>();
@@ -17,7 +22,8 @@ public class HvlPanel extends HvlComponent {
 	@Override
 	public void update(float delta) {
 		for (HvlComponent comp : children) {
-			if (comp == null) continue;
+			if (comp == null)
+				continue;
 			comp.update(delta);
 		}
 	}
@@ -25,7 +31,8 @@ public class HvlPanel extends HvlComponent {
 	@Override
 	public void draw(float delta) {
 		for (HvlComponent comp : children) {
-			if (comp == null) continue;
+			if (comp == null)
+				continue;
 			if (comp.isVisible())
 				comp.draw(delta);
 		}

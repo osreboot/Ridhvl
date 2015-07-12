@@ -23,10 +23,32 @@ public class HvlSlider extends HvlComponent {
 
 	private boolean isBeingHeld;
 
-	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
-			SliderDirection dirArg, float handleWidthArg,
-			float handleHeightArg, float value, HvlComponentDrawable handleArg,
+	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
 			HvlComponentDrawable backgroundArg) {
+		super(wArg, hArg);
+		direction = dirArg;
+		handleWidth = handleWidthArg;
+		handleHeight = handleHeightArg;
+		handleUpDrawable = handleArg;
+		handleDownDrawable = handleArg;
+		background = backgroundArg;
+		liveSnap = true;
+	}
+
+	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
+		super(wArg, hArg);
+		direction = dirArg;
+		handleWidth = handleWidthArg;
+		handleHeight = handleHeightArg;
+		handleUpDrawable = handleUpArg;
+		handleDownDrawable = handleDownArg;
+		background = backgroundArg;
+		liveSnap = true;
+	}
+
+	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
@@ -37,12 +59,8 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	public HvlSlider(float xArg, float yArg, float wArg, float hArg,
-			SliderDirection dirArg, float handleWidthArg,
-			float handleHeightArg, float value,
-			HvlComponentDrawable handleUpArg,
-			HvlComponentDrawable handleDownArg,
-			HvlComponentDrawable backgroundArg) {
+	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
@@ -65,16 +83,13 @@ public class HvlSlider extends HvlComponent {
 		case HORIZONTAL: {
 			float minX = getX() + handleStartOffset;
 			float maxX = getX() + getWidth() - handleWidth - handleEndOffset;
-			float handleMinX = minX + (value * (maxX - minX))
-					- (handleWidth / 2);
+			float handleMinX = minX + (value * (maxX - minX)) - (handleWidth / 2);
 			float handleMaxX = handleMinX + (2 * handleWidth);
 
 			float handleMinY = getY() + (getHeight() / 2) - (handleHeight / 2);
 			float handleMaxY = getY() + (getHeight() / 2) + (handleHeight / 2);
 
-			if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > handleMinX
-					&& HvlCursor.getCursorX() < handleMaxX
-					&& HvlCursor.getCursorY() > handleMinY
+			if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > handleMinX && HvlCursor.getCursorX() < handleMaxX && HvlCursor.getCursorY() > handleMinY
 					&& HvlCursor.getCursorY() < handleMaxY) {
 				isBeingHeld = true;
 			} else if (!Mouse.isButtonDown(0)) {
@@ -85,16 +100,13 @@ public class HvlSlider extends HvlComponent {
 		case VERTICAL: {
 			float minY = getY() + handleStartOffset;
 			float maxY = getY() + getHeight() - handleHeight - handleEndOffset;
-			float handleMinY = minY + (value * (maxY - minY))
-					- (handleHeight / 2);
+			float handleMinY = minY + (value * (maxY - minY)) - (handleHeight / 2);
 			float handleMaxY = handleMinY + (2 * handleHeight);
 
 			float handleMinX = getX() + (getWidth() / 2) - (handleWidth / 2);
 			float handleMaxX = getX() + (getWidth() / 2) + (handleWidth / 2);
 
-			if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > handleMinX
-					&& HvlCursor.getCursorX() < handleMaxX
-					&& HvlCursor.getCursorY() > handleMinY
+			if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > handleMinX && HvlCursor.getCursorX() < handleMaxX && HvlCursor.getCursorY() > handleMinY
 					&& HvlCursor.getCursorY() < handleMaxY) {
 				isBeingHeld = true;
 			} else if (!Mouse.isButtonDown(0)) {
@@ -130,19 +142,19 @@ public class HvlSlider extends HvlComponent {
 		}
 
 		value = Math.max(0.0f, Math.min(value, 1.0f));
-		
+
 		if (pValue != value)
 			onValueChanged(value);
-		
+
 		pValue = value;
-			
+
 	}
 
 	@Override
-	public void draw(float delta) {		
+	public void draw(float delta) {
 		if (background != null)
 			background.draw(delta, getX(), getY(), getWidth(), getHeight());
-		
+
 		switch (direction) {
 		case HORIZONTAL: {
 			float min = getX() + handleStartOffset;
@@ -150,13 +162,9 @@ public class HvlSlider extends HvlComponent {
 			float lerpedX = min + (value * (max - min));
 
 			if (isBeingHeld)
-				handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2),
-						getY() + (getHeight() / 2) - (handleHeight / 2),
-						handleWidth, handleHeight);
+				handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
 			else
-				handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2),
-						getY() + (getHeight() / 2) - (handleHeight / 2),
-						handleWidth, handleHeight);
+				handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
 		}
 			break;
 		case VERTICAL: {
@@ -164,13 +172,9 @@ public class HvlSlider extends HvlComponent {
 			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
 			if (isBeingHeld)
-				handleDownDrawable.draw(delta, getX() + (getWidth() / 2)
-						- (handleWidth / 2), lerpedY - (handleHeight / 2),
-						handleWidth, handleHeight);
+				handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
 			else
-				handleUpDrawable.draw(delta, getX() + (getWidth() / 2)
-						- (handleWidth / 2), lerpedY - (handleHeight / 2),
-						handleWidth, handleHeight);
+				handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
 		}
 			break;
 		}

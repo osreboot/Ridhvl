@@ -10,6 +10,14 @@ public abstract class HvlComponent {
 	
 	private boolean enabled, visible;
 	
+	public HvlComponent(float wArg, float hArg)
+	{
+		width = wArg;
+		height = hArg;
+		visible = true;
+		enabled = true;
+	}
+	
 	public HvlComponent(float xArg, float yArg, float wArg, float hArg)
 	{
 		x = xArg;

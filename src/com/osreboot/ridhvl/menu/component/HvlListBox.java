@@ -22,8 +22,7 @@ public class HvlListBox extends HvlComponent {
 	private HvlButton scrollUpButton, scrollDownButton;
 	private HvlArrangerBox scrollBox;
 	private HvlFontPainter2D font;
-	private HvlComponentDrawable itemBackgroundOff, itemBackgroundHover,
-			itemBackgroundOn;
+	private HvlComponentDrawable itemBackgroundOff, itemBackgroundHover, itemBackgroundOn;
 	private List<Object> items;
 	private float itemHeight;
 	private int maxVisibleItems;
@@ -41,12 +40,68 @@ public class HvlListBox extends HvlComponent {
 	private float pX, pY, pWidth, pHeight;
 	private boolean isFocused;
 
-	public HvlListBox(float xArg, float yArg, float wArg, float hArg,
-			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
-			HvlFontPainter2D fontArg,
-			HvlComponentDrawable itemBackgroundOffArg,
-			HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg,
-			int maxVisibleItemsArg) {
+	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
+		super(wArg, hArg);
+		scrollBar = scrollArg;
+		scrollUpButton = upArg;
+		scrollDownButton = downArg;
+		font = fontArg;
+		itemBackgroundOff = itemBackgroundOffArg;
+		itemBackgroundHover = itemBackgroundOffArg;
+		itemBackgroundOn = itemBackgroundOnArg;
+		itemHeight = itemHeightArg;
+		maxVisibleItems = maxVisibleItemsArg;
+
+		scrollBox = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
+		scrollBox.add(upArg);
+		scrollBox.add(scrollArg);
+		scrollBox.add(downArg);
+		scrollBox.setAlign(0.5f);
+		items = new LinkedList<>();
+		autoSize = false;
+
+		textScale = 1.0f;
+		textColor = Color.white;
+		selectedIndex = -1;
+		fullBackground = false;
+		sizeIntervalsForScroll = 10;
+
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+	}
+
+	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundHoverArg, HvlComponentDrawable itemBackgroundOnArg,
+			float itemHeightArg, int maxVisibleItemsArg) {
+		super(wArg, hArg);
+		scrollBar = scrollArg;
+		scrollUpButton = upArg;
+		scrollDownButton = downArg;
+		font = fontArg;
+		itemBackgroundOff = itemBackgroundOffArg;
+		itemBackgroundHover = itemBackgroundHoverArg;
+		itemBackgroundOn = itemBackgroundOnArg;
+		itemHeight = itemHeightArg;
+		maxVisibleItems = maxVisibleItemsArg;
+
+		scrollBox = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
+		scrollBox.add(upArg);
+		scrollBox.add(scrollArg);
+		scrollBox.add(downArg);
+		scrollBox.setAlign(0.5f);
+		items = new LinkedList<>();
+		autoSize = false;
+
+		textScale = 1.0f;
+		textColor = Color.white;
+		selectedIndex = -1;
+		sizeIntervalsForScroll = 10;
+
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+	}
+
+	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
 		scrollUpButton = upArg;
@@ -72,17 +127,12 @@ public class HvlListBox extends HvlComponent {
 		fullBackground = false;
 		sizeIntervalsForScroll = 10;
 
-		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
-				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	public HvlListBox(float xArg, float yArg, float wArg, float hArg,
-			HvlSlider scrollArg, HvlButton upArg, HvlButton downArg,
-			HvlFontPainter2D fontArg,
-			HvlComponentDrawable itemBackgroundOffArg,
-			HvlComponentDrawable itemBackgroundHoverArg,
-			HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg,
-			int maxVisibleItemsArg) {
+	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundHoverArg, HvlComponentDrawable itemBackgroundOnArg,
+			float itemHeightArg, int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
 		scrollUpButton = upArg;
@@ -107,8 +157,7 @@ public class HvlListBox extends HvlComponent {
 		selectedIndex = -1;
 		sizeIntervalsForScroll = 10;
 
-		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
-				(int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
 	public void onSelectionChanged(int indexArg, Object selArg) {
@@ -126,7 +175,7 @@ public class HvlListBox extends HvlComponent {
 
 		if (scrollUpButton != null)
 			scrollUpButton.setEnabled(!scrollBar.isBeingHeld());
-		
+
 		if (scrollDownButton != null)
 			scrollDownButton.setEnabled(!scrollBar.isBeingHeld());
 
@@ -134,40 +183,25 @@ public class HvlListBox extends HvlComponent {
 		if (items.size() - maxVisibleItems <= 0) {
 			scrollBar.setSnapInterval(0.0f);
 		} else {
-			scrollBar.setSnapInterval((1.0f / sizeIntervalsForScroll)
-					/ (items.size() - maxVisibleItems));
+			scrollBar.setSnapInterval((1.0f / sizeIntervalsForScroll) / (items.size() - maxVisibleItems));
 		}
 
 		layoutUpdate();
 		scrollBox.update(delta);
 
 		if (scrollUpButton != null && scrollUpButton.isTriggered())
-			scrollBar.setValue(Math.max(
-					scrollBar.getValue() - scrollBar.getSnapInterval()
-							* sizeIntervalsForScroll, 0.0f));
+			scrollBar.setValue(Math.max(scrollBar.getValue() - scrollBar.getSnapInterval() * sizeIntervalsForScroll, 0.0f));
 		if (scrollDownButton != null && scrollDownButton.isTriggered())
-			scrollBar.setValue(Math.min(
-					scrollBar.getValue() + scrollBar.getSnapInterval()
-							* sizeIntervalsForScroll, 1.0f));
+			scrollBar.setValue(Math.min(scrollBar.getValue() + scrollBar.getSnapInterval() * sizeIntervalsForScroll, 1.0f));
 		if (isFocused)
-			scrollBar
-					.setValue(scrollBar.getValue()
-							+ ((-Mouse.getDWheel() / 120)
-									* scrollBar.getSnapInterval() * sizeIntervalsForScroll));
+			scrollBar.setValue(scrollBar.getValue() + ((-Mouse.getDWheel() / 120) * scrollBar.getSnapInterval() * sizeIntervalsForScroll));
 
-		scrollBar
-				.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
+		scrollBar.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
 
 		float topItem = (scrollBar.getValue() * (items.size() - maxVisibleItems));
 		for (int i = 0; i < Math.min(items.size(), topItem + maxVisibleItems); i++) {
-			if (Mouse.isButtonDown(0)
-					&& HvlCursor.getCursorX() > getX()
-					&& HvlCursor.getCursorX() < getX() + getWidth()
-							- scrollBox.getWidth()
-					&& HvlCursor.getCursorY() > getY()
-							+ ((i - topItem) * itemHeight)
-					&& HvlCursor.getCursorY() < getY()
-							+ (((i + 1) - topItem) * itemHeight))
+			if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorX() < getX() + getWidth() - scrollBox.getWidth()
+					&& HvlCursor.getCursorY() > getY() + ((i - topItem) * itemHeight) && HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight))
 				selectedIndex = i;
 		}
 
@@ -179,11 +213,8 @@ public class HvlListBox extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
-		if (pX != getX() || pY != getY() || pWidth != getWidth()
-				|| pHeight != getHeight()) {
-			renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT,
-					(int) getX(), (int) getY(), (int) getWidth(),
-					(int) getHeight());
+		if (pX != getX() || pY != getY() || pWidth != getWidth() || pHeight != getHeight()) {
+			renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 		}
 
 		pX = getX();
@@ -195,46 +226,31 @@ public class HvlListBox extends HvlComponent {
 		// and altering hvlDrawQuad dimensions (more memory efficient)
 		HvlRenderFrame.setCurrentRenderFrame(renderFrame);
 		if (background != null)
-			background.draw(delta, getX(), getY(), fullBackground ? getWidth()
-					: getWidth() - scrollBox.getWidth(), getHeight());
+			background.draw(delta, getX(), getY(), fullBackground ? getWidth() : getWidth() - scrollBox.getWidth(), getHeight());
 
 		scrollBox.draw(delta);
 
 		float topItem = (scrollBar.getValue() * (items.size() - maxVisibleItems));
 		for (int i = 0; i < Math.min(items.size(), topItem + maxVisibleItems); i++) {
 			if (i == selectedIndex)
-				itemBackgroundOn.draw(delta, getX(), getY()
-						+ ((i - topItem) * itemHeight),
-						getWidth() - scrollBox.getWidth(), itemHeight);
-			else if (HvlCursor.getCursorX() > getX()
-					&& HvlCursor.getCursorX() < getX() + getWidth()
-							- scrollBox.getWidth()
-					&& HvlCursor.getCursorY() > getY()
-							+ ((i - topItem) * itemHeight)
-					&& HvlCursor.getCursorY() < getY()
-							+ (((i + 1) - topItem) * itemHeight))
-				itemBackgroundHover.draw(delta, getX(), getY()
-						+ ((i - topItem) * itemHeight),
-						getWidth() - scrollBox.getWidth(), itemHeight);
+				itemBackgroundOn.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
+			else if (HvlCursor.getCursorX() > getX() && HvlCursor.getCursorX() < getX() + getWidth() - scrollBox.getWidth()
+					&& HvlCursor.getCursorY() > getY() + ((i - topItem) * itemHeight) && HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight))
+				itemBackgroundHover.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
 			else
-				itemBackgroundOff.draw(delta, getX(), getY()
-						+ ((i - topItem) * itemHeight),
-						getWidth() - scrollBox.getWidth(), itemHeight);
-			font.drawWord(items.get(i).toString(), getX(), getY()
-					+ ((i - topItem) * itemHeight), textScale, textColor);
+				itemBackgroundOff.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
+			font.drawWord(items.get(i).toString(), getX(), getY() + ((i - topItem) * itemHeight), textScale, textColor);
 		}
 		HvlPainter2D.hvlForceRefresh();
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
-		hvlDrawQuad(getX(), getY(), getWidth(), getHeight(),
-				renderFrame);
+		hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), renderFrame);
 	}
 
 	private void layoutUpdate() {
 		scrollBox.setY(getY());
-		scrollBox.setWidth(Math.max(
-				Math.max(scrollBar.getWidth(), scrollUpButton == null ? 0 : scrollUpButton.getWidth()),
-				scrollDownButton == null ? 0 : scrollDownButton.getWidth()));
+		scrollBox.setWidth(Math.max(Math.max(scrollBar.getWidth(), scrollUpButton == null ? 0 : scrollUpButton.getWidth()), scrollDownButton == null ? 0
+				: scrollDownButton.getWidth()));
 		scrollBox.setX(getX() + getWidth() - scrollBox.getWidth());
 		scrollBox.setHeight(getHeight());
 		scrollBar.setHeight(getHeight() - (scrollUpButton == null ? 0 : scrollUpButton.getHeight())
@@ -403,11 +419,11 @@ public class HvlListBox extends HvlComponent {
 	public int getItemCount() {
 		return items.size();
 	}
-	
+
 	public Object getItem(int index) {
 		if (index >= items.size() || index < 0)
 			return null;
-		
+
 		return items.get(index);
 	}
 }

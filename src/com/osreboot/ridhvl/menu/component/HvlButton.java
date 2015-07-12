@@ -6,14 +6,28 @@ public class HvlButton extends HvlComponent {
 
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
-	
+
+	public HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		offDrawable = offArg;
+		hoverDrawable = offArg;
+		onDrawable = onArg;
+	}
+
+	public HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		offDrawable = offArg;
+		hoverDrawable = hoverArg;
+		onDrawable = onArg;
+	}
+
 	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
 		hoverDrawable = offArg;
 		onDrawable = onArg;
 	}
-	
+
 	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;

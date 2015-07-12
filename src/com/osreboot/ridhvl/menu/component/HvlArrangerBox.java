@@ -13,8 +13,13 @@ public class HvlArrangerBox extends HvlPanel {
 
 	private float borderL, borderR, borderU, borderD;
 
-	public HvlArrangerBox(float xArg, float yArg, float wArg, float hArg,
-			ArrangementStyle styleArg) {
+	public HvlArrangerBox(float wArg, float hArg, ArrangementStyle styleArg) {
+		super(wArg, hArg);
+		style = styleArg;
+		align = 0.0f;
+	}
+
+	public HvlArrangerBox(float xArg, float yArg, float wArg, float hArg, ArrangementStyle styleArg) {
 		super(xArg, yArg, wArg, hArg);
 		style = styleArg;
 		align = 0.0f;
@@ -29,10 +34,10 @@ public class HvlArrangerBox extends HvlPanel {
 			float previousY = getY();
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
-				if (comp == null) continue;
+				if (comp == null)
+					continue;
 
-				comp.setX(getX() + (getWidth() * align)
-						- (comp.getWidth() * align));
+				comp.setX(getX() + (getWidth() * align) - (comp.getWidth() * align));
 
 				if (i == 0)
 					comp.setY(previousY + borderU);
@@ -47,7 +52,8 @@ public class HvlArrangerBox extends HvlPanel {
 			float previousX = getX();
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
-				if (comp == null) continue;
+				if (comp == null)
+					continue;
 
 				if (i == 0)
 					comp.setX(previousX + borderL);
@@ -55,8 +61,7 @@ public class HvlArrangerBox extends HvlPanel {
 					comp.setX(previousX + borderL + borderR);
 				previousX += borderL + borderR + comp.getWidth();
 
-				comp.setY(getY() + (getHeight() * align)
-						- (comp.getHeight() * align));
+				comp.setY(getY() + (getHeight() * align) - (comp.getHeight() * align));
 			}
 			break;
 		}
