@@ -6,6 +6,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlTextureUtil;
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 
 public class HvlPainter2D {
@@ -74,6 +76,14 @@ public class HvlPainter2D {
 	
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, renderFrame);
+	}
+	
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, texture);
+	}
+	
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, texture);
 	}
 	
 	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)

@@ -6,6 +6,8 @@ import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 
 class HvlQuadPainter2D {
@@ -40,6 +42,18 @@ class HvlQuadPainter2D {
 		constructTexturedQuad(x, y + yl, xl, -yl);
 	}
 
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
+		glColor4f(1, 1, 1, 1);
+		texture.getCurrentTexture().bind();
+		constructTexturedQuad(x, y, xl, yl);
+	}
+	
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
+		glColor4f(1, 1, 1, 1);
+		texture.getCurrentTexture().bind();
+		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameSize(), texture.getCurrentUVY() + texture.getFrameSize());
+	}
+	
 	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
 	
 	private static void constructTexturedQuad(float x, float y, float xl, float yl){

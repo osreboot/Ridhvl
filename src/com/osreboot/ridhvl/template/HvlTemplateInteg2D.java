@@ -19,6 +19,7 @@ import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
@@ -30,6 +31,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	private HvlSoundLoader soundLoader;
 
 	public HvlTemplateInteg2D(int frameRateArg, int width, int height, String title, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 		
 		displayWidth = width;
@@ -56,6 +59,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	}
 	
 	public HvlTemplateInteg2D(int frameRateArg, int width, int height, String title, String iconName, int textureLoaderDepth, int soundLoaderDepth, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 
 		displayWidth = width;
@@ -85,6 +90,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	@Override
 	public void preUpdate(float delta){
 		HvlDisplay.preUpdate(delta);
+		
+		HvlAnimatedTexture.updateTextures(delta);
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}

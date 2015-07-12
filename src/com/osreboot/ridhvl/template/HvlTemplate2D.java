@@ -17,6 +17,7 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
+import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
@@ -25,6 +26,8 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 	private int frameRate, displayWidth, displayHeight;
 
 	public HvlTemplate2D(int frameRateArg, int width, int height, String title, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 		
 		displayWidth = width;
@@ -48,6 +51,8 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 	}
 	
 	public HvlTemplate2D(int frameRateArg, int width, int height, String title, String iconName, HvlDisplayMode displayModeArg){
+		super();
+		
 		frameRate = frameRateArg;
 
 		displayWidth = width;
@@ -74,6 +79,8 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 	@Override
 	public void preUpdate(float delta){
 		HvlDisplay.preUpdate(delta);
+		
+		HvlAnimatedTexture.updateTextures(delta);
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
