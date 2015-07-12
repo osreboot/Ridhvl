@@ -52,6 +52,10 @@ public class HvlPainter2D {
 		HvlLinePainter2D.hvlDrawLine(x1, y1, x2, y2, c);
 	}
 	
+	public static void hvlDrawLine(float x1, float y1, float x2, float y2, Color c, float width){
+		HvlLinePainter2D.hvlDrawLine(x1, y1, x2, y2, c, width);
+	}
+	
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
 	}
