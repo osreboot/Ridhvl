@@ -10,7 +10,15 @@ public abstract class HvlComponent {
 	
 	private boolean enabled, visible;
 	
-	public HvlComponent(float xArg, float yArg, float wArg, float hArg)
+	protected HvlComponent(float wArg, float hArg)
+	{
+		width = wArg;
+		height = hArg;
+		visible = true;
+		enabled = true;
+	}
+	
+	protected HvlComponent(float xArg, float yArg, float wArg, float hArg)
 	{
 		x = xArg;
 		y = yArg;
@@ -71,17 +79,14 @@ public abstract class HvlComponent {
 		return enabled;
 	}
 
-	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
-	
 	public boolean isVisible() {
 		return visible;
 	}
 
-	
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}

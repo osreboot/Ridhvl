@@ -7,8 +7,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlColorUtil;
+import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlMath;
-import com.osreboot.ridhvl.HvlMath.HvlCoord;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
@@ -312,5 +312,54 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 
 	public void setColorCoordinated(boolean isColorCoordinated) {
 		this.isColorCoordinated = isColorCoordinated;
+	}
+
+	public void setStartColor(Color color) {
+		setStartColorOne(color);
+		setStartColorTwo(color);
+	}
+
+	public void setEndColor(Color color) {
+		setEndColorOne(color);
+		setEndColorTwo(color);
+	}
+	
+	public void setColor(Color color) {
+		setStartColor(color);
+		setEndColor(color);
+	}
+
+	public void addTexture(Texture texture)	{
+		particleTextures.add(texture);
+	}
+	
+	public void setXVel(float xVel) {
+		setMinXVel(xVel);
+		setMaxXVel(xVel);
+	}
+
+	public void setYVel(float yVel) {
+		setMinYVel(yVel);
+		setMaxYVel(yVel);
+	}
+
+	public void setRot(float rot) {
+		setMinRot(rot);
+		setMaxRot(rot);
+	}
+	
+	public void setRotVel(float rotVel) {
+		setMinRotVel(rotVel);
+		setMaxRotVel(rotVel);
+	}
+	
+	public void setScale(float scale) {
+		setMinScale(scale);
+		setMaxScale(scale);
+	}
+	
+	public void setLifetime(float lifetime) {
+		setMinLifetime(lifetime);
+		setMaxLifetime(lifetime);
 	}
 }

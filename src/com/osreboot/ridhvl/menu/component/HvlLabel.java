@@ -12,8 +12,29 @@ public class HvlLabel extends HvlComponent {
 	private Color color;
 	private float scale;
 
-	public HvlLabel(float xArg, float yArg, HvlFontPainter2D fontArg,
-			String textArg, Color colorArg) {
+	protected HvlLabel(HvlFontPainter2D fontArg, String textArg, Color colorArg) {
+		// The dimensions are 0 because
+		// they get immediately reset anyways.
+		super(0, 0);
+		font = fontArg;
+		text = textArg;
+		color = colorArg;
+		scale = 1.0f;
+		updateDimensions();
+	}
+
+	protected HvlLabel(HvlFontPainter2D fontArg, String textArg, Color colorArg, float scaleArg) {
+		// The dimensions are 0 because
+		// they get immediately reset anyways.
+		super(0, 0);
+		font = fontArg;
+		text = textArg;
+		color = colorArg;
+		scale = scaleArg;
+		updateDimensions();
+	}
+
+	protected HvlLabel(float xArg, float yArg, HvlFontPainter2D fontArg, String textArg, Color colorArg) {
 		// The dimensions are 0 because
 		// they get immediately reset anyways.
 		super(xArg, yArg, 0, 0);
@@ -24,9 +45,7 @@ public class HvlLabel extends HvlComponent {
 		updateDimensions();
 	}
 
-	public HvlLabel(float xArg, float yArg,
-			HvlFontPainter2D fontArg, String textArg, Color colorArg,
-			float scaleArg) {
+	protected HvlLabel(float xArg, float yArg, HvlFontPainter2D fontArg, String textArg, Color colorArg, float scaleArg) {
 		// The dimensions are 0 because
 		// they get immediately reset anyways.
 		super(xArg, yArg, 0, 0);
@@ -76,8 +95,95 @@ public class HvlLabel extends HvlComponent {
 	}
 
 	private void updateDimensions() {
+		if (font == null) return;
 		this.setWidth(font.getLineWidth(text) * scale);
 		this.setHeight(font.getFontHeight() * scale);
 	}
+	
+	// NOTE: There aren't any width and height methods because
+	// they're set by the component
+	public static class Builder
+	{
+		private HvlLabel tr;
 
+		public Builder() {
+			tr = new HvlLabel(null, "", Color.white);
+		}
+		
+		public float getX() {
+			return tr.getX();
+		}
+
+		public Builder setX(float x) {
+			tr.setX(x);
+			return this;
+		}
+
+		public float getY() {
+			return tr.getY();
+		}
+
+		public Builder setY(float y) {
+			tr.setY(y);
+			return this;
+		}
+
+		public HvlFontPainter2D getFont() {
+			return tr.getFont();
+		}
+
+		public boolean isEnabled() {
+			return tr.isEnabled();
+		}
+
+		public Builder setEnabled(boolean enabled) {
+			tr.setEnabled(enabled);
+			return this;
+		}
+
+		public Builder setFont(HvlFontPainter2D font) {
+			tr.setFont(font);
+			return this;
+		}
+
+		public String getText() {
+			return tr.getText();
+		}
+
+		public boolean isVisible() {
+			return tr.isVisible();
+		}
+
+		public Builder setText(String text) {
+			tr.setText(text);
+			return this;
+		}
+
+		public Builder setVisible(boolean visible) {
+			tr.setVisible(visible);
+			return this;
+		}
+
+		public Color getColor() {
+			return tr.getColor();
+		}
+
+		public Builder setColor(Color color) {
+			tr.setColor(color);
+			return this;
+		}
+
+		public float getScale() {
+			return tr.getScale();
+		}
+
+		public Builder setScale(float scale) {
+			tr.setScale(scale);
+			return this;
+		}
+		
+		public HvlLabel build() {
+			return tr;
+		}
+	}
 }

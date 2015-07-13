@@ -342,4 +342,54 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 	public void setSpawnY2(float spawnY2) {
 		this.spawnY2 = spawnY2;
 	}
+	
+
+	public void setStartColor(Color color) {
+		setStartColorOne(color);
+		setStartColorTwo(color);
+	}
+
+	public void setEndColor(Color color) {
+		setEndColorOne(color);
+		setEndColorTwo(color);
+	}
+	
+	public void setColor(Color color) {
+		setStartColor(color);
+		setEndColor(color);
+	}
+
+	public void addTexture(Texture texture)	{
+		particleTextures.add(texture);
+	}
+	
+	public void setXVel(float xVel) {
+		setMinXVel(xVel);
+		setMaxXVel(xVel);
+	}
+
+	public void setYVel(float yVel) {
+		setMinYVel(yVel);
+		setMaxYVel(yVel);
+	}
+
+	public void setRot(float rot) {
+		setMinRot(rot);
+		setMaxRot(rot);
+	}
+	
+	public void setRotVel(float rotVel) {
+		setMinRotVel(rotVel);
+		setMaxRotVel(rotVel);
+	}
+	
+	public void setScale(float scale) {
+		setMinScale(scale);
+		setMaxScale(scale);
+	}
+	
+	public void setLifetime(float lifetime) {
+		setMinLifetime(lifetime);
+		setMaxLifetime(lifetime);
+	}
 }

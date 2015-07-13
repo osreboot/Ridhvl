@@ -6,15 +6,29 @@ public class HvlButton extends HvlComponent {
 
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
-	
-	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+
+	protected HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		offDrawable = offArg;
+		hoverDrawable = offArg;
+		onDrawable = onArg;
+	}
+
+	protected HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		offDrawable = offArg;
+		hoverDrawable = hoverArg;
+		onDrawable = onArg;
+	}
+
+	protected HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
 		hoverDrawable = offArg;
 		onDrawable = onArg;
 	}
-	
-	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+
+	protected HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
 		hoverDrawable = hoverArg;
@@ -82,5 +96,98 @@ public class HvlButton extends HvlComponent {
 
 	public void setOnDrawable(HvlComponentDrawable onDrawable) {
 		this.onDrawable = onDrawable;
+	}
+
+	public static class Builder {
+		private HvlButton tr;
+
+		public Builder() {
+			tr = new HvlButton(0, 0, null, null);
+		}
+
+		public float getX() {
+			return tr.getX();
+		}
+
+		public Builder setX(float x) {
+			tr.setX(x);
+			return this;
+		}
+
+		public float getY() {
+			return tr.getY();
+		}
+
+		public Builder setY(float y) {
+			tr.setY(y);
+			return this;
+		}
+
+		public float getWidth() {
+			return tr.getWidth();
+		}
+
+		public Builder setWidth(float width) {
+			tr.setWidth(width);
+			return this;
+		}
+
+		public float getHeight() {
+			return tr.getHeight();
+		}
+
+		public Builder setHeight(float height) {
+			tr.setHeight(height);
+			return this;
+		}
+
+		public boolean isEnabled() {
+			return tr.isEnabled();
+		}
+
+		public Builder setEnabled(boolean enabled) {
+			tr.setEnabled(enabled);
+			return this;
+		}
+
+		public boolean isVisible() {
+			return tr.isVisible();
+		}
+
+		public Builder setVisible(boolean visible) {
+			tr.setVisible(visible);
+			return this;
+		}
+
+		public HvlComponentDrawable getOffDrawable() {
+			return tr.getOffDrawable();
+		}
+
+		public Builder setOffDrawable(HvlComponentDrawable offDrawable) {
+			tr.setOffDrawable(offDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getHoverDrawable() {
+			return tr.getHoverDrawable();
+		}
+
+		public Builder setHoverDrawable(HvlComponentDrawable hoverDrawable) {
+			tr.setHoverDrawable(hoverDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getOnDrawable() {
+			return tr.getOnDrawable();
+		}
+
+		public Builder setOnDrawable(HvlComponentDrawable onDrawable) {
+			tr.setOnDrawable(onDrawable);
+			return this;
+		}
+
+		public HvlButton build() {
+			return tr;
+		}
 	}
 }

@@ -139,4 +139,10 @@ public abstract class HvlParticleSystem {
 	public Queue<HvlParticle> getParticles() {
 		return particles;
 	}
+
+	public void setTimeToSpawn(float timeToSpawn)
+	{
+		setMinTimeToSpawn(timeToSpawn);
+		setMaxTimeToSpawn(timeToSpawn);
+	}
 }

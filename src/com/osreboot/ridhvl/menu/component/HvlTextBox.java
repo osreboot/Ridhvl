@@ -15,7 +15,7 @@ public class HvlTextBox extends HvlComponent {
 	private float offsetX, offsetY;
 	private float textScale;
 	private Color textColor;
-	private HvlFontPainter2D fontPainter;
+	private HvlFontPainter2D font;
 	private String text;
 	private String pText;
 	private boolean isFocused;
@@ -24,16 +24,28 @@ public class HvlTextBox extends HvlComponent {
 	private boolean numbersOnly;
 	private String blacklistCharacters;
 
-	public HvlTextBox(float xArg, float yArg, float wArg, float hArg,
-			String textArg, HvlComponentDrawable focusedArg,
-			HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
+	protected HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
+		super(wArg, hArg);
+		text = textArg;
+		isFocused = false;
+		maxCharacters = -1;
+		focusedDrawable = focusedArg;
+		unfocusedDrawable = unfocusedArg;
+		font = fontArg;
+		textColor = Color.black;
+		textScale = 1.0f;
+		pText = textArg;
+	}
+
+	protected HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
+			HvlFontPainter2D fontArg) {
 		super(xArg, yArg, wArg, hArg);
 		text = textArg;
 		isFocused = false;
 		maxCharacters = -1;
 		focusedDrawable = focusedArg;
 		unfocusedDrawable = unfocusedArg;
-		fontPainter = fontArg;
+		font = fontArg;
 		textColor = Color.black;
 		textScale = 1.0f;
 		pText = textArg;
@@ -41,7 +53,7 @@ public class HvlTextBox extends HvlComponent {
 
 	public void onTextChanged(String text) {
 	}
-	
+
 	@Override
 	public void update(float delta) {
 		if (!isEnabled()) {
@@ -60,20 +72,13 @@ public class HvlTextBox extends HvlComponent {
 					if (Keyboard.getEventKeyState()) {
 						Character keyChar = Keyboard.getEventCharacter();
 						int key = Keyboard.getEventKey();
-						if (key == Keyboard.KEY_LSHIFT
-								|| key == Keyboard.KEY_RSHIFT
-								|| key == Keyboard.KEY_LCONTROL
-								|| key == Keyboard.KEY_RCONTROL
-								|| key == Keyboard.KEY_LMENU
-								|| key == Keyboard.KEY_RMENU
-								|| key == Keyboard.KEY_LMETA
-								|| key == Keyboard.KEY_RMETA)
+						if (key == Keyboard.KEY_LSHIFT || key == Keyboard.KEY_RSHIFT || key == Keyboard.KEY_LCONTROL || key == Keyboard.KEY_RCONTROL
+								|| key == Keyboard.KEY_LMENU || key == Keyboard.KEY_RMENU || key == Keyboard.KEY_LMETA || key == Keyboard.KEY_RMETA)
 							continue;
 
 						if (Keyboard.getEventKey() == Keyboard.KEY_BACK) {
 							if (text.length() > 0)
-								text = text.substring(0,
-										Math.max(text.length() - 1, 0));
+								text = text.substring(0, Math.max(text.length() - 1, 0));
 						} else {
 							text = text.concat(keyChar.toString());
 						}
@@ -94,29 +99,22 @@ public class HvlTextBox extends HvlComponent {
 		if (numbersOnly)
 			text = text.replaceAll("[^\\d-]", "");
 		if (blacklistCharacters != null && !blacklistCharacters.isEmpty())
-			text = text.replaceAll(
-					String.format("[%s]", Pattern.quote(blacklistCharacters)),
-					"");
-		
+			text = text.replaceAll(String.format("[%s]", Pattern.quote(blacklistCharacters)), "");
+
 		if (!pText.equals(text))
 			onTextChanged(text);
-		
+
 		pText = text;
 	}
-	
+
 	@Override
-	public void draw(float delta)
-	{		
-		if (isFocused)
-		{
+	public void draw(float delta) {
+		if (isFocused) {
 			focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-		}
-		else
-		{
+		} else {
 			unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		}
-		fontPainter.drawWord(getText(), getX() + offsetX, getY() + offsetY,
-				textScale, textColor);
+		font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textScale, textColor);
 	}
 
 	public String getText() {
@@ -223,11 +221,194 @@ public class HvlTextBox extends HvlComponent {
 		this.textColor = textColor;
 	}
 
-	public HvlFontPainter2D getFontPainter() {
-		return fontPainter;
+	public HvlFontPainter2D getFont() {
+		return font;
 	}
 
-	public void setFontPainter(HvlFontPainter2D fontPainter) {
-		this.fontPainter = fontPainter;
+	public void setFont(HvlFontPainter2D font) {
+		this.font = font;
+	}
+
+	public static class Builder {
+		private HvlTextBox tr;
+
+		public Builder() {
+			tr = new HvlTextBox(0, 0, "", null, null, null);
+		}
+
+		public float getX() {
+			return tr.getX();
+		}
+
+		public Builder setX(float x) {
+			tr.setX(x);
+			return this;
+		}
+
+		public float getY() {
+			return tr.getY();
+		}
+
+		public Builder setY(float y) {
+			tr.setY(y);
+			return this;
+		}
+
+		public float getWidth() {
+			return tr.getWidth();
+		}
+
+		public Builder setWidth(float width) {
+			tr.setWidth(width);
+			return this;
+		}
+
+		public float getHeight() {
+			return tr.getHeight();
+		}
+
+		public Builder setHeight(float height) {
+			tr.setHeight(height);
+			return this;
+		}
+
+		public boolean isEnabled() {
+			return tr.isEnabled();
+		}
+
+		public Builder setEnabled(boolean enabled) {
+			tr.setEnabled(enabled);
+			return this;
+		}
+
+		public boolean isVisible() {
+			return tr.isVisible();
+		}
+
+		public Builder setVisible(boolean visible) {
+			tr.setVisible(visible);
+			return this;
+		}
+
+		public String getText() {
+			return tr.getText();
+		}
+
+		public Builder setText(String text) {
+			tr.setText(text);
+			return this;
+		}
+
+		public int getMaxCharacters() {
+			return tr.getMaxCharacters();
+		}
+
+		public Builder setMaxCharacters(int maxCharacters) {
+			tr.setMaxCharacters(maxCharacters);
+			return this;
+		}
+
+		public boolean isForceUppercase() {
+			return tr.isForceUppercase();
+		}
+
+		public Builder setForceUppercase(boolean forceUppercase) {
+			tr.setForceUppercase(forceUppercase);
+			return this;
+		}
+
+		public boolean isForceLowercase() {
+			return tr.isForceLowercase();
+		}
+
+		public Builder setForceLowercase(boolean forceLowercase) {
+			tr.setForceLowercase(forceLowercase);
+			return this;
+		}
+
+		public boolean isNumbersOnly() {
+			return tr.isNumbersOnly();
+		}
+
+		public Builder setNumbersOnly(boolean numbersOnly) {
+			tr.setNumbersOnly(numbersOnly);
+			return this;
+		}
+
+		public String getBlacklistCharacters() {
+			return tr.getBlacklistCharacters();
+		}
+
+		public Builder setBlacklistCharacters(String blacklistCharacters) {
+			tr.setBlacklistCharacters(blacklistCharacters);
+			return this;
+		}
+
+		public HvlComponentDrawable getFocusedDrawable() {
+			return tr.getFocusedDrawable();
+		}
+
+		public Builder setFocusedDrawable(HvlComponentDrawable focusedDrawable) {
+			tr.setFocusedDrawable(focusedDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getUnfocusedDrawable() {
+			return tr.getUnfocusedDrawable();
+		}
+
+		public Builder setUnfocusedDrawable(HvlComponentDrawable unfocusedDrawable) {
+			tr.setUnfocusedDrawable(unfocusedDrawable);
+			return this;
+		}
+
+		public float getOffsetX() {
+			return tr.getOffsetX();
+		}
+
+		public Builder setOffsetX(float offsetX) {
+			tr.setOffsetX(offsetX);
+			return this;
+		}
+
+		public float getOffsetY() {
+			return tr.getOffsetY();
+		}
+
+		public Builder setOffsetY(float offsetY) {
+			tr.setOffsetY(offsetY);
+			return this;
+		}
+
+		public float getTextScale() {
+			return tr.getTextScale();
+		}
+
+		public Builder setTextScale(float textScale) {
+			tr.setTextScale(textScale);
+			return this;
+		}
+
+		public Color getTextColor() {
+			return tr.getTextColor();
+		}
+
+		public Builder setTextColor(Color textColor) {
+			tr.setTextColor(textColor);
+			return this;
+		}
+
+		public HvlFontPainter2D getFont() {
+			return tr.getFont();
+		}
+
+		public Builder setFont(HvlFontPainter2D font) {
+			tr.setFont(font);
+			return this;
+		}
+
+		public HvlTextBox build() {
+			return tr;
+		}
 	}
 }

@@ -4,16 +4,67 @@ import com.osreboot.ridhvl.menu.HvlComponent;
 
 public class HvlCheckbox extends HvlComponent {
 
-	private boolean previousPressed, currentPressed, previousHover,
-			currentHover;
+	private boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
 	private HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
 
 	public void onChanged(boolean state) {
 	}
 
-	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+	protected HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		offDrawable = offArg;
+		offHoverDrawable = offArg;
+		onDrawable = onArg;
+		onHoverDrawable = onArg;
+	}
+
+	protected HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		checked = checkedArg;
+		offDrawable = offArg;
+		offHoverDrawable = offArg;
+		onDrawable = onArg;
+		onHoverDrawable = onArg;
+	}
+
+	protected HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		offDrawable = offArg;
+		offHoverDrawable = hoverArg;
+		onDrawable = onArg;
+		onHoverDrawable = hoverArg;
+	}
+
+	protected HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg);
+		checked = checkedArg;
+		offDrawable = offArg;
+		offHoverDrawable = hoverArg;
+		onDrawable = onArg;
+		onHoverDrawable = hoverArg;
+	}
+
+	protected HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg, HvlComponentDrawable onArg,
+			HvlComponentDrawable onHoverArg) {
+		super(xlArg, ylArg);
+		offDrawable = offArg;
+		offHoverDrawable = offHoverArg;
+		onDrawable = onArg;
+		onHoverDrawable = onHoverArg;
+	}
+
+	protected HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg) {
+		super(xlArg, ylArg);
+		checked = checkedArg;
+		offDrawable = offArg;
+		offHoverDrawable = offHoverArg;
+		onDrawable = onArg;
+		onHoverDrawable = onHoverArg;
+	}
+
+	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
 		offHoverDrawable = offArg;
@@ -21,9 +72,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onArg;
 	}
 
-	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			boolean checkedArg, HvlComponentDrawable offArg,
-			HvlComponentDrawable onArg) {
+	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		checked = checkedArg;
 		offDrawable = offArg;
@@ -32,8 +81,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onArg;
 	}
 
-	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
 			HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
@@ -42,9 +90,8 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = hoverArg;
 	}
 
-	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			boolean checkedArg, HvlComponentDrawable offArg,
-			HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+			HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		checked = checkedArg;
 		offDrawable = offArg;
@@ -53,8 +100,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = hoverArg;
 	}
 
-	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
 			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
@@ -63,10 +109,8 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onHoverArg;
 	}
 
-	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg,
-			boolean checkedArg, HvlComponentDrawable offArg,
-			HvlComponentDrawable offHoverArg, HvlComponentDrawable onArg,
-			HvlComponentDrawable onHoverArg) {
+	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		checked = checkedArg;
 		offDrawable = offArg;
@@ -97,7 +141,7 @@ public class HvlCheckbox extends HvlComponent {
 	}
 
 	@Override
-	public void draw(float delta) {		
+	public void draw(float delta) {
 		if (getChecked()) {
 			if (isHovering())
 				onHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
@@ -149,5 +193,116 @@ public class HvlCheckbox extends HvlComponent {
 
 	public void setOnHoverDrawable(HvlComponentDrawable onHoverDrawable) {
 		this.onHoverDrawable = onHoverDrawable;
+	}
+
+	public static class Builder {
+		private HvlCheckbox tr;
+
+		public Builder() {
+			tr = new HvlCheckbox(0, 0, null, null);
+		}
+
+		public float getX() {
+			return tr.getX();
+		}
+
+		public Builder setX(float x) {
+			tr.setX(x);
+			return this;
+		}
+
+		public float getY() {
+			return tr.getY();
+		}
+
+		public Builder setY(float y) {
+			tr.setY(y);
+			return this;
+		}
+
+		public float getWidth() {
+			return tr.getWidth();
+		}
+
+		public Builder setWidth(float width) {
+			tr.setWidth(width);
+			return this;
+		}
+
+		public float getHeight() {
+			return tr.getHeight();
+		}
+
+		public Builder setHeight(float height) {
+			tr.setHeight(height);
+			return this;
+		}
+
+		public boolean isEnabled() {
+			return tr.isEnabled();
+		}
+
+		public Builder setEnabled(boolean enabled) {
+			tr.setEnabled(enabled);
+			return this;
+		}
+
+		public boolean isVisible() {
+			return tr.isVisible();
+		}
+
+		public Builder setVisible(boolean visible) {
+			tr.setVisible(visible);
+			return this;
+		}
+
+		public boolean getChecked() {
+			return tr.getChecked();
+		}
+
+		public Builder setChecked(boolean checkedArg) {
+			tr.setChecked(checkedArg);
+			return this;
+		}
+
+		public HvlComponentDrawable getOffDrawable() {
+			return tr.getOffDrawable();
+		}
+
+		public Builder setOffDrawable(HvlComponentDrawable offDrawable) {
+			tr.setOffDrawable(offDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getOffHoverDrawable() {
+			return tr.getOffHoverDrawable();
+		}
+
+		public Builder setOffHoverDrawable(HvlComponentDrawable offHoverDrawable) {
+			tr.setOffHoverDrawable(offHoverDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getOnDrawable() {
+			return tr.getOnDrawable();
+		}
+
+		public Builder setOnDrawable(HvlComponentDrawable onDrawable) {
+			tr.setOnDrawable(onDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getOnHoverDrawable() {
+			return tr.getOnHoverDrawable();
+		}
+
+		public Builder setOnHoverDrawable(HvlComponentDrawable onHoverDrawable) {
+			tr.setOnHoverDrawable(onHoverDrawable);
+			return this;
+		}
+
+		public HvlCheckbox build() {
+			return tr;
+		}
 	}
 }
