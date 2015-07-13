@@ -53,7 +53,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		
 		hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(3));
 		
-		hvlRotate((getWidth()/2), (getHeight()/2), getLastInstance().getTimer().getTotalTime()/2*360f);
+		hvlRotate((getWidth()/2), (getHeight()/2), getNewestInstance().getTimer().getTotalTime()/2*360f);
 		hvlDrawQuad((getWidth()/2) - 200, (getHeight()/2) - 200, 400, 400, texture.getCurrentTexture());
 		hvlResetRotation();
 		
