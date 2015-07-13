@@ -1,24 +1,28 @@
 package com.osreboot.ridhvl.menu;
 
 import java.util.HashMap;
+import java.util.Map;
 
-@Deprecated //remove this when the class becomes usable
-public class HvlComponentDefault<T extends HvlComponent> {
-
-	private static HashMap<Class<? extends HvlComponent>, HvlComponentDefault<? extends HvlComponent>> defaults = new HashMap<>();
+public class HvlComponentDefault {
 	
-	public static void setDefault(Class<? extends HvlComponent> c, HvlComponentDefault<? extends HvlComponent> d){
-		defaults.put(c, d);
+	private static Map<Class<? extends HvlComponent>, HvlComponent> defaults = new HashMap<>();
+	
+	public static void setDefault(HvlComponent component)
+	{
+		defaults.put(component.getClass(), component);
 	}
 	
-	public static HvlComponentDefault<? extends HvlComponent> getDefault(Class<? extends HvlComponent> c){
-		return defaults.get(c);
+	public static void setDefault(Class<? extends HvlComponent> type, HvlComponent component)
+	{
+		defaults.put(type, component);
 	}
 	
-	private T instance;
-	
-	public HvlComponentDefault(T instanceArg){
-		instance = instanceArg;
+	public static boolean hasDefault(Class<? extends HvlComponent> type) {
+		return defaults.containsKey(type);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static <T extends HvlComponent> T getDefault(Class<? extends T> type) {
+		return (T) defaults.get(type);
+	}
 }

@@ -1,6 +1,7 @@
 package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlArrangerBox extends HvlPanel {
 
@@ -120,8 +121,10 @@ public class HvlArrangerBox extends HvlPanel {
 		private HvlArrangerBox tr;
 
 		public Builder() {
-			// TODO: Set defaults here
-			tr = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
+			if (HvlComponentDefault.hasDefault(HvlArrangerBox.class))
+				tr = HvlComponentDefault.getDefault(HvlArrangerBox.class).clone();
+			else
+				tr = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
 		}
 
 		public Builder add(HvlComponent toAdd) {
@@ -252,5 +255,28 @@ public class HvlArrangerBox extends HvlPanel {
 		public HvlArrangerBox build() {
 			return tr;
 		}
+	}
+
+	public HvlArrangerBox clone() {
+		HvlArrangerBox tr = new HvlArrangerBox(0, 0, ArrangementStyle.HORIZONTAL);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlPanel
+		tr.children = children; // TODO: This might not be ideal due to
+								// references.
+		// HvlArrangerBox
+		tr.style = style;
+		tr.align = align;
+		tr.borderL = borderL;
+		tr.borderR = borderR;
+		tr.borderU = borderU;
+		tr.borderD = borderD;
+		
+		return tr;
 	}
 }

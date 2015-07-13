@@ -3,6 +3,7 @@ package com.osreboot.ridhvl.menu.component.collection;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
@@ -173,7 +174,10 @@ public class HvlTextCheckbox extends HvlComponent {
 		private HvlTextCheckbox tr;
 		
 		public Builder() {
-			tr = new HvlTextCheckbox(0, 0, false, null, null, null, null, null, "", Color.white);
+			if (HvlComponentDefault.hasDefault(HvlTextCheckbox.class))
+				tr = HvlComponentDefault.getDefault(HvlTextCheckbox.class).clone();
+			else
+				tr = new HvlTextCheckbox(0, 0, false, null, null, null, null, null, "", Color.white);
 		}
 
 		public float getX() {
@@ -319,5 +323,28 @@ public class HvlTextCheckbox extends HvlComponent {
 		public HvlTextCheckbox build() {
 			return tr;
 		}
+	}
+
+	public HvlTextCheckbox clone() {
+		HvlTextCheckbox tr = new HvlTextCheckbox(0, 0, false, null, null, null, null, null, "", Color.white);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlTextCheckbox
+		tr.checked = checked;
+		tr.offDrawable = offDrawable;
+		tr.offHoverDrawable = offHoverDrawable;
+		tr.onDrawable = onDrawable;
+		tr.onHoverDrawable = onHoverDrawable;
+		tr.font = font;
+		tr.text = text;
+		tr.color = color;
+		tr.scale = scale;
+		tr.spacing = spacing;
+		return tr;
 	}
 }

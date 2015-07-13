@@ -9,6 +9,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
@@ -432,8 +433,10 @@ public class HvlListBox extends HvlComponent {
 		private HvlListBox tr;
 		
 		public Builder() {
-			// TODO: REEEALLLY fill in with default values (this is non-functional at this point)
-			tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
+			if (HvlComponentDefault.hasDefault(HvlListBox.class))
+				tr = HvlComponentDefault.getDefault(HvlListBox.class).clone();
+			else
+				tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
 		}
 
 		public float getX() {
@@ -664,5 +667,40 @@ public class HvlListBox extends HvlComponent {
 		public HvlListBox build() {
 			return tr;
 		}
+	}
+	
+	public HvlListBox clone() {
+		HvlListBox tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlListBox
+		if (scrollBar != null)
+			tr.scrollBar = scrollBar.clone();
+		if (scrollUpButton != null)
+			tr.scrollUpButton = scrollUpButton.clone();
+		if (scrollDownButton != null)
+			tr.scrollDownButton = scrollDownButton.clone();
+		// don't clone scroll box because it's auto-generated
+		tr.font = font;
+		tr.itemBackgroundOff = itemBackgroundOff;
+		tr.itemBackgroundHover = itemBackgroundHover;
+		tr.itemBackgroundOn = itemBackgroundOn;
+		tr.items = items;
+		tr.itemHeight = itemHeight;
+		tr.maxVisibleItems = maxVisibleItems;
+		tr.autoSize = autoSize;
+		tr.textScale = textScale;
+		tr.textColor = textColor;
+		tr.selectedIndex = selectedIndex;
+		tr.fullBackground = fullBackground;
+		tr.background = background;
+		tr.sizeIntervalsForScroll = sizeIntervalsForScroll;
+		tr.isFocused = isFocused;
+		return tr;
 	}
 }

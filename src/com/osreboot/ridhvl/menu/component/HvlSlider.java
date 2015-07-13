@@ -3,6 +3,7 @@ package com.osreboot.ridhvl.menu.component;
 import org.lwjgl.input.Mouse;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.HvlCursor;
 
 public class HvlSlider extends HvlComponent {
@@ -276,7 +277,10 @@ public class HvlSlider extends HvlComponent {
 		private HvlSlider tr;
 
 		public Builder() {
-			tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
+			if (HvlComponentDefault.hasDefault(HvlSlider.class))
+				tr = HvlComponentDefault.getDefault(HvlSlider.class).clone();
+			else
+				tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
 		}
 
 		public float getX() {
@@ -434,5 +438,30 @@ public class HvlSlider extends HvlComponent {
 		public HvlSlider build() {
 			return tr;
 		}
+	}
+	
+	public HvlSlider clone() {
+		HvlSlider tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlSlider
+		tr.handleUpDrawable = handleUpDrawable;
+		tr.handleDownDrawable = handleDownDrawable;
+		tr.background = background;
+		tr.direction = direction;
+		tr.value = value;
+		tr.handleHeight = handleHeight;
+		tr.handleWidth = handleWidth;
+		tr.handleStartOffset = handleStartOffset;
+		tr.handleEndOffset = handleEndOffset;
+		tr.snapInterval = snapInterval;
+		tr.liveSnap = liveSnap;
+		
+		return tr;
 	}
 }

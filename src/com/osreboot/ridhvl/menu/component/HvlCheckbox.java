@@ -1,6 +1,7 @@
 package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlCheckbox extends HvlComponent {
 
@@ -199,7 +200,10 @@ public class HvlCheckbox extends HvlComponent {
 		private HvlCheckbox tr;
 
 		public Builder() {
-			tr = new HvlCheckbox(0, 0, null, null);
+			if (HvlComponentDefault.hasDefault(HvlCheckbox.class))
+				tr = HvlComponentDefault.getDefault(HvlCheckbox.class).clone();
+			else
+				tr = new HvlCheckbox(0, 0, null, null);
 		}
 
 		public float getX() {
@@ -304,5 +308,23 @@ public class HvlCheckbox extends HvlComponent {
 		public HvlCheckbox build() {
 			return tr;
 		}
+	}
+
+	public HvlCheckbox clone() {
+		HvlCheckbox tr = new HvlCheckbox(0, 0, null, null);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlCheckbox
+		tr.checked = checked;
+		tr.offDrawable = offDrawable;
+		tr.offHoverDrawable = offHoverDrawable;
+		tr.onDrawable = onDrawable;
+		tr.onHoverDrawable = onHoverDrawable;
+		return tr;
 	}
 }

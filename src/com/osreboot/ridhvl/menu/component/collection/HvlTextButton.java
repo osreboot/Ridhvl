@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.menu.component.collection;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -95,7 +96,10 @@ public class HvlTextButton extends HvlButton {
 		private HvlTextButton tr;
 
 		public Builder() {
-			tr = new HvlTextButton(0, 0, 0, 0, null, null, null, "");
+			if (HvlComponentDefault.hasDefault(HvlTextButton.class))
+				tr = HvlComponentDefault.getDefault(HvlTextButton.class).clone();
+			else
+				tr = new HvlTextButton(0, 0, 0, 0, null, null, null, "");
 		}
 
 		public float getX() {
@@ -236,5 +240,28 @@ public class HvlTextButton extends HvlButton {
 		public HvlTextButton build() {
 			return tr;
 		}
+	}
+
+	public HvlTextButton clone() {
+		HvlTextButton tr = new HvlTextButton(0, 0, 0, 0, null, null, null, "");
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlButton
+		tr.setOffDrawable(getOffDrawable());
+		tr.setHoverDrawable(getHoverDrawable());
+		tr.setOnDrawable(getOnDrawable());
+		// HvlTextButton
+		tr.font = font;
+		tr.text = text;
+		tr.textScale = textScale;
+		tr.textColor = textColor;
+		tr.xAlign = xAlign;
+		tr.yAlign = yAlign;
+		return tr;
 	}
 }

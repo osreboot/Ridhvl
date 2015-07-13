@@ -3,6 +3,7 @@ package com.osreboot.ridhvl.menu.component;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlLabel extends HvlComponent {
@@ -107,7 +108,10 @@ public class HvlLabel extends HvlComponent {
 		private HvlLabel tr;
 
 		public Builder() {
-			tr = new HvlLabel(null, "", Color.white);
+			if (HvlComponentDefault.hasDefault(HvlLabel.class))
+				tr = HvlComponentDefault.getDefault(HvlLabel.class).clone();
+			else
+				tr = new HvlLabel(null, "", Color.white);
 		}
 		
 		public float getX() {
@@ -185,5 +189,22 @@ public class HvlLabel extends HvlComponent {
 		public HvlLabel build() {
 			return tr;
 		}
+	}
+	
+	public HvlLabel clone() {
+		HvlLabel tr = new HvlLabel(null, "", Color.white);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlLabel
+		tr.font = font;
+		tr.text = text;
+		tr.color = color;
+		tr.scale = scale;
+		return tr;
 	}
 }

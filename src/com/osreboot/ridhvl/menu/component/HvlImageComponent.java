@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlImageComponent extends HvlComponent {
@@ -48,7 +49,10 @@ public class HvlImageComponent extends HvlComponent {
 		private HvlImageComponent tr;
 		
 		public Builder() {
-			tr = new HvlImageComponent(0, 0, null);
+			if (HvlComponentDefault.hasDefault(HvlImageComponent.class))
+				tr = HvlComponentDefault.getDefault(HvlImageComponent.class).clone();
+			else
+				tr = new HvlImageComponent(0, 0, null);
 		}
 
 		public Texture getTexture() {
@@ -126,5 +130,20 @@ public class HvlImageComponent extends HvlComponent {
 		public HvlImageComponent build() {
 			return tr;
 		}
+	}
+	
+	public HvlImageComponent clone() {
+		HvlImageComponent tr = new HvlImageComponent(0, 0, null);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlImageComponent
+		tr.color = color;
+		tr.texture = texture;
+		return tr;
 	}
 }

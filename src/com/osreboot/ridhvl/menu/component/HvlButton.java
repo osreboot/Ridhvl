@@ -1,6 +1,7 @@
 package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlButton extends HvlComponent {
 
@@ -102,7 +103,10 @@ public class HvlButton extends HvlComponent {
 		private HvlButton tr;
 
 		public Builder() {
-			tr = new HvlButton(0, 0, null, null);
+			if (HvlComponentDefault.hasDefault(HvlButton.class))
+				tr = HvlComponentDefault.getDefault(HvlButton.class).clone();
+			else
+				tr = new HvlButton(0, 0, null, null);
 		}
 
 		public float getX() {
@@ -189,5 +193,21 @@ public class HvlButton extends HvlComponent {
 		public HvlButton build() {
 			return tr;
 		}
+	}
+
+	public HvlButton clone() {
+		HvlButton tr = new HvlButton(0, 0, null, null);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlButton
+		tr.offDrawable = offDrawable;
+		tr.hoverDrawable = hoverDrawable;
+		tr.onDrawable = onDrawable;
+		return tr;
 	}
 }

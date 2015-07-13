@@ -7,6 +7,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlTextBox extends HvlComponent {
@@ -233,7 +234,10 @@ public class HvlTextBox extends HvlComponent {
 		private HvlTextBox tr;
 
 		public Builder() {
-			tr = new HvlTextBox(0, 0, "", null, null, null);
+			if (HvlComponentDefault.hasDefault(HvlTextBox.class))
+				tr =  HvlComponentDefault.getDefault(HvlTextBox.class).clone();
+			else
+				tr = new HvlTextBox(0, 0, "", null, null, null);
 		}
 
 		public float getX() {
@@ -410,5 +414,32 @@ public class HvlTextBox extends HvlComponent {
 		public HvlTextBox build() {
 			return tr;
 		}
+	}
+
+	public HvlTextBox clone() {
+		HvlTextBox tr = new HvlTextBox(0, 0, "", null, null, null);
+		// HvlComponent
+		tr.setX(getX());
+		tr.setY(getY());
+		tr.setWidth(getWidth());
+		tr.setHeight(getHeight());
+		tr.setEnabled(isEnabled());
+		tr.setVisible(isVisible());
+		// HvlTextBox
+		tr.focusedDrawable = focusedDrawable;
+		tr.unfocusedDrawable = unfocusedDrawable;
+		tr.offsetX = offsetX;
+		tr.offsetY = offsetY;
+		tr.textScale = textScale;
+		tr.textColor = textColor;
+		tr.font = font;
+		tr.text = text;
+		tr.isFocused = isFocused;
+		tr.maxCharacters = maxCharacters;
+		tr.forceUppercase = forceUppercase;
+		tr.forceLowercase = forceLowercase;
+		tr.numbersOnly = numbersOnly;
+		tr.blacklistCharacters = blacklistCharacters;
+		return tr;
 	}
 }
