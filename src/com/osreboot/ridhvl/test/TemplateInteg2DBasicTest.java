@@ -17,7 +17,6 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D{
 	}
 
 	static HvlFontPainter2D fontPainter;
-	float gradient = 0;
 	
 	@Override
 	public void initialize(){
@@ -35,7 +34,7 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D{
 
 	@Override
 	public void update(float delta){
-		gradient = gradient < 1280 ? gradient + (delta*1000) : 0;
+		float gradient = getNewestInstance().getTimer().getTotalTime()*1000 % 1280f;
 		
 		for(int i = 0; i < 360; i++){
 			hvlDrawQuad(0, i*2, gradient - (i*2), 2, getTextureLoader().getResource(0), new Color(1f, ((float)i - 180)/180, (float)i/360));

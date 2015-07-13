@@ -4,16 +4,16 @@ import com.osreboot.ridhvl.HvlTimer;
 
 public abstract class HvlTemplate{
 
-	public static HvlTemplate lastInstance;
+	public static HvlTemplate newestInstance;
 	
-	public static HvlTemplate getLastInstance(){
-		return lastInstance;
+	public static HvlTemplate getNewestInstance(){
+		return newestInstance;
 	}
 	
 	private HvlTimer timer;
 
 	public HvlTemplate(){
-		lastInstance = this;
+		newestInstance = this;
 	}
 
 	final void start(){
