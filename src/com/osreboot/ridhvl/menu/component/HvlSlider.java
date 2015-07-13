@@ -23,8 +23,8 @@ public class HvlSlider extends HvlComponent {
 
 	private boolean isBeingHeld;
 
-	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
-			HvlComponentDrawable backgroundArg) {
+	protected HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
 		handleWidth = handleWidthArg;
@@ -35,7 +35,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	protected HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
@@ -47,7 +47,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	protected HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
@@ -59,7 +59,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	protected HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
@@ -270,5 +270,169 @@ public class HvlSlider extends HvlComponent {
 
 	public void setLiveSnap(boolean liveSnap) {
 		this.liveSnap = liveSnap;
+	}
+
+	public static class Builder {
+		private HvlSlider tr;
+
+		public Builder() {
+			tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
+		}
+
+		public float getX() {
+			return tr.getX();
+		}
+
+		public Builder setX(float x) {
+			tr.setX(x);
+			return this;
+		}
+
+		public float getY() {
+			return tr.getY();
+		}
+
+		public Builder setY(float y) {
+			tr.setY(y);
+			return this;
+		}
+
+		public float getWidth() {
+			return tr.getWidth();
+		}
+
+		public Builder setWidth(float width) {
+			tr.setWidth(width);
+			return this;
+		}
+
+		public float getHeight() {
+			return tr.getHeight();
+		}
+
+		public Builder setHeight(float height) {
+			tr.setHeight(height);
+			return this;
+		}
+
+		public boolean isEnabled() {
+			return tr.isEnabled();
+		}
+
+		public Builder setEnabled(boolean enabled) {
+			tr.setEnabled(enabled);
+			return this;
+		}
+
+		public boolean isVisible() {
+			return tr.isVisible();
+		}
+
+		public Builder setVisible(boolean visible) {
+			tr.setVisible(visible);
+			return this;
+		}
+
+		public HvlComponentDrawable getHandleUpDrawable() {
+			return tr.getHandleUpDrawable();
+		}
+
+		public Builder setHandleUpDrawable(HvlComponentDrawable handleUpDrawable) {
+			tr.setHandleUpDrawable(handleUpDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getHandleDownDrawable() {
+			return tr.getHandleDownDrawable();
+		}
+
+		public Builder setHandleDownDrawable(HvlComponentDrawable handleDownDrawable) {
+			tr.setHandleDownDrawable(handleDownDrawable);
+			return this;
+		}
+
+		public HvlComponentDrawable getBackground() {
+			return tr.getBackground();
+		}
+
+		public Builder setBackground(HvlComponentDrawable background) {
+			tr.setBackground(background);
+			return this;
+		}
+
+		public final SliderDirection getDirection() {
+			return tr.getDirection();
+		}
+
+		public final Builder setDirection(SliderDirection direction) {
+			tr.setDirection(direction);
+			return this;
+		}
+
+		public final float getValue() {
+			return tr.getValue();
+		}
+
+		public final Builder setValue(float value) {
+			tr.setValue(value);
+			return this;
+		}
+
+		public final float getHandleHeight() {
+			return tr.getHandleHeight();
+		}
+
+		public final Builder setHandleHeight(float handleHeight) {
+			tr.setHandleHeight(handleHeight);
+			return this;
+		}
+
+		public final float getHandleWidth() {
+			return tr.getHandleWidth();
+		}
+
+		public final Builder setHandleWidth(float handleWidth) {
+			tr.setHandleWidth(handleWidth);
+			return this;
+		}
+
+		public final float getHandleStartOffset() {
+			return tr.getHandleStartOffset();
+		}
+
+		public final Builder setHandleStartOffset(float handleStartOffset) {
+			tr.setHandleStartOffset(handleStartOffset);
+			return this;
+		}
+
+		public final float getHandleEndOffset() {
+			return tr.getHandleEndOffset();
+		}
+
+		public final Builder setHandleEndOffset(float handleEndOffset) {
+			tr.setHandleEndOffset(handleEndOffset);
+			return this;
+		}
+
+		public final float getSnapInterval() {
+			return tr.getSnapInterval();
+		}
+
+		public final Builder setSnapInterval(float snapInterval) {
+			tr.setSnapInterval(snapInterval);
+			return this;
+		}
+
+		public boolean isLiveSnap() {
+			return tr.isLiveSnap();
+		}
+
+		public void setLiveSnap(boolean liveSnap) {
+			tr.setLiveSnap(liveSnap);
+		}
+
+		public HvlSlider build() {
+			return tr;
+		}
 	}
 }

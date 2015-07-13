@@ -13,13 +13,13 @@ public class HvlArrangerBox extends HvlPanel {
 
 	private float borderL, borderR, borderU, borderD;
 
-	public HvlArrangerBox(float wArg, float hArg, ArrangementStyle styleArg) {
+	protected HvlArrangerBox(float wArg, float hArg, ArrangementStyle styleArg) {
 		super(wArg, hArg);
 		style = styleArg;
 		align = 0.0f;
 	}
 
-	public HvlArrangerBox(float xArg, float yArg, float wArg, float hArg, ArrangementStyle styleArg) {
+	protected HvlArrangerBox(float xArg, float yArg, float wArg, float hArg, ArrangementStyle styleArg) {
 		super(xArg, yArg, wArg, hArg);
 		style = styleArg;
 		align = 0.0f;
@@ -114,5 +114,143 @@ public class HvlArrangerBox extends HvlPanel {
 
 	public void setBorderD(float borderD) {
 		this.borderD = borderD;
+	}
+
+	public static class Builder {
+		private HvlArrangerBox tr;
+
+		public Builder() {
+			// TODO: Set defaults here
+			tr = new HvlArrangerBox(0, 0, 0, 0, ArrangementStyle.VERTICAL);
+		}
+
+		public Builder add(HvlComponent toAdd) {
+			tr.add(toAdd);
+			return this;
+		}
+
+		public HvlComponent get(int i) {
+			return tr.get(i);
+		}
+
+		public final boolean isHovering() {
+			return tr.isHovering();
+		}
+
+		public int getChildCount() {
+			return tr.getChildCount();
+		}
+
+		public float getX() {
+			return tr.getX();
+		}
+
+		public Builder setX(float x) {
+			tr.setX(x);
+			return this;
+		}
+
+		public float getY() {
+			return tr.getY();
+		}
+
+		public Builder setY(float y) {
+			tr.setY(y);
+			return this;
+		}
+
+		public float getWidth() {
+			return tr.getWidth();
+		}
+
+		public Builder setWidth(float width) {
+			tr.setWidth(width);
+			return this;
+		}
+
+		public float getHeight() {
+			return tr.getHeight();
+		}
+
+		public ArrangementStyle getStyle() {
+			return tr.getStyle();
+		}
+
+		public Builder setHeight(float height) {
+			tr.setHeight(height);
+			return this;
+		}
+
+		public Builder setStyle(ArrangementStyle style) {
+			tr.setStyle(style);
+			return this;
+		}
+
+		public boolean isEnabled() {
+			return tr.isEnabled();
+		}
+
+		public float getBorderL() {
+			return tr.getBorderL();
+		}
+
+		public Builder setEnabled(boolean enabled) {
+			tr.setEnabled(enabled);
+			return this;
+		}
+
+		public Builder setBorderL(float borderL) {
+			tr.setBorderL(borderL);
+			return this;
+		}
+
+		public boolean isVisible() {
+			return tr.isVisible();
+		}
+
+		public float getBorderR() {
+			return tr.getBorderR();
+		}
+
+		public Builder setVisible(boolean visible) {
+			tr.setVisible(visible);
+			return this;
+		}
+
+		public Builder setBorderR(float borderR) {
+			tr.setBorderR(borderR);
+			return this;
+		}
+
+		public float getBorderU() {
+			return tr.getBorderU();
+		}
+
+		public Builder setBorderU(float borderU) {
+			tr.setBorderU(borderU);
+			return this;
+		}
+
+		public float getBorderD() {
+			return tr.getBorderD();
+		}
+
+		public float getAlign() {
+			return tr.getAlign();
+		}
+
+		public Builder setAlign(float align) {
+			tr.setAlign(align);
+			return this;
+		}
+
+		public Builder setBorderD(float borderD) {
+			tr.setBorderD(borderD);
+			return this;
+		}
+		
+		public HvlArrangerBox build() {
+			return tr;
+		}
 	}
 }

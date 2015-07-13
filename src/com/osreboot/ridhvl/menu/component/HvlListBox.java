@@ -40,7 +40,7 @@ public class HvlListBox extends HvlComponent {
 	private float pX, pY, pWidth, pHeight;
 	private boolean isFocused;
 
-	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	protected HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
 		super(wArg, hArg);
 		scrollBar = scrollArg;
@@ -70,7 +70,7 @@ public class HvlListBox extends HvlComponent {
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	protected HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundHoverArg, HvlComponentDrawable itemBackgroundOnArg,
 			float itemHeightArg, int maxVisibleItemsArg) {
 		super(wArg, hArg);
@@ -100,7 +100,7 @@ public class HvlListBox extends HvlComponent {
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	protected HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
@@ -130,7 +130,7 @@ public class HvlListBox extends HvlComponent {
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	protected HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundHoverArg, HvlComponentDrawable itemBackgroundOnArg,
 			float itemHeightArg, int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);
@@ -248,6 +248,11 @@ public class HvlListBox extends HvlComponent {
 	}
 
 	private void layoutUpdate() {
+		scrollBox.removeAll();
+		scrollBox.add(scrollUpButton);
+		scrollBox.add(scrollBar);
+		scrollBox.add(scrollDownButton);
+		
 		scrollBox.setY(getY());
 		scrollBox.setWidth(Math.max(Math.max(scrollBar.getWidth(), scrollUpButton == null ? 0 : scrollUpButton.getWidth()), scrollDownButton == null ? 0
 				: scrollDownButton.getWidth()));
@@ -279,10 +284,6 @@ public class HvlListBox extends HvlComponent {
 
 	public void setScrollDownButton(HvlButton scrollDownButton) {
 		this.scrollDownButton = scrollDownButton;
-	}
-
-	public HvlArrangerBox getScrollBox() {
-		return scrollBox;
 	}
 
 	public void setScrollBox(HvlArrangerBox scrollBox) {
@@ -425,5 +426,243 @@ public class HvlListBox extends HvlComponent {
 			return null;
 
 		return items.get(index);
+	}
+	
+	public static class Builder {
+		private HvlListBox tr;
+		
+		public Builder() {
+			// TODO: REEEALLLY fill in with default values (this is non-functional at this point)
+			tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
+		}
+
+		public float getX() {
+			return tr.getX();
+		}
+
+		public Builder setX(float x) {
+			tr.setX(x);
+			return this;
+		}
+
+		public float getY() {
+			return tr.getY();
+		}
+
+		public Builder setY(float y) {
+			tr.setY(y);
+			return this;
+		}
+
+		public float getWidth() {
+			return tr.getWidth();
+		}
+
+		public Builder setWidth(float width) {
+			tr.setWidth(width);
+			return this;
+		}
+
+		public float getHeight() {
+			return tr.getHeight();
+		}
+
+		public Builder setHeight(float height) {
+			tr.setHeight(height);
+			return this;
+		}
+
+		public boolean isEnabled() {
+			return tr.isEnabled();
+		}
+
+		public Builder setEnabled(boolean enabled) {
+			tr.setEnabled(enabled);
+			return this;
+		}
+
+		public boolean isVisible() {
+			return tr.isVisible();
+		}
+
+		public Builder setVisible(boolean visible) {
+			tr.setVisible(visible);
+			return this;
+		}
+
+		public HvlSlider getScrollBar() {
+			return tr.getScrollBar();
+		}
+
+		public Builder setScrollBar(HvlSlider scrollBar) {
+			tr.setScrollBar(scrollBar);
+			return this;
+		}
+
+		public HvlButton getScrollUpButton() {
+			return tr.getScrollUpButton();
+		}
+
+		public Builder setScrollUpButton(HvlButton scrollUpButton) {
+			tr.setScrollUpButton(scrollUpButton);
+			return this;
+		}
+
+		public HvlButton getScrollDownButton() {
+			return tr.getScrollDownButton();
+		}
+
+		public Builder setScrollDownButton(HvlButton scrollDownButton) {
+			tr.setScrollDownButton(scrollDownButton);
+			return this;
+		}
+
+		public Builder setScrollBox(HvlArrangerBox scrollBox) {
+			tr.setScrollBox(scrollBox);
+			return this;
+		}
+
+		public HvlFontPainter2D getFont() {
+			return tr.getFont();
+		}
+
+		public Builder setFont(HvlFontPainter2D font) {
+			tr.setFont(font);
+			return this;
+		}
+
+		public HvlComponentDrawable getItemBackgroundOff() {
+			return tr.getItemBackgroundOff();
+		}
+
+		public Builder setItemBackgroundOff(HvlComponentDrawable itemBackgroundOff) {
+			tr.setItemBackgroundOff(itemBackgroundOff);
+			return this;
+		}
+
+		public HvlComponentDrawable getItemBackgroundHover() {
+			return tr.getItemBackgroundHover();
+		}
+
+		public Builder setItemBackgroundHover(HvlComponentDrawable itemBackgroundHover) {
+			tr.setItemBackgroundHover(itemBackgroundHover);
+			return this;
+		}
+
+		public HvlComponentDrawable getItemBackgroundOn() {
+			return tr.getItemBackgroundOn();
+		}
+
+		public Builder setItemBackgroundOn(HvlComponentDrawable itemBackgroundOn) {
+			tr.setItemBackgroundOn(itemBackgroundOn);
+			return this;
+		}
+
+		public float getItemHeight() {
+			return tr.getItemHeight();
+		}
+
+		public Builder setItemHeight(float itemHeight) {
+			tr.setItemHeight(itemHeight);
+			return this;
+		}
+
+		public int getMaxVisibleItems() {
+			return tr.getMaxVisibleItems();
+		}
+
+		public Builder setMaxVisibleItems(int maxVisibleItems) {
+			tr.setMaxVisibleItems(maxVisibleItems);
+			return this;
+		}
+
+		public boolean isAutoSize() {
+			return tr.isAutoSize();
+		}
+
+		public Builder setAutoSize(boolean autoSize) {
+			tr.setAutoSize(autoSize);
+			return this;
+		}
+
+		public float getTextScale() {
+			return tr.getTextScale();
+		}
+
+		public Builder setTextScale(float textScale) {
+			tr.setTextScale(textScale);
+			return this;
+		}
+
+		public Color getTextColor() {
+			return tr.getTextColor();
+		}
+
+		public Builder setTextColor(Color textColor) {
+			tr.setTextColor(textColor);
+			return this;
+		}
+
+		public int getSelectedIndex() {
+			return tr.getSelectedIndex();
+		}
+
+		public Builder setSelectedIndex(int selectedIndex) {
+			tr.setSelectedIndex(selectedIndex);
+			return this;
+		}
+
+		public boolean isFullBackground() {
+			return tr.isFullBackground();
+		}
+
+		public Builder setFullBackground(boolean fullBackground) {
+			tr.setFullBackground(fullBackground);
+			return this;
+		}
+
+		public HvlComponentDrawable getBackground() {
+			return tr.getBackground();
+		}
+
+		public Builder setBackground(HvlComponentDrawable background) {
+			tr.setBackground(background);
+			return this;
+		}
+
+		public int getSizeIntervalsForScroll() {
+			return tr.getSizeIntervalsForScroll();
+		}
+
+		public Builder setSizeIntervalsForScroll(int sizeIntervalsForScroll) {
+			tr.setSizeIntervalsForScroll(sizeIntervalsForScroll);
+			return this;
+		}
+
+		public Object getSelectedItem() {
+			return tr.getSelectedItem();
+		}
+
+		public Builder setSelectedItem(Object item) {
+			tr.setSelectedItem(item);
+			return this;
+		}
+
+		public Builder addItem(Object item) {
+			tr.addItem(item);
+			return this;
+		}
+
+		public int getItemCount() {
+			return tr.getItemCount();
+		}
+
+		public Object getItem(int index) {
+			return tr.getItem(index);
+		}
+		
+		public HvlListBox build() {
+			return tr;
+		}
 	}
 }
