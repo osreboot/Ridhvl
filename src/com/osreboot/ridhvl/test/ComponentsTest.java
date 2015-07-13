@@ -12,6 +12,8 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
+import com.osreboot.ridhvl.menu.component.HvlButton;
+import com.osreboot.ridhvl.menu.component.HvlButton.OnClickedCommand;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
@@ -100,7 +102,12 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testCheck = new HvlCheckbox.Builder().setWidth(64).setHeight(64).build();
 
-		testButton = new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").build();
+		testButton = new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
+			@Override
+			public void run(HvlButton callingButton) {
+				System.out.println("BUTTONCLICK!");
+			}
+		}).build();
 
 		testTextBox = new HvlTextBox.Builder().setWidth(512).setHeight(96).setText("hey").setMaxCharacters(10).build();
 

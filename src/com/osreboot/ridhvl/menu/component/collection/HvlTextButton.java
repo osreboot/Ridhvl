@@ -237,6 +237,16 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 		
+		public Builder setClickedCommand(OnClickedCommand clickedCommand) {
+			tr.setClickedCommand(clickedCommand);
+			return this;
+		}
+
+		public Builder setPressingCommand(OnPressingCommand pressingCommand) {
+			tr.setPressingCommand(pressingCommand);
+			return this;
+		}
+
 		public HvlTextButton build() {
 			return tr;
 		}

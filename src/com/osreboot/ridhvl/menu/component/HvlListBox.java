@@ -19,6 +19,10 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlListBox extends HvlComponent {
 
+	public static abstract class SelectionChangedCommand {
+		public abstract void run(HvlListBox callingListBox, int index, Object selected);
+	}
+	
 	private HvlSlider scrollBar;
 	private HvlButton scrollUpButton, scrollDownButton;
 	private HvlArrangerBox scrollBox;
@@ -40,6 +44,8 @@ public class HvlListBox extends HvlComponent {
 	private HvlRenderFrame renderFrame;
 	private float pX, pY, pWidth, pHeight;
 	private boolean isFocused;
+	
+	private SelectionChangedCommand selectionChanged;
 
 	protected HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
@@ -159,9 +165,6 @@ public class HvlListBox extends HvlComponent {
 		sizeIntervalsForScroll = 10;
 
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
-	}
-
-	public void onSelectionChanged(int indexArg, Object selArg) {
 	}
 
 	@Override
@@ -207,7 +210,8 @@ public class HvlListBox extends HvlComponent {
 		}
 
 		if (selectedIndex != pSelectedIndex)
-			onSelectionChanged(selectedIndex, getSelectedItem());
+			if (selectionChanged != null)
+				selectionChanged.run(this, selectedIndex, getSelectedItem());
 
 		pSelectedIndex = selectedIndex;
 	}
@@ -429,6 +433,14 @@ public class HvlListBox extends HvlComponent {
 		return items.get(index);
 	}
 	
+	public SelectionChangedCommand getSelectionChanged() {
+		return selectionChanged;
+	}
+
+	public void setSelectionChanged(SelectionChangedCommand selectionChanged) {
+		this.selectionChanged = selectionChanged;
+	}
+
 	public static class Builder {
 		private HvlListBox tr;
 		
@@ -664,6 +676,11 @@ public class HvlListBox extends HvlComponent {
 			return tr.getItem(index);
 		}
 		
+		public Builder setSelectionChanged(SelectionChangedCommand selectionChanged) {
+			tr.setSelectionChanged(selectionChanged);
+			return this;
+		}
+
 		public HvlListBox build() {
 			return tr;
 		}

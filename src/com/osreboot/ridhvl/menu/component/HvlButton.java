@@ -5,8 +5,18 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlButton extends HvlComponent {
 
+	public static abstract class OnClickedCommand {
+		public abstract void run(HvlButton callingButton);
+	}
+	
+	public static abstract class OnPressingCommand {
+		public abstract void run(HvlButton callingButton);
+	}
+	
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
+	private OnClickedCommand clickedCommand;
+	private OnPressingCommand pressingCommand;
 
 	protected HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
@@ -36,12 +46,6 @@ public class HvlButton extends HvlComponent {
 		onDrawable = onArg;
 	}
 
-	public void onPressing(int buttonArg) {
-	}
-
-	public void onTriggered() {
-	}
-
 	public boolean isTriggered() {
 		return previousClick && !currentClick;
 	}
@@ -69,9 +73,11 @@ public class HvlButton extends HvlComponent {
 		}
 
 		if (previousClick && !currentClick) {
-			onTriggered();
+			if (clickedCommand != null)
+				clickedCommand.run(this);
 		} else if (currentClick) {
-			onPressing(0);
+			if (pressingCommand != null)
+				pressingCommand.run(this);
 		}
 	}
 
@@ -97,6 +103,22 @@ public class HvlButton extends HvlComponent {
 
 	public void setOnDrawable(HvlComponentDrawable onDrawable) {
 		this.onDrawable = onDrawable;
+	}
+
+	public OnClickedCommand getClickedCommand() {
+		return clickedCommand;
+	}
+
+	public void setClickedCommand(OnClickedCommand clickedCommand) {
+		this.clickedCommand = clickedCommand;
+	}
+
+	public OnPressingCommand getPressingCommand() {
+		return pressingCommand;
+	}
+
+	public void setPressingCommand(OnPressingCommand pressingCommand) {
+		this.pressingCommand = pressingCommand;
 	}
 
 	public static class Builder {
@@ -187,6 +209,16 @@ public class HvlButton extends HvlComponent {
 
 		public Builder setOnDrawable(HvlComponentDrawable onDrawable) {
 			tr.setOnDrawable(onDrawable);
+			return this;
+		}
+
+		public Builder setClickedCommand(OnClickedCommand clickedCommand) {
+			tr.setClickedCommand(clickedCommand);
+			return this;
+		}
+
+		public Builder setPressingCommand(OnPressingCommand pressingCommand) {
+			tr.setPressingCommand(pressingCommand);
 			return this;
 		}
 
