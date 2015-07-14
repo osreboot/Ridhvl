@@ -205,59 +205,59 @@ public class HvlSlider extends HvlComponent {
 		this.background = background;
 	}
 
-	public final SliderDirection getDirection() {
+	public SliderDirection getDirection() {
 		return direction;
 	}
 
-	public final void setDirection(SliderDirection direction) {
+	public void setDirection(SliderDirection direction) {
 		this.direction = direction;
 	}
 
-	public final float getValue() {
+	public float getValue() {
 		return value;
 	}
 
-	public final void setValue(float value) {
+	public void setValue(float value) {
 		this.value = value;
 	}
 
-	public final float getHandleHeight() {
+	public float getHandleHeight() {
 		return handleHeight;
 	}
 
-	public final void setHandleHeight(float handleHeight) {
+	public void setHandleHeight(float handleHeight) {
 		this.handleHeight = handleHeight;
 	}
 
-	public final float getHandleWidth() {
+	public float getHandleWidth() {
 		return handleWidth;
 	}
 
-	public final void setHandleWidth(float handleWidth) {
+	public void setHandleWidth(float handleWidth) {
 		this.handleWidth = handleWidth;
 	}
 
-	public final float getHandleStartOffset() {
+	public float getHandleStartOffset() {
 		return handleStartOffset;
 	}
 
-	public final void setHandleStartOffset(float handleStartOffset) {
+	public void setHandleStartOffset(float handleStartOffset) {
 		this.handleStartOffset = handleStartOffset;
 	}
 
-	public final float getHandleEndOffset() {
+	public float getHandleEndOffset() {
 		return handleEndOffset;
 	}
 
-	public final void setHandleEndOffset(float handleEndOffset) {
+	public void setHandleEndOffset(float handleEndOffset) {
 		this.handleEndOffset = handleEndOffset;
 	}
 
-	public final float getSnapInterval() {
+	public float getSnapInterval() {
 		return snapInterval;
 	}
 
-	public final void setSnapInterval(float snapInterval) {
+	public void setSnapInterval(float snapInterval) {
 		this.snapInterval = snapInterval;
 	}
 
@@ -328,43 +328,44 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public final Builder setDirection(SliderDirection direction) {
+		public Builder setDirection(SliderDirection direction) {
 			tr.setDirection(direction);
 			return this;
 		}
 
-		public final Builder setValue(float value) {
+		public Builder setValue(float value) {
 			tr.setValue(value);
 			return this;
 		}
 
-		public final Builder setHandleHeight(float handleHeight) {
+		public Builder setHandleHeight(float handleHeight) {
 			tr.setHandleHeight(handleHeight);
 			return this;
 		}
 
-		public final Builder setHandleWidth(float handleWidth) {
+		public Builder setHandleWidth(float handleWidth) {
 			tr.setHandleWidth(handleWidth);
 			return this;
 		}
 
-		public final Builder setHandleStartOffset(float handleStartOffset) {
+		public Builder setHandleStartOffset(float handleStartOffset) {
 			tr.setHandleStartOffset(handleStartOffset);
 			return this;
 		}
 
-		public final Builder setHandleEndOffset(float handleEndOffset) {
+		public Builder setHandleEndOffset(float handleEndOffset) {
 			tr.setHandleEndOffset(handleEndOffset);
 			return this;
 		}
 
-		public final Builder setSnapInterval(float snapInterval) {
+		public Builder setSnapInterval(float snapInterval) {
 			tr.setSnapInterval(snapInterval);
 			return this;
 		}
 
-		public void setLiveSnap(boolean liveSnap) {
+		public Builder setLiveSnap(boolean liveSnap) {
 			tr.setLiveSnap(liveSnap);
+			return this;
 		}
 
 		public HvlSlider build() {
