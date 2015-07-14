@@ -7,34 +7,34 @@ import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
-public class HvlImageComponent extends HvlComponent {
+public class HvlDrawableComponent extends HvlComponent {
 
-	private Texture texture;
+	private HvlComponentDrawable drawable;
 	private Color color;
 
-	protected HvlImageComponent(float wArg, float hArg, Texture tArg) {
+	protected HvlDrawableComponent(float wArg, float hArg, HvlComponentDrawable dArg) {
 		super(wArg, hArg);
-		texture = tArg;
+		drawable = dArg;
 		color = Color.white;
 	}
 
-	protected HvlImageComponent(float xArg, float yArg, float wArg, float hArg, Texture tArg) {
+	protected HvlDrawableComponent(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable dArg) {
 		super(xArg, yArg, wArg, hArg);
-		texture = tArg;
+		drawable = dArg;
 		color = Color.white;
 	}
 
 	@Override
 	public void draw(float delta) {
-		HvlPainter2D.hvlDrawQuad(getX(), getY(), getWidth(), getHeight(), texture, color);
+		drawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 	}
 
-	public Texture getTexture() {
-		return texture;
+	public HvlComponentDrawable getDrawable() {
+		return drawable;
 	}
 
-	public void setTexture(Texture texture) {
-		this.texture = texture;
+	public void setDrawable(HvlComponentDrawable drawable) {
+		this.drawable = drawable;
 	}
 
 	public Color getColor() {
@@ -46,17 +46,17 @@ public class HvlImageComponent extends HvlComponent {
 	}
 	
 	public static class Builder {
-		private HvlImageComponent tr;
+		private HvlDrawableComponent tr;
 		
 		public Builder() {
-			if (HvlComponentDefault.hasDefault(HvlImageComponent.class))
-				tr = HvlComponentDefault.getDefault(HvlImageComponent.class).clone();
+			if (HvlComponentDefault.hasDefault(HvlDrawableComponent.class))
+				tr = HvlComponentDefault.getDefault(HvlDrawableComponent.class).clone();
 			else
-				tr = new HvlImageComponent(0, 0, null);
+				tr = new HvlDrawableComponent(0, 0, null);
 		}
 
-		public Builder setTexture(Texture texture) {
-			tr.setTexture(texture);
+		public Builder setTexture(HvlComponentDrawable drawable) {
+			tr.setDrawable(drawable);
 			return this;
 		}
 
@@ -95,13 +95,13 @@ public class HvlImageComponent extends HvlComponent {
 			return this;
 		}
 		
-		public HvlImageComponent build() {
+		public HvlDrawableComponent build() {
 			return tr;
 		}
 	}
 	
-	public HvlImageComponent clone() {
-		HvlImageComponent tr = new HvlImageComponent(0, 0, null);
+	public HvlDrawableComponent clone() {
+		HvlDrawableComponent tr = new HvlDrawableComponent(0, 0, null);
 		// HvlComponent
 		tr.setX(getX());
 		tr.setY(getY());
@@ -111,7 +111,7 @@ public class HvlImageComponent extends HvlComponent {
 		tr.setVisible(isVisible());
 		// HvlImageComponent
 		tr.color = color;
-		tr.texture = texture;
+		tr.drawable = drawable;
 		return tr;
 	}
 }
