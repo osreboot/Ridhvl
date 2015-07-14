@@ -2,16 +2,12 @@ package com.osreboot.ridhvl.menu.component.collection;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
+import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
-public class HvlTextCheckbox extends HvlComponent {
-
-	private boolean previousPressed, currentPressed, previousHover, currentHover;
-	private boolean checked;
-	private HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
+public class HvlTextCheckbox extends HvlCheckbox {
 
 	private HvlFontPainter2D font;
 	private String text;
@@ -20,114 +16,19 @@ public class HvlTextCheckbox extends HvlComponent {
 
 	private float spacing;
 
-	protected HvlTextCheckbox(float wArg, float hArg, boolean checked, HvlComponentDrawable offDrawable, HvlComponentDrawable offHoverDrawable,
-			HvlComponentDrawable onDrawable, HvlComponentDrawable onHoverDrawable, HvlFontPainter2D font, String text, Color color) {
-		super(wArg, hArg);
-		this.checked = checked;
-		this.offDrawable = offDrawable;
-		this.offHoverDrawable = offHoverDrawable;
-		this.onDrawable = onDrawable;
-		this.onHoverDrawable = onHoverDrawable;
-		this.font = font;
-		this.text = text;
-		this.color = color;
-		scale = 1.0f;
-	}
-
-	protected HvlTextCheckbox(float wArg, float hArg, boolean checked, HvlComponentDrawable offDrawable, HvlComponentDrawable hoverDrawable,
-			HvlComponentDrawable onDrawable, HvlFontPainter2D font, String text, Color color) {
-		super(wArg, hArg);
-		this.checked = checked;
-		this.offDrawable = offDrawable;
-		this.offHoverDrawable = hoverDrawable;
-		this.onDrawable = onDrawable;
-		this.onHoverDrawable = hoverDrawable;
-		this.font = font;
-		this.text = text;
-		this.color = color;
-		scale = 1.0f;
-	}
-
-	@Override
-	public void update(float delta) {
-		previousHover = currentHover;
-		previousPressed = currentPressed;
-		currentHover = isHovering();
-		currentPressed = isBeingPressed(0);
-
-		// This allows you to drag off of the checkbox without triggering it.
-		if (previousHover && !currentHover) {
-			previousPressed = false;
-			currentPressed = false;
-		}
-
-		if (previousPressed && !currentPressed) {
-			checked = !checked;
-			onChanged(checked);
-		}
-
-		draw(delta);
+	public HvlTextCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+		super(xlArg, ylArg, offArg, onArg);
 	}
 
 	@Override
 	public void draw(float delta) {
-		if (isChecked()) {
-			if (isHovering())
-				onHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-			else
-				onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-		} else {
-			if (isHovering())
-				offHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-			else
-				offDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-		}
+		super.draw(delta);
 		
 		font.drawWord(text, getX() + getWidth() + spacing, getY() + (getHeight() / 2) - (font.getFontHeight() / 2), scale, color);
 	}
 
 	public void onChanged(boolean state) {
 
-	}
-
-	public boolean isChecked() {
-		return checked;
-	}
-
-	public void setChecked(boolean checked) {
-		this.checked = checked;
-	}
-
-	public HvlComponentDrawable getOffDrawable() {
-		return offDrawable;
-	}
-
-	public void setOffDrawable(HvlComponentDrawable offDrawable) {
-		this.offDrawable = offDrawable;
-	}
-
-	public HvlComponentDrawable getOffHoverDrawable() {
-		return offHoverDrawable;
-	}
-
-	public void setOffHoverDrawable(HvlComponentDrawable offHoverDrawable) {
-		this.offHoverDrawable = offHoverDrawable;
-	}
-
-	public HvlComponentDrawable getOnDrawable() {
-		return onDrawable;
-	}
-
-	public void setOnDrawable(HvlComponentDrawable onDrawable) {
-		this.onDrawable = onDrawable;
-	}
-
-	public HvlComponentDrawable getOnHoverDrawable() {
-		return onHoverDrawable;
-	}
-
-	public void setOnHoverDrawable(HvlComponentDrawable onHoverDrawable) {
-		this.onHoverDrawable = onHoverDrawable;
 	}
 
 	public HvlFontPainter2D getFont() {
@@ -177,7 +78,7 @@ public class HvlTextCheckbox extends HvlComponent {
 			if (HvlComponentDefault.hasDefault(HvlTextCheckbox.class))
 				tr = HvlComponentDefault.getDefault(HvlTextCheckbox.class).clone();
 			else
-				tr = new HvlTextCheckbox(0, 0, false, null, null, null, null, null, "", Color.white);
+				tr = new HvlTextCheckbox(0, 0, null, null);
 		}
 
 		public float getX() {
@@ -326,7 +227,7 @@ public class HvlTextCheckbox extends HvlComponent {
 	}
 
 	public HvlTextCheckbox clone() {
-		HvlTextCheckbox tr = new HvlTextCheckbox(0, 0, false, null, null, null, null, null, "", Color.white);
+		HvlTextCheckbox tr = new HvlTextCheckbox(0, 0, null, null);
 		// HvlComponent
 		tr.setX(getX());
 		tr.setY(getY());
@@ -334,12 +235,13 @@ public class HvlTextCheckbox extends HvlComponent {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		// HvlCheckbox
+		tr.setChecked(getChecked());
+		tr.setOffDrawable(getOffDrawable());
+		tr.setOffHoverDrawable(getOffHoverDrawable());
+		tr.setOnDrawable(getOnDrawable());
+		tr.setOnHoverDrawable(getOnHoverDrawable());
 		// HvlTextCheckbox
-		tr.checked = checked;
-		tr.offDrawable = offDrawable;
-		tr.offHoverDrawable = offHoverDrawable;
-		tr.onDrawable = onDrawable;
-		tr.onHoverDrawable = onHoverDrawable;
 		tr.font = font;
 		tr.text = text;
 		tr.color = color;
