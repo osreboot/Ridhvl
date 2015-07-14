@@ -30,6 +30,23 @@ public class HvlTiledRect {
 		this.verticalBarWidth = verticalBarWidthArg;
 		this.color = Color.white;
 	}
+	public HvlTiledRect(Texture tArg, float uvTopLeftArg,
+			float uvBottomRightArg, float xArg,
+			float yArg, float totalWidthArg, float totalHeightArg,
+			float horizontalBarHeightArg, float verticalBarWidthArg) {
+		this.texture = tArg;
+		this.uvLeft = uvTopLeftArg;
+		this.uvRight = uvBottomRightArg;
+		this.uvTop = uvTopLeftArg;
+		this.uvBottom = uvBottomRightArg;
+		this.x = xArg;
+		this.y = yArg;
+		this.totalWidth = totalWidthArg;
+		this.totalHeight = totalHeightArg;
+		this.horizontalBarHeight = horizontalBarHeightArg;
+		this.verticalBarWidth = verticalBarWidthArg;
+		this.color = Color.white;
+	}
 
 	public void draw() {
 		// Upper Left Corner
