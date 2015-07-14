@@ -240,17 +240,9 @@ public class HvlTextBox extends HvlComponent {
 				tr = new HvlTextBox(0, 0, "", null, null, null);
 		}
 
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -258,17 +250,9 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setHeight(float height) {
@@ -276,17 +260,9 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public Builder setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {
@@ -294,17 +270,9 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public String getText() {
-			return tr.getText();
-		}
-
 		public Builder setText(String text) {
 			tr.setText(text);
 			return this;
-		}
-
-		public int getMaxCharacters() {
-			return tr.getMaxCharacters();
 		}
 
 		public Builder setMaxCharacters(int maxCharacters) {
@@ -312,17 +280,9 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public boolean isForceUppercase() {
-			return tr.isForceUppercase();
-		}
-
 		public Builder setForceUppercase(boolean forceUppercase) {
 			tr.setForceUppercase(forceUppercase);
 			return this;
-		}
-
-		public boolean isForceLowercase() {
-			return tr.isForceLowercase();
 		}
 
 		public Builder setForceLowercase(boolean forceLowercase) {
@@ -330,17 +290,9 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public boolean isNumbersOnly() {
-			return tr.isNumbersOnly();
-		}
-
 		public Builder setNumbersOnly(boolean numbersOnly) {
 			tr.setNumbersOnly(numbersOnly);
 			return this;
-		}
-
-		public String getBlacklistCharacters() {
-			return tr.getBlacklistCharacters();
 		}
 
 		public Builder setBlacklistCharacters(String blacklistCharacters) {
@@ -348,17 +300,9 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public HvlComponentDrawable getFocusedDrawable() {
-			return tr.getFocusedDrawable();
-		}
-
 		public Builder setFocusedDrawable(HvlComponentDrawable focusedDrawable) {
 			tr.setFocusedDrawable(focusedDrawable);
 			return this;
-		}
-
-		public HvlComponentDrawable getUnfocusedDrawable() {
-			return tr.getUnfocusedDrawable();
 		}
 
 		public Builder setUnfocusedDrawable(HvlComponentDrawable unfocusedDrawable) {
@@ -366,17 +310,9 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public float getOffsetX() {
-			return tr.getOffsetX();
-		}
-
 		public Builder setOffsetX(float offsetX) {
 			tr.setOffsetX(offsetX);
 			return this;
-		}
-
-		public float getOffsetY() {
-			return tr.getOffsetY();
 		}
 
 		public Builder setOffsetY(float offsetY) {
@@ -384,26 +320,14 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public float getTextScale() {
-			return tr.getTextScale();
-		}
-
 		public Builder setTextScale(float textScale) {
 			tr.setTextScale(textScale);
 			return this;
 		}
 
-		public Color getTextColor() {
-			return tr.getTextColor();
-		}
-
 		public Builder setTextColor(Color textColor) {
 			tr.setTextColor(textColor);
 			return this;
-		}
-
-		public HvlFontPainter2D getFont() {
-			return tr.getFont();
 		}
 
 		public Builder setFont(HvlFontPainter2D font) {

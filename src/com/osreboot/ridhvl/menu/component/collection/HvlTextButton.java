@@ -102,17 +102,9 @@ public class HvlTextButton extends HvlButton {
 				tr = new HvlTextButton(0, 0, 0, 0, null, null, null, "");
 		}
 
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -120,21 +112,9 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public HvlFontPainter2D getFont() {
-			return tr.getFont();
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setFont(HvlFontPainter2D font) {
@@ -147,14 +127,6 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 
-		public String getText() {
-			return tr.getText();
-		}
-
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public Builder setText(String text) {
 			tr.setText(text);
 			return this;
@@ -165,17 +137,9 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 
-		public float getTextScale() {
-			return tr.getTextScale();
-		}
-
 		public Builder setTextScale(float textScale) {
 			tr.setTextScale(textScale);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {
@@ -183,30 +147,14 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 
-		public Color getTextColor() {
-			return tr.getTextColor();
-		}
-
 		public Builder setTextColor(Color textColor) {
 			tr.setTextColor(textColor);
 			return this;
 		}
 
-		public float getxAlign() {
-			return tr.getxAlign();
-		}
-
 		public Builder setxAlign(float xAlign) {
 			tr.setxAlign(xAlign);
 			return this;
-		}
-
-		public float getyAlign() {
-			return tr.getyAlign();
-		}
-
-		public HvlComponentDrawable getOffDrawable() {
-			return tr.getOffDrawable();
 		}
 
 		public Builder setyAlign(float yAlign) {
@@ -219,17 +167,9 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 
-		public HvlComponentDrawable getHoverDrawable() {
-			return tr.getHoverDrawable();
-		}
-
 		public Builder setHoverDrawable(HvlComponentDrawable hoverDrawable) {
 			tr.setHoverDrawable(hoverDrawable);
 			return this;
-		}
-
-		public HvlComponentDrawable getOnDrawable() {
-			return tr.getOnDrawable();
 		}
 
 		public Builder setOnDrawable(HvlComponentDrawable onDrawable) {

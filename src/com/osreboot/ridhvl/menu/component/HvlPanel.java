@@ -78,25 +78,9 @@ public class HvlPanel extends HvlComponent {
 			return this;
 		}
 
-		public HvlComponent get(int i) {
-			return tr.get(i);
-		}
-
-		public int getChildCount() {
-			return tr.getChildCount();
-		}
-
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -104,17 +88,9 @@ public class HvlPanel extends HvlComponent {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setHeight(float height) {
@@ -122,16 +98,8 @@ public class HvlPanel extends HvlComponent {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public void setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {

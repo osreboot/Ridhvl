@@ -217,17 +217,9 @@ public class HvlCheckbox extends HvlComponent {
 				tr = new HvlCheckbox(0, 0, null, null);
 		}
 
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -235,17 +227,9 @@ public class HvlCheckbox extends HvlComponent {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setHeight(float height) {
@@ -253,17 +237,9 @@ public class HvlCheckbox extends HvlComponent {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public Builder setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {
@@ -271,17 +247,9 @@ public class HvlCheckbox extends HvlComponent {
 			return this;
 		}
 
-		public boolean getChecked() {
-			return tr.getChecked();
-		}
-
 		public Builder setChecked(boolean checkedArg) {
 			tr.setChecked(checkedArg);
 			return this;
-		}
-
-		public HvlComponentDrawable getOffDrawable() {
-			return tr.getOffDrawable();
 		}
 
 		public Builder setOffDrawable(HvlComponentDrawable offDrawable) {
@@ -289,26 +257,14 @@ public class HvlCheckbox extends HvlComponent {
 			return this;
 		}
 
-		public HvlComponentDrawable getOffHoverDrawable() {
-			return tr.getOffHoverDrawable();
-		}
-
 		public Builder setOffHoverDrawable(HvlComponentDrawable offHoverDrawable) {
 			tr.setOffHoverDrawable(offHoverDrawable);
 			return this;
 		}
 
-		public HvlComponentDrawable getOnDrawable() {
-			return tr.getOnDrawable();
-		}
-
 		public Builder setOnDrawable(HvlComponentDrawable onDrawable) {
 			tr.setOnDrawable(onDrawable);
 			return this;
-		}
-
-		public HvlComponentDrawable getOnHoverDrawable() {
-			return tr.getOnHoverDrawable();
 		}
 
 		public Builder setOnHoverDrawable(HvlComponentDrawable onHoverDrawable) {

@@ -131,17 +131,9 @@ public class HvlButton extends HvlComponent {
 				tr = new HvlButton(0, 0, null, null);
 		}
 
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -149,17 +141,9 @@ public class HvlButton extends HvlComponent {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setHeight(float height) {
@@ -167,17 +151,9 @@ public class HvlButton extends HvlComponent {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public Builder setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {
@@ -185,26 +161,14 @@ public class HvlButton extends HvlComponent {
 			return this;
 		}
 
-		public HvlComponentDrawable getOffDrawable() {
-			return tr.getOffDrawable();
-		}
-
 		public Builder setOffDrawable(HvlComponentDrawable offDrawable) {
 			tr.setOffDrawable(offDrawable);
 			return this;
 		}
 
-		public HvlComponentDrawable getHoverDrawable() {
-			return tr.getHoverDrawable();
-		}
-
 		public Builder setHoverDrawable(HvlComponentDrawable hoverDrawable) {
 			tr.setHoverDrawable(hoverDrawable);
 			return this;
-		}
-
-		public HvlComponentDrawable getOnDrawable() {
-			return tr.getOnDrawable();
 		}
 
 		public Builder setOnDrawable(HvlComponentDrawable onDrawable) {

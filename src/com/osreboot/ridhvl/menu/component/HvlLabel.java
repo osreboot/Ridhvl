@@ -114,30 +114,14 @@ public class HvlLabel extends HvlComponent {
 				tr = new HvlLabel(null, "", Color.white);
 		}
 		
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
 		}
 
-		public float getY() {
-			return tr.getY();
-		}
-
 		public Builder setY(float y) {
 			tr.setY(y);
 			return this;
-		}
-
-		public HvlFontPainter2D getFont() {
-			return tr.getFont();
-		}
-
-		public boolean isEnabled() {
-			return tr.isEnabled();
 		}
 
 		public Builder setEnabled(boolean enabled) {
@@ -150,14 +134,6 @@ public class HvlLabel extends HvlComponent {
 			return this;
 		}
 
-		public String getText() {
-			return tr.getText();
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
-		}
-
 		public Builder setText(String text) {
 			tr.setText(text);
 			return this;
@@ -168,17 +144,9 @@ public class HvlLabel extends HvlComponent {
 			return this;
 		}
 
-		public Color getColor() {
-			return tr.getColor();
-		}
-
 		public Builder setColor(Color color) {
 			tr.setColor(color);
 			return this;
-		}
-
-		public float getScale() {
-			return tr.getScale();
 		}
 
 		public Builder setScale(float scale) {

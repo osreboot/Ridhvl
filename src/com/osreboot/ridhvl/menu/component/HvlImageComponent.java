@@ -55,17 +55,9 @@ public class HvlImageComponent extends HvlComponent {
 				tr = new HvlImageComponent(0, 0, null);
 		}
 
-		public Texture getTexture() {
-			return tr.getTexture();
-		}
-
 		public Builder setTexture(Texture texture) {
 			tr.setTexture(texture);
 			return this;
-		}
-
-		public Color getColor() {
-			return tr.getColor();
 		}
 
 		public Builder setColor(Color color) {
@@ -73,17 +65,9 @@ public class HvlImageComponent extends HvlComponent {
 			return this;
 		}
 
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -91,17 +75,9 @@ public class HvlImageComponent extends HvlComponent {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setHeight(float height) {
@@ -109,17 +85,9 @@ public class HvlImageComponent extends HvlComponent {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public Builder setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {

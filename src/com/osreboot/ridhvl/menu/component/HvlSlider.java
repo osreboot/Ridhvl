@@ -283,17 +283,9 @@ public class HvlSlider extends HvlComponent {
 				tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
 		}
 
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -301,17 +293,9 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setHeight(float height) {
@@ -319,17 +303,9 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public Builder setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {
@@ -337,17 +313,9 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public HvlComponentDrawable getHandleUpDrawable() {
-			return tr.getHandleUpDrawable();
-		}
-
 		public Builder setHandleUpDrawable(HvlComponentDrawable handleUpDrawable) {
 			tr.setHandleUpDrawable(handleUpDrawable);
 			return this;
-		}
-
-		public HvlComponentDrawable getHandleDownDrawable() {
-			return tr.getHandleDownDrawable();
 		}
 
 		public Builder setHandleDownDrawable(HvlComponentDrawable handleDownDrawable) {
@@ -355,17 +323,9 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public HvlComponentDrawable getBackground() {
-			return tr.getBackground();
-		}
-
 		public Builder setBackground(HvlComponentDrawable background) {
 			tr.setBackground(background);
 			return this;
-		}
-
-		public final SliderDirection getDirection() {
-			return tr.getDirection();
 		}
 
 		public final Builder setDirection(SliderDirection direction) {
@@ -373,17 +333,9 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public final float getValue() {
-			return tr.getValue();
-		}
-
 		public final Builder setValue(float value) {
 			tr.setValue(value);
 			return this;
-		}
-
-		public final float getHandleHeight() {
-			return tr.getHandleHeight();
 		}
 
 		public final Builder setHandleHeight(float handleHeight) {
@@ -391,17 +343,9 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public final float getHandleWidth() {
-			return tr.getHandleWidth();
-		}
-
 		public final Builder setHandleWidth(float handleWidth) {
 			tr.setHandleWidth(handleWidth);
 			return this;
-		}
-
-		public final float getHandleStartOffset() {
-			return tr.getHandleStartOffset();
 		}
 
 		public final Builder setHandleStartOffset(float handleStartOffset) {
@@ -409,26 +353,14 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public final float getHandleEndOffset() {
-			return tr.getHandleEndOffset();
-		}
-
 		public final Builder setHandleEndOffset(float handleEndOffset) {
 			tr.setHandleEndOffset(handleEndOffset);
 			return this;
 		}
 
-		public final float getSnapInterval() {
-			return tr.getSnapInterval();
-		}
-
 		public final Builder setSnapInterval(float snapInterval) {
 			tr.setSnapInterval(snapInterval);
 			return this;
-		}
-
-		public boolean isLiveSnap() {
-			return tr.isLiveSnap();
 		}
 
 		public void setLiveSnap(boolean liveSnap) {

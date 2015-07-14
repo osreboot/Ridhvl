@@ -132,29 +132,9 @@ public class HvlArrangerBox extends HvlPanel {
 			return this;
 		}
 
-		public HvlComponent get(int i) {
-			return tr.get(i);
-		}
-
-		public final boolean isHovering() {
-			return tr.isHovering();
-		}
-
-		public int getChildCount() {
-			return tr.getChildCount();
-		}
-
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -162,21 +142,9 @@ public class HvlArrangerBox extends HvlPanel {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
-		}
-
-		public ArrangementStyle getStyle() {
-			return tr.getStyle();
 		}
 
 		public Builder setHeight(float height) {
@@ -189,14 +157,6 @@ public class HvlArrangerBox extends HvlPanel {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
-		public float getBorderL() {
-			return tr.getBorderL();
-		}
-
 		public Builder setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
 			return this;
@@ -205,14 +165,6 @@ public class HvlArrangerBox extends HvlPanel {
 		public Builder setBorderL(float borderL) {
 			tr.setBorderL(borderL);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
-		}
-
-		public float getBorderR() {
-			return tr.getBorderR();
 		}
 
 		public Builder setVisible(boolean visible) {
@@ -225,21 +177,9 @@ public class HvlArrangerBox extends HvlPanel {
 			return this;
 		}
 
-		public float getBorderU() {
-			return tr.getBorderU();
-		}
-
 		public Builder setBorderU(float borderU) {
 			tr.setBorderU(borderU);
 			return this;
-		}
-
-		public float getBorderD() {
-			return tr.getBorderD();
-		}
-
-		public float getAlign() {
-			return tr.getAlign();
 		}
 
 		public Builder setAlign(float align) {

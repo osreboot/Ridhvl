@@ -81,17 +81,9 @@ public class HvlTextCheckbox extends HvlCheckbox {
 				tr = new HvlTextCheckbox(0, 0, null, null);
 		}
 
-		public float getX() {
-			return tr.getX();
-		}
-
 		public Builder setX(float x) {
 			tr.setX(x);
 			return this;
-		}
-
-		public float getY() {
-			return tr.getY();
 		}
 
 		public Builder setY(float y) {
@@ -99,17 +91,9 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			return this;
 		}
 
-		public float getWidth() {
-			return tr.getWidth();
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
 			return this;
-		}
-
-		public float getHeight() {
-			return tr.getHeight();
 		}
 
 		public Builder setHeight(float height) {
@@ -117,17 +101,9 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			return this;
 		}
 
-		public boolean isEnabled() {
-			return tr.isEnabled();
-		}
-
 		public Builder setEnabled(boolean enabled) {
 			tr.setEnabled(enabled);
 			return this;
-		}
-
-		public boolean isVisible() {
-			return tr.isVisible();
 		}
 
 		public Builder setVisible(boolean visible) {
@@ -139,18 +115,9 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			tr.setChecked(checked);
 			return this;
 		}
-
-		public HvlComponentDrawable getOffDrawable() {
-			return tr.getOffDrawable();
-		}
-
 		public Builder setOffDrawable(HvlComponentDrawable offDrawable) {
 			tr.setOffDrawable(offDrawable);
 			return this;
-		}
-
-		public HvlComponentDrawable getOffHoverDrawable() {
-			return tr.getOffHoverDrawable();
 		}
 
 		public Builder setOffHoverDrawable(HvlComponentDrawable offHoverDrawable) {
@@ -158,17 +125,9 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			return this;
 		}
 
-		public HvlComponentDrawable getOnDrawable() {
-			return tr.getOnDrawable();
-		}
-
 		public Builder setOnDrawable(HvlComponentDrawable onDrawable) {
 			tr.setOnDrawable(onDrawable);
 			return this;
-		}
-
-		public HvlComponentDrawable getOnHoverDrawable() {
-			return tr.getOnHoverDrawable();
 		}
 
 		public Builder setOnHoverDrawable(HvlComponentDrawable onHoverDrawable) {
@@ -176,17 +135,9 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			return this;
 		}
 
-		public HvlFontPainter2D getFont() {
-			return tr.getFont();
-		}
-
 		public Builder setFont(HvlFontPainter2D font) {
 			tr.setFont(font);
 			return this;
-		}
-
-		public String getText() {
-			return tr.getText();
 		}
 
 		public Builder setText(String text) {
@@ -194,26 +145,14 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			return this;
 		}
 
-		public Color getColor() {
-			return tr.getColor();
-		}
-
 		public Builder setColor(Color color) {
 			tr.setColor(color);
 			return this;
 		}
 
-		public float getScale() {
-			return tr.getScale();
-		}
-
 		public Builder setScale(float scale) {
 			tr.setScale(scale);
 			return this;
-		}
-
-		public float getSpacing() {
-			return tr.getSpacing();
 		}
 
 		public Builder setSpacing(float spacing) {
