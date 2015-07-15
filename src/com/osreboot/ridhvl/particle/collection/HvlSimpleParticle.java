@@ -21,7 +21,7 @@ public class HvlSimpleParticle extends HvlParticle {
 	private float scale;
 	private float scaleDecay;
 	private float lifetime;
-		
+	
 	public HvlSimpleParticle(float xArg, float yArg,
 			HvlParticleSystem parentArg, Color startColor, Color endColor,
 			Texture texture, float xVel, float yVel, float xVelDecay,
@@ -47,9 +47,10 @@ public class HvlSimpleParticle extends HvlParticle {
 	}
 
 	@Override
-	public void draw(float delta)
+	public void update(float delta)
 	{
-		super.draw(delta);
+		super.update(delta);
+		
 		setX(getX() + (xVel * delta));
 		setY(getY() + (yVel * delta));
 		
@@ -60,6 +61,12 @@ public class HvlSimpleParticle extends HvlParticle {
 		rotVel *= Math.pow(Math.E, delta * rotVelDecay);
 		
 		scale *= Math.pow(Math.E, delta * scaleDecay);
+	}
+	
+	@Override
+	public void draw(float delta)
+	{
+		super.draw(delta);
 		
 		HvlPainter2D.hvlRotate(getX(), getY(), rot);
 		

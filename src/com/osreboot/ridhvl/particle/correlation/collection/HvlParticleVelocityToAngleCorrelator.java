@@ -18,6 +18,6 @@ public class HvlParticleVelocityToAngleCorrelator extends HvlParticleCorrelator 
 		
 		HvlSimpleParticle p = (HvlSimpleParticle) in;
 		
-		p.setRot((float) Math.atan(p.getxVel() / p.getyVel()));
+		p.setRot((float) Math.toDegrees(Math.atan(p.getxVel() / p.getyVel())));
 	}
 }

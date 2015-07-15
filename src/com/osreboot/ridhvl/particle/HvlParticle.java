@@ -13,9 +13,13 @@ public abstract class HvlParticle {
 		this.y = yArg;
 	}
 	
-	public void draw(float delta)
+	public void update(float delta)
 	{
 		timeAlive += delta;
+	}
+	
+	public void draw(float delta)
+	{
 	}
 	
 	public abstract boolean shouldBeDestroyed();
