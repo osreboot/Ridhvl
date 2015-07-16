@@ -16,8 +16,8 @@ import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class DilationTest extends HvlTemplateInteg2D{
-
-	public DilationTest() {
+	
+	public DilationTest(){
 		super(60, 1280, 720, "Ridhvl Time Dilation Test", 10, 10, new HvlDisplayModeDefault());
 	}
 
@@ -29,7 +29,7 @@ public class DilationTest extends HvlTemplateInteg2D{
 
 		getTextureLoader().loadResource("White");
 
-		for (int i = -8; i < 32; i++) {
+		for (int i = -8; i < 32; i++){
 			HvlRadialParticleSystem ash = new HvlRadialParticleSystem(i * 40, -64, 6, 6, getTextureLoader().getResource(0));
 			ash.setSpawnRadius(32f);
 			ash.setMinScale(0.5f);
@@ -65,7 +65,7 @@ public class DilationTest extends HvlTemplateInteg2D{
 			particles.add(ash);
 		}
 
-		for (int i = 0; i < 32; i++) {
+		for (int i = 0; i < 32; i++){
 			HvlRadialParticleSystem ember = new HvlRadialParticleSystem(i * 40, Display.getHeight() - 16, 6, 6, getTextureLoader().getResource(0));
 			ember.setSpawnRadius(32f);
 			ember.setMinScale(0.5f);
@@ -105,10 +105,10 @@ public class DilationTest extends HvlTemplateInteg2D{
 		lava.setMaxTimeToSpawn(0.25f);
 		lava.setParticlesPerSpawn(12);
 		lava.setColorCoordinated(true);
-		lava.setStartColorOne(new Color(150, 150, 0));
-		lava.setStartColorTwo(new Color(205, 205, 0));
-		lava.setEndColorOne(new Color(150, 150, 0));
-		lava.setEndColorTwo(new Color(205, 205, 0));
+		lava.setStartColorOne(new Color(150, 100, 0));
+		lava.setStartColorTwo(new Color(205, 155, 0));
+		lava.setEndColorOne(new Color(150, 100, 0));
+		lava.setEndColorTwo(new Color(205, 155, 0));
 		lava.addCorrelator(new HvlParticleCorrelator(){
 			
 			{setContinuous(true);}
