@@ -17,9 +17,9 @@ import com.osreboot.ridhvl.particle.correlation.collection.HvlParticleVelocityTo
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ParticlesTest extends HvlTemplate2D {
-
+	
 	public ParticlesTest() {
-		super(600, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(6, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
 
 	// HvlRadialParticleSystem particles;

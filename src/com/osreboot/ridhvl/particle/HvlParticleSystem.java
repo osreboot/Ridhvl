@@ -47,6 +47,7 @@ public abstract class HvlParticleSystem {
 		List<HvlParticle> toRemove = new LinkedList<HvlParticle>();
 
 		for (HvlParticle p : particles) {
+			p.update(delta);
 			for (HvlParticleCorrelator corr : correlators)
 				if (corr.isContinuous())
 					corr.correlate(p, this);
