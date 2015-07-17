@@ -8,13 +8,13 @@ public abstract class HvlContentLoader<T> {
 	@SuppressWarnings("rawtypes")
 	public static ArrayList<HvlContentLoader> loaders = new ArrayList<HvlContentLoader>();
 	
-	private String defaultPath;
+	private String path;
 	
 	private T[] resources;
 	
 	@SuppressWarnings("unchecked")
-	public HvlContentLoader(Class<T> c, String defaultPathArg, int arrayLength){
-		defaultPath = defaultPathArg;
+	public HvlContentLoader(Class<T> c, String pathArg, int arrayLength){
+		path = pathArg;
 		resources = (T[]) Array.newInstance(c, arrayLength);
 		loaders.add(this);
 	}
@@ -31,8 +31,8 @@ public abstract class HvlContentLoader<T> {
 		return index;
 	}
 	
-	public String getDefaultPath(){
-		return defaultPath;
+	public String getPath(){
+		return path;
 	}
 	
 	public T getResource(int indexArg){

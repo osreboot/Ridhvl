@@ -20,7 +20,7 @@ public class HvlSoundLoader extends HvlContentLoader<Audio>{
 	public boolean loadResource(String nameArg){
 		Audio t;
 		try{
-			t = AudioLoader.getAudio("WAV", new BufferedInputStream(new FileInputStream(getDefaultPath() + nameArg + ".wav")));
+			t = AudioLoader.getAudio("WAV", new BufferedInputStream(new FileInputStream(getPath() + nameArg + ".wav")));
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;

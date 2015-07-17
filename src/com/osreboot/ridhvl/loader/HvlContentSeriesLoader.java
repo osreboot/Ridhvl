@@ -8,19 +8,19 @@ public abstract class HvlContentSeriesLoader<T> {
 	@SuppressWarnings("rawtypes")
 	public static ArrayList<HvlContentSeriesLoader> loaders = new ArrayList<HvlContentSeriesLoader>();
 	
-	private String defaultPath;
+	private String path;
 	
-	private T[] resources;
+	private ArrayList<T>[] resources;
 	
 	@SuppressWarnings("unchecked")
-	public HvlContentSeriesLoader(Class<T> c, String defaultPathArg, int arrayLength){
-		defaultPath = defaultPathArg;
-		resources = (T[]) Array.newInstance(c, arrayLength);
+	public HvlContentSeriesLoader(Class<T> c, String pathArg, int arrayLength){
+		path = pathArg;
+		resources = (ArrayList<T>[]) Array.newInstance(c, arrayLength);
 		loaders.add(this);
 	}
 	
-	public int addResource(T resourceArg){//TODO exception for not enough room in array
-		int index = 0;//TODO
+	public int addResource(ArrayList<T> resourceArg){//TODO exception for not enough room in array
+		int index = 0;
 		for(int i = 0; i < resources.length; i++){
 			if(resources[i] == null){
 				index = i;
@@ -31,11 +31,11 @@ public abstract class HvlContentSeriesLoader<T> {
 		return index;
 	}
 	
-	public String getDefaultPath(){
-		return defaultPath;
+	public String getPath(){
+		return path;
 	}
 	
-	public T getResource(int indexArg){
+	public ArrayList<T> getResource(int indexArg){
 		return resources[indexArg];
 	}
 
