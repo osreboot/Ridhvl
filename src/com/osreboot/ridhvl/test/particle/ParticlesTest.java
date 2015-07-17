@@ -25,7 +25,7 @@ public class ParticlesTest extends HvlTemplate2D {
 	// HvlRadialParticleSystem particles;
 	List<HvlParticleSystem> particles;
 
-	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
+	static HvlTextureLoader textureLoader = new HvlTextureLoader();
 	static HvlFontPainter2D fontPainter;
 	
 	@Override

@@ -41,7 +41,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
 
-	static HvlTextureLoader textureLoader = new HvlTextureLoader(10);
+	static HvlTextureLoader textureLoader = new HvlTextureLoader();
 	static HvlFontPainter2D fontPainter;
 
 	@Override

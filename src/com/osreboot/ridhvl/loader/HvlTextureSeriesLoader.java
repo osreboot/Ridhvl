@@ -8,12 +8,12 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class HvlTextureSeriesLoader extends HvlContentSeriesLoader<Texture>{
 
-	public HvlTextureSeriesLoader(String defaultPathArg, int arrayLength){
-		super(Texture.class, defaultPathArg, arrayLength);
+	public HvlTextureSeriesLoader(String defaultPathArg){
+		super(defaultPathArg);
 	}
 
-	public HvlTextureSeriesLoader(int arrayLength){
-		super(Texture.class, "res/", arrayLength);
+	public HvlTextureSeriesLoader(){
+		super("res/");
 	}
 
 	@Override
@@ -21,7 +21,22 @@ public class HvlTextureSeriesLoader extends HvlContentSeriesLoader<Texture>{
 		ArrayList<Texture> resources = new ArrayList<Texture>();
 		for(int i = 0; i < lengthArg; i++){
 			try{
-				resources.add(TextureLoader.getTexture("PNG", new FileInputStream(getPath() + String.format(nameArg, lengthArg) + ".png")));
+				resources.add(TextureLoader.getTexture("PNG", new FileInputStream(getPath() + String.format(nameArg, i) + ".png")));
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+		}
+		super.addResource(resources);
+		return true;
+	}
+	
+	@Override
+	public boolean loadResource(String nameArg, int lengthArg, int intervalArg) {
+		ArrayList<Texture> resources = new ArrayList<Texture>();
+		for(int i = 0; i < lengthArg; i += intervalArg){
+			try{
+				resources.add(TextureLoader.getTexture("PNG", new FileInputStream(getPath() + String.format(nameArg, i) + ".png")));
 			}catch(Exception e){
 				e.printStackTrace();
 				return false;

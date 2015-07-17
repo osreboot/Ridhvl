@@ -18,7 +18,7 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 public class DilationTest extends HvlTemplateInteg2D{
 	
 	public DilationTest(){
-		super(60, 1280, 720, "Ridhvl Time Dilation Test", 10, 10, new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Ridhvl Time Dilation Test", new HvlDisplayModeDefault());
 	}
 
 	LinkedList<HvlParticleSystem> particles;

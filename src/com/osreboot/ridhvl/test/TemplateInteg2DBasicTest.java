@@ -13,7 +13,7 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D{
 	
 	public TemplateInteg2DBasicTest(){
-		super(60, 1280, 720, "Unnamed", 5, 5, new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
 
 	static HvlFontPainter2D fontPainter;
