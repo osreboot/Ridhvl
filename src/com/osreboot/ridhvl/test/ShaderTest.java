@@ -16,7 +16,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class ShaderTest extends HvlTemplateInteg2D{
-	
+
 	public ShaderTest(){
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -38,7 +38,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		
 		frame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, 1280, 720);
 		
-		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_SIMPLE_GRAYSCALE);
+		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_QUADRUPLE_DISPLACEMENT_BLUR);
 		HvlPainter2D.TEXMAGBLUR.disable();
 		
 		texture = new HvlAnimatedTextureArray(new Texture[]{
@@ -60,6 +60,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		HvlRenderFrame.setCurrentRenderFrame(null);
 		
 		HvlShader.setCurrentShader(shader);
+		shader.sendFloat("blurAmount", 0.002f);
 		hvlDrawQuad(0, 0, 1280, 720, frame);
 		HvlShader.setCurrentShader(null);
 	}
