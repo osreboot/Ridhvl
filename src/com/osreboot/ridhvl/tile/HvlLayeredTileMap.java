@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
+
 public class HvlLayeredTileMap {
 	private List<HvlTileMap> layers;
 	private float x, y;
@@ -27,7 +29,9 @@ public class HvlLayeredTileMap {
 		}
 	}
 
-	public void draw(float delta) {
+	public void draw(float delta) {		
+		HvlPainter2D.TEXMAGBLUR.disable();
+		
 		for (HvlTileMap map : layers) {
 			map.setX(x);
 			map.setY(y);
@@ -40,6 +44,8 @@ public class HvlLayeredTileMap {
 			map.setyBottom(yBottom);
 			map.draw(delta);
 		}
+		
+		HvlPainter2D.TEXMAGBLUR.enable();
 	}
 	
 	public HvlTileMap getLayer(int layerArg) {

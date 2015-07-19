@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.tile.collection;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -51,12 +53,8 @@ public class HvlAnimatedTile extends HvlTile {
 		float uvy1 = (float) tileY / info.tileHeight;
 		float uvx2 = (float) (tileX + 1) / info.tileWidth;
 		float uvy2 = (float) (tileY + 1) / info.tileHeight;
-
-		HvlPainter2D.TEXMAGBLUR.disable();
 		
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2, info.texture, new Color(1.0f, 1.0f, 1.0f, opacity));
-
-		HvlPainter2D.TEXMAGBLUR.enable();
 	}
 
 	public List<Integer> getTileCoords() {

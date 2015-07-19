@@ -39,12 +39,14 @@ public class HvlPainter2D {
 	public static HvlFlag2D TEXMAGBLUR = new HvlFlag2D(true){
 		@Override
 		public void enable(){
+			System.out.println("Enabling");
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		}
 		
 		@Override
 		public void disable(){
+			System.out.println("Disabling");
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		}

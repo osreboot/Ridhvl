@@ -4,6 +4,8 @@ import java.util.regex.Pattern;
 
 import org.newdawn.slick.Color;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.HvlTile;
 import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;
@@ -28,13 +30,9 @@ public class HvlSimpleTile extends HvlTile {
 		float uvy1 = (float) tileY / info.tileHeight;
 		float uvx2 = (float) (tileX + 1) / info.tileWidth;
 		float uvy2 = (float) (tileY + 1) / info.tileHeight;
-
-		HvlPainter2D.TEXMAGBLUR.disable();
-		
+				
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2,
 				info.texture, new Color(1.0f, 1.0f, 1.0f, opacity));
-		
-		HvlPainter2D.TEXMAGBLUR.enable();
 	}
 
 	public int getTile() {

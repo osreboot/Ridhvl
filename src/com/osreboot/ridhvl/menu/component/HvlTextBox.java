@@ -25,7 +25,7 @@ public class HvlTextBox extends HvlComponent {
 	private boolean numbersOnly;
 	private String blacklistCharacters;
 
-	protected HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
+	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
 		super(wArg, hArg);
 		text = textArg;
 		isFocused = false;
@@ -38,7 +38,7 @@ public class HvlTextBox extends HvlComponent {
 		pText = textArg;
 	}
 
-	protected HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
+	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
 			HvlFontPainter2D fontArg) {
 		super(xArg, yArg, wArg, hArg);
 		text = textArg;

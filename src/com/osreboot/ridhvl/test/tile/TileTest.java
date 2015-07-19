@@ -19,6 +19,11 @@ public class TileTest extends HvlTemplate2D {
 
 	private HvlLayeredTileMap tilemaps;
 	
+	public static void main(String[] args)
+	{
+		new TileTest();
+	}
+	
 	@Override
 	public void initialize() {
 		textureLoader.loadResource("White");
@@ -49,7 +54,7 @@ public class TileTest extends HvlTemplate2D {
 				sb.append(current);
 				sb.append(System.lineSeparator());
 			}
-			tilemaps = HvlLayeredTileMap.load(sb.toString(),  textureLoader.getResource(1),  -32, 0, 64, 64);
+			tilemaps = HvlLayeredTileMap.load(sb.toString(),  textureLoader.getResource(1),  0, 0, 64, 64);
 			tilemaps.setCutOff(true);
 			tilemaps.setxLeft(0);
 			tilemaps.setxRight(512);

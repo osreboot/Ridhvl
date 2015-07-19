@@ -1,12 +1,17 @@
 package com.osreboot.ridhvl.tile;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
+
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlTileMap {
 
@@ -46,20 +51,24 @@ public class HvlTileMap {
 	}
 
 	public void draw(float delta) {
-		if (mapWidth > 0 && mapHeight > 0)
-		{
-			HvlTile current = tiles[mapWidth * 0 + 0];
-			if (current != null)
-			{
-				float xMin = x + (tileWidth * 0);
-				float yMin = y + (tileHeight * 0);
+//		if (mapWidth > 0 && mapHeight > 0)
+//		{
+//			HvlTile current = tiles[mapWidth * 0 + 0];
+//			if (current != null)
+//			{
+//				float xMin = x + (tileWidth * 0);
+//				float yMin = y + (tileHeight * 0);
+//				
+//				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, true, opacity);
+//			}
+//		}
 				
-				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, true, opacity);
-			}
-		}
+		HvlPainter2D.hvlForceRefresh();
 		
 		for (int currentX = 0; currentX < mapWidth; currentX++) {
 			for (int currentY = 0; currentY < mapHeight; currentY++) {
+//				System.out.println("Mag: " + (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER) == GL11.GL_LINEAR));
+//				System.out.println("Min: " + (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER) == GL11.GL_LINEAR));
 				HvlTile current = tiles[mapWidth * currentY + currentX];
 				if (current == null)
 					continue;

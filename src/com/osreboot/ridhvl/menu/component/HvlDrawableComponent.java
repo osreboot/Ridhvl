@@ -1,24 +1,22 @@
 package com.osreboot.ridhvl.menu.component;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlDrawableComponent extends HvlComponent {
 
 	private HvlComponentDrawable drawable;
 	private Color color;
 
-	protected HvlDrawableComponent(float wArg, float hArg, HvlComponentDrawable dArg) {
+	public HvlDrawableComponent(float wArg, float hArg, HvlComponentDrawable dArg) {
 		super(wArg, hArg);
 		drawable = dArg;
 		color = Color.white;
 	}
 
-	protected HvlDrawableComponent(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable dArg) {
+	public HvlDrawableComponent(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable dArg) {
 		super(xArg, yArg, wArg, hArg);
 		drawable = dArg;
 		color = Color.white;
