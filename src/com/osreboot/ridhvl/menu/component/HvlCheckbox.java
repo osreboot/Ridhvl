@@ -5,14 +5,14 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlCheckbox extends HvlComponent {
 
-	public static abstract class OnChangedEvent {
+	public static abstract class OnChangedCommand {
 		public abstract void run(HvlCheckbox callingCheckbox, boolean state);
 	}
 	
 	private boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
 	private HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
-	private OnChangedEvent changedEvent;
+	private OnChangedCommand changedCommand;
 
 	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
@@ -137,8 +137,8 @@ public class HvlCheckbox extends HvlComponent {
 
 		if (previousPressed && !currentPressed) {
 			checked = !checked;
-			if (changedEvent != null)
-				changedEvent.run(this, checked);
+			if (changedCommand != null)
+				changedCommand.run(this, checked);
 		}
 
 		draw(delta);
@@ -199,12 +199,12 @@ public class HvlCheckbox extends HvlComponent {
 		this.onHoverDrawable = onHoverDrawable;
 	}
 
-	public OnChangedEvent getChangedEvent() {
-		return changedEvent;
+	public OnChangedCommand getChangedCommand() {
+		return changedCommand;
 	}
 
-	public void setChangedEvent(OnChangedEvent changedEvent) {
-		this.changedEvent = changedEvent;
+	public void setChangedCommand(OnChangedCommand changedEvent) {
+		this.changedCommand = changedEvent;
 	}
 
 	public static class Builder {
@@ -272,8 +272,8 @@ public class HvlCheckbox extends HvlComponent {
 			return this;
 		}
 
-		public Builder setChangedEvent(OnChangedEvent changedEvent) {
-			tr.setChangedEvent(changedEvent);
+		public Builder setChangedEventCommand(OnChangedCommand changedEventCommand) {
+			tr.setChangedCommand(changedEventCommand);
 			return this;
 		}
 

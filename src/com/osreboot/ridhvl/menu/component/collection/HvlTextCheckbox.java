@@ -160,8 +160,8 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			return this;
 		}
 		
-		public Builder setChangedEvent(OnChangedEvent changedEvent) {
-			tr.setChangedEvent(changedEvent);
+		public Builder setChangedEvent(OnChangedCommand changedEvent) {
+			tr.setChangedCommand(changedEvent);
 			return this;
 		}
 

@@ -45,7 +45,7 @@ public class HvlListBox extends HvlComponent {
 	private float pX, pY, pWidth, pHeight;
 	private boolean isFocused;
 	
-	private SelectionChangedCommand selectionChanged;
+	private SelectionChangedCommand selectionChangedCommand;
 
 	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
@@ -210,8 +210,8 @@ public class HvlListBox extends HvlComponent {
 		}
 
 		if (selectedIndex != pSelectedIndex)
-			if (selectionChanged != null)
-				selectionChanged.run(this, selectedIndex, getSelectedItem());
+			if (selectionChangedCommand != null)
+				selectionChangedCommand.run(this, selectedIndex, getSelectedItem());
 
 		pSelectedIndex = selectedIndex;
 	}
@@ -433,12 +433,12 @@ public class HvlListBox extends HvlComponent {
 		return items.get(index);
 	}
 	
-	public SelectionChangedCommand getSelectionChanged() {
-		return selectionChanged;
+	public SelectionChangedCommand getSelectionChangedCommand() {
+		return selectionChangedCommand;
 	}
 
-	public void setSelectionChanged(SelectionChangedCommand selectionChanged) {
-		this.selectionChanged = selectionChanged;
+	public void setSelectionChangedCommand(SelectionChangedCommand selectionChangedCommand) {
+		this.selectionChangedCommand = selectionChangedCommand;
 	}
 
 	public static class Builder {
@@ -576,8 +576,8 @@ public class HvlListBox extends HvlComponent {
 			return this;
 		}
 		
-		public Builder setSelectionChanged(SelectionChangedCommand selectionChanged) {
-			tr.setSelectionChanged(selectionChanged);
+		public Builder setSelectionChangedCommand(SelectionChangedCommand selectionChangedCommand) {
+			tr.setSelectionChangedCommand(selectionChangedCommand);
 			return this;
 		}
 
