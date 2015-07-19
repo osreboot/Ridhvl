@@ -14,7 +14,7 @@ public class HvlCheckbox extends HvlComponent {
 	private HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
 	private OnChangedEvent changedEvent;
 
-	protected HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
 		offDrawable = offArg;
 		offHoverDrawable = offArg;
@@ -22,7 +22,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onArg;
 	}
 
-	protected HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+	public HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
 		checked = checkedArg;
 		offDrawable = offArg;
@@ -31,7 +31,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onArg;
 	}
 
-	protected HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
 		offDrawable = offArg;
 		offHoverDrawable = hoverArg;
@@ -39,7 +39,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = hoverArg;
 	}
 
-	protected HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+	public HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
 		checked = checkedArg;
 		offDrawable = offArg;
@@ -48,7 +48,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = hoverArg;
 	}
 
-	protected HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg, HvlComponentDrawable onArg,
+	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg, HvlComponentDrawable onArg,
 			HvlComponentDrawable onHoverArg) {
 		super(xlArg, ylArg);
 		offDrawable = offArg;
@@ -57,7 +57,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onHoverArg;
 	}
 
-	protected HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+	public HvlCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
 			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg) {
 		super(xlArg, ylArg);
 		checked = checkedArg;
@@ -67,7 +67,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onHoverArg;
 	}
 
-	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
 		offHoverDrawable = offArg;
@@ -75,7 +75,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onArg;
 	}
 
-	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		checked = checkedArg;
 		offDrawable = offArg;
@@ -84,7 +84,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onArg;
 	}
 
-	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
 			HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
@@ -93,7 +93,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = hoverArg;
 	}
 
-	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
 			HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		checked = checkedArg;
@@ -103,7 +103,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = hoverArg;
 	}
 
-	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
 			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
@@ -112,7 +112,7 @@ public class HvlCheckbox extends HvlComponent {
 		onHoverDrawable = onHoverArg;
 	}
 
-	protected HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+	public HvlCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
 			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		checked = checkedArg;

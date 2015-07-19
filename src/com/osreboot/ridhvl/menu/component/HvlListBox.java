@@ -47,7 +47,7 @@ public class HvlListBox extends HvlComponent {
 	
 	private SelectionChangedCommand selectionChanged;
 
-	protected HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
 		super(wArg, hArg);
 		scrollBar = scrollArg;
@@ -77,7 +77,7 @@ public class HvlListBox extends HvlComponent {
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	protected HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundHoverArg, HvlComponentDrawable itemBackgroundOnArg,
 			float itemHeightArg, int maxVisibleItemsArg) {
 		super(wArg, hArg);
@@ -107,7 +107,7 @@ public class HvlListBox extends HvlComponent {
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	protected HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);
 		scrollBar = scrollArg;
@@ -137,7 +137,7 @@ public class HvlListBox extends HvlComponent {
 		renderFrame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, (int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
 	}
 
-	protected HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
+	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundHoverArg, HvlComponentDrawable itemBackgroundOnArg,
 			float itemHeightArg, int maxVisibleItemsArg) {
 		super(xArg, yArg, wArg, hArg);

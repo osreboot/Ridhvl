@@ -18,28 +18,28 @@ public class HvlButton extends HvlComponent {
 	private OnClickedCommand clickedCommand;
 	private OnPressingCommand pressingCommand;
 
-	protected HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+	public HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
 		offDrawable = offArg;
 		hoverDrawable = offArg;
 		onDrawable = onArg;
 	}
 
-	protected HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+	public HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
 		offDrawable = offArg;
 		hoverDrawable = hoverArg;
 		onDrawable = onArg;
 	}
 
-	protected HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
+	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
 		hoverDrawable = offArg;
 		onDrawable = onArg;
 	}
 
-	protected HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
+	public HvlButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg) {
 		super(xArg, yArg, xlArg, ylArg);
 		offDrawable = offArg;
 		hoverDrawable = hoverArg;

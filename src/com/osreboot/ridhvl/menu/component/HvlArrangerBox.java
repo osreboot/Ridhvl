@@ -14,13 +14,13 @@ public class HvlArrangerBox extends HvlPanel {
 
 	private float borderL, borderR, borderU, borderD;
 
-	protected HvlArrangerBox(float wArg, float hArg, ArrangementStyle styleArg) {
+	public HvlArrangerBox(float wArg, float hArg, ArrangementStyle styleArg) {
 		super(wArg, hArg);
 		style = styleArg;
 		align = 0.0f;
 	}
 
-	protected HvlArrangerBox(float xArg, float yArg, float wArg, float hArg, ArrangementStyle styleArg) {
+	public HvlArrangerBox(float xArg, float yArg, float wArg, float hArg, ArrangementStyle styleArg) {
 		super(xArg, yArg, wArg, hArg);
 		style = styleArg;
 		align = 0.0f;

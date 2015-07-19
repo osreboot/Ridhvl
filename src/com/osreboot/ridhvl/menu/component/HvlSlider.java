@@ -24,7 +24,7 @@ public class HvlSlider extends HvlComponent {
 
 	private boolean isBeingHeld;
 
-	protected HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
@@ -36,7 +36,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	protected HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
@@ -48,7 +48,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	protected HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
@@ -60,7 +60,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	protected HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;

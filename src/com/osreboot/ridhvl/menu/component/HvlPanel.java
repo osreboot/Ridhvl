@@ -10,12 +10,12 @@ public class HvlPanel extends HvlComponent {
 
 	protected List<HvlComponent> children;
 	
-	protected HvlPanel(float wArg, float hArg) {
+	public HvlPanel(float wArg, float hArg) {
 		super(wArg, hArg);
 		children = new LinkedList<>();
 	}
 
-	protected HvlPanel(float xArg, float yArg, float wArg, float hArg) {
+	public HvlPanel(float xArg, float yArg, float wArg, float hArg) {
 		super(xArg, yArg, wArg, hArg);
 		children = new LinkedList<>();
 	}

@@ -19,7 +19,7 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 public class ParticlesTest extends HvlTemplate2D {
 	
 	public ParticlesTest() {
-		super(6, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
 
 	// HvlRadialParticleSystem particles;

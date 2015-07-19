@@ -14,7 +14,7 @@ public class HvlTextButton extends HvlButton {
 	private Color textColor;
 	private float xAlign, yAlign;
 
-	protected HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg,
+	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg,
 			HvlFontPainter2D fontArg, String textArg) {
 		super(xArg, yArg, xlArg, ylArg, offArg, onArg);
 		font = fontArg;
@@ -25,7 +25,7 @@ public class HvlTextButton extends HvlButton {
 		yAlign = 0.5f;
 	}
 
-	protected HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
 			HvlComponentDrawable onArg, HvlFontPainter2D fontArg, String textArg) {
 		super(xArg, yArg, xlArg, ylArg, offArg, hoverArg, onArg);
 		font = fontArg;
