@@ -14,7 +14,7 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
 	
-	static HvlTextureLoader textureLoader = new HvlTextureLoader(5);
+	static HvlTextureLoader textureLoader = new HvlTextureLoader();
 	HvlTiledRect testRect;
 	
 	@Override

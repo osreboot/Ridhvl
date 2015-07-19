@@ -8,12 +8,12 @@ import org.newdawn.slick.openal.AudioLoader;
 
 public class HvlSoundLoader extends HvlContentLoader<Audio>{
 
-	public HvlSoundLoader(String defaultPathArg, int arrayLength){
-		super(Audio.class, defaultPathArg, arrayLength);
+	public HvlSoundLoader(String defaultPathArg){
+		super(defaultPathArg);
 	}
 	
-	public HvlSoundLoader(int arrayLength){
-		super(Audio.class, "res/", arrayLength);
+	public HvlSoundLoader(){
+		super("res/");
 	}
 
 	@Override

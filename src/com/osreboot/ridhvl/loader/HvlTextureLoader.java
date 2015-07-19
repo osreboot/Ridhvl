@@ -7,12 +7,12 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class HvlTextureLoader extends HvlContentLoader<Texture>{
 
-	public HvlTextureLoader(String defaultPathArg, int arrayLength){
-		super(Texture.class, defaultPathArg, arrayLength);
+	public HvlTextureLoader(String defaultPathArg){
+		super(defaultPathArg);
 	}
 	
-	public HvlTextureLoader(int arrayLength){
-		super(Texture.class, "res/", arrayLength);
+	public HvlTextureLoader(){
+		super("res/");
 	}
 	
 	@Override

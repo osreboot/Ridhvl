@@ -43,7 +43,11 @@ public class HvlShader {
 		int fragmentShader = ARBShaderObjects.glCreateShaderObjectARB(ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
 		ARBShaderObjects.glShaderSourceARB(fragmentShader, readFile(fragmentArg));
 		ARBShaderObjects.glCompileShaderARB(fragmentShader);
-
+		String vertLog = ARBShaderObjects.glGetInfoLogARB(vertexShader, ARBShaderObjects.glGetObjectParameteriARB(vertexShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+		String fragLog = ARBShaderObjects.glGetInfoLogARB(fragmentShader, ARBShaderObjects.glGetObjectParameteriARB(fragmentShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+		if(vertLog.length() > 0) System.err.println(vertLog);
+		if(fragLog.length() > 0) System.err.println(fragLog);
+		
 		shaderID = ARBShaderObjects.glCreateProgramObjectARB();
 		ARBShaderObjects.glAttachObjectARB(shaderID, vertexShader);
 		ARBShaderObjects.glAttachObjectARB(shaderID, fragmentShader);

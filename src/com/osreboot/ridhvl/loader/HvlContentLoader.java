@@ -1,6 +1,5 @@
 package com.osreboot.ridhvl.loader;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class HvlContentLoader<T> {
@@ -10,24 +9,23 @@ public abstract class HvlContentLoader<T> {
 	
 	private String path;
 	
-	private T[] resources;
+	private ArrayList<T> resources;
 	
-	@SuppressWarnings("unchecked")
-	public HvlContentLoader(Class<T> c, String pathArg, int arrayLength){
+	public HvlContentLoader(String pathArg){
 		path = pathArg;
-		resources = (T[]) Array.newInstance(c, arrayLength);
+		resources = new ArrayList<T>();
 		loaders.add(this);
 	}
 	
 	public int addResource(T resourceArg){//TODO exception for not enough room in array
 		int index = 0;
-		for(int i = 0; i < resources.length; i++){
-			if(resources[i] == null){
+		for(int i = 0; i < resources.size(); i++){
+			if(resources.get(i) == null){
 				index = i;
 				break;
 			}
 		}
-		resources[index] = resourceArg;
+		resources.add(resourceArg);
 		return index;
 	}
 	
@@ -36,7 +34,7 @@ public abstract class HvlContentLoader<T> {
 	}
 	
 	public T getResource(int indexArg){
-		return resources[indexArg];
+		return resources.get(indexArg);
 	}
 
 	public abstract boolean loadResource(String nameArg);
