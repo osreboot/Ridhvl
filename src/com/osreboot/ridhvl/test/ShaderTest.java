@@ -16,7 +16,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class ShaderTest extends HvlTemplateInteg2D{
-
+	
 	public ShaderTest(){
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
