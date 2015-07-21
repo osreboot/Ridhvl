@@ -1,6 +1,7 @@
 package com.osreboot.ridhvl.input;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import com.osreboot.ridhvl.input.HvlInput.HvlInputFilter;
 
@@ -30,9 +31,30 @@ public class HvlInputSeriesAction {
 		}
 	};
 	
+	public static final HvlInputFilter FILTER_PAUSE = new HvlInputFilter(){
+		public float getCurrentOutput(){
+			return Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) ? 1 : 0;
+		}
+	};
+	
+	public static final HvlInputFilter FILTER_PRIMARY = new HvlInputFilter(){
+		public float getCurrentOutput(){
+			return Mouse.isButtonDown(0) ? 1 : 0;
+		}
+	};
+	
+	public static final HvlInputFilter FILTER_SECONDARY = new HvlInputFilter(){
+		public float getCurrentOutput(){
+			return Mouse.isButtonDown(1) ? 1 : 0;
+		}
+	};
+	
 	public static final HvlInput UP = new HvlInput(FILTER_UP);
 	public static final HvlInput DOWN = new HvlInput(FILTER_DOWN);
 	public static final HvlInput LEFT = new HvlInput(FILTER_LEFT);
 	public static final HvlInput RIGHT = new HvlInput(FILTER_RIGHT);
+	public static final HvlInput PAUSE = new HvlInput(FILTER_PAUSE);
+	public static final HvlInput PRIMARY = new HvlInput(FILTER_PRIMARY);
+	public static final HvlInput SECONDARY = new HvlInput(FILTER_SECONDARY);
 	
 }
