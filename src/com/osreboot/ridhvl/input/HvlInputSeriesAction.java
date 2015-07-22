@@ -7,6 +7,8 @@ import com.osreboot.ridhvl.input.HvlInput.HvlInputFilter;
 
 public class HvlInputSeriesAction {
 
+	//TODO boolean mode for using joystick
+	
 	public static final HvlInputFilter FILTER_UP = new HvlInputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP) ? 1 : 0;
@@ -49,6 +51,12 @@ public class HvlInputSeriesAction {
 		}
 	};
 	
+	public static final HvlInputFilter FILTER_INTERACTION = new HvlInputFilter(){
+		public float getCurrentOutput(){
+			return Mouse.isButtonDown(0) || Mouse.isButtonDown(1) ? 1 : 0;
+		}
+	};
+	
 	public static final HvlInput UP = new HvlInput(FILTER_UP);
 	public static final HvlInput DOWN = new HvlInput(FILTER_DOWN);
 	public static final HvlInput LEFT = new HvlInput(FILTER_LEFT);
@@ -56,5 +64,6 @@ public class HvlInputSeriesAction {
 	public static final HvlInput PAUSE = new HvlInput(FILTER_PAUSE);
 	public static final HvlInput PRIMARY = new HvlInput(FILTER_PRIMARY);
 	public static final HvlInput SECONDARY = new HvlInput(FILTER_SECONDARY);
+	public static final HvlInput INTERACTION = new HvlInput(FILTER_INTERACTION);
 	
 }
