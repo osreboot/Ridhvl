@@ -39,4 +39,9 @@ public class HvlAnimatedTextureUV extends HvlAnimatedTexture{
 		return frameSize;
 	}
 
+	@Override
+	public int getAnimationLength(){
+		return animationLength;
+	}
+
 }
