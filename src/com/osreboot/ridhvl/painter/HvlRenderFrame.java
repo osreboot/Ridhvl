@@ -9,6 +9,8 @@ import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
+
 public class HvlRenderFrame {
 
 	public static enum HvlRenderFrameProfile{
@@ -16,7 +18,7 @@ public class HvlRenderFrame {
 	}
 
 	private static boolean hasPushed = false;
-	
+
 	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame){//TODO clean this up
 		if(hasPushed){
 			GL11.glPopMatrix();
@@ -28,11 +30,12 @@ public class HvlRenderFrame {
 			GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			HvlPainter2D.hvlForceRefresh();
 		}else{
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 		}
 	}
-	
+
 	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame, boolean clear){//TODO clean this up
 		if(hasPushed){
 			GL11.glPopMatrix();
@@ -43,7 +46,10 @@ public class HvlRenderFrame {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
-			if(clear) glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			if(clear){
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				HvlPainter2D.hvlForceRefresh();
+			}
 		}else{
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 		}
@@ -70,7 +76,7 @@ public class HvlRenderFrame {
 
 		setCurrentRenderFrame(null);
 	}
-	
+
 	public HvlRenderFrame(HvlRenderFrameProfile profile, int xArg, int yArg, int widthArg, int heightArg){
 		x = xArg;
 		y = yArg;
@@ -98,7 +104,7 @@ public class HvlRenderFrame {
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
-	
+
 	public int getID(){
 		return frameID;
 	}
