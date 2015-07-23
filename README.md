@@ -1,4 +1,7 @@
 #**Reboot's In-Depth High Velocity Library**
+
+![Ridhvl Logo](https://lh4.googleusercontent.com/9xTrC_E65GI7iy6xUK6T4ZrL2iMXVIjJOp7elLb4tAoAR1QD-10HTmX4rlxRljkhXsvKJe0fz2FGanM=w1896-h835)
+
 Ridhvl is a library designed to provide quick shortcuts and templates for game jams such as the *Ludum Dare* and *MiniLD*.
 
 Admittedly, this library was designed with my own personal use in mind. However, pull requests that provide
