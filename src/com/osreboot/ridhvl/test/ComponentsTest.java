@@ -37,7 +37,7 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextButton testButton;
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
-
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
@@ -83,11 +83,11 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setTextureDirection(SliderDirection.HORIZONTAL).build());
 
 		HvlComponentDefault.setDefault(new HvlListBox.Builder()
-				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
+				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(128).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
 				.setItemBackgroundOff(new HvlTextureDrawable(textureLoader.getResource(5)))
 				.setItemBackgroundHover(new HvlTextureDrawable(textureLoader.getResource(6)))
-				.setItemBackgroundOn(new HvlTextureDrawable(textureLoader.getResource(7))).setItemHeight(32.0f).setMaxVisibleItems(5).setTextScale(0.25f)
-				.setAutoSize(true).setBackground(new HvlTextureDrawable(textureLoader.getResource(2))).setFullBackground(true).build());
+				.setItemBackgroundOn(new HvlTextureDrawable(textureLoader.getResource(7))).setItemHeight(48.0f).setMaxVisibleItems(5).setTextScale(0.25f)
+				.setAutoSize(false).setBackground(new HvlTextureDrawable(textureLoader.getResource(2))).setFullBackground(true).build());
 
 		HvlComponentDefault.setDefault(new HvlTextBox.Builder()
 				.setFocusedDrawable(
@@ -117,12 +117,12 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testTextBox = new HvlTextBox.Builder().setWidth(512).setHeight(96).setText("hey").setMaxCharacters(10).build();
 
-		testListBox = new HvlListBox.Builder().setWidth(512).setHeight(256).addItem("hey").addItem("nice to meet you").addItem("nice to be you")
+		testListBox = new HvlListBox.Builder().setWidth(512).setHeight(128).addItem("hey").addItem("nice to meet you").addItem("nice to be you")
 				.addItem("derp!").addItem("derp2!").addItem("derp3!").addItem("derp4!").addItem("derp5!").addItem("derp6!").addItem("derp7!").build();
 
 		testArranger = new HvlArrangerBox.Builder()
-				.setX(64)
-				.setY(64)
+				.setX(0)
+				.setY(0)
 				.setWidth(Display.getWidth() - 64)
 				.setHeight(720)
 				.add(testLabel)
