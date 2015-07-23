@@ -38,6 +38,10 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
 
+	public static void main(String[] args) {
+		new ComponentsTest();
+	}
+
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
@@ -80,7 +84,7 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setHandleHeight(16).setValue(0.0f).setHandleUpDrawable(new HvlTextureDrawable(textureLoader.getResource(6)))
 				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(7)))
 				.setBackground(new HvlTextureDrawable(textureLoader.getResource(5))).setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f)
-				.build());
+				.setTextureDirection(SliderDirection.HORIZONTAL).build());
 
 		HvlComponentDefault.setDefault(new HvlListBox.Builder()
 				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
@@ -120,8 +124,18 @@ public class ComponentsTest extends HvlTemplate2D {
 		testListBox = new HvlListBox.Builder().setWidth(512).setHeight(256).addItem("hey").addItem("nice to meet you").addItem("nice to be you")
 				.addItem("derp!").addItem("derp2!").addItem("derp3!").addItem("derp4!").addItem("derp5!").addItem("derp6!").addItem("derp7!").build();
 
-		testArranger = new HvlArrangerBox.Builder().setX(64).setY(64).setWidth(Display.getWidth() - 64).setHeight(720).add(testLabel).add(testCheck)
-				.add(testButton).add(testTextBox).add(testListBox).build();
+		testArranger = new HvlArrangerBox.Builder()
+				.setX(64)
+				.setY(64)
+				.setWidth(Display.getWidth() - 64)
+				.setHeight(720)
+				.add(testLabel)
+				.add(testCheck)
+				.add(testButton)
+				.add(testTextBox)
+				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(SliderDirection.HORIZONTAL).setTextureDirection(SliderDirection.HORIZONTAL)
+						.build())
+						.add(testListBox).build();
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);

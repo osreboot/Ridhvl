@@ -5,6 +5,7 @@ import org.lwjgl.input.Mouse;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.HvlCursor;
+import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlSlider extends HvlComponent {
 	public enum SliderDirection {
@@ -14,6 +15,7 @@ public class HvlSlider extends HvlComponent {
 	private HvlComponentDrawable handleUpDrawable, handleDownDrawable;
 	private HvlComponentDrawable background;
 	private SliderDirection direction;
+	private SliderDirection textureDirection;
 	private float value;
 	private float pValue;
 	private float handleHeight, handleWidth;
@@ -24,10 +26,11 @@ public class HvlSlider extends HvlComponent {
 
 	private boolean isBeingHeld;
 
-	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
-			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
+	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
+			HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
+		textureDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleArg;
@@ -40,6 +43,7 @@ public class HvlSlider extends HvlComponent {
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
+		textureDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleUpArg;
@@ -52,6 +56,7 @@ public class HvlSlider extends HvlComponent {
 			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
+		textureDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleArg;
@@ -64,6 +69,7 @@ public class HvlSlider extends HvlComponent {
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
+		textureDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleUpArg;
@@ -153,8 +159,28 @@ public class HvlSlider extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
-		if (background != null)
-			background.draw(delta, getX(), getY(), getWidth(), getHeight());
+		if (background != null) {
+			if (textureDirection == direction) // If the texture is facing the
+												// right direction...
+				background.draw(delta, getX(), getY(), getWidth(), getHeight());
+			else // We need to rotate the background
+			{
+				switch (textureDirection) {
+				case HORIZONTAL: {					
+					HvlPainter2D.hvlRotate(getX() + getWidth(), getY(), 90);
+					background.draw(delta, getX() + getWidth(), getY(), getHeight(), getWidth());
+					HvlPainter2D.hvlResetRotation();
+				}
+					break;
+				case VERTICAL: {
+					HvlPainter2D.hvlRotate(getX(), getY() + getHeight(), -90);
+					background.draw(delta, getX(), getY() + getHeight(), getHeight(), getWidth());
+					HvlPainter2D.hvlResetRotation();
+				}
+					break;
+				}
+			}
+		}
 
 		switch (direction) {
 		case HORIZONTAL: {
@@ -273,6 +299,14 @@ public class HvlSlider extends HvlComponent {
 		this.liveSnap = liveSnap;
 	}
 
+	public SliderDirection getTextureDirection() {
+		return textureDirection;
+	}
+
+	public void setTextureDirection(SliderDirection textureDirection) {
+		this.textureDirection = textureDirection;
+	}
+
 	public static class Builder {
 		private HvlSlider tr;
 
@@ -368,11 +402,16 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
+		public Builder setTextureDirection(SliderDirection textureDirection) {
+			tr.setTextureDirection(textureDirection);
+			return this;
+		}
+
 		public HvlSlider build() {
 			return tr;
 		}
 	}
-	
+
 	public HvlSlider clone() {
 		HvlSlider tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
 		// HvlComponent
@@ -387,6 +426,7 @@ public class HvlSlider extends HvlComponent {
 		tr.handleDownDrawable = handleDownDrawable;
 		tr.background = background;
 		tr.direction = direction;
+		tr.textureDirection = textureDirection;
 		tr.value = value;
 		tr.handleHeight = handleHeight;
 		tr.handleWidth = handleWidth;
@@ -394,7 +434,7 @@ public class HvlSlider extends HvlComponent {
 		tr.handleEndOffset = handleEndOffset;
 		tr.snapInterval = snapInterval;
 		tr.liveSnap = liveSnap;
-		
+
 		return tr;
 	}
 }
