@@ -21,6 +21,7 @@ import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextButton;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -36,7 +37,7 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextButton testButton;
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
-
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
@@ -69,18 +70,24 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
 				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink))).build());
 
+		HvlComponentDefault.setDefault(new HvlTextCheckbox.Builder().setOffDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.blue)))
+				.setOffHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.cyan)))
+				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
+				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink))).setFont(fontPainter).setText("testing finally")
+				.setColor(Color.magenta).setScale(0.25f).setSpacing(32f).build());
+
 		HvlComponentDefault.setDefault(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).setHandleWidth(16)
 				.setHandleHeight(16).setValue(0.0f).setHandleUpDrawable(new HvlTextureDrawable(textureLoader.getResource(6)))
 				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(7)))
 				.setBackground(new HvlTextureDrawable(textureLoader.getResource(5))).setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f)
-				.build());
+				.setTextureDirection(SliderDirection.HORIZONTAL).build());
 
 		HvlComponentDefault.setDefault(new HvlListBox.Builder()
-				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
+				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(128).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
 				.setItemBackgroundOff(new HvlTextureDrawable(textureLoader.getResource(5)))
 				.setItemBackgroundHover(new HvlTextureDrawable(textureLoader.getResource(6)))
-				.setItemBackgroundOn(new HvlTextureDrawable(textureLoader.getResource(7))).setItemHeight(32.0f).setMaxVisibleItems(5).setTextScale(0.25f)
-				.setAutoSize(true).setBackground(new HvlTextureDrawable(textureLoader.getResource(2))).setFullBackground(true).build());
+				.setItemBackgroundOn(new HvlTextureDrawable(textureLoader.getResource(7))).setItemHeight(48.0f).setMaxVisibleItems(5).setTextScale(0.25f)
+				.setAutoSize(false).setBackground(new HvlTextureDrawable(textureLoader.getResource(2))).setFullBackground(true).build());
 
 		HvlComponentDefault.setDefault(new HvlTextBox.Builder()
 				.setFocusedDrawable(
@@ -94,10 +101,12 @@ public class ComponentsTest extends HvlTemplate2D {
 		testMenu = new HvlMenu() {
 
 		};
-		
+
 		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		testCheck = new HvlCheckbox.Builder().setWidth(64).setHeight(64).build();
+		// testCheck = new
+		// HvlCheckbox.Builder().setWidth(64).setHeight(64).build();
+		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).build();
 
 		testButton = new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 			@Override
@@ -108,11 +117,21 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testTextBox = new HvlTextBox.Builder().setWidth(512).setHeight(96).setText("hey").setMaxCharacters(10).build();
 
-		testListBox = new HvlListBox.Builder().setWidth(512).setHeight(256).addItem("hey").addItem("nice to meet you").addItem("nice to be you")
+		testListBox = new HvlListBox.Builder().setWidth(512).setHeight(128).addItem("hey").addItem("nice to meet you").addItem("nice to be you")
 				.addItem("derp!").addItem("derp2!").addItem("derp3!").addItem("derp4!").addItem("derp5!").addItem("derp6!").addItem("derp7!").build();
 
-		testArranger = new HvlArrangerBox.Builder().setX(64).setY(64).setWidth(Display.getWidth() - 64).setHeight(720).add(testLabel).add(testCheck)
-				.add(testButton).add(testTextBox).add(testListBox).build();
+		testArranger = new HvlArrangerBox.Builder()
+				.setX(0)
+				.setY(0)
+				.setWidth(Display.getWidth() - 64)
+				.setHeight(720)
+				.add(testLabel)
+				.add(testCheck)
+				.add(testButton)
+				.add(testTextBox)
+				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(SliderDirection.HORIZONTAL).setTextureDirection(SliderDirection.HORIZONTAL)
+						.build())
+						.add(testListBox).build();
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);

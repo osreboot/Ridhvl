@@ -23,8 +23,8 @@ public class HvlTextCheckbox extends HvlCheckbox {
 	@Override
 	public void draw(float delta) {
 		super.draw(delta);
-		
-		font.drawWord(text, getX() + getWidth() + spacing, getY() + (getHeight() / 2) - (font.getFontHeight() / 2), scale, color);
+
+		font.drawWord(text, getX() + getWidth() + spacing, getY() + (getHeight() / 2) - (font.getFontHeight() * scale / 2), scale, color);
 	}
 
 	public void onChanged(boolean state) {
@@ -70,10 +70,10 @@ public class HvlTextCheckbox extends HvlCheckbox {
 	public void setSpacing(float spacing) {
 		this.spacing = spacing;
 	}
-	
+
 	public static class Builder {
 		private HvlTextCheckbox tr;
-		
+
 		public Builder() {
 			if (HvlComponentDefault.hasDefault(HvlTextCheckbox.class))
 				tr = HvlComponentDefault.getDefault(HvlTextCheckbox.class).clone();
@@ -115,6 +115,7 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			tr.setChecked(checked);
 			return this;
 		}
+
 		public Builder setOffDrawable(HvlComponentDrawable offDrawable) {
 			tr.setOffDrawable(offDrawable);
 			return this;
@@ -159,7 +160,7 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			tr.setSpacing(spacing);
 			return this;
 		}
-		
+
 		public Builder setChangedEvent(OnChangedCommand changedEvent) {
 			tr.setChangedCommand(changedEvent);
 			return this;
