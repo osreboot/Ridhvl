@@ -2,20 +2,20 @@ uniform sampler2D texture1;
 
 void main(){
 	vec4 color = texture2D(texture1, gl_TexCoord[0].st);
-	float average = (color.r + color.g + color.b)/3.0;
+	float average = (color.r + color.g + color.b)/float(3.0);
 	
 	if(average > float(0.8333)){
-		if(max(mod(gl_TexCoord[0].x*1280, 16f), mod(gl_TexCoord[0].y*720, 16f)) > 1f) average = 1; else average = 0;
-	}else if(average > 0.6666f){
-		if(max(mod(gl_TexCoord[0].x*1280, 8f), mod(gl_TexCoord[0].y*720, 8f)) > 1f) average = 1; else average = 0;
-	}else if(average > 0.4999f){
-		if(max(mod(gl_TexCoord[0].x*1280, 4f), mod(gl_TexCoord[0].y*720, 4f)) > 1f) average = 1; else average = 0;
-	}else if(average > 0.3333f){
-		if(max(mod(gl_TexCoord[0].x*1280, 2f), mod(gl_TexCoord[0].y*720, 2f)) > 1f) average = 1; else average = 0;
-	}else if(average > 0.1666f){
-		if(max(mod(gl_TexCoord[0].x*1280, 2f), mod(gl_TexCoord[0].y*720, 2f)) < 1f) average = 1; else average = 0;
+		if(max(mod(gl_TexCoord[0].x*float(1280), float(16)), mod(gl_TexCoord[0].y*float(720), float(16))) > float(1)) average = float(1); else average = float(0);
+	}else if(average > float(0.6666)){
+		if(max(mod(gl_TexCoord[0].x*float(1280), float(8)), mod(gl_TexCoord[0].y*float(720), float(8))) > float(1)) average = float(1); else average = float(0);
+	}else if(average > float(0.4999)){
+		if(max(mod(gl_TexCoord[0].x*float(1280), float(4)), mod(gl_TexCoord[0].y*float(720), float(4))) > float(1)) average = float(1); else average = float(0);
+	}else if(average > float(0.3333)){
+		if(max(mod(gl_TexCoord[0].x*float(1280), float(2)), mod(gl_TexCoord[0].y*float(720), float(2))) > float(1)) average = float(1); else average = float(0);
+	}else if(average > 0.1666){
+		if(max(mod(gl_TexCoord[0].x*float(1280), float(2)), mod(gl_TexCoord[0].y*float(720), float(2))) < float(1)) average = float(1); else average = float(0);
 	}else{
-		if(max(mod(gl_TexCoord[0].x*1280, 4f), mod(gl_TexCoord[0].y*720, 4f)) < 1f) average = 1; else average = 0;
+		if(max(mod(gl_TexCoord[0].x*float(1280), float(4)), mod(gl_TexCoord[0].y*float(720), float(4))) < float(1)) average = float(1); else average = float(0);
 	}
 	
 	gl_FragColor = vec4(average, average, average, color.a);
