@@ -21,6 +21,7 @@ import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextButton;
+import com.osreboot.ridhvl.menu.component.collection.HvlTextCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -69,6 +70,12 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
 				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink))).build());
 
+		HvlComponentDefault.setDefault(new HvlTextCheckbox.Builder().setOffDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.blue)))
+				.setOffHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.cyan)))
+				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
+				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink))).setFont(fontPainter).setText("testing finally")
+				.setColor(Color.magenta).setScale(0.25f).setSpacing(32f).build());
+
 		HvlComponentDefault.setDefault(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).setHandleWidth(16)
 				.setHandleHeight(16).setValue(0.0f).setHandleUpDrawable(new HvlTextureDrawable(textureLoader.getResource(6)))
 				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(7)))
@@ -94,10 +101,12 @@ public class ComponentsTest extends HvlTemplate2D {
 		testMenu = new HvlMenu() {
 
 		};
-		
+
 		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		testCheck = new HvlCheckbox.Builder().setWidth(64).setHeight(64).build();
+		// testCheck = new
+		// HvlCheckbox.Builder().setWidth(64).setHeight(64).build();
+		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).build();
 
 		testButton = new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 			@Override
