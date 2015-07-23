@@ -12,6 +12,9 @@ import com.osreboot.ridhvl.painter.HvlRenderFrame;
 
 public class HvlPainter2D {
 
+	@Deprecated
+	private static Texture refreshTexture;
+	
 	public static enum HvlPainter2DProfile{
 		DEFAULT
 	}
@@ -27,6 +30,8 @@ public class HvlPainter2D {
 			glMatrixMode(GL_MODELVIEW);
 			break;
 		}
+		
+		refreshTexture = HvlTextureUtil.getColoredRect(1, 1, Color.transparent);
 	}
 
 	public static void hvlGL11Ortho(int displayWidth, int displayHeight){
@@ -98,7 +103,7 @@ public class HvlPainter2D {
 	
 	@Deprecated
 	public static void hvlForceRefresh(){
-		hvlDrawQuad(0f, 0f, 0f, 0f, HvlTextureUtil.getColoredRect(1, 1, Color.transparent), Color.transparent);
+		hvlDrawQuad(0f, 0f, 0f, 0f, refreshTexture);
 	}
 
 }
