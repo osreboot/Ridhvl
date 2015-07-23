@@ -22,7 +22,8 @@ public class HvlTextureUtil {
 		graphics.fillRect(0, 0, width, height);
 		
 		try {
-			return BufferedImageUtil.getTexture("" + Math.random(), img);
+			Texture tr = BufferedImageUtil.getTexture("" + Math.random(), img);
+			return tr;
 		} catch (IOException e) {
 			return null;
 		}
