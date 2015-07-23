@@ -23,10 +23,6 @@ public class GradientTest extends HvlTemplate2D{
 	HvlShader shader;
 	HvlRenderFrame frame;
 	
-	public static void main(String[] args) {
-		new GradientTest();
-	}
-	
 	public GradientTest(){
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -50,17 +46,16 @@ public class GradientTest extends HvlTemplate2D{
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
 	
 		frame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, 1280, 720);
-//		HvlPainter2D.TEXMAGBLUR.disable();
+		HvlPainter2D.TEXMAGBLUR.disable();
 		
-		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_SIMPLE_GRAYSCALE);
+		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_SIMPLE_NEGATIVE);
 	}
 
 	@Override
 	public void update(float delta){
 		HvlRenderFrame.setCurrentRenderFrame(frame);
-//		HvlPainter2D.TEXMAGBLUR.disable();
+		HvlPainter2D.hvlForceRefresh();
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, gradient);
-//		HvlPainter2D.TEXMAGBLUR.enable();
 		HvlRenderFrame.setCurrentRenderFrame(null);
 		HvlShader.setCurrentShader(shader);
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, frame);
