@@ -8,7 +8,7 @@ public abstract class HvlComponent {
 	
 	private float x, y, width, height; 
 	
-	private boolean enabled, visible;
+	private boolean enabled, visible, focused;
 	
 	protected HvlComponent(float wArg, float hArg)
 	{
@@ -89,5 +89,13 @@ public abstract class HvlComponent {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+
+	public boolean isFocused() {
+		return focused;
+	}
+
+	public void setFocused(boolean focusedArg) {
+		focused = focusedArg;
 	}
 }

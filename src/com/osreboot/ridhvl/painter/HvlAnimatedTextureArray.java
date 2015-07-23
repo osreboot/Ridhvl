@@ -33,5 +33,10 @@ public class HvlAnimatedTextureArray extends HvlAnimatedTexture{
 	public Texture getCurrentTexture(){
 		return textures.get((int)(getTotalTime()/getFrameDelay())%textures.size());
 	}
+
+	@Override
+	public int getAnimationLength(){
+		return textures.size();
+	}
 	
 }
