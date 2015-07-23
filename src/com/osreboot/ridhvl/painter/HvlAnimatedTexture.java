@@ -12,7 +12,7 @@ public abstract class HvlAnimatedTexture {
 		for(HvlAnimatedTexture texture : animatedTextures) texture.update(delta);
 	}
 	
-	private float frameDelay, totalTime, stopTime;
+	private float frameDelay, speed, totalTime, stopTime;
 	private boolean running, autoStop;
 	
 	public HvlAnimatedTexture(float frameDelayArg){
@@ -20,6 +20,7 @@ public abstract class HvlAnimatedTexture {
 		running = true;
 		totalTime = 0;
 		stopTime = 0;
+		speed = 1;
 		animatedTextures.add(this);
 	}
 	
@@ -28,12 +29,13 @@ public abstract class HvlAnimatedTexture {
 		running = runningArg;
 		totalTime = 0;
 		stopTime = 0;
+		speed = 1;
 		animatedTextures.add(this);
 	}
 	
 	protected void update(float delta){
-		if(running) totalTime += delta;
-		if(autoStop) stopTime += delta;
+		if(running) totalTime += delta * speed;
+		if(autoStop) stopTime += Math.abs(delta * speed);
 		if(stopTime > (float)getAnimationLength()*frameDelay){
 			running = false;
 			stopTime = 0;
@@ -75,6 +77,14 @@ public abstract class HvlAnimatedTexture {
 	public void setAutoStop(boolean autoStopArg){
 		autoStop = autoStopArg;
 		if(autoStop) stopTime = 0;
+	}
+
+	public float getSpeed(){
+		return speed;
+	}
+
+	public void setSpeed(float speedArg){
+		speed = speedArg;
 	}
 	
 }
