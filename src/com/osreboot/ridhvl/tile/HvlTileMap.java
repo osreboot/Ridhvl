@@ -80,7 +80,10 @@ public class HvlTileMap {
 				
 				boolean inRange = xMax > xLeft && xMin < xRight && yMax > yTop && yMin < yBottom;
 				
-				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, cutOff ? inRange : true, opacity);
+				current.update(info, delta);
+				
+				if (!cutOff || inRange)
+					current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, opacity);
 			}
 		}
 	}
