@@ -38,10 +38,6 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
 
-	public static void main(String[] args) {
-		new ComponentsTest();
-	}
-
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
