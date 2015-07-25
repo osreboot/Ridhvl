@@ -143,11 +143,14 @@ public class HvlTextBox extends HvlComponent {
 	@Override
 	public void draw(float delta) {
 		if (isFocused) {
-			focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			if (focusedDrawable != null)
+				focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		} else {
-			unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			if (unfocusedDrawable != null)
+				unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		}
-		font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textScale, textColor);
+		if (font != null && text != null && textColor != null)
+			font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textScale, textColor);
 	}
 
 	public String getText() {

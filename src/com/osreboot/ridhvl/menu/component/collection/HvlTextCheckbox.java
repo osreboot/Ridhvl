@@ -74,7 +74,8 @@ public class HvlTextCheckbox extends HvlCheckbox {
 	public void draw(float delta) {
 		super.draw(delta);
 
-		font.drawWord(text, getX() + getWidth() + spacing, getY() + (getHeight() / 2) - (font.getFontHeight() * scale / 2), scale, color);
+		if (font != null && text != null && color != null)
+			font.drawWord(text, getX() + getWidth() + spacing, getY() + (getHeight() / 2) - (font.getFontHeight() * scale / 2), scale, color);
 	}
 
 	public void onChanged(boolean state) {

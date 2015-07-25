@@ -36,7 +36,8 @@ public class HvlDrawableComponent extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
-		drawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+		if (drawable != null)
+			drawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 	}
 
 	public HvlComponentDrawable getDrawable() {

@@ -20,7 +20,7 @@ public class HvlTextButton extends HvlButton {
 		this.text = text;
 		this.textColor = textColor;
 	}
-	
+
 	public HvlTextButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg,
 			HvlFontPainter2D font, String text, Color textColor) {
 		super(xlArg, ylArg, offArg, hoverArg, onArg);
@@ -29,8 +29,8 @@ public class HvlTextButton extends HvlButton {
 		this.textColor = textColor;
 	}
 
-	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg,
-			HvlFontPainter2D fontArg, String textArg, Color colorArg) {
+	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D fontArg,
+			String textArg, Color colorArg) {
 		super(xArg, yArg, xlArg, ylArg, offArg, onArg);
 		font = fontArg;
 		text = textArg;
@@ -90,9 +90,11 @@ public class HvlTextButton extends HvlButton {
 	@Override
 	public void draw(float delta) {
 		super.draw(delta);
-		float xOffset = (getWidth() - (font.getLineWidth(text) * textScale)) * xAlign;
-		float yOffset = (getHeight() - (font.getFontHeight() * textScale)) * yAlign;
-		font.drawWord(text, getX() + xOffset, getY() + yOffset, textScale, textColor);
+		if (font != null && text != null && textColor != null) {
+			float xOffset = (getWidth() - (font.getLineWidth(text) * textScale)) * xAlign;
+			float yOffset = (getHeight() - (font.getFontHeight() * textScale)) * yAlign;
+			font.drawWord(text, getX() + xOffset, getY() + yOffset, textScale, textColor);
+		}
 	}
 
 	public HvlFontPainter2D getFont() {
@@ -227,7 +229,7 @@ public class HvlTextButton extends HvlButton {
 			tr.setOnDrawable(onDrawable);
 			return this;
 		}
-		
+
 		public Builder setClickedCommand(OnClickedCommand clickedCommand) {
 			tr.setClickedCommand(clickedCommand);
 			return this;

@@ -18,7 +18,7 @@ public class HvlComponentDefault {
 	}
 	
 	public static boolean hasDefault(Class<? extends HvlComponent> type) {
-		return defaults.containsKey(type);
+		return defaults.containsKey(type) && defaults.get(type) != null;
 	}
 	
 	@SuppressWarnings("unchecked")

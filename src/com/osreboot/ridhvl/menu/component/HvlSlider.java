@@ -166,7 +166,7 @@ public class HvlSlider extends HvlComponent {
 			else // We need to rotate the background
 			{
 				switch (textureDirection) {
-				case HORIZONTAL: {					
+				case HORIZONTAL: {
 					HvlPainter2D.hvlRotate(getX() + getWidth(), getY(), 90);
 					background.draw(delta, getX() + getWidth(), getY(), getHeight(), getWidth());
 					HvlPainter2D.hvlResetRotation();
@@ -188,20 +188,26 @@ public class HvlSlider extends HvlComponent {
 			float max = getX() + getWidth() - handleEndOffset;
 			float lerpedX = min + (value * (max - min));
 
-			if (isBeingHeld)
-				handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
-			else
-				handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+			if (isBeingHeld) {
+				if (handleDownDrawable != null)
+					handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+			} else {
+				if (handleUpDrawable != null)
+					handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+			}
 		}
 			break;
 		case VERTICAL: {
 			float min = getY() + handleStartOffset;
 			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
-			if (isBeingHeld)
-				handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
-			else
-				handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+			if (isBeingHeld) {
+				if (handleDownDrawable != null)
+					handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+			} else {
+				if (handleUpDrawable != null)
+					handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+			}
 		}
 			break;
 		}

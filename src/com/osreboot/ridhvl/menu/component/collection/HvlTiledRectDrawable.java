@@ -6,13 +6,15 @@ import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 public class HvlTiledRectDrawable extends HvlComponentDrawable {
 
 	private HvlTiledRect rect;
-	
+
 	public HvlTiledRectDrawable(HvlTiledRect rectArg) {
 		rect = rectArg;
 	}
 
 	@Override
 	public void draw(float delta, float x, float y, float width, float height) {
+		if (rect == null)
+			return;
 		rect.setX(x);
 		rect.setY(y);
 		rect.setTotalWidth(width);
