@@ -11,6 +11,10 @@ public class HvlSlider extends HvlComponent {
 	public enum SliderDirection {
 		VERTICAL, HORIZONTAL
 	}
+	
+	public static abstract class OnValueChangedCommand {
+		public abstract void run(HvlSlider callingSlider, float value);
+	}
 
 	private HvlComponentDrawable handleUpDrawable, handleDownDrawable;
 	private HvlComponentDrawable background;
@@ -21,10 +25,10 @@ public class HvlSlider extends HvlComponent {
 	private float handleHeight, handleWidth;
 	private float handleStartOffset, handleEndOffset;
 	private float snapInterval;
-
 	private boolean liveSnap;
-
 	private boolean isBeingHeld;
+	
+	private OnValueChangedCommand valueChangedCommand;
 
 	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
 			HvlComponentDrawable backgroundArg) {
@@ -76,9 +80,6 @@ public class HvlSlider extends HvlComponent {
 		handleDownDrawable = handleDownArg;
 		background = backgroundArg;
 		liveSnap = true;
-	}
-
-	public void onValueChanged(float value) {
 	}
 
 	@Override
@@ -151,7 +152,10 @@ public class HvlSlider extends HvlComponent {
 		value = Math.max(0.0f, Math.min(value, 1.0f));
 
 		if (pValue != value)
-			onValueChanged(value);
+		{
+			if (valueChangedCommand != null)
+				valueChangedCommand.run(this, value);
+		}
 
 		pValue = value;
 
@@ -313,6 +317,14 @@ public class HvlSlider extends HvlComponent {
 		this.textureDirection = textureDirection;
 	}
 
+	public OnValueChangedCommand getValueChangedCommand() {
+		return valueChangedCommand;
+	}
+
+	public void setValueChangedCommand(OnValueChangedCommand valueChangedCommand) {
+		this.valueChangedCommand = valueChangedCommand;
+	}
+
 	public static class Builder {
 		private HvlSlider tr;
 
@@ -410,6 +422,11 @@ public class HvlSlider extends HvlComponent {
 
 		public Builder setTextureDirection(SliderDirection textureDirection) {
 			tr.setTextureDirection(textureDirection);
+			return this;
+		}
+
+		public Builder setValueChangedCommand(OnValueChangedCommand valueChangedCommand) {
+			tr.setValueChangedCommand(valueChangedCommand);
 			return this;
 		}
 

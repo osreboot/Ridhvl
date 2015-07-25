@@ -12,6 +12,10 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlTextBox extends HvlComponent {
 
+	public static abstract class OnTextChangedCommand {
+		public abstract void run(HvlTextBox callingTextBox, String text);
+	}
+	
 	private HvlComponentDrawable focusedDrawable, unfocusedDrawable;
 	private float offsetX, offsetY;
 	private float textScale;
@@ -24,6 +28,8 @@ public class HvlTextBox extends HvlComponent {
 	private boolean forceUppercase, forceLowercase;
 	private boolean numbersOnly;
 	private String blacklistCharacters;
+	
+	private OnTextChangedCommand textChangedCommand;
 
 	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
 		super(wArg, hArg);
@@ -84,9 +90,6 @@ public class HvlTextBox extends HvlComponent {
 		blacklistCharacters = "";
 	}
 
-	public void onTextChanged(String text) {
-	}
-
 	@Override
 	public void update(float delta) {
 		if (!isEnabled()) {
@@ -135,7 +138,10 @@ public class HvlTextBox extends HvlComponent {
 			text = text.replaceAll(String.format("[%s]", Pattern.quote(blacklistCharacters)), "");
 
 		if (!pText.equals(text))
-			onTextChanged(text);
+		{
+			if (textChangedCommand != null)
+				textChangedCommand.run(this, text);
+		}
 
 		pText = text;
 	}
@@ -265,6 +271,14 @@ public class HvlTextBox extends HvlComponent {
 		this.font = font;
 	}
 
+	public OnTextChangedCommand getTextChangedCommand() {
+		return textChangedCommand;
+	}
+
+	public void setTextChangedCommand(OnTextChangedCommand textChangedCommand) {
+		this.textChangedCommand = textChangedCommand;
+	}
+
 	public static class Builder {
 		private HvlTextBox tr;
 
@@ -367,6 +381,11 @@ public class HvlTextBox extends HvlComponent {
 
 		public Builder setFont(HvlFontPainter2D font) {
 			tr.setFont(font);
+			return this;
+		}
+
+		public Builder setTextChangedCommand(OnTextChangedCommand textChangedCommand) {
+			tr.setTextChangedCommand(textChangedCommand);
 			return this;
 		}
 
