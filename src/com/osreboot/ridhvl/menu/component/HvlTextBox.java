@@ -36,6 +36,7 @@ public class HvlTextBox extends HvlComponent {
 		textColor = Color.black;
 		textScale = 1.0f;
 		pText = textArg;
+		blacklistCharacters = "";
 	}
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
@@ -50,6 +51,37 @@ public class HvlTextBox extends HvlComponent {
 		textColor = Color.black;
 		textScale = 1.0f;
 		pText = textArg;
+		blacklistCharacters = "";
+	}
+
+	public HvlTextBox(float wArg, float hArg, HvlComponentDrawable focusedDrawable, HvlComponentDrawable unfocusedDrawable, float textScale, Color textColor,
+			HvlFontPainter2D font, String text) {
+		super(wArg, hArg);
+		this.focusedDrawable = focusedDrawable;
+		this.unfocusedDrawable = unfocusedDrawable;
+		this.textScale = textScale;
+		this.textColor = textColor;
+		this.font = font;
+		this.text = text;
+		isFocused = false;
+		maxCharacters = -1;
+		pText = text;
+		blacklistCharacters = "";
+	}
+
+	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable focusedDrawable, HvlComponentDrawable unfocusedDrawable,
+			float textScale, Color textColor, HvlFontPainter2D font, String text) {
+		super(xArg, yArg, wArg, hArg);
+		this.focusedDrawable = focusedDrawable;
+		this.unfocusedDrawable = unfocusedDrawable;
+		this.textScale = textScale;
+		this.textColor = textColor;
+		this.font = font;
+		this.text = text;
+		isFocused = false;
+		maxCharacters = -1;
+		pText = text;
+		blacklistCharacters = "";
 	}
 
 	public void onTextChanged(String text) {
