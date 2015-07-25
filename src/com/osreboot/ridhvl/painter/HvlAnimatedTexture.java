@@ -22,6 +22,7 @@ public abstract class HvlAnimatedTexture {
 		stopTime = 0;
 		speed = 1;
 		animatedTextures.add(this);
+		autoStop = false;
 	}
 	
 	public HvlAnimatedTexture(float frameDelayArg, boolean runningArg){
@@ -31,6 +32,7 @@ public abstract class HvlAnimatedTexture {
 		stopTime = 0;
 		speed = 1;
 		animatedTextures.add(this);
+		autoStop = false;
 	}
 	
 	protected void update(float delta){
@@ -39,6 +41,7 @@ public abstract class HvlAnimatedTexture {
 		if(stopTime > (float)getAnimationLength()*frameDelay){
 			running = false;
 			stopTime = 0;
+			totalTime = (getAnimationLength() - 1)*frameDelay;
 		}
 	}
 

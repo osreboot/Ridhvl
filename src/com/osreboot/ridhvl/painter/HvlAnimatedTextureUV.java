@@ -4,18 +4,17 @@ import org.newdawn.slick.opengl.Texture;
 
 public class HvlAnimatedTextureUV extends HvlAnimatedTexture{
 
-	private float frameSize;
 	private Texture texture;
-	private int animationLength;
+	private int animationLength, frameSize;
 	
-	public HvlAnimatedTextureUV(Texture textureArg, float frameSizeArg, int animationLengthArg, float frameDelayArg){
+	public HvlAnimatedTextureUV(Texture textureArg, int frameSizeArg, int animationLengthArg, float frameDelayArg){
 		super(frameDelayArg);
 		texture = textureArg;
 		frameSize = frameSizeArg;
 		animationLength = animationLengthArg;
 	}
 	
-	public HvlAnimatedTextureUV(Texture textureArg, float frameSizeArg, int animationLengthArg, float frameDelayArg, boolean runningArg){
+	public HvlAnimatedTextureUV(Texture textureArg, int frameSizeArg, int animationLengthArg, float frameDelayArg, boolean runningArg){
 		super(frameDelayArg, runningArg);
 		texture = textureArg;
 		frameSize = frameSizeArg;
@@ -28,15 +27,21 @@ public class HvlAnimatedTextureUV extends HvlAnimatedTexture{
 	}
 
 	public float getCurrentUVX(){
-		return (float)((int)(getTotalTime()/getFrameDelay())%animationLength)%(frameSize/(float)texture.getImageWidth());
+		int frameIndex = (int)(getTotalTime()/getFrameDelay())%animationLength;
+		return ((float)frameIndex%((float)texture.getImageWidth()/(float)frameSize))*((float)frameSize/(float)texture.getImageWidth());
 	}
 
 	public float getCurrentUVY(){
-		return (float)((int)(getTotalTime()/getFrameDelay())%animationLength)/(frameSize/(float)texture.getImageWidth());
+		int frameIndex = (int)(getTotalTime()/getFrameDelay())%animationLength;
+		return ((int)frameIndex/(int)((float)texture.getImageWidth()/(float)frameSize))*((float)frameSize/(float)texture.getImageHeight());
 	}
-
-	public float getFrameSize(){
-		return frameSize;
+	
+	public float getFrameWidth(){
+		return (float)frameSize/(float)texture.getImageWidth();
+	}
+	
+	public float getFrameHeight(){
+		return (float)frameSize/(float)texture.getImageHeight();
 	}
 
 	@Override
