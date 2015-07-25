@@ -140,22 +140,32 @@ public class HvlCheckbox extends HvlComponent {
 			if (changedCommand != null)
 				changedCommand.run(this, checked);
 		}
-
-		draw(delta);
 	}
 
 	@Override
 	public void draw(float delta) {
 		if (getChecked()) {
 			if (isHovering())
-				onHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			{
+				if (onHoverDrawable != null)
+					onHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			}
 			else
-				onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			{
+				if (onDrawable != null)
+					onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			}
 		} else {
 			if (isHovering())
-				offHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			{
+				if (offHoverDrawable != null)
+					offHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			}
 			else
-				offDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			{
+				if (offDrawable != null)
+					offDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			}
 		}
 	}
 

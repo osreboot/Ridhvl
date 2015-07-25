@@ -73,8 +73,8 @@ public class HvlTileMap {
 				if (current == null)
 					continue;
 
-				float xMin = x + (tileWidth * currentX);
-				float yMin = y + (tileHeight * currentY);
+				float xMin = x + (tileWidth * (float) currentX);
+				float yMin = y + (tileHeight * (float) currentY);
 				float xMax = xMin + tileWidth;
 				float yMax = yMin + tileHeight;
 				

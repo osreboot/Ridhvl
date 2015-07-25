@@ -11,6 +11,10 @@ public class HvlSlider extends HvlComponent {
 	public enum SliderDirection {
 		VERTICAL, HORIZONTAL
 	}
+	
+	public static abstract class OnValueChangedCommand {
+		public abstract void run(HvlSlider callingSlider, float value);
+	}
 
 	private HvlComponentDrawable handleUpDrawable, handleDownDrawable;
 	private HvlComponentDrawable background;
@@ -21,10 +25,10 @@ public class HvlSlider extends HvlComponent {
 	private float handleHeight, handleWidth;
 	private float handleStartOffset, handleEndOffset;
 	private float snapInterval;
-
 	private boolean liveSnap;
-
 	private boolean isBeingHeld;
+	
+	private OnValueChangedCommand valueChangedCommand;
 
 	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
 			HvlComponentDrawable backgroundArg) {
@@ -76,9 +80,6 @@ public class HvlSlider extends HvlComponent {
 		handleDownDrawable = handleDownArg;
 		background = backgroundArg;
 		liveSnap = true;
-	}
-
-	public void onValueChanged(float value) {
 	}
 
 	@Override
@@ -151,7 +152,10 @@ public class HvlSlider extends HvlComponent {
 		value = Math.max(0.0f, Math.min(value, 1.0f));
 
 		if (pValue != value)
-			onValueChanged(value);
+		{
+			if (valueChangedCommand != null)
+				valueChangedCommand.run(this, value);
+		}
 
 		pValue = value;
 
@@ -166,7 +170,7 @@ public class HvlSlider extends HvlComponent {
 			else // We need to rotate the background
 			{
 				switch (textureDirection) {
-				case HORIZONTAL: {					
+				case HORIZONTAL: {
 					HvlPainter2D.hvlRotate(getX() + getWidth(), getY(), 90);
 					background.draw(delta, getX() + getWidth(), getY(), getHeight(), getWidth());
 					HvlPainter2D.hvlResetRotation();
@@ -188,20 +192,26 @@ public class HvlSlider extends HvlComponent {
 			float max = getX() + getWidth() - handleEndOffset;
 			float lerpedX = min + (value * (max - min));
 
-			if (isBeingHeld)
-				handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
-			else
-				handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+			if (isBeingHeld) {
+				if (handleDownDrawable != null)
+					handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+			} else {
+				if (handleUpDrawable != null)
+					handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+			}
 		}
 			break;
 		case VERTICAL: {
 			float min = getY() + handleStartOffset;
 			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
-			if (isBeingHeld)
-				handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
-			else
-				handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+			if (isBeingHeld) {
+				if (handleDownDrawable != null)
+					handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+			} else {
+				if (handleUpDrawable != null)
+					handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+			}
 		}
 			break;
 		}
@@ -307,6 +317,14 @@ public class HvlSlider extends HvlComponent {
 		this.textureDirection = textureDirection;
 	}
 
+	public OnValueChangedCommand getValueChangedCommand() {
+		return valueChangedCommand;
+	}
+
+	public void setValueChangedCommand(OnValueChangedCommand valueChangedCommand) {
+		this.valueChangedCommand = valueChangedCommand;
+	}
+
 	public static class Builder {
 		private HvlSlider tr;
 
@@ -404,6 +422,11 @@ public class HvlSlider extends HvlComponent {
 
 		public Builder setTextureDirection(SliderDirection textureDirection) {
 			tr.setTextureDirection(textureDirection);
+			return this;
+		}
+
+		public Builder setValueChangedCommand(OnValueChangedCommand valueChangedCommand) {
+			tr.setValueChangedCommand(valueChangedCommand);
 			return this;
 		}
 

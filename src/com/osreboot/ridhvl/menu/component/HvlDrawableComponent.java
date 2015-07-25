@@ -22,9 +22,22 @@ public class HvlDrawableComponent extends HvlComponent {
 		color = Color.white;
 	}
 
+	public HvlDrawableComponent(float wArg, float hArg, HvlComponentDrawable drawable, Color color) {
+		super(wArg, hArg);
+		this.drawable = drawable;
+		this.color = color;
+	}
+
+	public HvlDrawableComponent(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable drawable, Color color) {
+		super(xArg, yArg, wArg, hArg);
+		this.drawable = drawable;
+		this.color = color;
+	}
+
 	@Override
 	public void draw(float delta) {
-		drawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+		if (drawable != null)
+			drawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 	}
 
 	public HvlComponentDrawable getDrawable() {
@@ -42,10 +55,10 @@ public class HvlDrawableComponent extends HvlComponent {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+
 	public static class Builder {
 		private HvlDrawableComponent tr;
-		
+
 		public Builder() {
 			if (HvlComponentDefault.hasDefault(HvlDrawableComponent.class))
 				tr = HvlComponentDefault.getDefault(HvlDrawableComponent.class).clone();
@@ -92,12 +105,12 @@ public class HvlDrawableComponent extends HvlComponent {
 			tr.setVisible(visible);
 			return this;
 		}
-		
+
 		public HvlDrawableComponent build() {
 			return tr;
 		}
 	}
-	
+
 	public HvlDrawableComponent clone() {
 		HvlDrawableComponent tr = new HvlDrawableComponent(0, 0, null);
 		// HvlComponent

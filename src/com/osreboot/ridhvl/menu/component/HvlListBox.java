@@ -22,7 +22,7 @@ public class HvlListBox extends HvlComponent {
 	public static abstract class SelectionChangedCommand {
 		public abstract void run(HvlListBox callingListBox, int index, Object selected);
 	}
-	
+
 	private HvlSlider scrollBar;
 	private HvlButton scrollUpButton, scrollDownButton;
 	private HvlArrangerBox scrollBox;
@@ -44,7 +44,7 @@ public class HvlListBox extends HvlComponent {
 	private HvlRenderFrame renderFrame;
 	private float pX, pY, pWidth, pHeight;
 	private boolean isFocused;
-	
+
 	private SelectionChangedCommand selectionChangedCommand;
 
 	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
@@ -172,7 +172,7 @@ public class HvlListBox extends HvlComponent {
 		if (autoSize)
 			setHeight(itemHeight * maxVisibleItems);
 
-		if (this.isBeingPressed(0))
+		if (isBeingPressed(0))
 			isFocused = true;
 		else if (Mouse.isButtonDown(0))
 			isFocused = false;
@@ -183,11 +183,13 @@ public class HvlListBox extends HvlComponent {
 		if (scrollDownButton != null)
 			scrollDownButton.setEnabled(!scrollBar.isBeingHeld());
 
-		scrollBar.setEnabled(items.size() > maxVisibleItems);
-		if (items.size() - maxVisibleItems <= 0) {
-			scrollBar.setSnapInterval(0.0f);
-		} else {
-			scrollBar.setSnapInterval((1.0f / sizeIntervalsForScroll) / (items.size() - maxVisibleItems));
+		if (scrollBar != null) {
+			scrollBar.setEnabled(items.size() > maxVisibleItems);
+			if (items.size() - maxVisibleItems <= 0) {
+				scrollBar.setSnapInterval(0.0f);
+			} else {
+				scrollBar.setSnapInterval((1.0f / sizeIntervalsForScroll) / (items.size() - maxVisibleItems));
+			}
 		}
 
 		layoutUpdate();
@@ -200,13 +202,16 @@ public class HvlListBox extends HvlComponent {
 		if (isFocused)
 			scrollBar.setValue(scrollBar.getValue() + ((-Mouse.getDWheel() / 120) * scrollBar.getSnapInterval() * sizeIntervalsForScroll));
 
-		scrollBar.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
+		if (scrollBar != null) {
+			scrollBar.setValue(Math.max(Math.min(scrollBar.getValue(), 1.0f), 0.0f));
 
-		float topItem = (scrollBar.getValue() * (items.size() - (getHeight() / itemHeight)));
-		for (int i = 0; i < Math.min(items.size(), topItem + (getHeight() / itemHeight)); i++) {
-			if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorX() < getX() + getWidth() - scrollBox.getWidth()
-					&& HvlCursor.getCursorY() > getY() + ((i - topItem) * itemHeight) && HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight))
-				selectedIndex = i;
+			float topItem = (scrollBar.getValue() * (items.size() - (getHeight() / itemHeight)));
+			for (int i = 0; i < Math.min(items.size(), topItem + (getHeight() / itemHeight)); i++) {
+				if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorX() < getX() + getWidth() - scrollBox.getWidth()
+						&& HvlCursor.getCursorY() > getY() + ((i - topItem) * itemHeight)
+						&& HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight))
+					selectedIndex = i;
+			}
 		}
 
 		if (selectedIndex != pSelectedIndex)
@@ -234,18 +239,26 @@ public class HvlListBox extends HvlComponent {
 			background.draw(delta, getX(), getY(), fullBackground ? getWidth() : getWidth() - scrollBox.getWidth(), getHeight());
 
 		scrollBox.draw(delta);
-		
-//		float topItem = (scrollBar.getValue() * (items.size() - maxVisibleItems));
-//		for (int i = 0; i < Math.min(items.size(), topItem + maxVisibleItems); i++) {
-//			if (i == selectedIndex)
-//				itemBackgroundOn.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
-//			else if (HvlCursor.getCursorX() > getX() && HvlCursor.getCursorX() < getX() + getWidth() - scrollBox.getWidth()
-//					&& HvlCursor.getCursorY() > getY() + ((i - topItem) * itemHeight) && HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight))
-//				itemBackgroundHover.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
-//			else
-//				itemBackgroundOff.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
-//			font.drawWord(items.get(i).toString(), getX(), getY() + ((i - topItem) * itemHeight), textScale, textColor);
-//		}
+
+		// float topItem = (scrollBar.getValue() * (items.size() -
+		// maxVisibleItems));
+		// for (int i = 0; i < Math.min(items.size(), topItem +
+		// maxVisibleItems); i++) {
+		// if (i == selectedIndex)
+		// itemBackgroundOn.draw(delta, getX(), getY() + ((i - topItem) *
+		// itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
+		// else if (HvlCursor.getCursorX() > getX() && HvlCursor.getCursorX() <
+		// getX() + getWidth() - scrollBox.getWidth()
+		// && HvlCursor.getCursorY() > getY() + ((i - topItem) * itemHeight) &&
+		// HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight))
+		// itemBackgroundHover.draw(delta, getX(), getY() + ((i - topItem) *
+		// itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
+		// else
+		// itemBackgroundOff.draw(delta, getX(), getY() + ((i - topItem) *
+		// itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
+		// font.drawWord(items.get(i).toString(), getX(), getY() + ((i -
+		// topItem) * itemHeight), textScale, textColor);
+		// }
 		float topItem = (scrollBar.getValue() * (items.size() - (getHeight() / itemHeight)));
 		for (int i = 0; i < Math.min(items.size(), topItem + (getHeight() / itemHeight)); i++) {
 			if (i == selectedIndex)
@@ -257,7 +270,7 @@ public class HvlListBox extends HvlComponent {
 				itemBackgroundOff.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
 			font.drawWord(items.get(i).toString(), getX(), getY() + ((i - topItem) * itemHeight), textScale, textColor);
 		}
-		
+
 		HvlPainter2D.hvlForceRefresh();
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
@@ -269,7 +282,7 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.add(scrollUpButton);
 		scrollBox.add(scrollBar);
 		scrollBox.add(scrollDownButton);
-		
+
 		scrollBox.setY(getY());
 		scrollBox.setWidth(Math.max(Math.max(scrollBar.getWidth(), scrollUpButton == null ? 0 : scrollUpButton.getWidth()), scrollDownButton == null ? 0
 				: scrollDownButton.getWidth()));
@@ -444,7 +457,7 @@ public class HvlListBox extends HvlComponent {
 
 		return items.get(index);
 	}
-	
+
 	public SelectionChangedCommand getSelectionChangedCommand() {
 		return selectionChangedCommand;
 	}
@@ -455,7 +468,7 @@ public class HvlListBox extends HvlComponent {
 
 	public static class Builder {
 		private HvlListBox tr;
-		
+
 		public Builder() {
 			if (HvlComponentDefault.hasDefault(HvlListBox.class))
 				tr = HvlComponentDefault.getDefault(HvlListBox.class).clone();
@@ -587,7 +600,7 @@ public class HvlListBox extends HvlComponent {
 			tr.addItem(item);
 			return this;
 		}
-		
+
 		public Builder setSelectionChangedCommand(SelectionChangedCommand selectionChangedCommand) {
 			tr.setSelectionChangedCommand(selectionChangedCommand);
 			return this;
@@ -597,7 +610,7 @@ public class HvlListBox extends HvlComponent {
 			return tr;
 		}
 	}
-	
+
 	public HvlListBox clone() {
 		HvlListBox tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
 		// HvlComponent

@@ -21,6 +21,8 @@ public class GradientTest extends HvlTemplate2D {
 	HvlShader shader;
 	HvlRenderFrame frame;
 	
+	Texture t;
+	
 	public GradientTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
 	}
@@ -30,14 +32,12 @@ public class GradientTest extends HvlTemplate2D {
 
 	@Override
 	public void initialize() {
-		HvlGradient g = new HvlGradient(Style.LINEAR);
+		HvlGradient g = new HvlGradient(Style.RADIAL);
 		g.addStop(0, Color.red);
-		g.addStop(0.2f, Color.orange);
-		g.addStop(0.4f, Color.yellow);
-		g.addStop(0.6f, Color.green);
-		g.addStop(0.8f, Color.blue);
-		g.addStop(1, new Color(255, 0, 255));
-		gradient = g.toTexture(1024, 1024, 0, 0, 0, 1024);
+		g.addStop(0.25f, Color.red);
+		g.addStop(0.5f, Color.green);
+		g.addStop(1, Color.blue);
+		gradient = g.toTexture(64, 64, 32, 32, 32, 64);
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
 
@@ -52,11 +52,15 @@ public class GradientTest extends HvlTemplate2D {
 	@Override
 	public void update(float delta) {
 		HvlRenderFrame.setCurrentRenderFrame(frame);
+		HvlPainter2D.hvlDrawQuad(0, 0, 0, 0, t);
+//		HvlPainter2D.hvlForceRefresh();
+//		HvlTextureUtil.getColoredRect(1, 1, Color.transparent).bind();
+		HvlPainter2D.hvlDrawQuad(0, 0, 720, 720, gradient);
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, gradient);
 		HvlRenderFrame.setCurrentRenderFrame(null);
-		HvlShader.setCurrentShader(shader);
+//		HvlShader.setCurrentShader(shader);
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, frame);
-		HvlShader.setCurrentShader(null);
+//		HvlShader.setCurrentShader(null);
 	}
 
 }

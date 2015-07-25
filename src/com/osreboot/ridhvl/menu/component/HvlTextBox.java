@@ -12,6 +12,10 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlTextBox extends HvlComponent {
 
+	public static abstract class OnTextChangedCommand {
+		public abstract void run(HvlTextBox callingTextBox, String text);
+	}
+	
 	private HvlComponentDrawable focusedDrawable, unfocusedDrawable;
 	private float offsetX, offsetY;
 	private float textScale;
@@ -24,6 +28,8 @@ public class HvlTextBox extends HvlComponent {
 	private boolean forceUppercase, forceLowercase;
 	private boolean numbersOnly;
 	private String blacklistCharacters;
+	
+	private OnTextChangedCommand textChangedCommand;
 
 	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
 		super(wArg, hArg);
@@ -36,6 +42,7 @@ public class HvlTextBox extends HvlComponent {
 		textColor = Color.black;
 		textScale = 1.0f;
 		pText = textArg;
+		blacklistCharacters = "";
 	}
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
@@ -50,9 +57,37 @@ public class HvlTextBox extends HvlComponent {
 		textColor = Color.black;
 		textScale = 1.0f;
 		pText = textArg;
+		blacklistCharacters = "";
 	}
 
-	public void onTextChanged(String text) {
+	public HvlTextBox(float wArg, float hArg, HvlComponentDrawable focusedDrawable, HvlComponentDrawable unfocusedDrawable, float textScale, Color textColor,
+			HvlFontPainter2D font, String text) {
+		super(wArg, hArg);
+		this.focusedDrawable = focusedDrawable;
+		this.unfocusedDrawable = unfocusedDrawable;
+		this.textScale = textScale;
+		this.textColor = textColor;
+		this.font = font;
+		this.text = text;
+		isFocused = false;
+		maxCharacters = -1;
+		pText = text;
+		blacklistCharacters = "";
+	}
+
+	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable focusedDrawable, HvlComponentDrawable unfocusedDrawable,
+			float textScale, Color textColor, HvlFontPainter2D font, String text) {
+		super(xArg, yArg, wArg, hArg);
+		this.focusedDrawable = focusedDrawable;
+		this.unfocusedDrawable = unfocusedDrawable;
+		this.textScale = textScale;
+		this.textColor = textColor;
+		this.font = font;
+		this.text = text;
+		isFocused = false;
+		maxCharacters = -1;
+		pText = text;
+		blacklistCharacters = "";
 	}
 
 	@Override
@@ -103,7 +138,10 @@ public class HvlTextBox extends HvlComponent {
 			text = text.replaceAll(String.format("[%s]", Pattern.quote(blacklistCharacters)), "");
 
 		if (!pText.equals(text))
-			onTextChanged(text);
+		{
+			if (textChangedCommand != null)
+				textChangedCommand.run(this, text);
+		}
 
 		pText = text;
 	}
@@ -111,11 +149,14 @@ public class HvlTextBox extends HvlComponent {
 	@Override
 	public void draw(float delta) {
 		if (isFocused) {
-			focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			if (focusedDrawable != null)
+				focusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		} else {
-			unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			if (unfocusedDrawable != null)
+				unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		}
-		font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textScale, textColor);
+		if (font != null && text != null && textColor != null)
+			font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textScale, textColor);
 	}
 
 	public String getText() {
@@ -230,6 +271,14 @@ public class HvlTextBox extends HvlComponent {
 		this.font = font;
 	}
 
+	public OnTextChangedCommand getTextChangedCommand() {
+		return textChangedCommand;
+	}
+
+	public void setTextChangedCommand(OnTextChangedCommand textChangedCommand) {
+		this.textChangedCommand = textChangedCommand;
+	}
+
 	public static class Builder {
 		private HvlTextBox tr;
 
@@ -332,6 +381,11 @@ public class HvlTextBox extends HvlComponent {
 
 		public Builder setFont(HvlFontPainter2D font) {
 			tr.setFont(font);
+			return this;
+		}
+
+		public Builder setTextChangedCommand(OnTextChangedCommand textChangedCommand) {
+			tr.setTextChangedCommand(textChangedCommand);
 			return this;
 		}
 

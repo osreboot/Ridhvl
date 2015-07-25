@@ -52,10 +52,16 @@ public class HvlButton extends HvlComponent {
 
 	public void draw(float delta) {
 		if (isBeingPressed(0))
-			onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+		{
+			if (onDrawable != null)
+				onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+		}
 		else if (isHovering())
-			hoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-		else
+		{
+			if (hoverDrawable != null)
+				hoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+		}
+		else if (offDrawable != null)
 			offDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 	}
 

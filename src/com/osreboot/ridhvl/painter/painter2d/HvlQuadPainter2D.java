@@ -51,7 +51,7 @@ class HvlQuadPainter2D {
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
-		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameSize(), texture.getCurrentUVY() + texture.getFrameSize());
+		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
 	}
 	
 	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
