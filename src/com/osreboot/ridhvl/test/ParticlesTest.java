@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.test.particle;
+package com.osreboot.ridhvl.test;
 
 import java.util.LinkedList;
 import java.util.List;

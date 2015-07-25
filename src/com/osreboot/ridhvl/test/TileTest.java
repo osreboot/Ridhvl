@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.test.tile;
+package com.osreboot.ridhvl.test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,10 +10,6 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 
 public class TileTest extends HvlTemplate2D {
-	
-	public static void main(String[] args) {
-		new TileTest();
-	}
 	
 	public TileTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
