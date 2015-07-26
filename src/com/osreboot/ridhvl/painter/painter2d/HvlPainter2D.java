@@ -14,6 +14,7 @@ public class HvlPainter2D {
 
 	@Deprecated
 	private static Texture refreshTexture;
+	private static Texture white512;//TODO support more sizes
 	
 	public static enum HvlPainter2DProfile{
 		DEFAULT
@@ -32,6 +33,7 @@ public class HvlPainter2D {
 		}
 		
 		refreshTexture = HvlTextureUtil.getColoredRect(1, 1, Color.transparent);
+		white512 = HvlTextureUtil.getColoredRect(512, 512, Color.white);
 	}
 
 	public static void hvlGL11Ortho(int displayWidth, int displayHeight){
@@ -41,6 +43,10 @@ public class HvlPainter2D {
 		glMatrixMode(GL_MODELVIEW);
 	}
 	
+	public static Texture getWhite512(){
+		return white512;
+	}
+
 	public static HvlFlag2D TEXMAGBLUR = new HvlFlag2D(true){
 		@Override
 		public void enable(){
@@ -91,7 +97,9 @@ public class HvlPainter2D {
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, texture);
 	}
 	
-	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, white512, c);//TODO support more sizes
+	}
 	
 	public static void hvlRotate(float x, float y, float degrees){
 		HvlSwivel2D.hvlRotate(x, y, degrees);
