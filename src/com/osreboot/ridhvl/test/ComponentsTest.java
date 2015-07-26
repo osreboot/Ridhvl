@@ -111,7 +111,6 @@ public class ComponentsTest extends HvlTemplate2D {
 			public void run(HvlButton callingButton) {
 				HvlMenu.addPopup(new HvlMenu() {
 					{
-						final HvlMenu self = this;
 						add(new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 							@Override
 							public void run(HvlButton callingButton) {
@@ -124,7 +123,6 @@ public class ComponentsTest extends HvlTemplate2D {
 				
 				HvlMenu.addPopup(new HvlMenu() {
 					{
-						final HvlMenu self = this;
 						add(new HvlTextButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 							@Override
 							public void run(HvlButton callingButton) {

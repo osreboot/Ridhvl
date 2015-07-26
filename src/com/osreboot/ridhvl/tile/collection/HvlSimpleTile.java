@@ -4,8 +4,6 @@ import java.util.regex.Pattern;
 
 import org.newdawn.slick.Color;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.HvlTile;
 import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;

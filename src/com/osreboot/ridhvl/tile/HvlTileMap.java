@@ -1,14 +1,11 @@
 package com.osreboot.ridhvl.tile;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
