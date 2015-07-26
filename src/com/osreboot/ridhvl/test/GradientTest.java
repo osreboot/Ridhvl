@@ -16,10 +16,6 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class GradientTest extends HvlTemplate2D {
-
-	public static void main(String[] args) {
-		new GradientTest();
-	}
 	
 	Texture gradient;
 	HvlShader shader;
