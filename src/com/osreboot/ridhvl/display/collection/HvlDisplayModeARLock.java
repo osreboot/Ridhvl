@@ -27,7 +27,7 @@ public class HvlDisplayModeARLock extends HvlDisplayMode{
 
 	@Override
 	public void preUpdate(float delta){
-		if(hasBeenResized()) resizePerspective(getCoordinateWidth(), getCoordinateHeight(), Display.getWidth(), Display.getHeight());
+		if(hasBeenResized()) resizePerspective(getCoordinateWidth(), getCoordinateHeight(), Display.getWidth(), Display.getHeight(), true);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -38,10 +38,15 @@ public class HvlDisplayModeARLock extends HvlDisplayMode{
 	public void postUpdate(float delta){
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
-		int oldAR = getCoordinateWidth()/getCoordinateHeight();
-		int newAR = Display.getWidth()/Display.getHeight();
+		float oldAR = (float)getCoordinateWidth()/(float)getCoordinateHeight();
+		float newAR = (float)Display.getWidth()/(float)Display.getHeight();
 		
-		HvlPainter2D.hvlDrawQuad(oldAR >= newAR ? 0 : (Display.getWidth()/2) - ((oldAR * Display.getHeight())/2), Display.getHeight(), oldAR >= newAR ? Display.getWidth() : (Display.getWidth()/2) - (oldAR * Display.getHeight()), -Display.getHeight(), renderFrame);
+		//HvlPainter2D.hvlDrawQuad(oldAR >= newAR ? 0 : (Display.getWidth()/2) - ((oldAR * Display.getHeight())/2), Display.getHeight(), oldAR >= newAR ? Display.getWidth() : (Display.getWidth()/2) - (oldAR * Display.getHeight()), -Display.getHeight(), renderFrame);
+		float x = 0;
+		float y = 0;
+		float xl = Display.getHeight() * oldAR;
+		float yl = Display.getWidth() * (1f/oldAR);
+		HvlPainter2D.hvlDrawQuad(x, y, xl, yl, renderFrame);
 	}
 
 }

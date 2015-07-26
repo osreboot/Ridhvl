@@ -54,8 +54,6 @@ class HvlQuadPainter2D {
 		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
 	}
 	
-	//TODO hvlDrawQuad(float x, float y, float xl, float yl, Color c)
-	
 	private static void constructTexturedQuad(float x, float y, float xl, float yl){
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);

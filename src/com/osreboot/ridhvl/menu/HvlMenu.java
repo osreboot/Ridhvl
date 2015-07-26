@@ -14,16 +14,17 @@ public class HvlMenu {
 		blocks = new Stack<>();
 	}
 	
-	public static HvlMenu getCurrent() {
+	public static HvlMenu getCurrent(){
 		return current;
 	}
 
-	public static void setCurrent(HvlMenu currentArg) {
+	public static void setCurrent(HvlMenu currentArg){
 		current = currentArg;
+		current.setTotalTime(0);
 		if(current.getComponents().size() > 0) current.setFocused(current.getComponents().get(0));//TODO implement boolean joystick using system
 	}
 
-	public static void updateMenus(float delta) {
+	public static void updateMenus(float delta){
 		boolean blocked = false;
 		
 		// Go from the top down (highest popup to lowest).
@@ -64,29 +65,29 @@ public class HvlMenu {
 	private ArrayList<HvlComponent> components;
 
 	private HvlComponent focused;
+	private float totalTime;
 	
-	public HvlMenu() {
+	public HvlMenu(){
 		components = new ArrayList<HvlComponent>();
 	}
 
-	public ArrayList<HvlComponent> getComponents() {
+	public ArrayList<HvlComponent> getComponents(){
 		return components;
 	}
 
-	public void add(HvlComponent control) {
+	public void add(HvlComponent control){
 		components.add(control);
 	}
 
-	public final void update(float delta) {
-		for (HvlComponent c : components)
-			c.update(delta);
+	public void update(float delta){
+		totalTime += delta;
+		for (HvlComponent c : components) c.update(delta);
 		draw(delta);
 	}
 
-	public void draw(float delta) {
-		for (HvlComponent c : components) {
-			if (c.isVisible())
-				c.draw(delta);
+	public void draw(float delta){
+		for (HvlComponent c : components){
+			if (c.isVisible()) c.draw(delta);
 		}
 	}
 
@@ -98,6 +99,14 @@ public class HvlMenu {
 		focused = focusedArg;
 	}
 
+	public float getTotalTime(){
+		return totalTime;
+	}
+
+	public void setTotalTime(float totalTimeArg){
+		totalTime = totalTimeArg;
+	}
+	
 	public static void addPopup(HvlMenu popup, boolean blocking)
 	{
 		popups.push(popup);
@@ -132,4 +141,5 @@ public class HvlMenu {
 			blocks.remove(index);
 		}
 	}
+
 }
