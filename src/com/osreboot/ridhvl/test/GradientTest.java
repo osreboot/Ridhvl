@@ -17,11 +17,13 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class GradientTest extends HvlTemplate2D {
 
+	public static void main(String[] args) {
+		new GradientTest();
+	}
+	
 	Texture gradient;
 	HvlShader shader;
 	HvlRenderFrame frame;
-	
-	Texture t;
 	
 	public GradientTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
@@ -32,12 +34,11 @@ public class GradientTest extends HvlTemplate2D {
 
 	@Override
 	public void initialize() {
-		HvlGradient g = new HvlGradient(Style.RADIAL);
+		HvlGradient g = new HvlGradient(Style.CONIC);
 		g.addStop(0, Color.red);
-		g.addStop(0.25f, Color.red);
 		g.addStop(0.5f, Color.green);
 		g.addStop(1, Color.blue);
-		gradient = g.toTexture(64, 64, 32, 32, 32, 64);
+		gradient = g.toTexture(1024, 1024, 512, 512, 1024, 0);
 		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
 
@@ -52,7 +53,7 @@ public class GradientTest extends HvlTemplate2D {
 	@Override
 	public void update(float delta) {
 		HvlRenderFrame.setCurrentRenderFrame(frame);
-		HvlPainter2D.hvlDrawQuad(0, 0, 0, 0, t);
+		HvlPainter2D.hvlDrawQuad(0, 0, 0, 0, gradient);
 //		HvlPainter2D.hvlForceRefresh();
 //		HvlTextureUtil.getColoredRect(1, 1, Color.transparent).bind();
 		HvlPainter2D.hvlDrawQuad(0, 0, 720, 720, gradient);

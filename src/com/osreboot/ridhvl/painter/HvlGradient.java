@@ -15,7 +15,7 @@ import com.osreboot.ridhvl.HvlCoord;
 
 public class HvlGradient {
 	public enum Style {
-		LINEAR, RADIAL
+		LINEAR, RADIAL, CONIC
 	}
 
 	private Map<Float, Color> stops;
@@ -36,6 +36,8 @@ public class HvlGradient {
 			return genLinear(w, h, startX, startY, endX, endY);
 		case RADIAL:
 			return genRadial(w, h, startX, startY, endX, endY);
+		case CONIC:
+			return genConic(w, h, startX, startY, endX, endY);
 		default:
 			return null;
 		}
@@ -130,6 +132,57 @@ public class HvlGradient {
 			}
 		}
 
+		try {
+			return BufferedImageUtil.getTexture("" + Math.random(), img);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	private Texture genConic(int w, int h, int startX, int startY, int endX, int endY) {
+		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+		Graphics2D graphics = img.createGraphics();
+		
+		float mainAngle = (float) Math.atan2(endY - startY, endX - startX);
+		
+		for (int x = 0; x < w; x++) {
+			for (int y = 0; y < h; y++) {
+				float currentAngle = (float) Math.atan2(y - startY, x - startX);
+				
+				currentAngle -= mainAngle;
+				
+				currentAngle = (currentAngle + ((float)Math.PI * 2)) % ((float) Math.PI * 2);
+				
+				float val = currentAngle / ((float) Math.PI * 2);
+				
+				float closestAbove = 1.0f;
+				float closestBelow = 0.0f;
+
+				for (Map.Entry<Float, Color> entry : stops.entrySet()) {
+					if (entry.getKey() >= val && entry.getKey() < closestAbove)
+						closestAbove = entry.getKey();
+					if (entry.getKey() <= val && entry.getKey() > closestBelow)
+						closestBelow = entry.getKey();
+				}
+				
+				float diff = closestAbove - closestBelow;
+				float adjVal;
+				if (diff == 0)
+					adjVal = 0.0f;
+				else
+					adjVal = (val - closestBelow) / diff;
+				
+				Color below = stops.get(closestBelow);
+				Color above = stops.get(closestAbove);
+				
+				Color toDraw = HvlColorUtil.lerpColor(below, above, adjVal);
+				java.awt.Color awtColor = new java.awt.Color(toDraw.r, toDraw.g, toDraw.b);
+				graphics.setColor(awtColor);
+				graphics.fillRect(x, y, 1, 1);
+			}
+		}
+				
 		try {
 			return BufferedImageUtil.getTexture("" + Math.random(), img);
 		} catch (IOException e) {
