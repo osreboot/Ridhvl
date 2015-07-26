@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
+
 import static org.lwjgl.opengl.GL11.*;
 
 import org.newdawn.slick.Color;
@@ -11,50 +12,49 @@ import com.osreboot.ridhvl.painter.HvlRenderFrame;
 
 class HvlQuadPainter2D {
 
-	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t) {
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		glColor4f(1, 1, 1, 1);
 		t.bind();
-		constructTexturedQuad(x, y, xl, yl, 0, 0, t.getWidth(), t.getHeight());
+		constructTexturedQuad(x, y, xl, yl);
 	}
 
-	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c) {
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
-		constructTexturedQuad(x, y, xl, yl, 0, 0, t.getWidth(), t.getHeight());
+		constructTexturedQuad(x, y, xl, yl);
 	}
 
-	protected static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t) {
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
 		glColor4f(1, 1, 1, 1);
 		t.bind();
-		constructTexturedQuad(x, y, xl, yl, uvx1 * t.getWidth(), uvy1 * t.getHeight(), uvx2 * t.getWidth(), uvy2 * t.getHeight());
+		constructTexturedQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2);
 	}
 
-	protected static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c) {
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
-		constructTexturedQuad(x, y, xl, yl, uvx1 * t.getWidth(), uvy1 * t.getHeight(), uvx2 * t.getWidth(), uvy2 * t.getHeight());
+		constructTexturedQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2);
 	}
 
-	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlRenderFrame renderFrame) {
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
 		glColor4f(1, 1, 1, 1);
 		glBindTexture(GL_TEXTURE_2D, renderFrame.getTextureID());
 		constructTexturedQuad(x, y + yl, xl, -yl);
 	}
 
-	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture) {
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(x, y, xl, yl);
 	}
-
-	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture) {
+	
+	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
-		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(),
-				texture.getCurrentUVY() + texture.getFrameHeight());
+		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
 	}
-
-	private static void constructTexturedQuad(float x, float y, float xl, float yl) {
+	
+	private static void constructTexturedQuad(float x, float y, float xl, float yl){
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex2f(x, y);
@@ -67,7 +67,7 @@ class HvlQuadPainter2D {
 		glEnd();
 	}
 
-	private static void constructTexturedQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2) {
+	private static void constructTexturedQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2){
 		glBegin(GL_QUADS);
 		glTexCoord2f(uvx1, uvy1);
 		glVertex2f(x, y);

@@ -28,12 +28,12 @@ public class HvlAnimatedTextureUV extends HvlAnimatedTexture{
 
 	public float getCurrentUVX(){
 		int frameIndex = (int)(getTotalTime()/getFrameDelay())%animationLength;
-		return ((float)frameIndex%((float)texture.getImageWidth()/(float)frameSize))*((float)frameSize/(float)texture.getImageWidth()) * texture.getWidth();
+		return ((float)frameIndex%((float)texture.getImageWidth()/(float)frameSize))*((float)frameSize/(float)texture.getImageWidth());
 	}
 
 	public float getCurrentUVY(){
 		int frameIndex = (int)(getTotalTime()/getFrameDelay())%animationLength;
-		return ((int)frameIndex/(int)((float)texture.getImageWidth()/(float)frameSize))*((float)frameSize/(float)texture.getImageHeight()) * texture.getHeight();
+		return ((int)frameIndex/(int)((float)texture.getImageWidth()/(float)frameSize))*((float)frameSize/(float)texture.getImageHeight());
 	}
 	
 	public float getFrameWidth(){
