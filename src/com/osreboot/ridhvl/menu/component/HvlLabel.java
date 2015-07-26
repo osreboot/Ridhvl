@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.menu.component;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -154,6 +155,16 @@ public class HvlLabel extends HvlComponent {
 			tr.setScale(scale);
 			return this;
 		}
+
+		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+			tr.setUpdateOverride(updateOverride);
+			return this;
+		}
+
+		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+			tr.setDrawOverride(drawOverride);
+			return this;
+		}
 		
 		public HvlLabel build() {
 			return tr;
@@ -169,6 +180,8 @@ public class HvlLabel extends HvlComponent {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		tr.setUpdateOverride(getUpdateOverride());
+		tr.setDrawOverride(getDrawOverride());
 		// HvlLabel
 		tr.font = font;
 		tr.text = text;

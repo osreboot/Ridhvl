@@ -8,6 +8,7 @@ import java.util.List;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
@@ -606,6 +607,16 @@ public class HvlListBox extends HvlComponent {
 			return this;
 		}
 
+		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+			tr.setUpdateOverride(updateOverride);
+			return this;
+		}
+
+		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+			tr.setDrawOverride(drawOverride);
+			return this;
+		}
+
 		public HvlListBox build() {
 			return tr;
 		}
@@ -620,6 +631,8 @@ public class HvlListBox extends HvlComponent {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		tr.setUpdateOverride(getUpdateOverride());
+		tr.setDrawOverride(getDrawOverride());
 		// HvlListBox
 		if (scrollBar != null)
 			tr.scrollBar = scrollBar.clone();

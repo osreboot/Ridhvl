@@ -6,6 +6,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -389,6 +390,16 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
+		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+			tr.setUpdateOverride(updateOverride);
+			return this;
+		}
+
+		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+			tr.setDrawOverride(drawOverride);
+			return this;
+		}
+
 		public HvlTextBox build() {
 			return tr;
 		}
@@ -403,6 +414,8 @@ public class HvlTextBox extends HvlComponent {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		tr.setUpdateOverride(getUpdateOverride());
+		tr.setDrawOverride(getDrawOverride());
 		// HvlTextBox
 		tr.focusedDrawable = focusedDrawable;
 		tr.unfocusedDrawable = unfocusedDrawable;

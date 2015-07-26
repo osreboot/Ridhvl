@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl.menu.component;
 
+import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
@@ -191,6 +192,16 @@ public class HvlArrangerBox extends HvlPanel {
 			tr.setBorderD(borderD);
 			return this;
 		}
+
+		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+			tr.setUpdateOverride(updateOverride);
+			return this;
+		}
+
+		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+			tr.setDrawOverride(drawOverride);
+			return this;
+		}
 		
 		public HvlArrangerBox build() {
 			return tr;
@@ -206,6 +217,8 @@ public class HvlArrangerBox extends HvlPanel {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		tr.setUpdateOverride(getUpdateOverride());
+		tr.setDrawOverride(getDrawOverride());
 		// HvlPanel
 		tr.children = children; // TODO: This might not be ideal due to
 								// references.

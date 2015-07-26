@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.menu.component.collection;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
@@ -240,6 +241,16 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 
+		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+			tr.setUpdateOverride(updateOverride);
+			return this;
+		}
+
+		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+			tr.setDrawOverride(drawOverride);
+			return this;
+		}
+
 		public HvlTextButton build() {
 			return tr;
 		}
@@ -254,6 +265,8 @@ public class HvlTextButton extends HvlButton {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		tr.setUpdateOverride(getUpdateOverride());
+		tr.setDrawOverride(getDrawOverride());
 		// HvlButton
 		tr.setOffDrawable(getOffDrawable());
 		tr.setHoverDrawable(getHoverDrawable());

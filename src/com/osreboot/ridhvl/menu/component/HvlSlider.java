@@ -444,6 +444,8 @@ public class HvlSlider extends HvlComponent {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		tr.setUpdateOverride(getUpdateOverride());
+		tr.setDrawOverride(getDrawOverride());
 		// HvlSlider
 		tr.handleUpDrawable = handleUpDrawable;
 		tr.handleDownDrawable = handleDownDrawable;

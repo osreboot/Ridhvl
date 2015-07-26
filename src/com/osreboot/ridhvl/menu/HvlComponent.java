@@ -10,6 +10,8 @@ public abstract class HvlComponent {
 	
 	private boolean enabled, visible, focused;
 	
+	private HvlCompMethodOverride updateOverride, drawOverride;
+	
 	protected HvlComponent(float wArg, float hArg)
 	{
 		width = wArg;
@@ -26,6 +28,22 @@ public abstract class HvlComponent {
 		height = hArg;
 		visible = true;
 		enabled = true;
+	}
+	
+	public void metaUpdate(float delta)
+	{
+		if (updateOverride != null)
+			updateOverride.run(this, delta);
+		else
+			update(delta);
+	}
+	
+	public void metaDraw(float delta)
+	{
+		if (drawOverride != null)
+			drawOverride.run(this, delta);
+		else
+			draw(delta);
 	}
 	
 	public void update(float delta) {}
@@ -97,5 +115,21 @@ public abstract class HvlComponent {
 
 	public void setFocused(boolean focusedArg) {
 		focused = focusedArg;
+	}
+
+	public HvlCompMethodOverride getUpdateOverride() {
+		return updateOverride;
+	}
+
+	public void setUpdateOverride(HvlCompMethodOverride updateOverride) {
+		this.updateOverride = updateOverride;
+	}
+
+	public HvlCompMethodOverride getDrawOverride() {
+		return drawOverride;
+	}
+
+	public void setDrawOverride(HvlCompMethodOverride drawOverride) {
+		this.drawOverride = drawOverride;
 	}
 }

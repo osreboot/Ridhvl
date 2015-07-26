@@ -3,6 +3,7 @@ package com.osreboot.ridhvl.menu.component;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
@@ -107,6 +108,16 @@ public class HvlPanel extends HvlComponent {
 			return this;
 		}
 
+		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+			tr.setUpdateOverride(updateOverride);
+			return this;
+		}
+
+		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+			tr.setDrawOverride(drawOverride);
+			return this;
+		}
+
 		public HvlPanel build() {
 			return tr;
 		}
@@ -121,6 +132,8 @@ public class HvlPanel extends HvlComponent {
 		tr.setHeight(getHeight());
 		tr.setEnabled(isEnabled());
 		tr.setVisible(isVisible());
+		tr.setUpdateOverride(getUpdateOverride());
+		tr.setDrawOverride(getDrawOverride());
 		// HvlPanel
 		tr.children = children; // TODO: This might not be ideal due to
 								// references.
