@@ -1,10 +1,18 @@
 package com.osreboot.ridhvl.menu;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class HvlMenu {
 
 	private static HvlMenu current;
+	private static Stack<HvlMenu> popups;
+	private static Stack<Boolean> blocks;
+	
+	static {
+		popups = new Stack<>();
+		blocks = new Stack<>();
+	}
 	
 	public static HvlMenu getCurrent(){
 		return current;
@@ -17,8 +25,39 @@ public class HvlMenu {
 	}
 
 	public static void updateMenus(float delta){
-		if(current != null) current.update(delta);
+		boolean blocked = false;
+		
+		// Go from the top down (highest popup to lowest).
+		for(int i = popups.size() - 1; i >= 0; i--)
+		{
+			HvlMenu popup = popups.get(i);
+			boolean block = blocks.get(i);
+			
+			// If nothing else has blocked updating, we can update this.
+			if (!blocked)
+			{
+				popup.update(delta);
+				popup.draw(delta);
+			}
+			
+			// If this blocks lower popups, then say that we are blocked.
+			if (block && !blocked)
+				blocked = true;
+		}
+		
+		if (!blocked)
+		{
+			current.update(delta);
+		}
+		
+		// Draw in reverse order: draw the main menu...
 		current.draw(delta);
+		
+		// ... and then the popups from the bottom up.
+		for(int i = 0; i < popups.size(); i++)
+		{
+			popups.get(i).draw(delta);
+		}
 	}
 
 	public static ArrayList<HvlMenu> menus = new ArrayList<HvlMenu>();
@@ -66,6 +105,41 @@ public class HvlMenu {
 
 	public void setTotalTime(float totalTimeArg){
 		totalTime = totalTimeArg;
+	}
+	
+	public static void addPopup(HvlMenu popup, boolean blocking)
+	{
+		popups.push(popup);
+		blocks.push(blocking);
+	}
+	
+	public static void removePopup()
+	{
+		popups.pop();
+		blocks.pop();
+	}
+	
+	public static void removePopup(HvlMenu remove, boolean allAbove)
+	{
+		if (!popups.contains(remove)) return;
+		
+		int index = popups.indexOf(remove);
+		
+		if (allAbove)
+		{
+			while (popups.peek() != remove)
+			{
+				popups.pop();
+				blocks.pop();
+			}
+			popups.pop();
+			blocks.pop();
+		}
+		else
+		{
+			popups.remove(index);
+			blocks.remove(index);
+		}
 	}
 
 }

@@ -8,13 +8,15 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 public class HvlTextureDrawable extends HvlComponentDrawable {
 
 	private Texture texture;
-	
+
 	public HvlTextureDrawable(Texture textureArg) {
 		texture = textureArg;
 	}
 
 	@Override
 	public void draw(float delta, float x, float y, float width, float height) {
+		if (texture == null)
+			return;
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, texture);
 	}
 

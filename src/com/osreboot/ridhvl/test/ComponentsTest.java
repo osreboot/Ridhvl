@@ -37,7 +37,7 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextButton testButton;
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
-	
+
 	public ComponentsTest() {
 		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
 	}
@@ -104,14 +104,36 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		// testCheck = new
-		// HvlCheckbox.Builder().setWidth(64).setHeight(64).build();
 		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).build();
 
 		testButton = new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 			@Override
 			public void run(HvlButton callingButton) {
-				System.out.println("BUTTONCLICK!");
+				HvlMenu.addPopup(new HvlMenu() {
+					{
+						final HvlMenu self = this;
+						add(new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
+							@Override
+							public void run(HvlButton callingButton) {
+								System.out.println("BUTTONCLICK1!");
+								HvlMenu.removePopup();
+							}
+						}).build());
+					}
+				}, true);
+				
+				HvlMenu.addPopup(new HvlMenu() {
+					{
+						final HvlMenu self = this;
+						add(new HvlTextButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
+							@Override
+							public void run(HvlButton callingButton) {
+								System.out.println("BUTTONCLICK2!");
+								HvlMenu.removePopup();
+							}
+						}).build());
+					}
+				}, true);
 			}
 		}).build();
 
@@ -129,9 +151,8 @@ public class ComponentsTest extends HvlTemplate2D {
 				.add(testCheck)
 				.add(testButton)
 				.add(testTextBox)
-				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(SliderDirection.HORIZONTAL).setTextureDirection(SliderDirection.HORIZONTAL)
-						.build())
-						.add(testListBox).build();
+				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(SliderDirection.HORIZONTAL)
+						.setTextureDirection(SliderDirection.HORIZONTAL).build()).add(testListBox).build();
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);

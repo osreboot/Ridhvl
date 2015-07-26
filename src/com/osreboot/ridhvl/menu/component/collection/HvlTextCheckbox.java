@@ -16,15 +16,66 @@ public class HvlTextCheckbox extends HvlCheckbox {
 
 	private float spacing;
 
-	public HvlTextCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
-		super(xlArg, ylArg, offArg, onArg);
+	public HvlTextCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font,
+			String text, Color color, float scale) {
+		super(xlArg, ylArg, checkedArg, offArg, onArg);
+		this.font = font;
+		this.text = text;
+		this.color = color;
+		this.scale = scale;
+	}
+
+	public HvlTextCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+			HvlComponentDrawable onArg, HvlFontPainter2D font, String text, Color color, float scale) {
+		super(xlArg, ylArg, checkedArg, offArg, hoverArg, onArg);
+		this.font = font;
+		this.text = text;
+		this.color = color;
+		this.scale = scale;
+	}
+
+	public HvlTextCheckbox(float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg, HvlFontPainter2D font, String text, Color color, float scale) {
+		super(xlArg, ylArg, checkedArg, offArg, offHoverArg, onArg, onHoverArg);
+		this.font = font;
+		this.text = text;
+		this.color = color;
+		this.scale = scale;
+	}
+
+	public HvlTextCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg,
+			HvlFontPainter2D font, String text, Color color, float scale) {
+		super(xArg, yArg, xlArg, ylArg, checkedArg, offArg, onArg);
+		this.font = font;
+		this.text = text;
+		this.color = color;
+		this.scale = scale;
+	}
+
+	public HvlTextCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+			HvlComponentDrawable onArg, HvlFontPainter2D font, String text, Color color, float scale) {
+		super(xArg, yArg, xlArg, ylArg, checkedArg, offArg, hoverArg, onArg);
+		this.font = font;
+		this.text = text;
+		this.color = color;
+		this.scale = scale;
+	}
+
+	public HvlTextCheckbox(float xArg, float yArg, float xlArg, float ylArg, boolean checkedArg, HvlComponentDrawable offArg, HvlComponentDrawable offHoverArg,
+			HvlComponentDrawable onArg, HvlComponentDrawable onHoverArg, HvlFontPainter2D font, String text, Color color, float scale) {
+		super(xArg, yArg, xlArg, ylArg, checkedArg, offArg, offHoverArg, onArg, onHoverArg);
+		this.font = font;
+		this.text = text;
+		this.color = color;
+		this.scale = scale;
 	}
 
 	@Override
 	public void draw(float delta) {
 		super.draw(delta);
 
-		font.drawWord(text, getX() + getWidth() + spacing, getY() + (getHeight() / 2) - (font.getFontHeight() * scale / 2), scale, color);
+		if (font != null && text != null && color != null)
+			font.drawWord(text, getX() + getWidth() + spacing, getY() + (getHeight() / 2) - (font.getFontHeight() * scale / 2), scale, color);
 	}
 
 	public void onChanged(boolean state) {
@@ -78,7 +129,7 @@ public class HvlTextCheckbox extends HvlCheckbox {
 			if (HvlComponentDefault.hasDefault(HvlTextCheckbox.class))
 				tr = HvlComponentDefault.getDefault(HvlTextCheckbox.class).clone();
 			else
-				tr = new HvlTextCheckbox(0, 0, null, null);
+				tr = new HvlTextCheckbox(0, 0, false, null, null, null, null, "", Color.white, 1.0f);
 		}
 
 		public Builder setX(float x) {
@@ -172,7 +223,7 @@ public class HvlTextCheckbox extends HvlCheckbox {
 	}
 
 	public HvlTextCheckbox clone() {
-		HvlTextCheckbox tr = new HvlTextCheckbox(0, 0, null, null);
+		HvlTextCheckbox tr = new HvlTextCheckbox(0, 0, false, null, null, null, null, "", Color.white, 1.0f);;
 		// HvlComponent
 		tr.setX(getX());
 		tr.setY(getY());

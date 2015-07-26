@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.test.tile;
+package com.osreboot.ridhvl.test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -64,7 +64,7 @@ public class TileTest extends HvlTemplate2D {
 	@Override
 	public void update(float delta) {
 		if (tilemaps != null)
-		{
+		{			
 			tilemaps.draw(delta);
 		}
 	}
