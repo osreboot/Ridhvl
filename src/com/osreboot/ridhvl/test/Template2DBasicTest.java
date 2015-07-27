@@ -23,10 +23,9 @@ public class Template2DBasicTest extends HvlTemplate2D{
 
 	@Override
 	public void initialize(){
-		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256, 10);
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class Template2DBasicTest extends HvlTemplate2D{
 		}
 
 		hvlRotate(300f, 300f, gradient/1280f*360f);
-		hvlDrawQuad(250, 250, 100, 100, textureLoader.getResource(0));
+		hvlDrawQuad(250, 250, 100, 100, Color.white);
 		hvlResetRotation();
 
 		fontPainter.drawWord("test of the most basic template!", 10, 10, 1260, 100, new Color(gradient/1280f, gradient/1280f, gradient/1280f));

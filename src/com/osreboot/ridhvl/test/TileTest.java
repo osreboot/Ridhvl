@@ -12,7 +12,7 @@ import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 public class TileTest extends HvlTemplate2D {
 	
 	public TileTest() {
-		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Ridhvl TileMap Test", new HvlDisplayModeDefault());
 	}
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader();
@@ -21,11 +21,10 @@ public class TileTest extends HvlTemplate2D {
 	
 	@Override
 	public void initialize() {
-		textureLoader.loadResource("White");
-		textureLoader.loadResource("TestTilemap");
+		textureLoader.loadResource("Icon");
 
-//		tilemaps = new HvlTileMap[] {new HvlTileMap(textureLoader.getResource(1), 16, 16, 16, 16, 0,
-//				0, 64, 64), new HvlTileMap(textureLoader.getResource(1), 16, 16, 16, 16, 0,
+//		tilemaps = new HvlTileMap[] {new HvlTileMap(textureLoader.getResource(0), 16, 16, 16, 16, 0,
+//				0, 64, 64), new HvlTileMap(textureLoader.getResource(0), 16, 16, 16, 16, 0,
 //						0, 64, 64)};
 //		tilemaps[0].fill(new HvlSimpleTile(0));
 //		tilemaps[0].setTile(0, 0, new HvlSimpleTile(96));
@@ -49,7 +48,7 @@ public class TileTest extends HvlTemplate2D {
 				sb.append(current);
 				sb.append(System.lineSeparator());
 			}
-			tilemaps = HvlLayeredTileMap.load(sb.toString(),  textureLoader.getResource(1),  0, 0, 64, 64);
+			tilemaps = HvlLayeredTileMap.load(sb.toString(),  textureLoader.getResource(0),  0, 0, 64, 64);
 			tilemaps.setCutOff(true);
 			tilemaps.setxLeft(0);
 			tilemaps.setxRight(512);

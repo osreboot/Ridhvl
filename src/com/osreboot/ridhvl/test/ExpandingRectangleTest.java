@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.test;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+
 import org.lwjgl.input.Keyboard;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
@@ -9,9 +11,9 @@ import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ExpandingRectangleTest extends HvlTemplate2D {
-
+	
 	public ExpandingRectangleTest() {
-		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Ridhvl Expanding Rectangle Test", new HvlDisplayModeDefault());
 	}
 	
 	static HvlTextureLoader textureLoader = new HvlTextureLoader();
@@ -19,14 +21,13 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 	
 	@Override
 	public void initialize() {
-		textureLoader.loadResource("White");
-		textureLoader.loadResource("ButtonDown");
-		testRect = new HvlTiledRect(textureLoader.getResource(1), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 512, 256, 16, 16);
+		textureLoader.loadResource("Icon");
+		testRect = new HvlTiledRect(textureLoader.getResource(0), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 512, 256, 16, 16);
 	}
 
 	@Override
 	public void update(float delta) {
-		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, textureLoader.getResource(0));
+		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, getWhite512());
 		testRect.draw();
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_D))
