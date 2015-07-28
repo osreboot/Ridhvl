@@ -17,6 +17,7 @@ import org.newdawn.slick.opengl.ImageIOImageData;
 
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
+import com.osreboot.ridhvl.input.HvlInput;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
@@ -52,6 +53,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		
 		HvlDisplay.initializeDisplayMode();
 		
+		HvlInput.initialize();
+		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();
 		
@@ -81,6 +84,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		
 		HvlDisplay.initializeDisplayMode();
 		
+		HvlInput.initialize();
+		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();
 		
@@ -90,6 +95,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	@Override
 	public void preUpdate(float delta){
 		HvlDisplay.preUpdate(delta);
+		
+		HvlInput.update();
 		
 		HvlAnimatedTexture.updateTextures(delta);
 		
