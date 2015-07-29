@@ -26,21 +26,23 @@ public class HvlInput {
 	private static int controllerIndex = 0;
 	private static boolean joystickEnabled;
 	
-	private HvlInputFilter filter;
+	private HvlInputFilter[] filter;
 	
-	public HvlInput(HvlInputFilter filterArg){
+	public HvlInput(HvlInputFilter... filterArg){
 		filter = filterArg;
 	}
 	
 	public float getCurrentOutput(){
-		return filter.getCurrentOutput();
+		float total = 0;
+		for(int i = 0; i < filter.length; i++) total += filter[i].getCurrentOutput();
+		return Math.min(1, total);
 	}
 	
-	public HvlInputFilter getFilter(){
+	public HvlInputFilter[] getFilters(){
 		return filter;
 	}
 
-	public void setFilter(HvlInputFilter filterArg){
+	public void setFilter(HvlInputFilter... filterArg){
 		filter = filterArg;
 	}
 
