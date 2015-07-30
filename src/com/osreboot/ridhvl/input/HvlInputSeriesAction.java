@@ -1,6 +1,5 @@
 package com.osreboot.ridhvl.input;
 
-import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -12,9 +11,8 @@ public class HvlInputSeriesAction {
 
 	public static final HvlInputFilter FILTER_UP = new HvlInputFilter(){
 		public float getCurrentOutput(){
-			//TODO if(HvlInput.isJoystickEnabled()) return Math.min(1, (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP) ? 1 : 0) + Controllers.getController(HvlInput.getControllerIndex()).getAxisValue(0));
 			return Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP) ? 1 : 0;
-		}//TODO convert math.min to a meta output function, where output is automagically limited to 1
+		}
 	};
 
 	public static final HvlInputFilter FILTER_DOWN = new HvlInputFilter(){
