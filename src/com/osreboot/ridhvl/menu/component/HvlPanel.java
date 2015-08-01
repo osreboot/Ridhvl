@@ -26,7 +26,7 @@ public class HvlPanel extends HvlComponent {
 		for (HvlComponent comp : children) {
 			if (comp == null)
 				continue;
-			comp.update(delta);
+			comp.metaUpdate(delta);
 		}
 	}
 
@@ -36,7 +36,7 @@ public class HvlPanel extends HvlComponent {
 			if (comp == null)
 				continue;
 			if (comp.isVisible())
-				comp.draw(delta);
+				comp.metaDraw(delta);
 		}
 	}
 

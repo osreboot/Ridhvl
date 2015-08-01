@@ -81,13 +81,13 @@ public class HvlMenu {
 
 	public void update(float delta){
 		totalTime += delta;
-		for (HvlComponent c : components) c.update(delta);
+		for (HvlComponent c : components) c.metaUpdate(delta);
 		draw(delta);
 	}
 
 	public void draw(float delta){
 		for (HvlComponent c : components){
-			if (c.isVisible()) c.draw(delta);
+			if (c.isVisible()) c.metaDraw(delta);
 		}
 	}
 

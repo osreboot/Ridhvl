@@ -30,7 +30,7 @@ public abstract class HvlComponent {
 		enabled = true;
 	}
 	
-	public void metaUpdate(float delta)
+	public final void metaUpdate(float delta)
 	{
 		if (updateOverride != null)
 			updateOverride.run(this, delta);
@@ -38,12 +38,16 @@ public abstract class HvlComponent {
 			update(delta);
 	}
 	
-	public void metaDraw(float delta)
-	{
+	public final void metaDraw(float delta)
+	{		
 		if (drawOverride != null)
+		{
 			drawOverride.run(this, delta);
+		}
 		else
+		{
 			draw(delta);
+		}
 	}
 	
 	public void update(float delta) {}
