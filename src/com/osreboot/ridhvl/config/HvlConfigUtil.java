@@ -17,13 +17,30 @@ import java.util.regex.Pattern;
 
 import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
 
+/**
+ * This is used to load properties into any class using reflection.
+ */
 public class HvlConfigUtil {
 
 	@HvlConfigIgnore
-	public static final String delimeter = ":";
+	/**
+	 * The delimiter between property name and value in a saved file.
+	 */
+	public static final String delimiter = ":";
+	
 	@HvlConfigIgnore
-	public static final String regexDelim = Pattern.quote(delimeter);
+	/**
+	 * The regex-quoted version of <code>delimiter</code> (Pattern.quote(delimiter))
+	 * @see HvlConfigUtil.delimiter
+	 */
+	public static final String regexDelim = Pattern.quote(delimiter);
 
+	/**
+	 * Loads a config file from the given path into a newly created object.
+	 * @param type The type to load the data into.
+	 * @param path The path to the config file.
+	 * @return The loaded config class with the variables set from the config file.
+	 */
 	public static <TConfigType> TConfigType loadConfig(
 			Class<? extends TConfigType> type, String path) {
 		Scanner scan = null;
@@ -101,6 +118,12 @@ public class HvlConfigUtil {
 		}
 	}
 
+	/**
+	 * Loads a config file from the given path into an existing object.
+	 * @param obj The object to load the data into.
+	 * @param path The path to the config file.
+	 * @return The object sent in from obj, but with the properties set from the config file.
+	 */
 	public static <TConfigType> TConfigType loadConfig(TConfigType obj,
 			String path) {
 		Scanner scan = null;
@@ -234,6 +257,11 @@ public class HvlConfigUtil {
 		}
 	}
 
+	/**
+	 * Loads a config file from the given path into the static variables of a class.
+	 * @param type The type to load the data into.
+	 * @param path The path to the config file.
+	 */
 	public static void loadStaticConfig(Class<? extends Object> type,
 			String path) {
 		Scanner scan = null;
@@ -313,6 +341,15 @@ public class HvlConfigUtil {
 		}
 	}
 
+	/**
+	 * Saves the properties of a class to a config file.
+	 * <ul>
+	 * Note regarding the <code>includeStatic</code> parameter:
+	 * To load files saved like this, you need to use both loadConfig and loadStaticConfig.
+	 * @param in The object to save the properties of.
+	 * @param path The path to save the config file at.
+	 * @param includeStatic Should this also save the static properties of the class?
+	 */
 	public static <TConfigType> void saveConfig(TConfigType in, String path,
 			boolean includeStatic) {
 		try {
@@ -351,7 +388,7 @@ public class HvlConfigUtil {
 						int l = Array.getLength(f.get(in));
 						
 						StringBuilder sb = new StringBuilder();
-						sb.append(f.getName() + delimeter);
+						sb.append(f.getName() + delimiter);
 						sb.append("{");
 						if (l > 0)
 						{
@@ -383,7 +420,7 @@ public class HvlConfigUtil {
 							|| f.getType().equals(Boolean.class)
 							|| f.getType().equals(boolean.class)) {
 						try {
-							writer.write(f.getName() + delimeter + f.get(in));
+							writer.write(f.getName() + delimiter + f.get(in));
 							writer.write(System.lineSeparator());
 						} catch (IllegalArgumentException | IllegalAccessException e) {
 							e.printStackTrace();
@@ -398,6 +435,11 @@ public class HvlConfigUtil {
 		}
 	}
 
+	/**
+	 * Saves the static properties of a class to a config file.
+	 * @param type The type to save the properties of.
+	 * @param path The path to save the config file at.
+	 */
 	public static void saveStaticConfig(Class<? extends Object> type,
 			String path) {
 		try {
@@ -435,7 +477,7 @@ public class HvlConfigUtil {
 						int l = Array.getLength(f.get(null));
 						
 						StringBuilder sb = new StringBuilder();
-						sb.append(f.getName() + delimeter);
+						sb.append(f.getName() + delimiter);
 						sb.append("{");
 						if (l > 0)
 						{
@@ -467,7 +509,7 @@ public class HvlConfigUtil {
 							|| f.getType().equals(Boolean.class)
 							|| f.getType().equals(boolean.class)) {
 						try {
-							writer.write(f.getName() + delimeter + f.get(null));
+							writer.write(f.getName() + delimiter + f.get(null));
 							writer.write(System.lineSeparator());
 						} catch (IllegalArgumentException | IllegalAccessException e) {
 							e.printStackTrace();

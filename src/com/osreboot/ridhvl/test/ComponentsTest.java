@@ -11,6 +11,8 @@ import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
+import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
@@ -115,7 +117,15 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).build();
+		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).setDrawOverride(new HvlCompMethodOverride() {
+
+			@Override
+			public void run(HvlComponent calling, float delta) {
+				calling.draw(delta);
+				System.out.println("OVERRIDE!");
+				
+			}
+		}).build();
 
 		testButton = new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 			@Override
