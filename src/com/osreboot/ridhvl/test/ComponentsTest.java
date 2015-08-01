@@ -1,8 +1,11 @@
 package com.osreboot.ridhvl.test;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlTextureUtil;
@@ -26,15 +29,13 @@ import com.osreboot.ridhvl.menu.component.collection.HvlTextButton;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
+import com.osreboot.ridhvl.painter.HvlGradient;
+import com.osreboot.ridhvl.painter.HvlGradient.Style;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ComponentsTest extends HvlTemplate2D {
-
-	public static void main(String[] args) {
-		new ComponentsTest();
-	}
 	
 	private HvlMenu testMenu;
 	private HvlArrangerBox testArranger;
@@ -45,7 +46,7 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlListBox testListBox;
 	
 	public ComponentsTest() {
-		super(60, 1280, 720, "Unnamed", new HvlDisplayModeResizable());
+		super(60, 1280, 720, "Ridhvl Components Test", new HvlDisplayModeResizable());
 	}
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader();
@@ -54,19 +55,25 @@ public class ComponentsTest extends HvlTemplate2D {
 	@Override
 	public void initialize() {
 		Keyboard.enableRepeatEvents(true);
-		textureLoader.loadResource("White");
+		textureLoader.loadResource("Icon");
 		textureLoader.loadResource("Font");
-		textureLoader.loadResource("ButtonUp");
-		textureLoader.loadResource("ButtonHover");
-		textureLoader.loadResource("ButtonDown");
-		textureLoader.loadResource("SliderBG");
-		textureLoader.loadResource("SliderHandleOff");
-		textureLoader.loadResource("SliderHandleOn");
+		textureLoader.loadResource("Cursor");
+		
+		HvlGradient grad = new HvlGradient(Style.RADIAL);
+		grad.addStop(0, Color.orange);
+		grad.addStop(1, Color.darkGray);
+		Texture gradient = grad.toTexture(512, 512, 256, 256, 0, 0);
+		grad.addStop(0, Color.blue);
+		grad.addStop(1, Color.lightGray);
+		Texture gradient2 = grad.toTexture(512, 512, 256, 256, 0, 0);
+		grad.addStop(0, Color.yellow);
+		grad.addStop(1, Color.green);
+		Texture gradient3 = grad.toTexture(512, 512, 256, 256, 0, 0);
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256, 10);
 
-		HvlComponentDefault.setDefault(new HvlTextButton.Builder().setOffDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
-				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(3))).setOnDrawable(new HvlTextureDrawable(textureLoader.getResource(4)))
+		HvlComponentDefault.setDefault(new HvlTextButton.Builder().setOffDrawable(new HvlTextureDrawable(gradient2))
+				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2))).setOnDrawable(new HvlTextureDrawable(gradient))
 				.setFont(fontPainter).setTextScale(0.5f).setTextColor(Color.red).setxAlign(0.5f).setyAlign(0.5f).build());
 
 		HvlComponentDefault.setDefault(new HvlArrangerBox.Builder().setStyle(ArrangementStyle.VERTICAL).setAlign(0.5f).build());
@@ -83,23 +90,23 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setColor(Color.magenta).setScale(0.25f).setSpacing(32f).build());
 
 		HvlComponentDefault.setDefault(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).setHandleWidth(16)
-				.setHandleHeight(16).setValue(0.0f).setHandleUpDrawable(new HvlTextureDrawable(textureLoader.getResource(6)))
-				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(7)))
-				.setBackground(new HvlTextureDrawable(textureLoader.getResource(5))).setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f)
+				.setHandleHeight(16).setValue(0.0f).setHandleUpDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
+				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
+				.setBackground(new HvlTextureDrawable(getWhite512())).setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f)
 				.setTextureDirection(SliderDirection.HORIZONTAL).build());
 
 		HvlComponentDefault.setDefault(new HvlListBox.Builder()
 				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(128).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
-				.setItemBackgroundOff(new HvlTextureDrawable(textureLoader.getResource(5)))
-				.setItemBackgroundHover(new HvlTextureDrawable(textureLoader.getResource(6)))
-				.setItemBackgroundOn(new HvlTextureDrawable(textureLoader.getResource(7))).setItemHeight(48.0f).setMaxVisibleItems(5).setTextScale(0.25f)
-				.setAutoSize(false).setBackground(new HvlTextureDrawable(textureLoader.getResource(2))).setFullBackground(true).build());
+				.setItemBackgroundOff(new HvlTextureDrawable(textureLoader.getResource(2)))
+				.setItemBackgroundHover(new HvlTextureDrawable(textureLoader.getResource(2)))
+				.setItemBackgroundOn(new HvlTextureDrawable(textureLoader.getResource(2))).setItemHeight(48.0f).setMaxVisibleItems(5).setTextScale(0.25f)
+				.setAutoSize(false).setBackground(new HvlTextureDrawable(gradient)).setFullBackground(true).build());
 
 		HvlComponentDefault.setDefault(new HvlTextBox.Builder()
 				.setFocusedDrawable(
-						new HvlTiledRectDrawable(new HvlTiledRect(textureLoader.getResource(2), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
+						new HvlTiledRectDrawable(new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
 				.setUnfocusedDrawable(
-						new HvlTiledRectDrawable(new HvlTiledRect(textureLoader.getResource(4), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
+						new HvlTiledRectDrawable(new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
 				.setFont(fontPainter).setTextScale(0.4f).setForceLowercase(true).setOffsetX(12f).setOffsetY(12f).build());
 
 		HvlComponentDefault.setDefault(new HvlLabel.Builder().setFont(fontPainter).setColor(Color.red).build());

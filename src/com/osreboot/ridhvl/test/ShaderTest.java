@@ -18,7 +18,7 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 public class ShaderTest extends HvlTemplateInteg2D{
 	
 	public ShaderTest(){
-		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Ridhvl Shader Test", new HvlDisplayModeDefault());
 	}
 
 	static HvlFontPainter2D fontPainter;
@@ -29,12 +29,11 @@ public class ShaderTest extends HvlTemplateInteg2D{
 	
 	@Override
 	public void initialize(){
-		getTextureLoader().loadResource("White");
 		getTextureLoader().loadResource("Font");
 		getTextureLoader().loadResource("Cursor");
-		getTextureLoader().loadResource("Gradient");
+		getTextureLoader().loadResource("Icon");
 		
-		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
+		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
 		
 		frame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, 1280, 720);
 		
@@ -51,7 +50,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 	public void update(float delta){
 		HvlRenderFrame.setCurrentRenderFrame(frame);
 		
-		hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(3));
+		hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(2));
 		
 		hvlRotate((getWidth()/2), (getHeight()/2), getNewestInstance().getTimer().getTotalTime()/2*360f);
 		hvlDrawQuad((getWidth()/2) - 200, (getHeight()/2) - 200, 400, 400, texture.getCurrentTexture());

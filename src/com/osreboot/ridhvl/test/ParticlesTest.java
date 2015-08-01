@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.test;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 public class ParticlesTest extends HvlTemplate2D {
 	
 	public ParticlesTest() {
-		super(60, 1280, 720, "Unnamed", new HvlDisplayModeDefault());
+		super(60, 1280, 720, "Ridhvl Particle Test", new HvlDisplayModeDefault());
 	}
 
 	// HvlRadialParticleSystem particles;
@@ -32,10 +34,9 @@ public class ParticlesTest extends HvlTemplate2D {
 	public void initialize() {
 		particles = new LinkedList<>();
 
-		textureLoader.loadResource("White");
 		textureLoader.loadResource("Font");
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1),
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0),
 				HvlFontUtil.DEFAULT, 2048, 2048, 40, 50, 51);
 
 		final int count = 25;
@@ -43,7 +44,7 @@ public class ParticlesTest extends HvlTemplate2D {
 		for (int i = 0; i < count; i++) {
 			HvlRectangularParticleSystem toAdd = new HvlRectangularParticleSystem(
 					1280 / 2, 720 / 2, 16, 64, 0, 0, Display.getWidth(),
-					Display.getHeight(), textureLoader.getResource(0), textureLoader.getResource(1));
+					Display.getHeight(), getWhite512(), textureLoader.getResource(0));
 			toAdd.setMaxParticles(250);
 			toAdd.setMinScale(0.25f);
 			toAdd.setMaxScale(1);

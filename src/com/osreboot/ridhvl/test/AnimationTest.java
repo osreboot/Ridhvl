@@ -23,13 +23,13 @@ public class AnimationTest extends HvlTemplateInteg2D{
 	
 	@Override
 	public void initialize(){
-		getTextureLoader().loadResource("Gradient");
-		getTextureLoader().loadResource("Art_Select");
+		getTextureLoader().loadResource("Icon");
+		getTextureLoader().loadResource("Font");
 		
 		animationLoader = new HvlTextureSeriesLoader();
 		//animationLoader.loadResource("animation\\WubSplash_%03d", 375, 2);
 		
-		animation = new HvlAnimatedTextureUV(getTextureLoader().getResource(1), 256, 128, 0.01f);
+		animation = new HvlAnimatedTextureUV(getTextureLoader().getResource(1), 256, 128, 1f);
 		//animation = new HvlAnimatedTextureArray(animationLoader.getResource(0), 0.02f);
 		
 		

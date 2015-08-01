@@ -17,8 +17,10 @@ public abstract class HvlTimer {
 			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
 			delta = (time - last);//TODO if user is not dragging window?
 			last = time;
-			total += ((float)delta / 1000)*dilation;
-			if(delta > 0 && delta < time) update(((float)delta / 1000)*dilation);
+			if(delta > 0 && delta < time){
+				total += ((float)delta / 1000)*dilation;
+				update(((float)delta / 1000)*dilation);
+			}
 		}
 	}
 	
