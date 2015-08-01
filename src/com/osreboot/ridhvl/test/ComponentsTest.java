@@ -36,7 +36,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ComponentsTest extends HvlTemplate2D {
-	
+
 	private HvlMenu testMenu;
 	private HvlArrangerBox testArranger;
 	private HvlLabel testLabel;
@@ -44,7 +44,7 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextButton testButton;
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
-	
+
 	public ComponentsTest() {
 		super(60, 1280, 720, "Ridhvl Components Test", new HvlDisplayModeResizable());
 	}
@@ -58,7 +58,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		textureLoader.loadResource("Icon");
 		textureLoader.loadResource("Font");
 		textureLoader.loadResource("Cursor");
-		
+
 		HvlGradient grad = new HvlGradient(Style.RADIAL);
 		grad.addStop(0, Color.orange);
 		grad.addStop(1, Color.darkGray);
@@ -73,8 +73,8 @@ public class ComponentsTest extends HvlTemplate2D {
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256, 10);
 
 		HvlComponentDefault.setDefault(new HvlTextButton.Builder().setOffDrawable(new HvlTextureDrawable(gradient2))
-				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2))).setOnDrawable(new HvlTextureDrawable(gradient))
-				.setFont(fontPainter).setTextScale(0.5f).setTextColor(Color.red).setxAlign(0.5f).setyAlign(0.5f).build());
+				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2))).setOnDrawable(new HvlTextureDrawable(gradient)).setFont(fontPainter)
+				.setTextScale(0.5f).setTextColor(Color.red).setxAlign(0.5f).setyAlign(0.5f).build());
 
 		HvlComponentDefault.setDefault(new HvlArrangerBox.Builder().setStyle(ArrangementStyle.VERTICAL).setAlign(0.5f).build());
 
@@ -91,9 +91,8 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		HvlComponentDefault.setDefault(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).setHandleWidth(16)
 				.setHandleHeight(16).setValue(0.0f).setHandleUpDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
-				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
-				.setBackground(new HvlTextureDrawable(getWhite512())).setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f)
-				.setTextureDirection(SliderDirection.HORIZONTAL).build());
+				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(2))).setBackground(new HvlTextureDrawable(getWhite512()))
+				.setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f).setTextureDirection(SliderDirection.HORIZONTAL).build());
 
 		HvlComponentDefault.setDefault(new HvlListBox.Builder()
 				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(128).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
@@ -103,10 +102,8 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setAutoSize(false).setBackground(new HvlTextureDrawable(gradient)).setFullBackground(true).build());
 
 		HvlComponentDefault.setDefault(new HvlTextBox.Builder()
-				.setFocusedDrawable(
-						new HvlTiledRectDrawable(new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
-				.setUnfocusedDrawable(
-						new HvlTiledRectDrawable(new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
+				.setFocusedDrawable(new HvlTiledRectDrawable(new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
+				.setUnfocusedDrawable(new HvlTiledRectDrawable(new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
 				.setFont(fontPainter).setTextScale(0.4f).setForceLowercase(true).setOffsetX(12f).setOffsetY(12f).build());
 
 		HvlComponentDefault.setDefault(new HvlLabel.Builder().setFont(fontPainter).setColor(Color.red).build());
@@ -123,7 +120,7 @@ public class ComponentsTest extends HvlTemplate2D {
 			public void run(HvlComponent calling, float delta) {
 				calling.draw(delta);
 				System.out.println("OVERRIDE!");
-				
+
 			}
 		}).build();
 
@@ -141,16 +138,17 @@ public class ComponentsTest extends HvlTemplate2D {
 						}).build());
 					}
 				}, true);
-				
+
 				HvlMenu.addPopup(new HvlMenu() {
 					{
-						add(new HvlTextButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
-							@Override
-							public void run(HvlButton callingButton) {
-								System.out.println("BUTTONCLICK2!");
-								HvlMenu.removePopup();
-							}
-						}).build());
+						add(new HvlTextButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128).setText("hey!")
+								.setClickedCommand(new OnClickedCommand() {
+									@Override
+									public void run(HvlButton callingButton) {
+										System.out.println("BUTTONCLICK2!");
+										HvlMenu.removePopup();
+									}
+								}).build());
 					}
 				}, true);
 			}

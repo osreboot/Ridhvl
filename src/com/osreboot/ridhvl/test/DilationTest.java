@@ -18,7 +18,7 @@ import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class DilationTest extends HvlTemplate2D {
-
+	
 	public DilationTest() {
 		super(60, 1280, 720, "Ridhvl Time Dilation Test", new HvlDisplayModeDefault());
 	}
@@ -67,7 +67,7 @@ public class DilationTest extends HvlTemplate2D {
 		}
 
 		for (int i = 0; i < 32; i++) {
-			HvlRadialParticleSystem ember = new HvlRadialParticleSystem(i * 40, Display.getHeight() - 16, 6, 6, getWhite512());
+			HvlRadialParticleSystem ember = new HvlRadialParticleSystem(i * 40, Display.getWidth() - 16, 6, 6, getWhite512());
 			ember.setSpawnRadius(32f);
 			ember.setMinScale(0.5f);
 			ember.setMaxScale(1.5f);
@@ -102,8 +102,8 @@ public class DilationTest extends HvlTemplate2D {
 		lava.setMaxRotVel(10);
 		lava.setLifetime(32f);
 		lava.setXVel(48);
-		lava.setMinTimeToSpawn(0.5f);
-		lava.setMaxTimeToSpawn(0.25f);
+		lava.setMinTimeToSpawn(0.25f);
+		lava.setMaxTimeToSpawn(0.5f);
 		lava.setParticlesPerSpawn(12);
 		lava.setColorCoordinated(true);
 		lava.setStartColorOne(new Color(150, 100, 0));
@@ -127,7 +127,7 @@ public class DilationTest extends HvlTemplate2D {
 
 	@Override
 	public void update(float delta) {
-		HvlTemplate.getNewestInstance().getTimer().setDilation(((float) HvlCursor.getCursorX() / (float) Display.getHeight()) + 0.5f);
+		HvlTemplate.getNewestInstance().getTimer().setDilation(((float) HvlCursor.getCursorX() / (float) Display.getWidth()) + 0.5f);
 
 		for (HvlParticleSystem particle : particles)
 			particle.draw(delta);

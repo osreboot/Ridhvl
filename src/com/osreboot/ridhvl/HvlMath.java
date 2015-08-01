@@ -52,7 +52,12 @@ public class HvlMath {
 	
 	public static int randomIntBetween(int min, int max)	{
 		Random rand = new Random();
-		return min + rand.nextInt(max - min);
+		if (max > min)
+			return min + rand.nextInt(max - min);
+		if (max < min)
+			return max + rand.nextInt(min - max);
+		
+		return min;
 	}
 	
 	public static float randomFloatBetween(float min, float max)	{
