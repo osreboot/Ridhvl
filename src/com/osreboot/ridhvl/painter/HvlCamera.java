@@ -8,7 +8,7 @@ import org.lwjgl.opengl.Display;
 
 public class HvlCamera {
 
-	private static float x, y, xOffset, yOffset, rotation;
+	private static float x, y, xOffset, yOffset, rotation, zoom = 1f;
 
 	public enum HvlCameraAlignment{
 		TOPLEFT, CENTER
@@ -28,8 +28,9 @@ public class HvlCamera {
 	}
 
 	public static void preTransform(){
-		glPushMatrix();
+		glPushMatrix();//TODO add zoom and test
 		glTranslatef(-x - xOffset, -y - yOffset, 0);
+		glScalef(zoom, zoom, 0);
 		hvlRotate(x, y, rotation);
 	}
 
@@ -38,7 +39,7 @@ public class HvlCamera {
 		glPopMatrix();
 	}
 
-	public static float getX() {
+	public static float getX(){
 		return x;
 	}
 
@@ -81,6 +82,14 @@ public class HvlCamera {
 
 	public static void setyOffset(float yOffsetArg){
 		yOffset = yOffsetArg;
+	}
+
+	public static float getZoom(){
+		return zoom;
+	}
+
+	public static void setZoom(float zoomArg){
+		zoom = zoomArg;
 	}
 
 }
