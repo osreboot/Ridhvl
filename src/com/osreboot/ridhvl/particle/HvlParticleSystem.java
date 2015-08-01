@@ -101,7 +101,7 @@ public abstract class HvlParticleSystem {
 			p.update(delta);
 			for (HvlParticleCorrelator corr : correlators)
 				if (corr.isContinuous())
-					corr.correlate(p, this);
+					corr.correlate(p);
 			p.draw(delta);
 			if (p.shouldBeDestroyed())
 				toRemove.add(p);

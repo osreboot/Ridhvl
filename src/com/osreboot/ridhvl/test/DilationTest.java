@@ -17,19 +17,19 @@ import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
 import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
-public class DilationTest extends HvlTemplate2D{
-	
-	public DilationTest(){
+public class DilationTest extends HvlTemplate2D {
+
+	public DilationTest() {
 		super(60, 1280, 720, "Ridhvl Time Dilation Test", new HvlDisplayModeDefault());
 	}
 
 	LinkedList<HvlParticleSystem> particles;
 
 	@Override
-	public void initialize(){
+	public void initialize() {
 		particles = new LinkedList<>();
 
-		for (int i = -8; i < 32; i++){
+		for (int i = -8; i < 32; i++) {
 			HvlRadialParticleSystem ash = new HvlRadialParticleSystem(i * 40, -64, 6, 6, getWhite512());
 			ash.setSpawnRadius(32f);
 			ash.setMinScale(0.5f);
@@ -50,22 +50,23 @@ public class DilationTest extends HvlTemplate2D{
 			ash.setStartColorTwo(Color.gray);
 			ash.setEndColorOne(Color.darkGray);
 			ash.setEndColorTwo(Color.gray);
-			ash.addCorrelator(new HvlParticleCorrelator(){
-				
-				{setContinuous(true);}
-				
-				@Override
-				public void correlate(HvlParticle in, HvlParticleSystem spawner)
+			ash.addCorrelator(new HvlParticleCorrelator() {
+
 				{
+					setContinuous(true);
+				}
+
+				@Override
+				public void correlate(HvlParticle in) {
 					HvlSimpleParticle p = (HvlSimpleParticle) in;
-					p.setRotVel(300 + (1.5f - p.getScale()*200));
-					p.setxVel(30 + (1.5f - p.getScale()*20));
+					p.setRotVel(300 + (1.5f - p.getScale() * 200));
+					p.setxVel(30 + (1.5f - p.getScale() * 20));
 				}
 			});
 			particles.add(ash);
 		}
 
-		for (int i = 0; i < 32; i++){
+		for (int i = 0; i < 32; i++) {
 			HvlRadialParticleSystem ember = new HvlRadialParticleSystem(i * 40, Display.getHeight() - 16, 6, 6, getWhite512());
 			ember.setSpawnRadius(32f);
 			ember.setMinScale(0.5f);
@@ -89,7 +90,7 @@ public class DilationTest extends HvlTemplate2D{
 			ember.setEndColorTwo(new Color(100, 100, 0));
 			particles.add(ember);
 		}
-		
+
 		HvlRadialParticleSystem lava = new HvlRadialParticleSystem(-64, Display.getHeight() - 8, 32, 32, getWhite512());
 		lava.setSpawnRadius(32f);
 		lava.setMinScale(0.5f);
@@ -109,25 +110,27 @@ public class DilationTest extends HvlTemplate2D{
 		lava.setStartColorTwo(new Color(205, 155, 0));
 		lava.setEndColorOne(new Color(150, 100, 0));
 		lava.setEndColorTwo(new Color(205, 155, 0));
-		lava.addCorrelator(new HvlParticleCorrelator(){
-			
-			{setContinuous(true);}
-			
-			@Override
-			public void correlate(HvlParticle in, HvlParticleSystem spawner)
+		lava.addCorrelator(new HvlParticleCorrelator() {
+
 			{
+				setContinuous(true);
+			}
+
+			@Override
+			public void correlate(HvlParticle in) {
 				HvlSimpleParticle p = (HvlSimpleParticle) in;
-				p.setyVel((float)Math.sin(p.getX()/60)*4*(4f - p.getScale()));
+				p.setyVel((float) Math.sin(p.getX() / 60) * 4 * (4f - p.getScale()));
 			}
 		});
 		particles.add(lava);
 	}
 
 	@Override
-	public void update(float delta){
-		HvlTemplate.getNewestInstance().getTimer().setDilation(((float)HvlCursor.getCursorX()/(float)Display.getHeight()) + 0.5f);
-		
-		for(HvlParticleSystem particle : particles) particle.draw(delta);
+	public void update(float delta) {
+		HvlTemplate.getNewestInstance().getTimer().setDilation(((float) HvlCursor.getCursorX() / (float) Display.getHeight()) + 0.5f);
+
+		for (HvlParticleSystem particle : particles)
+			particle.draw(delta);
 	}
 
 }

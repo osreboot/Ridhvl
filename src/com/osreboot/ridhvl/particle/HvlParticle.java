@@ -4,6 +4,7 @@ import com.osreboot.ridhvl.HvlCoord;
 
 /**
  * This represents the base of a particle, and is designed to be expanded upon.
+ * 
  * @see com.osreboot.ridhvl.particle.collection
  * @see com.osreboot.ridhvl.particle.collection.HvlSimpleParticle
  */
@@ -11,14 +12,14 @@ public abstract class HvlParticle {
 	/**
 	 * How long this particle has been alive.
 	 */
-	protected float timeAlive;
+	private float timeAlive;
 
 	private HvlCoord pos;
 
 	/**
 	 * The particle system that contains this particle.
 	 */
-	protected final HvlParticleSystem parent;
+	private final HvlParticleSystem parent;
 
 	/**
 	 * A basic constructor with the minimal information required to function.
@@ -146,5 +147,25 @@ public abstract class HvlParticle {
 	 */
 	public void setPosition(HvlCoord position) {
 		pos = position;
+	}
+
+	/**
+	 * Gets how long this particle has been alive (how long it's been since it
+	 * was spawned).
+	 * 
+	 * @return How long this particle has been alive.
+	 */
+	public float getTimeAlive() {
+		return timeAlive;
+	}
+
+	/**
+	 * Gets the HvlParticleSystem that contains this particle (the one that
+	 * spawned it).
+	 * 
+	 * @return The HvlParticleSystem that contains this particle.
+	 */
+	public HvlParticleSystem getParent() {
+		return parent;
 	}
 }

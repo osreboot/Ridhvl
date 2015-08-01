@@ -72,14 +72,14 @@ public class HvlSimpleParticle extends HvlParticle {
 		
 		HvlPainter2D.hvlDrawQuad(getX() - (baseWidth * scale * 0.5f),
 				getY() - (baseHeight * scale * 0.5f),
-				baseWidth * scale, baseHeight * scale, texture, HvlColorUtil.lerpColor(startColor, endColor, timeAlive / lifetime));
+				baseWidth * scale, baseHeight * scale, texture, HvlColorUtil.lerpColor(startColor, endColor, getTimeAlive() / lifetime));
 		
 		HvlPainter2D.hvlResetRotation();
 	}
 
 	@Override
 	public boolean shouldBeDestroyed() {
-		return timeAlive > lifetime;
+		return getTimeAlive() > lifetime;
 	}
 
 	public final Color getStartColor() {

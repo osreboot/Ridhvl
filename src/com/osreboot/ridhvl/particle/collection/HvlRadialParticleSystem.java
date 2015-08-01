@@ -93,7 +93,7 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 				lifetime, startColor, endColor, particleTexture);
 		for (HvlParticleCorrelator corr : correlators)
 		{
-			corr.correlate(p, this);
+			corr.correlate(p);
 		}
 		return p;
 	}

@@ -98,7 +98,7 @@ public class HvlLinearParticleSystem extends HvlParticleSystem {
 				particleTexture);
 		for (HvlParticleCorrelator corr : correlators)
 		{
-			corr.correlate(p, this);
+			corr.correlate(p);
 		}
 		return p;
 	}
