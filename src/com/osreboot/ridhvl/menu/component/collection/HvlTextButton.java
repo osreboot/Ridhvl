@@ -19,6 +19,7 @@ public class HvlTextButton extends HvlButton {
 		super(xlArg, ylArg, offArg, onArg);
 		this.font = font;
 		this.text = text;
+		this.textScale = 1.0f;
 		this.textColor = textColor;
 	}
 
@@ -27,6 +28,7 @@ public class HvlTextButton extends HvlButton {
 		super(xlArg, ylArg, offArg, hoverArg, onArg);
 		this.font = font;
 		this.text = text;
+		this.textScale = 1.0f;
 		this.textColor = textColor;
 	}
 
