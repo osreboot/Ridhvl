@@ -13,6 +13,7 @@ public class HvlCursor {
 	private static float xOffset, yOffset, width, height;
 	private static Texture texture;
 	private static Color color = Color.white;
+	private static boolean relativeToCamera = false;
 
 	public static void setNativeHidden(boolean hiddenArg){
 		Mouse.setGrabbed(hiddenArg);
@@ -24,7 +25,9 @@ public class HvlCursor {
 
 	public static void drawCursor(){
 		if(texture != null && Mouse.isInsideWindow()){
+			if(relativeToCamera) HvlCamera.postTransform();
 			HvlPainter2D.hvlDrawQuad(getCursorX() + xOffset, getCursorY() + yOffset, width, height, texture, color);//TODO account for inversion
+			if(relativeToCamera) HvlCamera.preTransform();
 		}
 	}
 
@@ -104,6 +107,14 @@ public class HvlCursor {
 	public static void applyScale(float scale){
 		applySizeScale(scale);
 		applyOffsetScale(scale);
+	}
+
+	public static boolean isRelativeToCamera(){
+		return relativeToCamera;
+	}
+
+	public static void setRelativeToCamera(boolean relativeToCameraArg){
+		relativeToCamera = relativeToCameraArg;
 	}
 
 }
