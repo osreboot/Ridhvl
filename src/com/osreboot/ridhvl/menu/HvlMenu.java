@@ -142,4 +142,8 @@ public class HvlMenu {
 		}
 	}
 
+	public static boolean hasPopup()
+	{
+		return !popups.isEmpty();
+	}
 }
