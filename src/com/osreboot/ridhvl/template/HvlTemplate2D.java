@@ -90,7 +90,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		
 		HvlAnimatedTexture.updateTextures(delta);
 		
-		HvlCamera.preTransform();
+		HvlCamera.doTransform();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -99,7 +99,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 	public void postUpdate(float delta){
 		HvlCursor.drawCursor();
 		
-		HvlCamera.postTransform();
+		HvlCamera.undoTransform();
 		
 		HvlDisplay.postUpdate(delta);
 		

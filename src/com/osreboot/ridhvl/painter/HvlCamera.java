@@ -27,14 +27,14 @@ public class HvlCamera {
 		}
 	}
 
-	public static void preTransform(){
+	public static void doTransform(){
 		glPushMatrix();//TODO add zoom and test
 		glTranslatef(-x - xOffset, -y - yOffset, 0);
 		glScalef(zoom, zoom, 0);
 		hvlRotate(x, y, rotation);
 	}
 
-	public static void postTransform(){
+	public static void undoTransform(){
 		hvlResetRotation();
 		glPopMatrix();
 	}

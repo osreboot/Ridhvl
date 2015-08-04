@@ -1,10 +1,7 @@
 package com.osreboot.ridhvl.template;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Init;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Ortho;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
@@ -13,7 +10,9 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.ImageIOImageData;
+import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
@@ -27,6 +26,14 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
 public abstract class HvlTemplateInteg2D extends HvlTemplate{
 
+	public static Texture getTexture(int indexArg){
+		return ((HvlTemplateInteg2D)HvlTemplate.getNewestInstance()).getTextureLoader().getResource(indexArg);
+	}
+	
+	public static Audio getSound(int indexArg){
+		return ((HvlTemplateInteg2D)HvlTemplate.getNewestInstance()).getSoundLoader().getResource(indexArg);
+	}
+	
 	private int frameRate, displayWidth, displayHeight;
 	
 	private HvlTextureLoader textureLoader;
@@ -101,7 +108,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		
 		HvlAnimatedTexture.updateTextures(delta);
 		
-		HvlCamera.preTransform();
+		HvlCamera.doTransform();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -110,7 +117,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	public void postUpdate(float delta){
 		HvlCursor.drawCursor();
 		
-		HvlCamera.postTransform();
+		HvlCamera.undoTransform();
 		
 		HvlDisplay.postUpdate(delta);
 		

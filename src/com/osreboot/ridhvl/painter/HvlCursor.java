@@ -25,9 +25,9 @@ public class HvlCursor {
 
 	public static void drawCursor(){
 		if(texture != null && Mouse.isInsideWindow()){
-			if(relativeToCamera) HvlCamera.postTransform();
+			if(relativeToCamera) HvlCamera.undoTransform();
 			HvlPainter2D.hvlDrawQuad(getCursorX() + xOffset, getCursorY() + yOffset, width, height, texture, color);//TODO account for inversion
-			if(relativeToCamera) HvlCamera.preTransform();
+			if(relativeToCamera) HvlCamera.doTransform();
 		}
 	}
 

@@ -7,12 +7,17 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
+import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
 
+	public static void main(String args[]) {
+		new TemplateInteg2DBasicTest();
+	}
+	
 	public TemplateInteg2DBasicTest() {
 		super(60, 1280, 720, "Ridhvl TemplateInteg2D Test", new HvlDisplayModeDefault());
 	}
@@ -34,7 +39,8 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
 
 	@Override
 	public void update(float delta) {
-
+		HvlCamera.setZoom(2f);
+		
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 			System.exit(0);
 
