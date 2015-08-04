@@ -135,7 +135,14 @@ public abstract class HvlParticleSystem {
 	 * Spawns a single particle.
 	 */
 	public void spawnIndividualParticle() {
-		particles.add(generateParticle());
+		HvlParticle spawned = generateParticle();
+		for (HvlParticleCorrelator corr : this.correlators)
+		{
+			if (corr.isContinuous()) continue;
+			
+			corr.correlate(spawned);
+		}
+		particles.add(spawned);
 	}
 
 	/**
