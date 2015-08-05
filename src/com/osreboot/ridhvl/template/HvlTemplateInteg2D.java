@@ -104,13 +104,13 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	public void preUpdate(float delta){
 		HvlDisplay.preUpdate(delta);
 		
-		HvlInput.update();
-		
 		HvlAnimatedTexture.updateTextures(delta);
 		
 		HvlCamera.doTransform();
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		HvlInput.update();
 	}
 
 	@Override
