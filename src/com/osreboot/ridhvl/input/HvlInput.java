@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 import org.lwjgl.input.Controllers;
 
+import com.osreboot.ridhvl.action.HvlAction1;
+
 
 public class HvlInput {
 	
@@ -11,10 +13,6 @@ public class HvlInput {
 	
 	public static abstract class HvlInputFilter{
 		public abstract float getCurrentOutput();
-	}
-	
-	public static abstract class HvlInputAction{
-		public abstract void run(HvlInput inputArg);
 	}
 	
 	public static void initialize(){
@@ -38,7 +36,7 @@ public class HvlInput {
 	private HvlInputFilter[] filter;
 	
 	private float previousOutput;
-	private HvlInputAction pressedAction, releasedAction;
+	private HvlAction1<HvlInput> pressedAction, releasedAction;
 	
 	public HvlInput(HvlInputFilter... filterArg){
 		filter = filterArg;
@@ -58,19 +56,19 @@ public class HvlInput {
 		previousOutput = getCurrentOutput();
 	}
 	
-	public HvlInputAction getPressedAction(){
+	public HvlAction1<HvlInput> getPressedAction(){
 		return pressedAction;
 	}
 
-	public void setPressedAction(HvlInputAction pressedActionArg){
+	public void setPressedAction(HvlAction1<HvlInput> pressedActionArg){
 		pressedAction = pressedActionArg;
 	}
 
-	public HvlInputAction getReleasedAction(){
+	public HvlAction1<HvlInput> getReleasedAction(){
 		return releasedAction;
 	}
 
-	public void setReleasedAction(HvlInputAction releasedActionArg){
+	public void setReleasedAction(HvlAction1<HvlInput> releasedActionArg){
 		releasedAction = releasedActionArg;
 	}
 

@@ -1,10 +1,7 @@
 package com.osreboot.ridhvl.template;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Init;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Ortho;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
@@ -15,6 +12,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.input.HvlInput;
@@ -81,18 +79,22 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		
 		start();
 	}
+	
+	private HvlAction1<Float> preCameraTransform;
 
 	@Override
 	public void preUpdate(float delta){
+		HvlInput.update();
+		
 		HvlDisplay.preUpdate(delta);
 		
 		HvlAnimatedTexture.updateTextures(delta);
 		
-		HvlCamera.doTransform();
-		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		HvlInput.update();
+		if(preCameraTransform != null) preCameraTransform.run(delta);
+		
+		HvlCamera.doTransform();
 	}
 
 	@Override
@@ -113,6 +115,14 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		getTimer().setRunning(false);
 		Display.destroy();
 		System.exit(0);
+	}
+	
+	public HvlAction1<Float> getPreCameraTransform(){
+		return preCameraTransform;
+	}
+
+	public void setPreCameraTransform(HvlAction1<Float> preCameraTransformArg){
+		preCameraTransform = preCameraTransformArg;
 	}
 	
 	public int getWidth(){

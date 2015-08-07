@@ -4,9 +4,9 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.input.HvlInput;
-import com.osreboot.ridhvl.input.HvlInput.HvlInputAction;
 import com.osreboot.ridhvl.input.HvlInputSeriesAction;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
@@ -29,13 +29,13 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 		textureLoader.loadResource("Icon");
 		color = Color.white;
 		testRect = new HvlTiledRect(textureLoader.getResource(0), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 512, 256, 16, 16);
-		HvlInputSeriesAction.PRIMARY.setPressedAction(new HvlInputAction(){
+		HvlInputSeriesAction.PRIMARY.setPressedAction(new HvlAction1<HvlInput>(){
 			@Override
 			public void run(HvlInput inputArg){
 				color = Color.orange;
 			}
 		});
-		HvlInputSeriesAction.PRIMARY.setReleasedAction(new HvlInputAction(){
+		HvlInputSeriesAction.PRIMARY.setReleasedAction(new HvlAction1<HvlInput>(){
 			@Override
 			public void run(HvlInput inputArg){
 				color = Color.yellow;
