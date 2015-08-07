@@ -9,9 +9,9 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlTextureUtil;
+import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
-import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
@@ -114,10 +114,10 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).setDrawOverride(new HvlCompMethodOverride() {
+		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).setDrawOverride(new HvlAction2<HvlComponent, Float>() {
 
 			@Override
-			public void run(HvlComponent calling, float delta) {
+			public void run(HvlComponent calling, Float delta) {
 				calling.draw(delta);
 				System.out.println("OVERRIDE!");
 

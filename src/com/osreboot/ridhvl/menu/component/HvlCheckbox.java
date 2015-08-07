@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.menu.component;
 
-import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
+import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
@@ -288,12 +288,12 @@ public class HvlCheckbox extends HvlComponent {
 			return this;
 		}
 
-		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+		public Builder setUpdateOverride(HvlAction2<HvlComponent, Float> updateOverride) {
 			tr.setUpdateOverride(updateOverride);
 			return this;
 		}
 
-		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+		public Builder setDrawOverride(HvlAction2<HvlComponent, Float> drawOverride) {
 			tr.setDrawOverride(drawOverride);
 			return this;
 		}
