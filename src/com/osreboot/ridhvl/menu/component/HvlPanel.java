@@ -3,7 +3,7 @@ package com.osreboot.ridhvl.menu.component;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.osreboot.ridhvl.menu.HvlCompMethodOverride;
+import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
@@ -108,12 +108,12 @@ public class HvlPanel extends HvlComponent {
 			return this;
 		}
 
-		public Builder setUpdateOverride(HvlCompMethodOverride updateOverride) {
+		public Builder setUpdateOverride(HvlAction2<HvlComponent, Float> updateOverride) {
 			tr.setUpdateOverride(updateOverride);
 			return this;
 		}
 
-		public Builder setDrawOverride(HvlCompMethodOverride drawOverride) {
+		public Builder setDrawOverride(HvlAction2<HvlComponent, Float> drawOverride) {
 			tr.setDrawOverride(drawOverride);
 			return this;
 		}

@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.menu;
 
 import org.lwjgl.input.Mouse;
 
+import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.painter.HvlCursor;
 
 public abstract class HvlComponent {
@@ -10,7 +11,7 @@ public abstract class HvlComponent {
 	
 	private boolean enabled, visible, focused;
 	
-	private HvlCompMethodOverride updateOverride, drawOverride;
+	private HvlAction2<HvlComponent, Float> updateOverride, drawOverride;
 	
 	protected HvlComponent(float wArg, float hArg)
 	{
@@ -121,19 +122,19 @@ public abstract class HvlComponent {
 		focused = focusedArg;
 	}
 
-	public HvlCompMethodOverride getUpdateOverride() {
+	public HvlAction2<HvlComponent, Float> getUpdateOverride() {
 		return updateOverride;
 	}
 
-	public void setUpdateOverride(HvlCompMethodOverride updateOverride) {
+	public void setUpdateOverride(HvlAction2<HvlComponent, Float> updateOverride) {
 		this.updateOverride = updateOverride;
 	}
 
-	public HvlCompMethodOverride getDrawOverride() {
+	public HvlAction2<HvlComponent, Float> getDrawOverride() {
 		return drawOverride;
 	}
 
-	public void setDrawOverride(HvlCompMethodOverride drawOverride) {
+	public void setDrawOverride(HvlAction2<HvlComponent, Float> drawOverride) {
 		this.drawOverride = drawOverride;
 	}
 }

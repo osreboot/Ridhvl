@@ -14,6 +14,7 @@ import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.input.HvlInput;
@@ -100,17 +101,21 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		start();
 	}
 
+	private HvlAction1<Float> preCameraTransform;
+	
 	@Override
 	public void preUpdate(float delta){
-		HvlDisplay.preUpdate(delta);
-		
 		HvlInput.update();
+		
+		HvlDisplay.preUpdate(delta);
 		
 		HvlAnimatedTexture.updateTextures(delta);
 		
-		HvlCamera.doTransform();
-		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		if(preCameraTransform != null) preCameraTransform.run(delta);
+		
+		HvlCamera.doTransform();
 	}
 
 	@Override
@@ -131,6 +136,14 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		getTimer().setRunning(false);
 		Display.destroy();
 		System.exit(0);
+	}
+	
+	public HvlAction1<Float> getPreCameraTransform(){
+		return preCameraTransform;
+	}
+
+	public void setPreCameraTransform(HvlAction1<Float> preCameraTransformArg){
+		preCameraTransform = preCameraTransformArg;
 	}
 	
 	public HvlTextureLoader getTextureLoader(){
