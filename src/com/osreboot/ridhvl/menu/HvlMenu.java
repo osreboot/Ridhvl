@@ -79,6 +79,25 @@ public class HvlMenu {
 		components.add(control);
 	}
 
+	@SuppressWarnings("unchecked")
+	public <T> T getChild(int index) {
+		if (index >= components.size())
+			return null;
+		
+		return (T) components.get(index);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getFirstChildOfType(Class<? extends T> type) {
+		for (HvlComponent comp : components)
+		{
+			if (comp.getClass().equals(type))
+				return (T) comp;
+		}
+		
+		return null;
+	}
+	
 	public void update(float delta) {
 		totalTime += delta;
 		for (HvlComponent c : components)
