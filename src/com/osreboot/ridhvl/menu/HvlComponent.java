@@ -13,6 +13,8 @@ public abstract class HvlComponent {
 	
 	private HvlAction2<HvlComponent, Float> updateOverride, drawOverride;
 	
+	private static HvlAction2<HvlComponent, Float> universalUpdateOverride, universalDrawOverride;
+	
 	protected HvlComponent(float wArg, float hArg)
 	{
 		width = wArg;
@@ -35,6 +37,8 @@ public abstract class HvlComponent {
 	{
 		if (updateOverride != null)
 			updateOverride.run(this, delta);
+		else if (universalUpdateOverride != null)
+			universalUpdateOverride.run(this, delta);
 		else
 			update(delta);
 	}
@@ -42,13 +46,11 @@ public abstract class HvlComponent {
 	public final void metaDraw(float delta)
 	{		
 		if (drawOverride != null)
-		{
 			drawOverride.run(this, delta);
-		}
+		else if (universalDrawOverride != null)
+			universalDrawOverride.run(this, delta);
 		else
-		{
 			draw(delta);
-		}
 	}
 	
 	public void update(float delta) {}
@@ -136,5 +138,21 @@ public abstract class HvlComponent {
 
 	public void setDrawOverride(HvlAction2<HvlComponent, Float> drawOverride) {
 		this.drawOverride = drawOverride;
+	}
+
+	public static HvlAction2<HvlComponent, Float> getUniversalUpdateOverride() {
+		return universalUpdateOverride;
+	}
+
+	public static void setUniversalUpdateOverride(HvlAction2<HvlComponent, Float> universalUpdateOverride) {
+		HvlComponent.universalUpdateOverride = universalUpdateOverride;
+	}
+
+	public static HvlAction2<HvlComponent, Float> getUniversalDrawOverride() {
+		return universalDrawOverride;
+	}
+
+	public static void setUniversalDrawOverride(HvlAction2<HvlComponent, Float> universalDrawOverride) {
+		HvlComponent.universalDrawOverride = universalDrawOverride;
 	}
 }
