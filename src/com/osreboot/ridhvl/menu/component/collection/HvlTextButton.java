@@ -149,6 +149,11 @@ public class HvlTextButton extends HvlButton {
 		this.yAlign = yAlign;
 	}
 
+	public void setAlign(float align) {
+		setxAlign(align);
+		setyAlign(align);
+	}
+
 	public static class Builder {
 		private HvlTextButton tr;
 
