@@ -134,9 +134,6 @@ public class HvlPanel extends HvlComponent {
 		tr.setVisible(isVisible());
 		tr.setUpdateOverride(getUpdateOverride());
 		tr.setDrawOverride(getDrawOverride());
-		// HvlPanel
-		tr.children = children; // TODO: This might not be ideal due to
-								// references.
 		return tr;
 	}
 }

@@ -219,9 +219,6 @@ public class HvlArrangerBox extends HvlPanel {
 		tr.setVisible(isVisible());
 		tr.setUpdateOverride(getUpdateOverride());
 		tr.setDrawOverride(getDrawOverride());
-		// HvlPanel
-		tr.children = children; // TODO: This might not be ideal due to
-								// references.
 		// HvlArrangerBox
 		tr.style = style;
 		tr.align = align;
