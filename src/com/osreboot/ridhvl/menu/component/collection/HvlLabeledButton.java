@@ -9,14 +9,14 @@ import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlComponentDrawable;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
-public class HvlTextButton extends HvlButton {
+public class HvlLabeledButton extends HvlButton {
 	private HvlFontPainter2D font;
 	private String text;
 	private float textScale;
 	private Color textColor;
 	private float xAlign, yAlign;
 
-	public HvlTextButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font, String text, Color textColor) {
+	public HvlLabeledButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font, String text, Color textColor) {
 		super(xlArg, ylArg, offArg, onArg);
 		this.font = font;
 		this.text = text;
@@ -24,7 +24,7 @@ public class HvlTextButton extends HvlButton {
 		this.textColor = textColor;
 	}
 
-	public HvlTextButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg,
+	public HvlLabeledButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg,
 			HvlFontPainter2D font, String text, Color textColor) {
 		super(xlArg, ylArg, offArg, hoverArg, onArg);
 		this.font = font;
@@ -33,7 +33,7 @@ public class HvlTextButton extends HvlButton {
 		this.textColor = textColor;
 	}
 
-	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D fontArg,
+	public HvlLabeledButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D fontArg,
 			String textArg, Color colorArg) {
 		super(xArg, yArg, xlArg, ylArg, offArg, onArg);
 		font = fontArg;
@@ -44,7 +44,7 @@ public class HvlTextButton extends HvlButton {
 		yAlign = 0.5f;
 	}
 
-	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+	public HvlLabeledButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
 			HvlComponentDrawable onArg, HvlFontPainter2D fontArg, String textArg, Color colorArg) {
 		super(xArg, yArg, xlArg, ylArg, offArg, hoverArg, onArg);
 		font = fontArg;
@@ -55,7 +55,7 @@ public class HvlTextButton extends HvlButton {
 		yAlign = 0.5f;
 	}
 
-	public HvlTextButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font, String text,
+	public HvlLabeledButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font, String text,
 			float textScale, Color textColor) {
 		super(xlArg, ylArg, offArg, onArg);
 		this.font = font;
@@ -64,7 +64,7 @@ public class HvlTextButton extends HvlButton {
 		this.textColor = textColor;
 	}
 
-	public HvlTextButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg,
+	public HvlLabeledButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg,
 			HvlFontPainter2D font, String text, float textScale, Color textColor) {
 		super(xlArg, ylArg, offArg, hoverArg, onArg);
 		this.font = font;
@@ -73,7 +73,7 @@ public class HvlTextButton extends HvlButton {
 		this.textColor = textColor;
 	}
 
-	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font,
+	public HvlLabeledButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font,
 			String text, float textScale, Color textColor) {
 		super(xArg, yArg, xlArg, ylArg, offArg, onArg);
 		this.font = font;
@@ -82,7 +82,7 @@ public class HvlTextButton extends HvlButton {
 		this.textColor = textColor;
 	}
 
-	public HvlTextButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
+	public HvlLabeledButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg,
 			HvlComponentDrawable onArg, HvlFontPainter2D font, String text, float textScale, Color textColor) {
 		super(xArg, yArg, xlArg, ylArg, offArg, hoverArg, onArg);
 		this.font = font;
@@ -155,13 +155,13 @@ public class HvlTextButton extends HvlButton {
 	}
 
 	public static class Builder {
-		private HvlTextButton tr;
+		private HvlLabeledButton tr;
 
 		public Builder() {
-			if (HvlComponentDefault.hasDefault(HvlTextButton.class))
-				tr = HvlComponentDefault.getDefault(HvlTextButton.class).clone();
+			if (HvlComponentDefault.hasDefault(HvlLabeledButton.class))
+				tr = HvlComponentDefault.getDefault(HvlLabeledButton.class).clone();
 			else
-				tr = new HvlTextButton(0, 0, null, null, null, "", Color.white);
+				tr = new HvlLabeledButton(0, 0, null, null, null, "", Color.white);
 		}
 
 		public Builder setX(float x) {
@@ -259,13 +259,13 @@ public class HvlTextButton extends HvlButton {
 			return this;
 		}
 
-		public HvlTextButton build() {
+		public HvlLabeledButton build() {
 			return tr;
 		}
 	}
 
-	public HvlTextButton clone() {
-		HvlTextButton tr = new HvlTextButton(0, 0, null, null, null, "", Color.white);
+	public HvlLabeledButton clone() {
+		HvlLabeledButton tr = new HvlLabeledButton(0, 0, null, null, null, "", Color.white);
 		// HvlComponent
 		tr.setX(getX());
 		tr.setY(getY());

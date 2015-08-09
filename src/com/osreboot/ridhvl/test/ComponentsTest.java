@@ -25,7 +25,7 @@ import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
-import com.osreboot.ridhvl.menu.component.collection.HvlTextButton;
+import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
@@ -41,7 +41,7 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlArrangerBox testArranger;
 	private HvlLabel testLabel;
 	private HvlCheckbox testCheck;
-	private HvlTextButton testButton;
+	private HvlLabeledButton testButton;
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
 
@@ -72,7 +72,7 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256, 10);
 
-		HvlComponentDefault.setDefault(new HvlTextButton.Builder().setOffDrawable(new HvlTextureDrawable(gradient2))
+		HvlComponentDefault.setDefault(new HvlLabeledButton.Builder().setOffDrawable(new HvlTextureDrawable(gradient2))
 				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2))).setOnDrawable(new HvlTextureDrawable(gradient)).setFont(fontPainter)
 				.setTextScale(0.5f).setTextColor(Color.red).setxAlign(0.5f).setyAlign(0.5f).build());
 
@@ -124,12 +124,12 @@ public class ComponentsTest extends HvlTemplate2D {
 			}
 		}).build();
 
-		testButton = new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
+		testButton = new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 			@Override
 			public void run(HvlButton callingButton) {
 				HvlMenu.addPopup(new HvlMenu() {
 					{
-						add(new HvlTextButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
+						add(new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
 							@Override
 							public void run(HvlButton callingButton) {
 								System.out.println("BUTTONCLICK1!");
@@ -141,7 +141,7 @@ public class ComponentsTest extends HvlTemplate2D {
 
 				HvlMenu.addPopup(new HvlMenu() {
 					{
-						add(new HvlTextButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128).setText("hey!")
+						add(new HvlLabeledButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128).setText("hey!")
 								.setClickedCommand(new OnClickedCommand() {
 									@Override
 									public void run(HvlButton callingButton) {
