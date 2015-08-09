@@ -15,7 +15,7 @@ public class HvlPainter2D {
 	@Deprecated
 	private static Texture refreshTexture;
 	private static Texture white512;//TODO support more sizes
-	
+
 	public static enum HvlPainter2DProfile{
 		DEFAULT
 	}
@@ -31,7 +31,7 @@ public class HvlPainter2D {
 			glMatrixMode(GL_MODELVIEW);
 			break;
 		}
-		
+
 		refreshTexture = HvlTextureUtil.getColoredRect(1, 1, Color.transparent);
 		white512 = HvlTextureUtil.getColoredRect(512, 512, Color.white);
 	}
@@ -42,33 +42,26 @@ public class HvlPainter2D {
 		glOrtho(0, displayWidth, displayHeight, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 	}
-	
+
 	public static Texture getWhite512(){
 		return white512;
 	}
 
-	public static HvlFlag2D TEXMAGBLUR = new HvlFlag2D(true){
+	public static HvlFlag2D TEXMAGBLUR = new HvlFlag2D(false){
 		@Override
-		public void enable(){
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		}
-		
+		public void enable(){}
 		@Override
-		public void disable(){
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		}
+		public void disable(){}
 	};
-	
+
 	public static void hvlDrawLine(float x1, float y1, float x2, float y2, Color c){
 		HvlLinePainter2D.hvlDrawLine(x1, y1, x2, y2, c);
 	}
-	
+
 	public static void hvlDrawLine(float x1, float y1, float x2, float y2, Color c, float width){
 		HvlLinePainter2D.hvlDrawLine(x1, y1, x2, y2, c, width);
 	}
-	
+
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, t);
 	}
@@ -84,31 +77,31 @@ public class HvlPainter2D {
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
 	}
-	
+
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, renderFrame);
 	}
-	
+
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, texture);
 	}
-	
+
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, texture);
 	}
-	
+
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Color c){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, white512, c);//TODO support more sizes
 	}
-	
+
 	public static void hvlRotate(float x, float y, float degrees){
 		HvlSwivel2D.hvlRotate(x, y, degrees);
 	}
-	
+
 	public static void hvlResetRotation(){
 		HvlSwivel2D.hvlResetRotation();
 	}
-	
+
 	@Deprecated
 	public static void hvlForceRefresh(){
 		hvlDrawQuad(0f, 0f, 0f, 0f, refreshTexture);

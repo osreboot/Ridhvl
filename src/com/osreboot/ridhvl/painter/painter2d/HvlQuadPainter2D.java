@@ -47,14 +47,21 @@ class HvlQuadPainter2D {
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(x, y, xl, yl);
 	}
-	
+
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
 	}
-	
+
 	private static void constructTexturedQuad(float x, float y, float xl, float yl){
+		if(HvlPainter2D.TEXMAGBLUR.isEnabled()){
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		}else{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		}
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex2f(x, y);
@@ -68,6 +75,13 @@ class HvlQuadPainter2D {
 	}
 
 	private static void constructTexturedQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2){
+		if(HvlPainter2D.TEXMAGBLUR.isEnabled()){
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		}else{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		}
 		glBegin(GL_QUADS);
 		glTexCoord2f(uvx1, uvy1);
 		glVertex2f(x, y);
