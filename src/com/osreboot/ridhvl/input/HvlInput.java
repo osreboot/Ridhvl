@@ -47,7 +47,7 @@ public class HvlInput {
 	public float getCurrentOutput(){
 		float total = 0;
 		for(int i = 0; i < filter.length; i++) total += filter[i].getCurrentOutput();
-		return Math.min(1, total);
+		return Math.min(1, Math.max(-1, total));
 	}
 	
 	public void updateEvents(){
