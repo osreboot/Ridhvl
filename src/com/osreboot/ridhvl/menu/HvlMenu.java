@@ -3,11 +3,15 @@ package com.osreboot.ridhvl.menu;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import com.osreboot.ridhvl.action.HvlAction2;
+
 public class HvlMenu {
 
 	private static HvlMenu current;
 	private static Stack<HvlMenu> popups;
 	private static Stack<Boolean> blocks;
+	
+	private static HvlAction2<HvlMenu, HvlMenu> menuChanged;
 
 	static {
 		popups = new Stack<>();
@@ -19,6 +23,7 @@ public class HvlMenu {
 	}
 
 	public static void setCurrent(HvlMenu currentArg) {
+		if(menuChanged != null) menuChanged.run(current, currentArg);
 		current = currentArg;
 		current.setTotalTime(0);
 		if (current.getComponents().size() > 0)
@@ -63,12 +68,15 @@ public class HvlMenu {
 	public static ArrayList<HvlMenu> menus = new ArrayList<HvlMenu>();
 
 	private ArrayList<HvlComponent> components;
-
+	
+	private boolean interactable;
+	
 	private HvlComponent focused;
 	private float totalTime;
 
 	public HvlMenu() {
 		components = new ArrayList<HvlComponent>();
+		interactable = true;
 	}
 
 	public ArrayList<HvlComponent> getComponents() {
@@ -111,7 +119,7 @@ public class HvlMenu {
 				c.metaDraw(delta);
 		}
 	}
-
+	
 	public HvlComponent getFocused() {
 		return focused;
 	}
@@ -165,5 +173,21 @@ public class HvlMenu {
 
 	public static boolean hasPopup() {
 		return !popups.isEmpty();
+	}
+
+	public boolean isInteractable() {
+		return interactable;
+	}
+
+	public void setInteractable(boolean interactableArg) {
+		interactable = interactableArg;
+	}
+
+	public static HvlAction2<HvlMenu, HvlMenu> getMenuChanged() {
+		return menuChanged;
+	}
+
+	public static void setMenuChanged(HvlAction2<HvlMenu, HvlMenu> menuChangedArg) {
+		menuChanged = menuChangedArg;
 	}
 }
