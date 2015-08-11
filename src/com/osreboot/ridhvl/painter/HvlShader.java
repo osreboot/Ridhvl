@@ -54,6 +54,26 @@ public class HvlShader {
 		ARBShaderObjects.glLinkProgramARB(shaderID);
 		ARBShaderObjects.glValidateProgramARB(shaderID);
 	}
+	
+	public HvlShader(String fragmentArg){
+		int vertexShader = ARBShaderObjects.glCreateShaderObjectARB(ARBVertexShader.GL_VERTEX_SHADER_ARB);
+		ARBShaderObjects.glShaderSourceARB(vertexShader, readFile(VERTEX_DEFAULT));
+		ARBShaderObjects.glCompileShaderARB(vertexShader);
+
+		int fragmentShader = ARBShaderObjects.glCreateShaderObjectARB(ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+		ARBShaderObjects.glShaderSourceARB(fragmentShader, readFile(fragmentArg));
+		ARBShaderObjects.glCompileShaderARB(fragmentShader);
+		String vertLog = ARBShaderObjects.glGetInfoLogARB(vertexShader, ARBShaderObjects.glGetObjectParameteriARB(vertexShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+		String fragLog = ARBShaderObjects.glGetInfoLogARB(fragmentShader, ARBShaderObjects.glGetObjectParameteriARB(fragmentShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+		if(vertLog.length() > 0) System.err.println(vertLog);
+		if(fragLog.length() > 0) System.err.println(fragLog);
+		
+		shaderID = ARBShaderObjects.glCreateProgramObjectARB();
+		ARBShaderObjects.glAttachObjectARB(shaderID, vertexShader);
+		ARBShaderObjects.glAttachObjectARB(shaderID, fragmentShader);
+		ARBShaderObjects.glLinkProgramARB(shaderID);
+		ARBShaderObjects.glValidateProgramARB(shaderID);
+	}
 
 	public void sendFloat(String key, float value){
 		int loc = GL20.glGetUniformLocation(shaderID, key);
