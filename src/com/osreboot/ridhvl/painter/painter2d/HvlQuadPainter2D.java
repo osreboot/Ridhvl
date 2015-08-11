@@ -15,13 +15,13 @@ class HvlQuadPainter2D {
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		glColor4f(1, 1, 1, 1);
 		t.bind();
-		constructTexturedQuad(x, y, xl, yl);
+		constructTexturedQuad(x, y, xl, yl, 0, 0, t.getWidth(), t.getHeight());
 	}
 
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
-		constructTexturedQuad(x, y, xl, yl);
+		constructTexturedQuad(x, y, xl, yl, 0, 0, t.getWidth(), t.getHeight());
 	}
 
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
@@ -39,39 +39,19 @@ class HvlQuadPainter2D {
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
 		glColor4f(1, 1, 1, 1);
 		glBindTexture(GL_TEXTURE_2D, renderFrame.getTextureID());
-		constructTexturedQuad(x, y + yl, xl, -yl);
+		constructTexturedQuad(x, y + yl, xl, -yl, 0, 0, 1, 1);
 	}
 
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
-		constructTexturedQuad(x, y, xl, yl);
+		constructTexturedQuad(x, y, xl, yl, 0, 0, texture.getCurrentTexture().getWidth(), texture.getCurrentTexture().getHeight());
 	}
 
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(x, y, xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
-	}
-
-	private static void constructTexturedQuad(float x, float y, float xl, float yl){
-		if(HvlPainter2D.TEXMAGBLUR.isEnabled()){
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		}else{
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		}
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2f(x, y);
-		glTexCoord2f(1, 0);
-		glVertex2f(x + xl, y);
-		glTexCoord2f(1, 1);
-		glVertex2f(x + xl, y + yl);
-		glTexCoord2f(0, 1);
-		glVertex2f(x, y + yl);
-		glEnd();
 	}
 
 	private static void constructTexturedQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2){
