@@ -207,7 +207,8 @@ public class HvlListBox extends HvlComponent {
 			for (int i = 0; i < Math.min(items.size(), topItem + (getHeight() / itemHeight)); i++) {
 				if (Mouse.isButtonDown(0) && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorX() < getX() + getWidth() - scrollBox.getWidth()
 						&& HvlCursor.getCursorY() > getY() + ((i - topItem) * itemHeight)
-						&& HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight))
+						&& HvlCursor.getCursorY() < getY() + (((i + 1) - topItem) * itemHeight)
+						&& HvlCursor.getCursorY() > getY() && HvlCursor.getCursorY() < getY() + getHeight())
 					selectedIndex = i;
 			}
 		}
