@@ -198,7 +198,6 @@ public class HvlTileMap {
 		if (isPath) {
 			try {
 				StringBuilder sb = new StringBuilder();
-				System.out.println("res/" + inArg + ".hvlmap");
 				BufferedReader reader = new BufferedReader(new FileReader("res/" + inArg + ".hvlmap"));
 				String current;
 				while ((current = reader.readLine()) != null) {
