@@ -9,6 +9,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlAction3;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
@@ -19,10 +20,6 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlListBox extends HvlComponent {
-
-	public static abstract class SelectionChangedCommand {
-		public abstract void run(HvlListBox callingListBox, int index, Object selected);
-	}
 
 	private HvlSlider scrollBar;
 	private HvlButton scrollUpButton, scrollDownButton;
@@ -46,7 +43,7 @@ public class HvlListBox extends HvlComponent {
 	private float pX, pY, pWidth, pHeight;
 	private boolean isFocused;
 
-	private SelectionChangedCommand selectionChangedCommand;
+	private HvlAction3<HvlListBox, Integer, Object> selectionChangedCommand;
 
 	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
 			HvlComponentDrawable itemBackgroundOffArg, HvlComponentDrawable itemBackgroundOnArg, float itemHeightArg, int maxVisibleItemsArg) {
@@ -459,11 +456,11 @@ public class HvlListBox extends HvlComponent {
 		return items.get(index);
 	}
 
-	public SelectionChangedCommand getSelectionChangedCommand() {
+	public HvlAction3<HvlListBox, Integer, Object> getSelectionChangedCommand() {
 		return selectionChangedCommand;
 	}
 
-	public void setSelectionChangedCommand(SelectionChangedCommand selectionChangedCommand) {
+	public void setSelectionChangedCommand(HvlAction3<HvlListBox, Integer, Object> selectionChangedCommand) {
 		this.selectionChangedCommand = selectionChangedCommand;
 	}
 
@@ -602,7 +599,7 @@ public class HvlListBox extends HvlComponent {
 			return this;
 		}
 
-		public Builder setSelectionChangedCommand(SelectionChangedCommand selectionChangedCommand) {
+		public Builder setSelectionChangedCommand(HvlAction3<HvlListBox, Integer, Object> selectionChangedCommand) {
 			tr.setSelectionChangedCommand(selectionChangedCommand);
 			return this;
 		}

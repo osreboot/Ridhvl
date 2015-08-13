@@ -1,23 +1,15 @@
 package com.osreboot.ridhvl.menu.component;
 
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlButton extends HvlComponent {
-
-	public static abstract class OnClickedCommand {
-		public abstract void run(HvlButton callingButton);
-	}
-	
-	public static abstract class OnPressingCommand {
-		public abstract void run(HvlButton callingButton);
-	}
 	
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
-	private OnClickedCommand clickedCommand;
-	private OnPressingCommand pressingCommand;
+	private HvlAction1<HvlButton> clickedCommand, pressingCommand;
 
 	public HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
@@ -112,19 +104,19 @@ public class HvlButton extends HvlComponent {
 		this.onDrawable = onDrawable;
 	}
 
-	public OnClickedCommand getClickedCommand() {
+	public HvlAction1<HvlButton> getClickedCommand() {
 		return clickedCommand;
 	}
 
-	public void setClickedCommand(OnClickedCommand clickedCommand) {
+	public void setClickedCommand(HvlAction1<HvlButton> clickedCommand) {
 		this.clickedCommand = clickedCommand;
 	}
 
-	public OnPressingCommand getPressingCommand() {
+	public HvlAction1<HvlButton> getPressingCommand() {
 		return pressingCommand;
 	}
 
-	public void setPressingCommand(OnPressingCommand pressingCommand) {
+	public void setPressingCommand(HvlAction1<HvlButton> pressingCommand) {
 		this.pressingCommand = pressingCommand;
 	}
 
@@ -183,12 +175,12 @@ public class HvlButton extends HvlComponent {
 			return this;
 		}
 
-		public Builder setClickedCommand(OnClickedCommand clickedCommand) {
+		public Builder setClickedCommand(HvlAction1<HvlButton> clickedCommand) {
 			tr.setClickedCommand(clickedCommand);
 			return this;
 		}
 
-		public Builder setPressingCommand(OnPressingCommand pressingCommand) {
+		public Builder setPressingCommand(HvlAction1<HvlButton> pressingCommand) {
 			tr.setPressingCommand(pressingCommand);
 			return this;
 		}

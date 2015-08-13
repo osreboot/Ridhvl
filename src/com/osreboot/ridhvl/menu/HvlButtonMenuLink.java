@@ -1,8 +1,9 @@
 package com.osreboot.ridhvl.menu;
 
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.menu.component.HvlButton;
 
-public class HvlButtonMenuLink extends HvlButton.OnClickedCommand {
+public class HvlButtonMenuLink extends HvlAction1<HvlButton> {
 
 	private HvlMenu link;
 	

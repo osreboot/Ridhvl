@@ -9,6 +9,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlTextureUtil;
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
@@ -18,7 +19,6 @@ import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlButton;
-import com.osreboot.ridhvl.menu.component.HvlButton.OnClickedCommand;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
@@ -26,7 +26,7 @@ import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
-import com.osreboot.ridhvl.menu.component.collection.HvlTextCheckbox;
+import com.osreboot.ridhvl.menu.component.collection.HvlLabeledCheckbox;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.HvlGradient;
@@ -83,7 +83,7 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
 				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink))).build());
 
-		HvlComponentDefault.setDefault(new HvlTextCheckbox.Builder().setOffDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.blue)))
+		HvlComponentDefault.setDefault(new HvlLabeledCheckbox.Builder().setOffDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.blue)))
 				.setOffHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.cyan)))
 				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
 				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink))).setFont(fontPainter).setText("testing finally")
@@ -114,7 +114,7 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		testCheck = new HvlTextCheckbox.Builder().setWidth(64).setHeight(64).setDrawOverride(new HvlAction2<HvlComponent, Float>() {
+		testCheck = new HvlLabeledCheckbox.Builder().setWidth(64).setHeight(64).setDrawOverride(new HvlAction2<HvlComponent, Float>() {
 
 			@Override
 			public void run(HvlComponent calling, Float delta) {
@@ -124,12 +124,12 @@ public class ComponentsTest extends HvlTemplate2D {
 			}
 		}).build();
 
-		testButton = new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
+		testButton = new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new HvlAction1<HvlButton>() {
 			@Override
 			public void run(HvlButton callingButton) {
 				HvlMenu.addPopup(new HvlMenu() {
 					{
-						add(new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new OnClickedCommand() {
+						add(new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new HvlAction1<HvlButton>() {
 							@Override
 							public void run(HvlButton callingButton) {
 								System.out.println("BUTTONCLICK1!");
@@ -142,7 +142,7 @@ public class ComponentsTest extends HvlTemplate2D {
 				HvlMenu.addPopup(new HvlMenu() {
 					{
 						add(new HvlLabeledButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128).setText("hey!")
-								.setClickedCommand(new OnClickedCommand() {
+								.setClickedCommand(new HvlAction1<HvlButton>() {
 									@Override
 									public void run(HvlButton callingButton) {
 										System.out.println("BUTTONCLICK2!");

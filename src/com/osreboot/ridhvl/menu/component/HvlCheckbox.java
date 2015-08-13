@@ -5,15 +5,11 @@ import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlCheckbox extends HvlComponent {
-
-	public static abstract class OnChangedCommand {
-		public abstract void run(HvlCheckbox callingCheckbox, boolean state);
-	}
 	
 	private boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
 	private HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
-	private OnChangedCommand changedCommand;
+	private HvlAction2<HvlCheckbox, Boolean> changedCommand;
 
 	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
@@ -210,11 +206,11 @@ public class HvlCheckbox extends HvlComponent {
 		this.onHoverDrawable = onHoverDrawable;
 	}
 
-	public OnChangedCommand getChangedCommand() {
+	public HvlAction2<HvlCheckbox, Boolean> getChangedCommand() {
 		return changedCommand;
 	}
 
-	public void setChangedCommand(OnChangedCommand changedEvent) {
+	public void setChangedCommand(HvlAction2<HvlCheckbox, Boolean> changedEvent) {
 		this.changedCommand = changedEvent;
 	}
 
@@ -283,7 +279,7 @@ public class HvlCheckbox extends HvlComponent {
 			return this;
 		}
 
-		public Builder setChangedEventCommand(OnChangedCommand changedEventCommand) {
+		public Builder setChangedEventCommand(HvlAction2<HvlCheckbox, Boolean> changedEventCommand) {
 			tr.setChangedCommand(changedEventCommand);
 			return this;
 		}

@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.menu.component.collection;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
@@ -239,12 +240,12 @@ public class HvlLabeledButton extends HvlButton {
 			return this;
 		}
 
-		public Builder setClickedCommand(OnClickedCommand clickedCommand) {
+		public Builder setClickedCommand(HvlAction1<HvlButton> clickedCommand) {
 			tr.setClickedCommand(clickedCommand);
 			return this;
 		}
 
-		public Builder setPressingCommand(OnPressingCommand pressingCommand) {
+		public Builder setPressingCommand(HvlAction1<HvlButton> pressingCommand) {
 			tr.setPressingCommand(pressingCommand);
 			return this;
 		}

@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.menu.component;
 
 import org.lwjgl.input.Mouse;
 
+import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.HvlCursor;
@@ -10,10 +11,6 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 public class HvlSlider extends HvlComponent {
 	public enum SliderDirection {
 		VERTICAL, HORIZONTAL
-	}
-	
-	public static abstract class OnValueChangedCommand {
-		public abstract void run(HvlSlider callingSlider, float value);
 	}
 
 	private HvlComponentDrawable handleUpDrawable, handleDownDrawable;
@@ -28,7 +25,7 @@ public class HvlSlider extends HvlComponent {
 	private boolean liveSnap;
 	private boolean isBeingHeld;
 	
-	private OnValueChangedCommand valueChangedCommand;
+	private HvlAction2<HvlSlider, Float> valueChangedCommand;
 
 	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
 			HvlComponentDrawable backgroundArg) {
@@ -317,11 +314,11 @@ public class HvlSlider extends HvlComponent {
 		this.textureDirection = textureDirection;
 	}
 
-	public OnValueChangedCommand getValueChangedCommand() {
+	public HvlAction2<HvlSlider, Float> getValueChangedCommand() {
 		return valueChangedCommand;
 	}
 
-	public void setValueChangedCommand(OnValueChangedCommand valueChangedCommand) {
+	public void setValueChangedCommand(HvlAction2<HvlSlider, Float> valueChangedCommand) {
 		this.valueChangedCommand = valueChangedCommand;
 	}
 
@@ -425,7 +422,7 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public Builder setValueChangedCommand(OnValueChangedCommand valueChangedCommand) {
+		public Builder setValueChangedCommand(HvlAction2<HvlSlider, Float> valueChangedCommand) {
 			tr.setValueChangedCommand(valueChangedCommand);
 			return this;
 		}

@@ -12,10 +12,6 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlTextBox extends HvlComponent {
-
-	public static abstract class OnTextChangedCommand {
-		public abstract void run(HvlTextBox callingTextBox, String text);
-	}
 	
 	private HvlComponentDrawable focusedDrawable, unfocusedDrawable;
 	private float offsetX, offsetY;
@@ -30,7 +26,7 @@ public class HvlTextBox extends HvlComponent {
 	private boolean numbersOnly;
 	private String blacklistCharacters;
 	
-	private OnTextChangedCommand textChangedCommand;
+	private HvlAction2<HvlTextBox, String> textChangedCommand;
 
 	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
 		super(wArg, hArg);
@@ -272,11 +268,11 @@ public class HvlTextBox extends HvlComponent {
 		this.font = font;
 	}
 
-	public OnTextChangedCommand getTextChangedCommand() {
+	public HvlAction2<HvlTextBox, String> getTextChangedCommand() {
 		return textChangedCommand;
 	}
 
-	public void setTextChangedCommand(OnTextChangedCommand textChangedCommand) {
+	public void setTextChangedCommand(HvlAction2<HvlTextBox, String> textChangedCommand) {
 		this.textChangedCommand = textChangedCommand;
 	}
 
@@ -385,7 +381,7 @@ public class HvlTextBox extends HvlComponent {
 			return this;
 		}
 
-		public Builder setTextChangedCommand(OnTextChangedCommand textChangedCommand) {
+		public Builder setTextChangedCommand(HvlAction2<HvlTextBox, String> textChangedCommand) {
 			tr.setTextChangedCommand(textChangedCommand);
 			return this;
 		}
