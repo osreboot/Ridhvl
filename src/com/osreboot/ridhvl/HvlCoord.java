@@ -21,61 +21,122 @@ public class HvlCoord
 		return (float) Math.atan2(y, x);
 	}
 	
-	public void normalize() {
+	public HvlCoord normalize() {
 		float len = length();
 		x /= len;
 		y /= len;
+		return this;
 	}
 	
-	public void negate() {
+	public HvlCoord normalizeNew() {
+		float len = length();
+		return new HvlCoord(x / len, y / len);
+	}
+	
+	public HvlCoord negate() {
 		x *= -1;
 		y *= -1;
+		return this;
 	}
 	
-	public void add(float x, float y) {
+	public HvlCoord negateNew() {
+		return new HvlCoord(-x, -y);
+	}
+	
+	public HvlCoord add(float x, float y) {
 		this.x += x;
 		this.y += y;
+		return this;
 	}
 	
-	public void add(HvlCoord toAdd) {
+	public HvlCoord add(HvlCoord toAdd) {
 		add(toAdd.x, toAdd.y);
+		return this;
 	}
 	
-	public void subtract(float x, float y) {
+	public HvlCoord addNew(float x, float y) {
+		return new HvlCoord(this.x + x, this.y + y);
+	}
+	
+	public HvlCoord addNew(HvlCoord toAdd) {
+		return new HvlCoord(this.x + toAdd.x, this.y + toAdd.y);
+	}
+	
+	public HvlCoord subtract(float x, float y) {
 		this.x -= x;
 		this.y -= y;
+		return this;
 	}
 	
-	public void subtract(HvlCoord toSubtract) {
+	public HvlCoord subtract(HvlCoord toSubtract) {
 		subtract(toSubtract.x, toSubtract.y);
+		return this;
 	}
 	
-	public void mult(float val) {
+	public HvlCoord subtractNew(float x, float y) {
+		return new HvlCoord(this.x - x, this.y - y);
+	}
+	
+	public HvlCoord subtractNew(HvlCoord toSubtract) {
+		return new HvlCoord(this.x - toSubtract.x, this.y - toSubtract.y);
+	}
+	
+	public HvlCoord mult(float val) {
 		x *= val;
 		y *= val;
+		return this;
 	}
 	
-	public void mult(float xVal, float yVal) {
+	public HvlCoord mult(float xVal, float yVal) {
 		x *= xVal;
 		y *= yVal;
+		return this;
 	}
 	
-	public void mult(HvlCoord val) {
+	public HvlCoord mult(HvlCoord val) {
 		mult(val.x, val.y);
+		return this;
 	}
 	
-	public void div(float val) {
+	public HvlCoord multNew(float val) {
+		return new HvlCoord(this.x * val, this.y * val);
+	}
+	
+	public HvlCoord multNew(float xVal, float yVal) {
+		return new HvlCoord(this.x * xVal, this.y * yVal);
+	}
+	
+	public HvlCoord multNew(HvlCoord val) {
+		return new HvlCoord(this.x * val.x, this.y * val.y);
+	}
+	
+	public HvlCoord div(float val) {
 		x /= val;
 		y /= val;
+		return this;
 	}
 	
-	public void div(float xVal, float yVal) {
+	public HvlCoord div(float xVal, float yVal) {
 		x /= xVal;
 		y /= yVal;
+		return this;
 	}
 	
-	public void div(HvlCoord val) {
+	public HvlCoord div(HvlCoord val) {
 		div(val.x, val.y);
+		return this;
+	}
+	
+	public HvlCoord divNew(float val) {
+		return new HvlCoord(this.x / val, this.y / val);
+	}
+	
+	public HvlCoord divNew(float xVal, float yVal) {
+		return new HvlCoord(this.x / xVal, this.y / yVal);
+	}
+	
+	public HvlCoord divNew(HvlCoord val) {
+		return new HvlCoord(this.x / val.x, this.y / val.y);
 	}
 
 	public float dot(HvlCoord dotter) {
