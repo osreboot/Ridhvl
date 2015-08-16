@@ -10,10 +10,8 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.action.HvlAction1;
-import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
-import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
@@ -27,6 +25,7 @@ import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledCheckbox;
+import com.osreboot.ridhvl.menu.component.collection.HvlLabeledCheckbox.HvlTextSide;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.HvlGradient;
@@ -114,15 +113,7 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		testCheck = new HvlLabeledCheckbox.Builder().setWidth(64).setHeight(64).setDrawOverride(new HvlAction2<HvlComponent, Float>() {
-
-			@Override
-			public void run(HvlComponent calling, Float delta) {
-				calling.draw(delta);
-				System.out.println("OVERRIDE!");
-
-			}
-		}).build();
+		testCheck = new HvlLabeledCheckbox.Builder().setWidth(64).setHeight(64).setTextSide(HvlTextSide.LEFT).build();
 
 		testButton = new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!").setClickedCommand(new HvlAction1<HvlButton>() {
 			@Override
@@ -169,7 +160,9 @@ public class ComponentsTest extends HvlTemplate2D {
 				.add(testButton)
 				.add(testTextBox)
 				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(SliderDirection.HORIZONTAL)
-						.setTextureDirection(SliderDirection.HORIZONTAL).build()).add(testListBox).build();
+						.setTextureDirection(SliderDirection.HORIZONTAL).build())
+				.add(testListBox)
+				.build();
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);

@@ -6,25 +6,23 @@ import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.painter.HvlCursor;
 
 public abstract class HvlComponent {
-	
-	private float x, y, width, height; 
-	
+
+	private float x, y, width, height;
+
 	private boolean enabled, visible, focused;
-	
+
 	private HvlAction2<HvlComponent, Float> updateOverride, drawOverride;
-	
+
 	private static HvlAction2<HvlComponent, Float> universalUpdateOverride, universalDrawOverride;
-	
-	protected HvlComponent(float wArg, float hArg)
-	{
+
+	protected HvlComponent(float wArg, float hArg) {
 		width = wArg;
 		height = hArg;
 		visible = true;
 		enabled = true;
 	}
-	
-	protected HvlComponent(float xArg, float yArg, float wArg, float hArg)
-	{
+
+	protected HvlComponent(float xArg, float yArg, float wArg, float hArg) {
 		x = xArg;
 		y = yArg;
 		width = wArg;
@@ -32,9 +30,8 @@ public abstract class HvlComponent {
 		visible = true;
 		enabled = true;
 	}
-	
-	public final void metaUpdate(float delta)
-	{
+
+	public final void metaUpdate(float delta) {
 		if (updateOverride != null)
 			updateOverride.run(this, delta);
 		else if (universalUpdateOverride != null)
@@ -42,9 +39,8 @@ public abstract class HvlComponent {
 		else
 			update(delta);
 	}
-	
-	public final void metaDraw(float delta)
-	{		
+
+	public final void metaDraw(float delta) {
 		if (drawOverride != null)
 			drawOverride.run(this, delta);
 		else if (universalDrawOverride != null)
@@ -52,22 +48,29 @@ public abstract class HvlComponent {
 		else
 			draw(delta);
 	}
-	
-	public void update(float delta) {}
-	public void draw(float delta) {}
 
-	public final boolean isBeingPressed(int buttonArg){//TODO account for HvlDisplayMode
-		if (!enabled || !HvlMenu.getCurrent().isInteractable()) return false;
-		
-		return Mouse.isInsideWindow() && Mouse.isButtonDown(buttonArg) && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY() && HvlCursor.getCursorX() < getX() + getWidth() && HvlCursor.getCursorY() < getY() + getHeight();
+	public void update(float delta) {
 	}
 
-	public final boolean isHovering(){//TODO account for HvlDisplayMode
-		if (!enabled || !HvlMenu.getCurrent().isInteractable()) return false;
-		
-		return Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY() && HvlCursor.getCursorX() < getX() + getWidth() && HvlCursor.getCursorY() < getY() + getHeight();
+	public void draw(float delta) {
 	}
-	
+
+	public boolean isBeingPressed(int buttonArg) {// TODO account for
+													// HvlDisplayMode
+		if (!enabled || !HvlMenu.getCurrent().isInteractable())
+			return false;
+
+		return isHovering() && Mouse.isButtonDown(buttonArg);
+	}
+
+	public boolean isHovering() {// TODO account for HvlDisplayMode
+		if (!enabled || !HvlMenu.getCurrent().isInteractable())
+			return false;
+
+		return Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY() && HvlCursor.getCursorX() < getX() + getWidth()
+				&& HvlCursor.getCursorY() < getY() + getHeight();
+	}
+
 	public float getX() {
 		return x;
 	}
@@ -99,7 +102,7 @@ public abstract class HvlComponent {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	
+
 	public boolean isEnabled() {
 		return enabled;
 	}

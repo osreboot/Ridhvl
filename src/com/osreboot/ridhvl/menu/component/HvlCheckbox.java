@@ -6,10 +6,10 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 
 public class HvlCheckbox extends HvlComponent {
 	
-	private boolean previousPressed, currentPressed, previousHover, currentHover;
+	protected boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
-	private HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
-	private HvlAction2<HvlCheckbox, Boolean> changedCommand;
+	protected HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
+	protected HvlAction2<HvlCheckbox, Boolean> changedCommand;
 
 	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
 		super(xlArg, ylArg);
@@ -142,24 +142,18 @@ public class HvlCheckbox extends HvlComponent {
 	@Override
 	public void draw(float delta) {
 		if (getChecked()) {
-			if (isHovering())
-			{
+			if (isHovering()) {
 				if (onHoverDrawable != null)
 					onHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-			}
-			else
-			{
+			} else {
 				if (onDrawable != null)
 					onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 			}
 		} else {
-			if (isHovering())
-			{
+			if (isHovering()) {
 				if (offHoverDrawable != null)
 					offHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
-			}
-			else
-			{
+			} else {
 				if (offDrawable != null)
 					offDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 			}
