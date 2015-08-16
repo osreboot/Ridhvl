@@ -1,5 +1,8 @@
 package com.osreboot.ridhvl.tile;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +36,8 @@ public class HvlTileMap {
 	private float xLeft, xRight, yTop, yBottom;
 	private float opacity;
 
-	public HvlTileMap(Texture tArg, int tilesAcrossArg, int tilesTallArg,
-			int mapWidthArg, int mapHeightArg, float xArg, float yArg,
-			float tileWidthArg, float tileHeightArg) {
+	public HvlTileMap(Texture tArg, int tilesAcrossArg, int tilesTallArg, int mapWidthArg, int mapHeightArg, float xArg, float yArg, float tileWidthArg,
+			float tileHeightArg) {
 		this.info = new TileMapInfo(tArg, tilesAcrossArg, tilesTallArg);
 		this.mapWidth = mapWidthArg;
 		this.mapHeight = mapHeightArg;
@@ -48,24 +50,29 @@ public class HvlTileMap {
 	}
 
 	public void draw(float delta) {
-//		if (mapWidth > 0 && mapHeight > 0)
-//		{
-//			HvlTile current = tiles[mapWidth * 0 + 0];
-//			if (current != null)
-//			{
-//				float xMin = x + (tileWidth * 0);
-//				float yMin = y + (tileHeight * 0);
-//				
-//				current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, true, opacity);
-//			}
-//		}
-				
+		// if (mapWidth > 0 && mapHeight > 0)
+		// {
+		// HvlTile current = tiles[mapWidth * 0 + 0];
+		// if (current != null)
+		// {
+		// float xMin = x + (tileWidth * 0);
+		// float yMin = y + (tileHeight * 0);
+		//
+		// current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, true,
+		// opacity);
+		// }
+		// }
+
 		HvlPainter2D.hvlForceRefresh();
-		
+
 		for (int currentX = 0; currentX < mapWidth; currentX++) {
 			for (int currentY = 0; currentY < mapHeight; currentY++) {
-//				System.out.println("Mag: " + (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER) == GL11.GL_LINEAR));
-//				System.out.println("Min: " + (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER) == GL11.GL_LINEAR));
+				// System.out.println("Mag: " +
+				// (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER) ==
+				// GL11.GL_LINEAR));
+				// System.out.println("Min: " +
+				// (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER) ==
+				// GL11.GL_LINEAR));
 				HvlTile current = tiles[mapWidth * currentY + currentX];
 				if (current == null)
 					continue;
@@ -74,11 +81,11 @@ public class HvlTileMap {
 				float yMin = y + (tileHeight * (float) currentY);
 				float xMax = xMin + tileWidth;
 				float yMax = yMin + tileHeight;
-				
+
 				boolean inRange = xMax > xLeft && xMin < xRight && yMax > yTop && yMin < yBottom;
-				
+
 				current.update(info, delta);
-				
+
 				if (!cutOff || inRange)
 					current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, opacity);
 			}
@@ -161,28 +168,20 @@ public class HvlTileMap {
 		StringBuilder sb = new StringBuilder();
 
 		for (HvlTileMap map : maps) {
-			sb.append(String.format("<TileMap %d, %d, %d, %d>%n",
-					map.getInfo().tileWidth, map.getInfo().tileHeight,
-					map.getMapWidth(), map.getMapHeight()));
+			sb.append(String.format("<TileMap %d, %d, %d, %d>%n", map.getInfo().tileWidth, map.getInfo().tileHeight, map.getMapWidth(), map.getMapHeight()));
 			for (int currentX = 0; currentX < map.getMapWidth(); currentX++) {
 				for (int currentY = 0; currentY < map.getMapHeight(); currentY++) {
 					HvlTile tile = map.getTile(currentX, currentY);
 					if (tile == null)
 						continue;
 
-					sb.append(String.format("<%s, %d, %d>%n", tile.getClass()
-							.getName(), currentX, currentY));
+					sb.append(String.format("<%s, %d, %d>%n", tile.getClass().getName(), currentX, currentY));
 					try {
-						sb.append((String) tile.getClass()
-								.getMethod("save", tile.getClass())
-								.invoke(null, tile));
-					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException | NoSuchMethodException
-							| SecurityException e) {
+						sb.append((String) tile.getClass().getMethod("save", tile.getClass()).invoke(null, tile));
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 						e.printStackTrace();
 					}
-					sb.append(String.format("%n</%s>%n", tile.getClass()
-							.getName()));
+					sb.append(String.format("%n</%s>%n", tile.getClass().getName()));
 				}
 			}
 
@@ -192,25 +191,40 @@ public class HvlTileMap {
 		return sb.toString();
 	}
 
-	public static HvlTileMap[] load(String inArg, Texture texArg, float xArg,
-			float yArg, float tileWidthArg, float tileHeightArg) {
+	public static HvlTileMap[] load(String inArg, boolean isPath, Texture texArg, float xArg, float yArg, float tileWidthArg, float tileHeightArg) {
+
+		String text;
+
+		if (isPath) {
+			try {
+				StringBuilder sb = new StringBuilder();
+				BufferedReader reader = new BufferedReader(new FileReader("res/" + inArg + ".hvlmap"));
+				String current;
+				while ((current = reader.readLine()) != null) {
+					sb.append(current);
+					sb.append(System.lineSeparator());
+				}
+				text = sb.toString();
+				reader.close();
+			} catch (IOException e) {
+				return null;
+			}
+		} else
+			text = inArg;
 
 		List<HvlTileMap> loaded = new ArrayList<>();
-		
+
 		Pattern headerPattern = Pattern.compile("\\<TileMap (\\d+), (\\d+), (\\d+), (\\d+)\\>([\\s\\S]*?)\\<\\/TileMap\\>");
-		Matcher headerMatcher = headerPattern.matcher(inArg);
-		
+		Matcher headerMatcher = headerPattern.matcher(text);
+
 		while (headerMatcher.find()) {
 			int tilesAcross = Integer.parseInt(headerMatcher.group(1).trim());
 			int tilesTall = Integer.parseInt(headerMatcher.group(2).trim());
 			int mapWidth = Integer.parseInt(headerMatcher.group(3).trim());
 			int mapHeight = Integer.parseInt(headerMatcher.group(4).trim());
-			HvlTileMap toReturn = new HvlTileMap(texArg, tilesAcross,
-					tilesTall, mapWidth, mapHeight, xArg, yArg, tileWidthArg,
-					tileHeightArg);
+			HvlTileMap toReturn = new HvlTileMap(texArg, tilesAcross, tilesTall, mapWidth, mapHeight, xArg, yArg, tileWidthArg, tileHeightArg);
 
-			Pattern p = Pattern
-					.compile("\\<(\\S+), (\\d+), (\\d+)\\>([\\s\\S]*?)<\\/\\1>");
+			Pattern p = Pattern.compile("\\<(\\S+), (\\d+), (\\d+)\\>([\\s\\S]*?)<\\/\\1>");
 			Matcher m = p.matcher(headerMatcher.group(5));
 			while (m.find()) {
 				int coordX = Integer.parseInt(m.group(2));
@@ -218,14 +232,12 @@ public class HvlTileMap {
 
 				try {
 					Class<?> tileClass = Class.forName(m.group(1));
-					
-					HvlTile created = (HvlTile) tileClass.getMethod("load",
-							String.class).invoke(null, m.group(4));
+
+					HvlTile created = (HvlTile) tileClass.getMethod("load", String.class).invoke(null, m.group(4));
 					toReturn.setTile(coordX, coordY, created);
 
-				} catch (ClassNotFoundException | NoSuchMethodException
-						| SecurityException | IllegalAccessException
-						| IllegalArgumentException | InvocationTargetException e) {
+				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e) {
 					e.printStackTrace();
 				}
 			}
@@ -235,71 +247,57 @@ public class HvlTileMap {
 		return loaded.toArray(new HvlTileMap[0]);
 	}
 
-	public void resize(int widthArg, int heightArg)
-	{
-		HvlTile[] newTiles = new HvlTile[widthArg*heightArg];
-		for (int x = 0; x < widthArg; x++)
-		{
-			for (int y = 0; y < heightArg; y++)
-			{
-				if (x < getMapWidth() && y < getMapHeight())
-				{
-					newTiles[y*widthArg+x] = getTile(x, y);
+	public void resize(int widthArg, int heightArg) {
+		HvlTile[] newTiles = new HvlTile[widthArg * heightArg];
+		for (int x = 0; x < widthArg; x++) {
+			for (int y = 0; y < heightArg; y++) {
+				if (x < getMapWidth() && y < getMapHeight()) {
+					newTiles[y * widthArg + x] = getTile(x, y);
 				}
 			}
 		}
-		
+
 		this.tiles = newTiles;
 		this.mapWidth = widthArg;
 		this.mapHeight = heightArg;
 	}
 
-	
 	public boolean isCutOff() {
 		return cutOff;
 	}
 
-	
 	public void setCutOff(boolean cutOff) {
 		this.cutOff = cutOff;
 	}
 
-	
 	public float getxLeft() {
 		return xLeft;
 	}
 
-	
 	public void setxLeft(float xLeft) {
 		this.xLeft = xLeft;
 	}
 
-	
 	public float getxRight() {
 		return xRight;
 	}
 
-	
 	public void setxRight(float xRight) {
 		this.xRight = xRight;
 	}
 
-	
 	public float getyTop() {
 		return yTop;
 	}
 
-	
 	public void setyTop(float yTop) {
 		this.yTop = yTop;
 	}
 
-	
 	public float getyBottom() {
 		return yBottom;
 	}
 
-	
 	public void setyBottom(float yBottom) {
 		this.yBottom = yBottom;
 	}

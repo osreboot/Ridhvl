@@ -52,10 +52,10 @@ public class HvlLayeredTileMap {
 		return layers.get(layerArg);
 	}
 
-	public static HvlLayeredTileMap load(String inArg, Texture tArg, float xArg,
+	public static HvlLayeredTileMap load(String inArg, boolean isPath, Texture tArg, float xArg,
 			float yArg, float tileWidthArg, float tileHeightArg) {
 		return new HvlLayeredTileMap(xArg, yArg, tileWidthArg, tileHeightArg,
-				HvlTileMap.load(inArg, tArg, xArg, yArg, tileWidthArg,
+				HvlTileMap.load(inArg, isPath, tArg, xArg, yArg, tileWidthArg,
 						tileHeightArg));
 	}
 	
