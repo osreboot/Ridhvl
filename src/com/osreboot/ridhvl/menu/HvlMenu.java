@@ -174,6 +174,23 @@ public class HvlMenu {
 	public static boolean hasPopup() {
 		return !popups.isEmpty();
 	}
+	
+	public static boolean isBlocked(HvlMenu menu) {		
+		for (int i = popups.size() - 1; i >= 0; i--) {
+			// If we've found the menu (and haven't been blocked already) return false
+			// (before we check for blocks)
+			if (popups.get(i) == menu)
+				return false;
+			
+			// If this one is blocking (and isn't the target: see above) return true
+			if (blocks.get(i))
+				return true;
+		}
+		
+		// Either this is the base menu (and therefore unblocked if we've gotten this far)
+		// or isn't actually a current menu (so return false).
+		return false;
+	}
 
 	public boolean isInteractable() {
 		return interactable;
