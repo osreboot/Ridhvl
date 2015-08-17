@@ -233,4 +233,22 @@ public class HvlLayeredTileMap {
 	public List<HvlEntity> getEntities() {
 		return Collections.unmodifiableList(entities);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends HvlEntity> List<T> getEntitiesOfType(Class<T> type) {
+		List<T> tr = new LinkedList<>();
+		for (HvlEntity ent : entities)
+		{
+			if (tr.getClass().isInstance(type))
+				tr.add((T) ent);
+		}
+		return tr;
+	}
+	
+	public <T extends HvlEntity> T getFirstEntityOfType(Class<T> type) {
+		List<T> list = getEntitiesOfType(type);
+		if (list.isEmpty()) return null;
+		
+		return list.get(0);
+	}
 }

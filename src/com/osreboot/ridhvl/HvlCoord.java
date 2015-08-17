@@ -33,6 +33,25 @@ public class HvlCoord
 		return new HvlCoord(x / len, y / len);
 	}
 	
+	public HvlCoord fixNaN() {
+		return fixNaN(0, 0);
+	}
+	
+	public HvlCoord fixNaN(float nanX, float nanY) {
+		x = Float.isNaN(x) ? nanX : x;
+		y = Float.isNaN(y) ? nanY : y;
+		
+		return this;
+	}
+	
+	public HvlCoord fixNaNNew() {
+		return fixNaNNew(0, 0);
+	}
+	
+	public HvlCoord fixNaNNew(float nanX, float nanY) {
+		return new HvlCoord(Float.isNaN(x) ? nanX : x, Float.isNaN(y) ? nanY : y);
+	}
+	
 	public HvlCoord negate() {
 		x *= -1;
 		y *= -1;
