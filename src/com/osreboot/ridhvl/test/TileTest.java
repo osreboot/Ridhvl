@@ -1,12 +1,22 @@
 package com.osreboot.ridhvl.test;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
+import com.osreboot.ridhvl.input.HvlInputSeriesAction;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 
 public class TileTest extends HvlTemplate2D {
 
+	public static void main(String[] args) {
+		new TileTest();
+	}
+	
 	public TileTest() {
 		super(60, 1280, 720, "Ridhvl TileMap Test", new HvlDisplayModeDefault());
 	}
@@ -18,35 +28,25 @@ public class TileTest extends HvlTemplate2D {
 	@Override
 	public void initialize() {
 		textureLoader.loadResource("Icon");
+		textureLoader.loadResource("Tilemap");
 
-		// tilemaps = new HvlTileMap[] {new
-		// HvlTileMap(textureLoader.getResource(0), 16, 16, 16, 16, 0,
-		// 0, 64, 64), new HvlTileMap(textureLoader.getResource(0), 16, 16, 16,
-		// 16, 0,
-		// 0, 64, 64)};
-		// tilemaps[0].fill(new HvlSimpleTile(0));
-		// tilemaps[0].setTile(0, 0, new HvlSimpleTile(96));
-		// tilemaps[1].setTile(1, 0, new HvlSimpleTile(1));
-		// tilemaps[1].setTile(2, 0, new HvlAnimatedTile(1.0f, 1, 2, 18));
-		// try {
-		// BufferedWriter writer = new BufferedWriter(new FileWriter(
-		// "res/SavedMap.map"));
-		// writer.write(HvlTileMap.save(tilemaps));
-		// writer.close();
-		// } catch (IOException e1) {
-		//
-		// }
-
-		tilemaps = HvlLayeredTileMap.load("SavedMap", true, textureLoader.getResource(0), 0, 0, 64, 64);
-		tilemaps.setCutOff(true);
-		tilemaps.setxLeft(0);
-		tilemaps.setxRight(512);
-		tilemaps.setyTop(0);
-		tilemaps.setyBottom(256);
+		tilemaps = HvlLayeredTileMap.load("SavedMap", true, textureLoader.getResource(1), 0, 0, 64, 64);
+		tilemaps.addEntity(new TestEntity(32, 32, tilemaps));
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("res/SavedMap.hvlmap"));
+			String toWrite = HvlLayeredTileMap.save(tilemaps);
+			writer.write(toWrite);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void update(float delta) {
+		HvlCamera.setX(HvlCamera.getX() + (HvlInputSeriesAction.HORIZONTAL.getCurrentOutput() * delta * 256.0f));
+		HvlCamera.setY(HvlCamera.getY() + (HvlInputSeriesAction.VERTICAL.getCurrentOutput() * delta * 256.0f));
+		
 		if (tilemaps != null) {
 			tilemaps.draw(delta);
 		}

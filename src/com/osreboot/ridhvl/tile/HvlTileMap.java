@@ -67,12 +67,6 @@ public class HvlTileMap {
 
 		for (int currentX = 0; currentX < mapWidth; currentX++) {
 			for (int currentY = 0; currentY < mapHeight; currentY++) {
-				// System.out.println("Mag: " +
-				// (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER) ==
-				// GL11.GL_LINEAR));
-				// System.out.println("Min: " +
-				// (glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER) ==
-				// GL11.GL_LINEAR));
 				HvlTile current = tiles[mapWidth * currentY + currentX];
 				if (current == null)
 					continue;
