@@ -16,7 +16,7 @@ public class TestEntity extends HvlEntity {
 
 	@Override
 	public void update(float delta) {
-		System.out.println("ENTITY!");
+		
 	}
 
 	@Override
@@ -25,4 +25,8 @@ public class TestEntity extends HvlEntity {
 				Color.white), Color.red);
 	}
 
+	public static TestEntity load(String inArg, float x, float y, HvlLayeredTileMap parent)
+	{
+		return new TestEntity(x, y, parent);
+	}
 }

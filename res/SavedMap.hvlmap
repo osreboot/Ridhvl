@@ -1,5 +1,8 @@
 <entities>
-<com.osreboot.ridhvl.test.TestEntity 32.0, 32.0>
+<com.osreboot.ridhvl.test.TestEntity 0.0, 0.0>
+
+</com.osreboot.ridhvl.test.TestEntity>
+<com.osreboot.ridhvl.test.TestEntity 128.0, 64.0>
 
 </com.osreboot.ridhvl.test.TestEntity>
 </entities>

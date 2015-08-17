@@ -1,8 +1,13 @@
 package com.osreboot.ridhvl.tile;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -16,7 +21,7 @@ public class HvlLayeredTileMap {
 
 	private boolean cutOff;
 	private float xLeft, xRight, yTop, yBottom;
-	
+
 	private List<HvlEntity> entities;
 
 	public HvlLayeredTileMap(float xArg, float yArg, float tileWidthArg, float tileHeightArg, HvlTileMap... layersArg) {
@@ -30,7 +35,7 @@ public class HvlLayeredTileMap {
 		for (HvlTileMap layer : layersArg) {
 			layers.add(layer);
 		}
-		
+
 		entities = new LinkedList<>();
 	}
 
@@ -49,19 +54,19 @@ public class HvlLayeredTileMap {
 			map.setyBottom(yBottom);
 			map.draw(delta);
 		}
-		
+
 		List<HvlEntity> toRemove = new LinkedList<>();
-		
+
 		for (HvlEntity entity : entities) {
 			entity.update(delta);
 			if (entity.isMarkedForDeletion())
 				toRemove.add(entity);
 		}
-		
+
 		for (HvlEntity entity : entities) {
 			entity.draw(delta);
 		}
-		
+
 		for (HvlEntity tr : toRemove) {
 			entities.remove(tr);
 		}
@@ -77,18 +82,56 @@ public class HvlLayeredTileMap {
 		HvlLayeredTileMap tr = new HvlLayeredTileMap(xArg, yArg, tileWidthArg, tileHeightArg, HvlTileMap.load(inArg, isPath, tArg, xArg, yArg, tileWidthArg,
 				tileHeightArg));
 
-		
-		
+		String in;
+
+		if (isPath) {
+			try {
+				StringBuilder sb = new StringBuilder();
+				BufferedReader reader = new BufferedReader(new FileReader("res/" + inArg + ".hvlmap"));
+				String current;
+				while ((current = reader.readLine()) != null) {
+					sb.append(current);
+					sb.append(System.lineSeparator());
+				}
+				in = sb.toString();
+				reader.close();
+			} catch (IOException e) {
+				return null;
+			}
+		} else {
+			in = inArg;
+		}
+
+		Pattern outerPattern = Pattern.compile("\\<entities\\>([\\s\\S]*?)\\<\\/entities\\>");
+		Matcher outerMatch = outerPattern.matcher(in);
+		if (outerMatch.find()) {
+			String contents = outerMatch.group(1);
+
+			Pattern entPattern = Pattern.compile("\\<([\\s\\S]*) ([\\d\\.]*), ([\\d\\.]*)\\>([\\s\\S]*?)\\<\\/\\1\\>");
+			Matcher entMatch = entPattern.matcher(contents);
+
+			while (entMatch.find()) {
+				try {
+					float pX = Float.parseFloat(entMatch.group(2));
+					float pY = Float.parseFloat(entMatch.group(3));
+					HvlEntity ent = (HvlEntity) Class.forName(entMatch.group(1))
+							.getMethod("load", String.class, float.class, float.class, HvlLayeredTileMap.class).invoke(null, entMatch.group(4).trim(), pX, pY, tr);
+					tr.addEntity(ent);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 		return tr;
 	}
 
 	public static String save(HvlLayeredTileMap map) {
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("<entities>");
 		sb.append(System.lineSeparator());
-		for (HvlEntity ent : map.entities)
-		{
+		for (HvlEntity ent : map.entities) {
 			sb.append("<" + ent.getClass().getName() + " " + ent.getX() + ", " + ent.getY() + ">");
 			sb.append(System.lineSeparator());
 			sb.append(ent.save());
@@ -182,11 +225,11 @@ public class HvlLayeredTileMap {
 	public void setyBottom(float yBottom) {
 		this.yBottom = yBottom;
 	}
-	
+
 	public void addEntity(HvlEntity ent) {
 		entities.add(ent);
 	}
-	
+
 	public List<HvlEntity> getEntities() {
 		return Collections.unmodifiableList(entities);
 	}
