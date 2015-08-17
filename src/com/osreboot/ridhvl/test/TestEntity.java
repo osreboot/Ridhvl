@@ -2,7 +2,6 @@ package com.osreboot.ridhvl.test;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
@@ -10,8 +9,13 @@ import com.osreboot.ridhvl.tile.entity.HvlEntity;
 
 public class TestEntity extends HvlEntity {
 
+	public TestEntity(String inArg, float xArg, float yArg, HvlLayeredTileMap parentArg) {
+		super(inArg, xArg, yArg, parentArg);
+	}
+	
+	// Example of handling loading yourself (pass null in for inArg)
 	public TestEntity(float xArg, float yArg, HvlLayeredTileMap parentArg) {
-		super(xArg, yArg, parentArg);
+		super(null, xArg, yArg, parentArg);
 	}
 
 	@Override
@@ -25,8 +29,15 @@ public class TestEntity extends HvlEntity {
 				Color.white), Color.red);
 	}
 
-	public static TestEntity load(String inArg, float x, float y, HvlLayeredTileMap parent)
+	@Override
+	public String save()
 	{
-		return new TestEntity(x, y, parent);
+		return "";
+	}
+	
+	@Override
+	protected void load(String inArg)
+	{
+		
 	}
 }

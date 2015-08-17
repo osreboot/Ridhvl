@@ -114,8 +114,8 @@ public class HvlLayeredTileMap {
 				try {
 					float pX = Float.parseFloat(entMatch.group(2));
 					float pY = Float.parseFloat(entMatch.group(3));
-					HvlEntity ent = (HvlEntity) Class.forName(entMatch.group(1))
-							.getMethod("load", String.class, float.class, float.class, HvlLayeredTileMap.class).invoke(null, entMatch.group(4).trim(), pX, pY, tr);
+					HvlEntity ent = (HvlEntity) Class.forName(entMatch.group(1)).getConstructor(String.class, float.class, float.class, HvlLayeredTileMap.class)
+							.newInstance(entMatch.group(4).trim(), pX, pY, tr);
 					tr.addEntity(ent);
 				} catch (Exception e) {
 					e.printStackTrace();

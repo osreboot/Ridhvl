@@ -8,10 +8,14 @@ public abstract class HvlEntity {
 	private HvlLayeredTileMap parent;
 	private boolean markedForDeletion;
 
-	public HvlEntity(float xArg, float yArg, HvlLayeredTileMap parentArg) {
+	// NOTE: Passing in null for inArg will skip calling load and let you handle
+	// it yourself using parameters
+	public HvlEntity(String inArg, float xArg, float yArg, HvlLayeredTileMap parentArg) {
 		this.x = xArg;
 		this.y = yArg;
 		this.parent = parentArg;
+		if (inArg != null)
+			load(inArg);
 	}
 
 	public abstract void update(float delta);
@@ -25,7 +29,7 @@ public abstract class HvlEntity {
 	public int getTileX() {
 		return (int) ((x - parent.getX()) / parent.getTileWidth());
 	}
-	
+
 	public float getWorldX() {
 		return parent.getX() + x;
 	}
@@ -41,7 +45,7 @@ public abstract class HvlEntity {
 	public int getTileY() {
 		return (int) ((y - parent.getY()) / parent.getTileHeight());
 	}
-	
+
 	public float getWorldY() {
 		return parent.getY() + y;
 	}
@@ -61,9 +65,13 @@ public abstract class HvlEntity {
 	public boolean isMarkedForDeletion() {
 		return markedForDeletion;
 	}
-	
+
 	public String save() {
 		return "";
+	}
+
+	protected void load(String in) {
+
 	}
 
 	public HvlLayeredTileMap getParent() {
