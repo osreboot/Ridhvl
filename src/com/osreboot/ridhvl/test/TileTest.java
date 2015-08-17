@@ -29,8 +29,9 @@ public class TileTest extends HvlTemplate2D {
 	public void initialize() {
 		textureLoader.loadResource("Icon");
 		textureLoader.loadResource("Tilemap");
+		textureLoader.loadResource("Tilemap2");
 
-		tilemaps = HvlLayeredTileMap.load("SavedMap", true, textureLoader.getResource(1), 0, 0, 64, 64);
+		tilemaps = HvlLayeredTileMap.load("SavedMap", true, 0, 0, 64, 64, textureLoader.getResource(1), textureLoader.getResource(2));
 //		tilemaps.addEntity(new TestEntity("", 32, 32, tilemaps));
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("res/SavedMap.hvlmap"));

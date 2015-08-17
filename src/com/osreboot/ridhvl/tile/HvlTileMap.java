@@ -16,14 +16,14 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 public class HvlTileMap {
 
 	public class TileMapInfo {
-		public TileMapInfo(Texture texture, int tileWidth, int tileHeight) {
+		public TileMapInfo(int tileWidth, int tileHeight, Texture... textures) {
 			super();
-			this.texture = texture;
+			this.textures = textures;
 			this.tileWidth = tileWidth;
 			this.tileHeight = tileHeight;
 		}
 
-		public Texture texture;
+		public Texture[] textures;
 		public int tileWidth, tileHeight;
 	}
 
@@ -36,9 +36,9 @@ public class HvlTileMap {
 	private float xLeft, xRight, yTop, yBottom;
 	private float opacity;
 
-	public HvlTileMap(Texture tArg, int tilesAcrossArg, int tilesTallArg, int mapWidthArg, int mapHeightArg, float xArg, float yArg, float tileWidthArg,
-			float tileHeightArg) {
-		this.info = new TileMapInfo(tArg, tilesAcrossArg, tilesTallArg);
+	public HvlTileMap(int tilesAcrossArg, int tilesTallArg, int mapWidthArg, int mapHeightArg, float xArg, float yArg, float tileWidthArg, float tileHeightArg,
+			Texture... tArg) {
+		this.info = new TileMapInfo(tilesAcrossArg, tilesTallArg, tArg);
 		this.mapWidth = mapWidthArg;
 		this.mapHeight = mapHeightArg;
 		this.tileWidth = tileWidthArg;
@@ -185,7 +185,7 @@ public class HvlTileMap {
 		return sb.toString();
 	}
 
-	public static HvlTileMap[] load(String inArg, boolean isPath, Texture texArg, float xArg, float yArg, float tileWidthArg, float tileHeightArg) {
+	public static HvlTileMap[] load(String inArg, boolean isPath, float xArg, float yArg, float tileWidthArg, float tileHeightArg, Texture... texArg) {
 
 		String text;
 
@@ -216,7 +216,7 @@ public class HvlTileMap {
 			int tilesTall = Integer.parseInt(headerMatcher.group(2).trim());
 			int mapWidth = Integer.parseInt(headerMatcher.group(3).trim());
 			int mapHeight = Integer.parseInt(headerMatcher.group(4).trim());
-			HvlTileMap toReturn = new HvlTileMap(texArg, tilesAcross, tilesTall, mapWidth, mapHeight, xArg, yArg, tileWidthArg, tileHeightArg);
+			HvlTileMap toReturn = new HvlTileMap(tilesAcross, tilesTall, mapWidth, mapHeight, xArg, yArg, tileWidthArg, tileHeightArg, texArg);
 
 			Pattern p = Pattern.compile("\\<(\\S+), (\\d+), (\\d+)\\>([\\s\\S]*?)<\\/\\1>");
 			Matcher m = p.matcher(headerMatcher.group(5));

@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.HvlTile;
 import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;
@@ -11,6 +12,7 @@ import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;
 public class HvlSimpleTile extends HvlTile {
 
 	private int tile;
+	private int randomTexture = -1;
 
 	public HvlSimpleTile(int tileArg) {
 		this.tile = tileArg;
@@ -23,7 +25,7 @@ public class HvlSimpleTile extends HvlTile {
 	
 	@Override
 	public void draw(TileMapInfo info, float x, float y, float width,
-			float height, float delta, float opacity) {		
+			float height, float delta, float opacity) {
 		int tileX = tile % info.tileWidth;
 		int tileY = tile / info.tileHeight;
 
@@ -31,9 +33,12 @@ public class HvlSimpleTile extends HvlTile {
 		float uvy1 = (float) tileY / info.tileHeight;
 		float uvx2 = (float) (tileX + 1) / info.tileWidth;
 		float uvy2 = (float) (tileY + 1) / info.tileHeight;
-				
+		
+		if (randomTexture < 0 || randomTexture >= info.textures.length)
+			randomTexture = HvlMath.randomIntBetween(0, info.textures.length);
+		
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, uvx1, uvy1, uvx2, uvy2,
-				info.texture, new Color(1.0f, 1.0f, 1.0f, opacity));
+				info.textures[randomTexture], new Color(1.0f, 1.0f, 1.0f, opacity));
 	}
 
 	public int getTile() {

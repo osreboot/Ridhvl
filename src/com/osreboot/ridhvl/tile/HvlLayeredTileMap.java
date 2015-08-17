@@ -78,9 +78,9 @@ public class HvlLayeredTileMap {
 		return layers.get(layerArg);
 	}
 
-	public static HvlLayeredTileMap load(String inArg, boolean isPath, Texture tArg, float xArg, float yArg, float tileWidthArg, float tileHeightArg) {
-		HvlLayeredTileMap tr = new HvlLayeredTileMap(xArg, yArg, tileWidthArg, tileHeightArg, HvlTileMap.load(inArg, isPath, tArg, xArg, yArg, tileWidthArg,
-				tileHeightArg));
+	public static HvlLayeredTileMap load(String inArg, boolean isPath, float xArg, float yArg, float tileWidthArg, float tileHeightArg, Texture... tArg) {
+		HvlLayeredTileMap tr = new HvlLayeredTileMap(xArg, yArg, tileWidthArg, tileHeightArg, HvlTileMap.load(inArg, isPath, xArg, yArg, tileWidthArg, tileHeightArg,
+				tArg));
 
 		String in;
 
