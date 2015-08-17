@@ -303,4 +303,24 @@ public class HvlTileMap {
 	public void setOpacity(float opacity) {
 		this.opacity = opacity;
 	}
+
+	public float toWorldX(int xArg)
+	{
+		return getX() + (xArg * tileWidth);
+	}
+	
+	public float toWorldY(int yArg)
+	{
+		return getY() + (yArg * tileHeight);
+	}
+	
+	public int toTileX(float xArg)
+	{
+		return (int)((xArg - getX()) / tileWidth);
+	}
+	
+	public int toTileY(float yArg)
+	{
+		return (int)((yArg - getY()) / tileHeight);
+	}
 }
