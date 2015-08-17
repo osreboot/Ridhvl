@@ -271,4 +271,26 @@ public class HvlLayeredTileMap {
 		
 		return list.get(0);
 	}
+	
+	public boolean isTileInLocation(int x, int y, int... layers)
+	{
+		for (int layer : layers)
+		{
+			if (getLayer(layer).isTileInLocation(x, y))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean isTileInLocation(float x, float y, int... layers)
+	{
+		for (int layer : layers)
+		{
+			if (getLayer(layer).isTileInLocation(x, y))
+				return true;
+		}
+		
+		return false;
+	}
 }

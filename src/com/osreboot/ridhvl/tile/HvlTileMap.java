@@ -323,4 +323,14 @@ public class HvlTileMap {
 	{
 		return (int)((yArg - getY()) / tileHeight);
 	}
+
+	public boolean isTileInLocation(int x, int y)
+	{
+		return getTile(x, y) != null;
+	}
+	
+	public boolean isTileInLocation(float x, float y)
+	{
+		return isTileInLocation(toTileX(x), toTileY(y));
+	}
 }
