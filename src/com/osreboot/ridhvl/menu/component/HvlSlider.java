@@ -17,6 +17,7 @@ public class HvlSlider extends HvlComponent {
 	private HvlComponentDrawable background;
 	private SliderDirection direction;
 	private SliderDirection textureDirection;
+	private SliderDirection handleDirection;
 	private float value;
 	private float pValue;
 	private float handleHeight, handleWidth;
@@ -24,7 +25,7 @@ public class HvlSlider extends HvlComponent {
 	private float snapInterval;
 	private boolean liveSnap;
 	private boolean isBeingHeld;
-	
+
 	private HvlAction2<HvlSlider, Float> valueChangedCommand;
 
 	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
@@ -32,6 +33,7 @@ public class HvlSlider extends HvlComponent {
 		super(wArg, hArg);
 		direction = dirArg;
 		textureDirection = dirArg;
+		handleDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleArg;
@@ -45,6 +47,7 @@ public class HvlSlider extends HvlComponent {
 		super(wArg, hArg);
 		direction = dirArg;
 		textureDirection = dirArg;
+		handleDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleUpArg;
@@ -58,6 +61,7 @@ public class HvlSlider extends HvlComponent {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		textureDirection = dirArg;
+		handleDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleArg;
@@ -71,6 +75,7 @@ public class HvlSlider extends HvlComponent {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
 		textureDirection = dirArg;
+		handleDirection = dirArg;
 		handleWidth = handleWidthArg;
 		handleHeight = handleHeightArg;
 		handleUpDrawable = handleUpArg;
@@ -148,8 +153,7 @@ public class HvlSlider extends HvlComponent {
 
 		value = Math.max(0.0f, Math.min(value, 1.0f));
 
-		if (pValue != value)
-		{
+		if (pValue != value) {
 			if (valueChangedCommand != null)
 				valueChangedCommand.run(this, value);
 		}
@@ -162,7 +166,8 @@ public class HvlSlider extends HvlComponent {
 	public void draw(float delta) {
 		if (background != null) {
 			if (textureDirection == direction) // If the texture is facing the
-												// right direction...
+												// right direction draw it
+												// normally
 				background.draw(delta, getX(), getY(), getWidth(), getHeight());
 			else // We need to rotate the background
 			{
@@ -189,26 +194,97 @@ public class HvlSlider extends HvlComponent {
 			float max = getX() + getWidth() - handleEndOffset;
 			float lerpedX = min + (value * (max - min));
 
-			if (isBeingHeld) {
-				if (handleDownDrawable != null)
-					handleDownDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+			float x = lerpedX - (handleWidth / 2);
+			float y = getY() + (getHeight() / 2) - (handleHeight / 2);
+
+			if (handleDirection != direction) {
+				switch (handleDirection) {
+				case HORIZONTAL: {
+					HvlPainter2D.hvlRotate(x + handleWidth, y, 90);
+
+					if (isBeingHeld) {
+						if (handleDownDrawable != null)
+							handleDownDrawable.draw(delta, x + handleWidth, y, handleWidth, handleHeight);
+					} else {
+						if (handleUpDrawable != null)
+							handleUpDrawable.draw(delta, x + handleWidth, y, handleWidth, handleHeight);
+					}
+				}
+					break;
+				case VERTICAL: {
+					HvlPainter2D.hvlRotate(x, y + handleHeight, -90);
+
+					if (isBeingHeld) {
+						if (handleDownDrawable != null)
+							handleDownDrawable.draw(delta, x, y + handleHeight, handleWidth, handleHeight);
+					} else {
+						if (handleUpDrawable != null)
+							handleUpDrawable.draw(delta, x, y + handleHeight, handleWidth, handleHeight);
+					}
+				}
+					break;
+				}
 			} else {
-				if (handleUpDrawable != null)
-					handleUpDrawable.draw(delta, lerpedX - (handleWidth / 2), getY() + (getHeight() / 2) - (handleHeight / 2), handleWidth, handleHeight);
+				if (isBeingHeld) {
+					if (handleDownDrawable != null)
+						handleDownDrawable.draw(delta, x, y, handleWidth, handleHeight);
+				} else {
+					if (handleUpDrawable != null)
+						handleUpDrawable.draw(delta, x, y, handleWidth, handleHeight);
+				}
 			}
+
+			if (handleDirection != direction)
+				HvlPainter2D.hvlResetRotation();
 		}
 			break;
 		case VERTICAL: {
 			float min = getY() + handleStartOffset;
 			float max = getY() + getHeight() - handleEndOffset;
 			float lerpedY = min + (value * (max - min));
-			if (isBeingHeld) {
-				if (handleDownDrawable != null)
-					handleDownDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+
+			float x = getX() + (getWidth() / 2) - (handleWidth / 2);
+			float y = lerpedY - (handleHeight / 2);
+
+			if (handleDirection != direction) {
+				switch (handleDirection) {
+				case HORIZONTAL: {
+					HvlPainter2D.hvlRotate(x + handleWidth, y, 90);
+
+					if (isBeingHeld) {
+						if (handleDownDrawable != null)
+							handleDownDrawable.draw(delta, x + handleWidth, y, handleWidth, handleHeight);
+					} else {
+						if (handleUpDrawable != null)
+							handleUpDrawable.draw(delta, x + handleWidth, y, handleWidth, handleHeight);
+					}
+				}
+					break;
+				case VERTICAL: {
+					HvlPainter2D.hvlRotate(x, y + handleHeight, -90);
+
+					if (isBeingHeld) {
+						if (handleDownDrawable != null)
+							handleDownDrawable.draw(delta, x, y + handleHeight, handleWidth, handleHeight);
+					} else {
+						if (handleUpDrawable != null)
+							handleUpDrawable.draw(delta, x, y + handleHeight, handleWidth, handleHeight);
+					}
+				}
+					break;
+				}
 			} else {
-				if (handleUpDrawable != null)
-					handleUpDrawable.draw(delta, getX() + (getWidth() / 2) - (handleWidth / 2), lerpedY - (handleHeight / 2), handleWidth, handleHeight);
+				if (isBeingHeld) {
+					if (handleDownDrawable != null)
+						handleDownDrawable.draw(delta, x, y, handleWidth, handleHeight);
+				} else {
+					if (handleUpDrawable != null)
+						handleUpDrawable.draw(delta, x, y, handleWidth, handleHeight);
+				}
 			}
+
+			if (handleDirection != direction)
+				HvlPainter2D.hvlResetRotation();
 		}
 			break;
 		}
@@ -312,6 +388,14 @@ public class HvlSlider extends HvlComponent {
 
 	public void setTextureDirection(SliderDirection textureDirection) {
 		this.textureDirection = textureDirection;
+	}
+
+	public SliderDirection getHandleDirection() {
+		return handleDirection;
+	}
+
+	public void setHandleDirection(SliderDirection handleDirection) {
+		this.handleDirection = handleDirection;
 	}
 
 	public HvlAction2<HvlSlider, Float> getValueChangedCommand() {
@@ -422,6 +506,11 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
+		public Builder setHandleDirection(SliderDirection handleDirection) {
+			tr.setHandleDirection(handleDirection);
+			return this;
+		}
+
 		public Builder setValueChangedCommand(HvlAction2<HvlSlider, Float> valueChangedCommand) {
 			tr.setValueChangedCommand(valueChangedCommand);
 			return this;
@@ -449,6 +538,7 @@ public class HvlSlider extends HvlComponent {
 		tr.background = background;
 		tr.direction = direction;
 		tr.textureDirection = textureDirection;
+		tr.handleDirection = handleDirection;
 		tr.value = value;
 		tr.handleHeight = handleHeight;
 		tr.handleWidth = handleWidth;

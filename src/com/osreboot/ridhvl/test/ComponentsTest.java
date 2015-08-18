@@ -91,7 +91,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		HvlComponentDefault.setDefault(new HvlSlider.Builder().setWidth(32).setHeight(512).setDirection(SliderDirection.VERTICAL).setHandleWidth(16)
 				.setHandleHeight(16).setValue(0.0f).setHandleUpDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
 				.setHandleDownDrawable(new HvlTextureDrawable(textureLoader.getResource(2))).setBackground(new HvlTextureDrawable(getWhite512()))
-				.setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f).setTextureDirection(SliderDirection.HORIZONTAL).build());
+				.setHandleStartOffset(8).setHandleEndOffset(8).setSnapInterval(0.1f).setTextureDirection(SliderDirection.HORIZONTAL).setHandleDirection(SliderDirection.HORIZONTAL).build());
 
 		HvlComponentDefault.setDefault(new HvlListBox.Builder()
 				.setScrollBar(new HvlSlider.Builder().setWidth(32).setHeight(128).setDirection(SliderDirection.VERTICAL).build()).setFont(fontPainter)
