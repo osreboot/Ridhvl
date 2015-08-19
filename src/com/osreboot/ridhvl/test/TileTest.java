@@ -45,6 +45,7 @@ public class TileTest extends HvlTemplate2D {
 		HvlCamera.setY(HvlCamera.getY() + (HvlInputSeriesAction.VERTICAL.getCurrentOutput() * delta * 256.0f));
 		
 		if (tilemaps != null) {
+			tilemaps.update(delta);
 			tilemaps.draw(delta);
 		}
 	}

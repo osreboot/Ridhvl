@@ -49,6 +49,18 @@ public class HvlTileMap {
 		this.opacity = 1.0f;
 	}
 
+	public void update(float delta) {
+		for (int currentX = 0; currentX < mapWidth; currentX++) {
+			for (int currentY = 0; currentY < mapHeight; currentY++) {
+				HvlTile current = tiles[mapWidth * currentY + currentX];
+				if (current == null)
+					continue;
+
+				current.update(info, delta);
+			}
+		}
+	}
+	
 	public void draw(float delta) {
 		// if (mapWidth > 0 && mapHeight > 0)
 		// {
@@ -77,8 +89,6 @@ public class HvlTileMap {
 				float yMax = yMin + tileHeight;
 
 				boolean inRange = xMax > xLeft && xMin < xRight && yMax > yTop && yMin < yBottom;
-
-				current.update(info, delta);
 
 				if (!cutOff || inRange)
 					current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, opacity);

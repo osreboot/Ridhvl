@@ -44,7 +44,6 @@ public class HvlMenu {
 			// If nothing else has blocked updating, we can update this.
 			if (!blocked) {
 				popup.update(delta);
-				popup.draw(delta);
 			}
 
 			// If this blocks lower popups, then say that we are blocked.
@@ -110,7 +109,6 @@ public class HvlMenu {
 		totalTime += delta;
 		for (HvlComponent c : components)
 			c.metaUpdate(delta);
-		draw(delta);
 	}
 
 	public void draw(float delta) {

@@ -38,6 +38,21 @@ public class HvlLayeredTileMap {
 
 		entities = new LinkedList<>();
 	}
+	
+	public void update(float delta) {
+		for (HvlTileMap map : layers) {
+			map.setX(x);
+			map.setY(y);
+			map.setTileWidth(tileWidth);
+			map.setTileHeight(tileHeight);
+			map.setCutOff(cutOff);
+			map.setxLeft(xLeft);
+			map.setxRight(xRight);
+			map.setyTop(yTop);
+			map.setyBottom(yBottom);
+			map.update(delta);
+		}
+	}
 
 	public void draw(float delta) {
 		HvlPainter2D.TEXMAGBLUR.disable();
