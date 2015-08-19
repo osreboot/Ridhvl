@@ -5,6 +5,13 @@ import java.util.Random;
 
 public class HvlMath {
 	
+	private static Random rand;
+	
+	static
+	{
+		reseedRandom();
+	}
+	
 	public static float lerp(float arg1, float arg2, float alpha){
 		return arg1 + alpha * (arg2 - arg1);
 	}
@@ -51,7 +58,6 @@ public class HvlMath {
 	}
 	
 	public static int randomIntBetween(int min, int max)	{
-		Random rand = new Random();
 		if (max > min)
 			return min + rand.nextInt(max - min);
 		if (max < min)
@@ -69,5 +75,9 @@ public class HvlMath {
 		float d = (float) Math.random();
 		return new HvlCoord((float) Math.cos(theta) * radius * d,
 				(float) Math.sin(theta) * radius * d);
+	}
+	
+	public static void reseedRandom() {
+		rand = new Random();
 	}
 }
