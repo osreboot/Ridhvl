@@ -75,7 +75,7 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2))).setOnDrawable(new HvlTextureDrawable(gradient)).setFont(fontPainter)
 				.setTextScale(0.5f).setTextColor(Color.red).setxAlign(0.5f).setyAlign(0.5f).build());
 
-		HvlComponentDefault.setDefault(new HvlArrangerBox.Builder().setStyle(ArrangementStyle.VERTICAL).setAlign(0.5f).build());
+		HvlComponentDefault.setDefault(new HvlArrangerBox.Builder().setStyle(ArrangementStyle.VERTICAL).build());
 
 		HvlComponentDefault.setDefault(new HvlCheckbox.Builder().setOffDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.blue)))
 				.setOffHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.cyan)))
@@ -153,6 +153,8 @@ public class ComponentsTest extends HvlTemplate2D {
 		testArranger = new HvlArrangerBox.Builder()
 				.setX(0)
 				.setY(0)
+				.setxAlign(0.5f)
+				.setyAlign(0.5f)
 				.setWidth(Display.getWidth() - 64)
 				.setHeight(720)
 				.add(testLabel)
@@ -170,8 +172,8 @@ public class ComponentsTest extends HvlTemplate2D {
 
 	@Override
 	public void update(float delta) {
-		// testArranger.setWidth(Display.getWidth());
-		// testArranger.setHeight(Display.getHeight());
+		testArranger.setWidth(Display.getWidth());
+		testArranger.setHeight(Display.getHeight());
 		HvlMenu.updateMenus(delta);
 	}
 

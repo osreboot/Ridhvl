@@ -62,7 +62,8 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.add(upArg);
 		scrollBox.add(scrollArg);
 		scrollBox.add(downArg);
-		scrollBox.setAlign(0.5f);
+		scrollBox.setxAlign(0.5f);
+		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
 
@@ -93,7 +94,8 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.add(upArg);
 		scrollBox.add(scrollArg);
 		scrollBox.add(downArg);
-		scrollBox.setAlign(0.5f);
+		scrollBox.setxAlign(0.5f);
+		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
 
@@ -122,7 +124,8 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.add(upArg);
 		scrollBox.add(scrollArg);
 		scrollBox.add(downArg);
-		scrollBox.setAlign(0.5f);
+		scrollBox.setxAlign(0.5f);
+		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
 
@@ -153,7 +156,8 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.add(upArg);
 		scrollBox.add(scrollArg);
 		scrollBox.add(downArg);
-		scrollBox.setAlign(0.5f);
+		scrollBox.setxAlign(0.5f);
+		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
 
