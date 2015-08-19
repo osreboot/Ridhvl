@@ -77,6 +77,10 @@ public class HvlMath {
 				(float) Math.sin(theta) * radius * d);
 	}
 	
+	public static Random getRand() {
+		return rand;
+	}
+
 	public static void reseedRandom() {
 		rand = new Random();
 	}
