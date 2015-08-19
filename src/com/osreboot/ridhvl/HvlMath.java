@@ -82,7 +82,7 @@ public class HvlMath {
 	}
 	
 	public static boolean chanceIn(int chance) {
-		return (randomInt(chance) == 0);
+		return randomInt(chance) == 0;
 	}
 	
 	public static Random getRand() {

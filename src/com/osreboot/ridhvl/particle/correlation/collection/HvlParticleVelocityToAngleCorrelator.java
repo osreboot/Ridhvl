@@ -15,7 +15,7 @@ public class HvlParticleVelocityToAngleCorrelator extends HvlParticleCorrelator 
 	}
 
 	@Override
-	public void correlate(HvlParticle in) {
+	public void correlate(HvlParticle in, float delta) {
 		if (!(in instanceof HvlSimpleParticle))
 			return;
 

@@ -61,7 +61,7 @@ public class DilationTest extends HvlTemplate2D {
 				}
 
 				@Override
-				public void correlate(HvlParticle in) {
+				public void correlate(HvlParticle in, float delta) {
 					HvlSimpleParticle p = (HvlSimpleParticle) in;
 					p.setRotVel(300 + (1.5f - p.getScale() * 200));
 					p.setxVel(30 + (1.5f - p.getScale() * 20));
@@ -121,7 +121,7 @@ public class DilationTest extends HvlTemplate2D {
 			}
 
 			@Override
-			public void correlate(HvlParticle in) {
+			public void correlate(HvlParticle in, float delta) {
 				HvlSimpleParticle p = (HvlSimpleParticle) in;
 				p.setyVel((float) Math.sin(p.getX() / 60) * 4 * (4f - p.getScale()));
 			}

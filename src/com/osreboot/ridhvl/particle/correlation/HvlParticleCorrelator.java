@@ -18,8 +18,11 @@ public abstract class HvlParticleCorrelator {
 	 * 
 	 * @param in
 	 *            The particle to perform the correlation on.
+	 * @param delta
+	 *            The time (in seconds) since the last update (or zero if this
+	 *            is a non-continuous correlator).
 	 */
-	public abstract void correlate(HvlParticle in);
+	public abstract void correlate(HvlParticle in, float delta);
 
 	/**
 	 * Gets whether this correlator is used only when a particle is spawned, or
@@ -35,7 +38,8 @@ public abstract class HvlParticleCorrelator {
 	 * Sets whether this correlator is used only when a particle is spawned, or
 	 * if it is used every update loop ("continuous").
 	 * 
-	 * @param isContinuous Whether this corellator is continuous or not.
+	 * @param isContinuous
+	 *            Whether this corellator is continuous or not.
 	 */
 	public final void setContinuous(boolean isContinuous) {
 		this.isContinuous = isContinuous;

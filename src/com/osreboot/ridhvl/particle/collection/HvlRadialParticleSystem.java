@@ -11,7 +11,6 @@ import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
-import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
 
 public class HvlRadialParticleSystem extends HvlParticleSystem {
 
@@ -91,10 +90,6 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 				getY() + spawnPos.y, xVel, yVel, xVelDecay, yVelDecay, rot,
 				rotVel, rotVelDecay, baseWidth, baseHeight, scale, scaleDecay,
 				lifetime, startColor, endColor, particleTexture);
-		for (HvlParticleCorrelator corr : correlators)
-		{
-			corr.correlate(p);
-		}
 		return p;
 	}
 

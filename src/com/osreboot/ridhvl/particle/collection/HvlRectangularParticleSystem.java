@@ -10,7 +10,6 @@ import com.osreboot.ridhvl.HvlColorUtil;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
-import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
 
 public class HvlRectangularParticleSystem extends HvlParticleSystem {
 
@@ -95,10 +94,6 @@ public class HvlRectangularParticleSystem extends HvlParticleSystem {
 				yVelDecay, rot, rotVel, rotVelDecay, baseWidth, baseHeight,
 				scale, scaleDecay, lifetime, startColor, endColor,
 				particleTexture);
-		for (HvlParticleCorrelator corr : correlators)
-		{
-			corr.correlate(p);
-		}
 		return p;
 	}
 
