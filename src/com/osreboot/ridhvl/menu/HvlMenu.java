@@ -64,8 +64,6 @@ public class HvlMenu {
 		}
 	}
 
-	public static ArrayList<HvlMenu> menus = new ArrayList<HvlMenu>();
-
 	private ArrayList<HvlComponent> components;
 	
 	private boolean interactable;
