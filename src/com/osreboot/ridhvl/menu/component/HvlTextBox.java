@@ -25,6 +25,7 @@ public class HvlTextBox extends HvlComponent {
 	private boolean forceUppercase, forceLowercase;
 	private boolean numbersOnly;
 	private String blacklistCharacters;
+	private boolean ignoreFocus;
 	
 	private HvlAction2<HvlTextBox, String> textChangedCommand;
 
@@ -40,6 +41,7 @@ public class HvlTextBox extends HvlComponent {
 		textScale = 1.0f;
 		pText = textArg;
 		blacklistCharacters = "";
+		ignoreFocus = false;
 	}
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
@@ -70,6 +72,7 @@ public class HvlTextBox extends HvlComponent {
 		maxCharacters = -1;
 		pText = text;
 		blacklistCharacters = "";
+		ignoreFocus = false;
 	}
 
 	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable focusedDrawable, HvlComponentDrawable unfocusedDrawable,
@@ -85,6 +88,7 @@ public class HvlTextBox extends HvlComponent {
 		maxCharacters = -1;
 		pText = text;
 		blacklistCharacters = "";
+		ignoreFocus = false;
 	}
 
 	@Override
@@ -97,8 +101,8 @@ public class HvlTextBox extends HvlComponent {
 		if (Mouse.isButtonDown(0)) {
 			isFocused = isBeingPressed(0);
 		}
-
-		if (isFocused) {
+		
+		if (ignoreFocus || isFocused) {
 			Keyboard.poll();
 			if (Keyboard.getNumKeyboardEvents() > 0) {
 				while (Keyboard.next()) {
@@ -268,6 +272,14 @@ public class HvlTextBox extends HvlComponent {
 		this.font = font;
 	}
 
+	public boolean isIgnoreFocus() {
+		return ignoreFocus;
+	}
+
+	public void setIgnoreFocus(boolean ignoreFocus) {
+		this.ignoreFocus = ignoreFocus;
+	}
+
 	public HvlAction2<HvlTextBox, String> getTextChangedCommand() {
 		return textChangedCommand;
 	}
@@ -378,6 +390,11 @@ public class HvlTextBox extends HvlComponent {
 
 		public Builder setFont(HvlFontPainter2D font) {
 			tr.setFont(font);
+			return this;
+		}
+
+		public Builder setIgnoreFocus(boolean ignoreFocus) {
+			tr.setIgnoreFocus(ignoreFocus);
 			return this;
 		}
 

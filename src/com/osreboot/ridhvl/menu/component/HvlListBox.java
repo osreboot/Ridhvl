@@ -36,6 +36,7 @@ public class HvlListBox extends HvlComponent {
 	private int pSelectedIndex;
 	private boolean fullBackground;
 	private HvlComponentDrawable background;
+	private boolean ignoreFocus;
 
 	private int sizeIntervalsForScroll;
 
@@ -66,6 +67,7 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
+		ignoreFocus = false;
 
 		textScale = 1.0f;
 		textColor = Color.white;
@@ -98,6 +100,7 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
+		ignoreFocus = false;
 
 		textScale = 1.0f;
 		textColor = Color.white;
@@ -128,6 +131,7 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
+		ignoreFocus = false;
 
 		textScale = 1.0f;
 		textColor = Color.white;
@@ -160,6 +164,7 @@ public class HvlListBox extends HvlComponent {
 		scrollBox.setyAlign(0.0f);
 		items = new LinkedList<>();
 		autoSize = false;
+		ignoreFocus = false;
 
 		textScale = 1.0f;
 		textColor = Color.white;
@@ -201,7 +206,7 @@ public class HvlListBox extends HvlComponent {
 			scrollBar.setValue(Math.max(scrollBar.getValue() - scrollBar.getSnapInterval() * sizeIntervalsForScroll, 0.0f));
 		if (scrollDownButton != null && scrollDownButton.isTriggered())
 			scrollBar.setValue(Math.min(scrollBar.getValue() + scrollBar.getSnapInterval() * sizeIntervalsForScroll, 1.0f));
-		if (isFocused)
+		if (ignoreFocus || isFocused)
 			scrollBar.setValue(scrollBar.getValue() + ((-Mouse.getDWheel() / 120) * scrollBar.getSnapInterval() * sizeIntervalsForScroll));
 
 		if (scrollBar != null) {
@@ -442,6 +447,14 @@ public class HvlListBox extends HvlComponent {
 		}
 	}
 
+	public boolean isIgnoreFocus() {
+		return ignoreFocus;
+	}
+
+	public void setIgnoreFocus(boolean ignoreFocus) {
+		this.ignoreFocus = ignoreFocus;
+	}
+
 	public void addItem(Object item) {
 		items.add(item);
 	}
@@ -596,6 +609,11 @@ public class HvlListBox extends HvlComponent {
 
 		public Builder setSelectedItem(Object item) {
 			tr.setSelectedItem(item);
+			return this;
+		}
+
+		public Builder setIgnoreFocus(boolean ignoreFocus) {
+			tr.setIgnoreFocus(ignoreFocus);
 			return this;
 		}
 
