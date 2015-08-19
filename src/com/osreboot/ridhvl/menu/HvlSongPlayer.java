@@ -17,9 +17,9 @@ public class HvlSongPlayer {
 	public static void update(float delta){
 		if(songs.size() > 0){//if this system is being used
 
-			if(fadeTime > 0){
+			if(fadeTime > 0 && volume > 0){
 				float previousLocation = fadeLocation;//TODO changing volume like this makes a strange clicking noise
-				fadeLocation = HvlMath.stepTowards(fadeLocation, delta * (1/fadeTime), fadeGoal * volume);
+				fadeLocation = HvlMath.stepTowards(fadeLocation, delta * (1/fadeTime) * volume, fadeGoal * volume);
 				if(currentSong != null && previousLocation != fadeLocation){
 					float position = currentSong.getPosition();
 					currentSong.stop();
@@ -55,7 +55,7 @@ public class HvlSongPlayer {
 		if(currentSong != null) if(newSongOptions.contains(currentSong) && newSongOptions.size() > 1) newSongOptions.remove(currentSong);
 
 		currentSong = newSongOptions.get(HvlMath.getRand().nextInt(newSongOptions.size()));
-		currentSong.playAsSoundEffect(1, fadeTime > 0 ? 0 : 1, false);
+		currentSong.playAsSoundEffect(1, fadeTime > 0 ? 0 : volume, false);
 
 		fadeGoal = 1;
 		fadeLocation = 0;
