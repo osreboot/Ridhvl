@@ -26,8 +26,9 @@ public class HvlGradient {
 		style = styleArg;
 	}
 
-	public void addStop(float locationArg, Color colorArg) {
+	public HvlGradient addStop(float locationArg, Color colorArg) {
 		stops.put(locationArg, colorArg);
+		return this;
 	}
 
 	public Texture toTexture(int w, int h, int startX, int startY, int endX, int endY) {
