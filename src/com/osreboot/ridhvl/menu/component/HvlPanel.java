@@ -6,9 +6,11 @@ import java.util.List;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
+import com.osreboot.ridhvl.menu.reflect.DoNotClone;
 
 public class HvlPanel extends HvlComponent {
 
+	@DoNotClone
 	protected List<HvlComponent> children;
 	
 	public HvlPanel(float wArg, float hArg) {
@@ -68,10 +70,9 @@ public class HvlPanel extends HvlComponent {
 		private HvlPanel tr;
 
 		public Builder() {
+			tr = new HvlPanel(0, 0, 0, 0);
 			if (HvlComponentDefault.hasDefault(HvlPanel.class))
-				tr = HvlComponentDefault.getDefault(HvlPanel.class).clone();
-			else
-				tr = new HvlPanel(0, 0, 0, 0);
+				tr = HvlComponentDefault.getDefault(HvlPanel.class).cloneComponent(tr);
 		}
 
 		public Builder add(HvlComponent toAdd) {
@@ -121,19 +122,5 @@ public class HvlPanel extends HvlComponent {
 		public HvlPanel build() {
 			return tr;
 		}
-	}
-
-	public HvlPanel clone() {
-		HvlPanel tr = new HvlPanel(0, 0);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		return tr;
 	}
 }

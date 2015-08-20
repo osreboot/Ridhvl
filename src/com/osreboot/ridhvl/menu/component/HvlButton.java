@@ -4,11 +4,13 @@ import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
+import com.osreboot.ridhvl.menu.reflect.DoNotClone;
 
 public class HvlButton extends HvlComponent {
 	
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
+	@DoNotClone
 	private HvlAction1<HvlButton> clickedCommand, pressingCommand;
 
 	public HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
@@ -124,10 +126,9 @@ public class HvlButton extends HvlComponent {
 		private HvlButton tr;
 
 		public Builder() {
+			tr = new HvlButton(0, 0, null, null);
 			if (HvlComponentDefault.hasDefault(HvlButton.class))
-				tr = HvlComponentDefault.getDefault(HvlButton.class).clone();
-			else
-				tr = new HvlButton(0, 0, null, null);
+				tr = HvlComponentDefault.getDefault(HvlButton.class).cloneComponent(tr);
 		}
 
 		public Builder setX(float x) {
@@ -198,23 +199,5 @@ public class HvlButton extends HvlComponent {
 		public HvlButton build() {
 			return tr;
 		}
-	}
-
-	public HvlButton clone() {
-		HvlButton tr = new HvlButton(0, 0, null, null);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlButton
-		tr.offDrawable = offDrawable;
-		tr.hoverDrawable = hoverDrawable;
-		tr.onDrawable = onDrawable;
-		return tr;
 	}
 }

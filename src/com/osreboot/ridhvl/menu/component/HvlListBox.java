@@ -13,6 +13,8 @@ import com.osreboot.ridhvl.action.HvlAction3;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
+import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
+import com.osreboot.ridhvl.menu.reflect.DoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
@@ -21,11 +23,15 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlListBox extends HvlComponent {
 
+	@DoNotClone
 	private HvlSlider scrollBar;
+	@DoNotClone
 	private HvlButton scrollUpButton, scrollDownButton;
+	@DoNotClone
 	private HvlArrangerBox scrollBox;
 	private HvlFontPainter2D font;
 	private HvlComponentDrawable itemBackgroundOff, itemBackgroundHover, itemBackgroundOn;
+	@DoNotClone
 	private List<Object> items;
 	private float itemHeight;
 	private int maxVisibleItems;
@@ -33,6 +39,7 @@ public class HvlListBox extends HvlComponent {
 	private float textScale;
 	private Color textColor;
 	private int selectedIndex;
+	@DoNotClone
 	private int pSelectedIndex;
 	private boolean fullBackground;
 	private HvlComponentDrawable background;
@@ -40,10 +47,13 @@ public class HvlListBox extends HvlComponent {
 
 	private int sizeIntervalsForScroll;
 
+	@DoNotClone
 	private HvlRenderFrame renderFrame;
+	@DoNotClone
 	private float pX, pY, pWidth, pHeight;
+	@DoNotClone
 	private boolean isFocused;
-
+	@DoNotClone
 	private HvlAction3<HvlListBox, Integer, Object> selectionChangedCommand;
 
 	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
@@ -486,10 +496,9 @@ public class HvlListBox extends HvlComponent {
 		private HvlListBox tr;
 
 		public Builder() {
+			tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
 			if (HvlComponentDefault.hasDefault(HvlListBox.class))
-				tr = HvlComponentDefault.getDefault(HvlListBox.class).clone();
-			else
-				tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
+				tr = HvlComponentDefault.getDefault(HvlListBox.class).cloneComponent(tr);
 		}
 
 		public Builder setX(float x) {
@@ -642,40 +651,30 @@ public class HvlListBox extends HvlComponent {
 		}
 	}
 
-	public HvlListBox clone() {
-		HvlListBox tr = new HvlListBox(0, 0, null, null, null, null, null, null, 0.0f, 0);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlListBox
-		if (scrollBar != null)
-			tr.scrollBar = scrollBar.clone();
-		if (scrollUpButton != null)
-			tr.scrollUpButton = scrollUpButton.clone();
-		if (scrollDownButton != null)
-			tr.scrollDownButton = scrollDownButton.clone();
-		// don't clone scroll box because it's auto-generated
-		tr.font = font;
-		tr.itemBackgroundOff = itemBackgroundOff;
-		tr.itemBackgroundHover = itemBackgroundHover;
-		tr.itemBackgroundOn = itemBackgroundOn;
-		tr.items = items;
-		tr.itemHeight = itemHeight;
-		tr.maxVisibleItems = maxVisibleItems;
-		tr.autoSize = autoSize;
-		tr.textScale = textScale;
-		tr.textColor = textColor;
-		tr.selectedIndex = selectedIndex;
-		tr.fullBackground = fullBackground;
-		tr.background = background;
-		tr.sizeIntervalsForScroll = sizeIntervalsForScroll;
-		tr.isFocused = isFocused;
-		return tr;
+	
+	@Override
+	protected <T> T specialClone(T cloneTo) {
+		super.specialClone(cloneTo); // Pass special cloning up the chain
+		HvlListBox lb = (HvlListBox) cloneTo;
+		
+		if (scrollBar == null)
+			lb.setScrollBar(null);
+		else
+			// Make a new slider with dummy values (0s, nulls, etc.) to clone into: values shouldn't matter, they get overwritten anyways.
+			lb.setScrollBar(scrollBar.cloneComponent(new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null)));
+		
+		if (scrollUpButton == null)
+			lb.setScrollUpButton(null);
+		else
+			lb.setScrollUpButton(new HvlButton(0, 0, null, null));
+		
+		if (scrollDownButton == null)
+			lb.setScrollDownButton(null);
+		else
+			lb.setScrollDownButton(new HvlButton(0, 0, null, null));
+		
+		return cloneTo;
 	}
+
+	
 }

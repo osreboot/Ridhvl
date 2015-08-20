@@ -17,7 +17,8 @@ public class HvlLabeledButton extends HvlButton {
 	private Color textColor;
 	private float xAlign, yAlign;
 
-	public HvlLabeledButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font, String text, Color textColor) {
+	public HvlLabeledButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D font, String text,
+			Color textColor) {
 		super(xlArg, ylArg, offArg, onArg);
 		this.font = font;
 		this.text = text;
@@ -34,8 +35,8 @@ public class HvlLabeledButton extends HvlButton {
 		this.textColor = textColor;
 	}
 
-	public HvlLabeledButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg, HvlFontPainter2D fontArg,
-			String textArg, Color colorArg) {
+	public HvlLabeledButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg,
+			HvlFontPainter2D fontArg, String textArg, Color colorArg) {
 		super(xArg, yArg, xlArg, ylArg, offArg, onArg);
 		font = fontArg;
 		text = textArg;
@@ -159,10 +160,9 @@ public class HvlLabeledButton extends HvlButton {
 		private HvlLabeledButton tr;
 
 		public Builder() {
+			tr = new HvlLabeledButton(0, 0, null, null, null, "", Color.white);
 			if (HvlComponentDefault.hasDefault(HvlLabeledButton.class))
-				tr = HvlComponentDefault.getDefault(HvlLabeledButton.class).clone();
-			else
-				tr = new HvlLabeledButton(0, 0, null, null, null, "", Color.white);
+				tr = HvlComponentDefault.getDefault(HvlLabeledButton.class).cloneComponent(tr);
 		}
 
 		public Builder setX(float x) {
@@ -263,30 +263,5 @@ public class HvlLabeledButton extends HvlButton {
 		public HvlLabeledButton build() {
 			return tr;
 		}
-	}
-
-	public HvlLabeledButton clone() {
-		HvlLabeledButton tr = new HvlLabeledButton(0, 0, null, null, null, "", Color.white);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlButton
-		tr.setOffDrawable(getOffDrawable());
-		tr.setHoverDrawable(getHoverDrawable());
-		tr.setOnDrawable(getOnDrawable());
-		// HvlTextButton
-		tr.font = font;
-		tr.text = text;
-		tr.textScale = textScale;
-		tr.textColor = textColor;
-		tr.xAlign = xAlign;
-		tr.yAlign = yAlign;
-		return tr;
 	}
 }
