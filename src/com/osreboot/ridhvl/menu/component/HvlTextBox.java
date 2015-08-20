@@ -9,7 +9,7 @@ import org.newdawn.slick.Color;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
-import com.osreboot.ridhvl.menu.reflect.DoNotClone;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlTextBox extends HvlComponent {
@@ -20,9 +20,9 @@ public class HvlTextBox extends HvlComponent {
 	private Color textColor;
 	private HvlFontPainter2D font;
 	private String text;
-	@DoNotClone
+	@HvlDoNotClone
 	private String pText;
-	@DoNotClone
+	@HvlDoNotClone
 	private boolean isFocused;
 	private int maxCharacters;
 	private boolean forceUppercase, forceLowercase;
@@ -30,7 +30,7 @@ public class HvlTextBox extends HvlComponent {
 	private String blacklistCharacters;
 	private boolean ignoreFocus;
 	
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlAction2<HvlTextBox, String> textChangedCommand;
 
 	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {

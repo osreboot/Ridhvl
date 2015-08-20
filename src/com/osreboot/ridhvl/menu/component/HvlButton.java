@@ -4,13 +4,13 @@ import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
-import com.osreboot.ridhvl.menu.reflect.DoNotClone;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlButton extends HvlComponent {
 	
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlAction1<HvlButton> clickedCommand, pressingCommand;
 
 	public HvlButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {

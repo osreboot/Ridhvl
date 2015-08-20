@@ -6,11 +6,11 @@ import java.util.List;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
-import com.osreboot.ridhvl.menu.reflect.DoNotClone;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlPanel extends HvlComponent {
 
-	@DoNotClone
+	@HvlDoNotClone
 	protected List<HvlComponent> children;
 	
 	public HvlPanel(float wArg, float hArg) {

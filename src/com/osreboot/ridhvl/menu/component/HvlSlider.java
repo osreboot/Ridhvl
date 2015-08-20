@@ -5,7 +5,7 @@ import org.lwjgl.input.Mouse;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
-import com.osreboot.ridhvl.menu.reflect.DoNotClone;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
@@ -20,16 +20,16 @@ public class HvlSlider extends HvlComponent {
 	private SliderDirection textureDirection;
 	private SliderDirection handleDirection;
 	private float value;
-	@DoNotClone
+	@HvlDoNotClone
 	private float pValue;
 	private float handleHeight, handleWidth;
 	private float handleStartOffset, handleEndOffset;
 	private float snapInterval;
 	private boolean liveSnap;
-	@DoNotClone
+	@HvlDoNotClone
 	private boolean isBeingHeld;
 
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlAction2<HvlSlider, Float> valueChangedCommand;
 
 	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,

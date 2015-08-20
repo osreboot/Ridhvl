@@ -8,7 +8,7 @@ import java.util.List;
 import org.lwjgl.input.Mouse;
 
 import com.osreboot.ridhvl.action.HvlAction2;
-import com.osreboot.ridhvl.menu.reflect.DoNotClone;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 
 public abstract class HvlComponent {
@@ -84,10 +84,9 @@ public abstract class HvlComponent {
 
 		while (!currentClass.equals(HvlComponent.class.getSuperclass())) {
 			for (Field f : currentClass.getDeclaredFields()) {
-				if (Modifier.isStatic(f.getModifiers()) || Modifier.isFinal(f.getModifiers()) || f.isAnnotationPresent(DoNotClone.class))
+				if (Modifier.isStatic(f.getModifiers()) || Modifier.isFinal(f.getModifiers()) || f.isAnnotationPresent(HvlDoNotClone.class))
 					continue;
 				
-
 				f.setAccessible(true);
 				fields.add(f);
 			}

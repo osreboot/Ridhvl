@@ -14,7 +14,7 @@ import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
-import com.osreboot.ridhvl.menu.reflect.DoNotClone;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
@@ -23,15 +23,15 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlListBox extends HvlComponent {
 
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlSlider scrollBar;
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlButton scrollUpButton, scrollDownButton;
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlArrangerBox scrollBox;
 	private HvlFontPainter2D font;
 	private HvlComponentDrawable itemBackgroundOff, itemBackgroundHover, itemBackgroundOn;
-	@DoNotClone
+	@HvlDoNotClone
 	private List<Object> items;
 	private float itemHeight;
 	private int maxVisibleItems;
@@ -39,7 +39,7 @@ public class HvlListBox extends HvlComponent {
 	private float textScale;
 	private Color textColor;
 	private int selectedIndex;
-	@DoNotClone
+	@HvlDoNotClone
 	private int pSelectedIndex;
 	private boolean fullBackground;
 	private HvlComponentDrawable background;
@@ -47,13 +47,13 @@ public class HvlListBox extends HvlComponent {
 
 	private int sizeIntervalsForScroll;
 
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlRenderFrame renderFrame;
-	@DoNotClone
+	@HvlDoNotClone
 	private float pX, pY, pWidth, pHeight;
-	@DoNotClone
+	@HvlDoNotClone
 	private boolean isFocused;
-	@DoNotClone
+	@HvlDoNotClone
 	private HvlAction3<HvlListBox, Integer, Object> selectionChangedCommand;
 
 	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,

@@ -3,15 +3,15 @@ package com.osreboot.ridhvl.menu.component;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
-import com.osreboot.ridhvl.menu.reflect.DoNotClone;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlCheckbox extends HvlComponent {
 	
-	@DoNotClone
+	@HvlDoNotClone
 	protected boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
 	protected HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
-	@DoNotClone
+	@HvlDoNotClone
 	protected HvlAction2<HvlCheckbox, Boolean> changedCommand;
 
 	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
