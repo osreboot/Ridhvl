@@ -7,7 +7,7 @@ import org.newdawn.slick.openal.Audio;
 
 import com.osreboot.ridhvl.HvlMath;
 
-public class HvlSongPlayer {
+public class HvlMenuDJ {
 
 	private static HashMap<HvlMenu, ArrayList<Audio>> songs = new HashMap<>();
 
