@@ -205,6 +205,7 @@ public class HvlSimpleParticle extends HvlParticle {
 	 * @return Whether this particle should be removed.
 	 */
 	public boolean shouldBeDestroyed() {
+		if (lifetime < 0) return false;
 		return getTimeAlive() > lifetime;
 	}
 
