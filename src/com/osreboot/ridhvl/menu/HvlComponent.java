@@ -1,8 +1,14 @@
 package com.osreboot.ridhvl.menu;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.lwjgl.input.Mouse;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 
 public abstract class HvlComponent {
@@ -69,6 +75,42 @@ public abstract class HvlComponent {
 
 		return Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY() && HvlCursor.getCursorX() < getX() + getWidth()
 				&& HvlCursor.getCursorY() < getY() + getHeight();
+	}
+
+	public <T> T cloneComponent(T cloneTo) {
+		List<Field> fields = new LinkedList<>();
+
+		Class<?> currentClass = getClass();
+
+		while (!currentClass.equals(HvlComponent.class.getSuperclass())) {
+			for (Field f : currentClass.getDeclaredFields()) {
+				if (Modifier.isStatic(f.getModifiers()) || Modifier.isFinal(f.getModifiers()) || f.isAnnotationPresent(HvlDoNotClone.class))
+					continue;
+				
+				f.setAccessible(true);
+				fields.add(f);
+			}
+			currentClass = currentClass.getSuperclass();
+		}
+
+		for (Field f : fields) {
+			try {
+				f.set(cloneTo, f.get(this));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				// This shouldn't be able to happen:
+				// see above - "f.setAccessible(true)"
+			}
+		}
+		
+		return specialClone(cloneTo);
+	}
+	
+	/**
+	 * Used for any special cloning that can't be handled normally (like recursive cloning)
+	 */
+	protected <T> T specialClone(T cloneTo)
+	{
+		return cloneTo;
 	}
 
 	public float getX() {

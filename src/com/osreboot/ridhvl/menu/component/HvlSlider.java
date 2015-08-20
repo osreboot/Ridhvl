@@ -5,6 +5,7 @@ import org.lwjgl.input.Mouse;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
@@ -19,13 +20,16 @@ public class HvlSlider extends HvlComponent {
 	private SliderDirection textureDirection;
 	private SliderDirection handleDirection;
 	private float value;
+	@HvlDoNotClone
 	private float pValue;
 	private float handleHeight, handleWidth;
 	private float handleStartOffset, handleEndOffset;
 	private float snapInterval;
 	private boolean liveSnap;
+	@HvlDoNotClone
 	private boolean isBeingHeld;
 
+	@HvlDoNotClone
 	private HvlAction2<HvlSlider, Float> valueChangedCommand;
 
 	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
@@ -410,10 +414,9 @@ public class HvlSlider extends HvlComponent {
 		private HvlSlider tr;
 
 		public Builder() {
+			tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
 			if (HvlComponentDefault.hasDefault(HvlSlider.class))
-				tr = HvlComponentDefault.getDefault(HvlSlider.class).clone();
-			else
-				tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
+				tr = HvlComponentDefault.getDefault(HvlSlider.class).cloneComponent(tr);
 		}
 
 		public Builder setX(float x) {
@@ -519,34 +522,5 @@ public class HvlSlider extends HvlComponent {
 		public HvlSlider build() {
 			return tr;
 		}
-	}
-
-	public HvlSlider clone() {
-		HvlSlider tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlSlider
-		tr.handleUpDrawable = handleUpDrawable;
-		tr.handleDownDrawable = handleDownDrawable;
-		tr.background = background;
-		tr.direction = direction;
-		tr.textureDirection = textureDirection;
-		tr.handleDirection = handleDirection;
-		tr.value = value;
-		tr.handleHeight = handleHeight;
-		tr.handleWidth = handleWidth;
-		tr.handleStartOffset = handleStartOffset;
-		tr.handleEndOffset = handleEndOffset;
-		tr.snapInterval = snapInterval;
-		tr.liveSnap = liveSnap;
-
-		return tr;
 	}
 }

@@ -61,10 +61,9 @@ public class HvlDrawableComponent extends HvlComponent {
 		private HvlDrawableComponent tr;
 
 		public Builder() {
+			tr = new HvlDrawableComponent(0, 0, null);
 			if (HvlComponentDefault.hasDefault(HvlDrawableComponent.class))
-				tr = HvlComponentDefault.getDefault(HvlDrawableComponent.class).clone();
-			else
-				tr = new HvlDrawableComponent(0, 0, null);
+				tr = HvlComponentDefault.getDefault(HvlDrawableComponent.class).cloneComponent(tr);
 		}
 
 		public Builder setTexture(HvlComponentDrawable drawable) {
@@ -120,22 +119,5 @@ public class HvlDrawableComponent extends HvlComponent {
 		public HvlDrawableComponent build() {
 			return tr;
 		}
-	}
-
-	public HvlDrawableComponent clone() {
-		HvlDrawableComponent tr = new HvlDrawableComponent(0, 0, null);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlImageComponent
-		tr.color = color;
-		tr.drawable = drawable;
-		return tr;
 	}
 }

@@ -26,8 +26,9 @@ public class HvlGradient {
 		style = styleArg;
 	}
 
-	public void addStop(float locationArg, Color colorArg) {
+	public HvlGradient addStop(float locationArg, Color colorArg) {
 		stops.put(locationArg, colorArg);
+		return this;
 	}
 
 	public Texture toTexture(int w, int h, int startX, int startY, int endX, int endY) {
@@ -79,7 +80,7 @@ public class HvlGradient {
 				Color above = stops.get(closestAbove);
 				
 				Color toDraw = HvlColorUtil.lerpColor(below, above, adjVal);
-				java.awt.Color awtColor = new java.awt.Color(toDraw.r, toDraw.g, toDraw.b);
+				java.awt.Color awtColor = new java.awt.Color(toDraw.r, toDraw.g, toDraw.b, toDraw.a);
 				graphics.setColor(awtColor);
 				graphics.fillRect(x, y, 1, 1);
 			}
@@ -126,7 +127,7 @@ public class HvlGradient {
 				Color above = stops.get(closestAbove);
 				
 				Color toDraw = HvlColorUtil.lerpColor(below, above, adjVal);
-				java.awt.Color awtColor = new java.awt.Color(toDraw.r, toDraw.g, toDraw.b);
+				java.awt.Color awtColor = new java.awt.Color(toDraw.r, toDraw.g, toDraw.b, toDraw.a);
 				graphics.setColor(awtColor);
 				graphics.fillRect(x, y, 1, 1);
 			}
@@ -177,7 +178,7 @@ public class HvlGradient {
 				Color above = stops.get(closestAbove);
 				
 				Color toDraw = HvlColorUtil.lerpColor(below, above, adjVal);
-				java.awt.Color awtColor = new java.awt.Color(toDraw.r, toDraw.g, toDraw.b);
+				java.awt.Color awtColor = new java.awt.Color(toDraw.r, toDraw.g, toDraw.b, toDraw.a);
 				graphics.setColor(awtColor);
 				graphics.fillRect(x, y, 1, 1);
 			}

@@ -110,10 +110,9 @@ public class HvlLabel extends HvlComponent {
 		private HvlLabel tr;
 
 		public Builder() {
+			tr = new HvlLabel(null, "", Color.white);
 			if (HvlComponentDefault.hasDefault(HvlLabel.class))
-				tr = HvlComponentDefault.getDefault(HvlLabel.class).clone();
-			else
-				tr = new HvlLabel(null, "", Color.white);
+				tr = HvlComponentDefault.getDefault(HvlLabel.class).cloneComponent(tr);
 		}
 		
 		public Builder setX(float x) {
@@ -169,24 +168,5 @@ public class HvlLabel extends HvlComponent {
 		public HvlLabel build() {
 			return tr;
 		}
-	}
-	
-	public HvlLabel clone() {
-		HvlLabel tr = new HvlLabel(null, "", Color.white);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlLabel
-		tr.font = font;
-		tr.text = text;
-		tr.color = color;
-		tr.scale = scale;
-		return tr;
 	}
 }

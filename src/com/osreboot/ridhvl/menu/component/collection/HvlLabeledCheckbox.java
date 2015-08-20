@@ -220,10 +220,9 @@ public class HvlLabeledCheckbox extends HvlCheckbox {
 		private HvlLabeledCheckbox tr;
 
 		public Builder() {
+			tr = new HvlLabeledCheckbox(0, 0, false, null, null, null, null, "", Color.white, 1.0f);
 			if (HvlComponentDefault.hasDefault(HvlLabeledCheckbox.class))
-				tr = HvlComponentDefault.getDefault(HvlLabeledCheckbox.class).clone();
-			else
-				tr = new HvlLabeledCheckbox(0, 0, false, null, null, null, null, "", Color.white, 1.0f);
+				tr = HvlComponentDefault.getDefault(HvlLabeledCheckbox.class).cloneComponent(tr);
 		}
 
 		public Builder setX(float x) {
@@ -339,35 +338,5 @@ public class HvlLabeledCheckbox extends HvlCheckbox {
 		public HvlLabeledCheckbox build() {
 			return tr;
 		}
-	}
-
-	public HvlLabeledCheckbox clone() {
-		HvlLabeledCheckbox tr = new HvlLabeledCheckbox(0, 0, false, null, null, null, null, "", Color.white, 1.0f);
-		;
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlCheckbox
-		tr.setChecked(getChecked());
-		tr.setOffDrawable(getOffDrawable());
-		tr.setOffHoverDrawable(getOffHoverDrawable());
-		tr.setOnDrawable(getOnDrawable());
-		tr.setOnHoverDrawable(getOnHoverDrawable());
-		// HvlTextCheckbox
-		tr.font = font;
-		tr.text = text;
-		tr.color = color;
-		tr.scale = scale;
-		tr.spacing = spacing;
-		tr.textSide = textSide;
-		tr.checkWidth = checkWidth;
-		tr.checkHeight = checkHeight;
-		return tr;
 	}
 }

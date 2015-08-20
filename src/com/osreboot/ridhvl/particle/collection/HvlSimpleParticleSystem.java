@@ -12,10 +12,10 @@ import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 
-public class HvlRadialParticleSystem extends HvlParticleSystem {
+public class HvlSimpleParticleSystem extends HvlParticleSystem {
 
+	private HvlParticlePositionProvider positionProvider;
 	private boolean isColorCoordinated;
-	private float spawnRadius;
 	private Color startColorOne, startColorTwo;
 	private Color endColorOne, endColorTwo;
 	private List<Texture> particleTextures;
@@ -30,15 +30,13 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 	private float scaleDecay;
 	private float minLifetime, maxLifetime;
 
-	public HvlRadialParticleSystem(float xArg, float yArg, float pWidthArg,
-			float pHeightArg, Texture... tArg) {
+	public HvlSimpleParticleSystem(float xArg, float yArg, float pWidthArg, float pHeightArg, HvlParticlePositionProvider positionArg, Texture... tArg) {
 		super(xArg, yArg);
-		spawnRadius = 0;
+		positionProvider = positionArg;
 		startColorOne = startColorTwo = Color.white;
 		endColorOne = endColorTwo = Color.white;
 		particleTextures = new ArrayList<>();
-		for (Texture t : tArg)
-		{
+		for (Texture t : tArg) {
 			particleTextures.add(t);
 		}
 		minXVel = maxXVel = 0;
@@ -57,60 +55,39 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 
 	@Override
 	public HvlParticle generateParticle() {
-		HvlCoord spawnPos = HvlMath.randomPointInCircle(spawnRadius);
+		HvlCoord position = positionProvider.getParticlePosition(this);
 		float xVel = HvlMath.randomFloatBetween(minXVel, maxXVel);
 		float yVel = HvlMath.randomFloatBetween(minYVel, maxYVel);
 		float rot = HvlMath.randomFloatBetween(minRot, maxRot);
 		float rotVel = HvlMath.randomFloatBetween(minRotVel, maxRotVel);
 		float scale = HvlMath.randomFloatBetween(minScale, maxScale);
 		float lifetime = HvlMath.randomFloatBetween(minLifetime, maxLifetime);
-		Color startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo,
-				(float) Math.random());
-		Color endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo,
-				(float) Math.random());
+		Color startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo, (float) Math.random());
+		Color endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo, (float) Math.random());
 
 		if (isColorCoordinated) {
-			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo,
-					(float) Math.random());
-			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo,
-					(float) Math.random());
+			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo, (float) Math.random());
+			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo, (float) Math.random());
 		} else {
-			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo,
-					(float) Math.random(), (float) Math.random(),
-					(float) Math.random(), (float) Math.random());
-			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo,
-					(float) Math.random(), (float) Math.random(),
-					(float) Math.random(), (float) Math.random());
+			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo, (float) Math.random(), (float) Math.random(), (float) Math.random(),
+					(float) Math.random());
+			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo, (float) Math.random(), (float) Math.random(), (float) Math.random(),
+					(float) Math.random());
 		}
-		
-		Texture particleTexture = particleTextures.get(HvlMath
-				.randomIntBetween(0, particleTextures.size()));
-		
-		HvlParticle p = createParticleFromSpecs(getX() + spawnPos.x,
-				getY() + spawnPos.y, xVel, yVel, xVelDecay, yVelDecay, rot,
-				rotVel, rotVelDecay, baseWidth, baseHeight, scale, scaleDecay,
-				lifetime, startColor, endColor, particleTexture);
+
+		Texture particleTexture = particleTextures.get(HvlMath.randomIntBetween(0, particleTextures.size()));
+
+		HvlParticle p = createParticleFromSpecs(position.x, position.y, xVel, yVel, xVelDecay, yVelDecay, rot, rotVel, rotVelDecay, baseWidth, baseHeight,
+				scale, scaleDecay, lifetime, startColor, endColor, particleTexture);
+
 		return p;
 	}
 
-	public HvlParticle createParticleFromSpecs(float xArg, float yArg,
-			float xVelArg, float yVelArg, float xVelDecayArg,
-			float yVelDecayArg, float rotArg, float rotRateArg,
-			float rotVelDecayArg, float baseWidthArg, float baseHeightArg,
-			float scaleArg, float scaleDecayArg, float lifetimeArg,
+	protected HvlParticle createParticleFromSpecs(float xArg, float yArg, float xVelArg, float yVelArg, float xVelDecayArg, float yVelDecayArg, float rotArg,
+			float rotRateArg, float rotVelDecayArg, float baseWidthArg, float baseHeightArg, float scaleArg, float scaleDecayArg, float lifetimeArg,
 			Color startColorArg, Color endColorArg, Texture tArg) {
-		return new HvlSimpleParticle(xArg, yArg, this, startColorArg,
-				endColorArg, tArg, xVelArg, yVelArg, xVelDecayArg,
-				yVelDecayArg, rotArg, rotRateArg, rotVelDecayArg, baseWidthArg,
-				baseHeightArg, scaleArg, scaleDecayArg, lifetimeArg);
-	}
-
-	public float getSpawnRadius() {
-		return spawnRadius;
-	}
-
-	public void setSpawnRadius(float spawnRadius) {
-		this.spawnRadius = spawnRadius;
+		return new HvlSimpleParticle(xArg, yArg, this, startColorArg, endColorArg, tArg, xVelArg, yVelArg, xVelDecayArg, yVelDecayArg, rotArg, rotRateArg,
+				rotVelDecayArg, baseWidthArg, baseHeightArg, scaleArg, scaleDecayArg, lifetimeArg);
 	}
 
 	public Color getStartColorOne() {
@@ -145,14 +122,14 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 		this.endColorTwo = endColorTwo;
 	}
 
-	public List<Texture> getParticleTexture() {
+	public List<Texture> getParticleTextures() {
 		return particleTextures;
 	}
 
 	public void setParticleTexture(List<Texture> particleTextures) {
 		this.particleTextures = particleTextures;
 	}
-	
+
 	public void addParticleTexture(Texture particleTexture) {
 		particleTextures.add(particleTexture);
 	}
@@ -318,16 +295,16 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 		setEndColorOne(color);
 		setEndColorTwo(color);
 	}
-	
+
 	public void setColor(Color color) {
 		setStartColor(color);
 		setEndColor(color);
 	}
 
-	public void addTexture(Texture texture)	{
+	public void addTexture(Texture texture) {
 		particleTextures.add(texture);
 	}
-	
+
 	public void setXVel(float xVel) {
 		setMinXVel(xVel);
 		setMaxXVel(xVel);
@@ -342,17 +319,17 @@ public class HvlRadialParticleSystem extends HvlParticleSystem {
 		setMinRot(rot);
 		setMaxRot(rot);
 	}
-	
+
 	public void setRotVel(float rotVel) {
 		setMinRotVel(rotVel);
 		setMaxRotVel(rotVel);
 	}
-	
+
 	public void setScale(float scale) {
 		setMinScale(scale);
 		setMaxScale(scale);
 	}
-	
+
 	public void setLifetime(float lifetime) {
 		setMinLifetime(lifetime);
 		setMaxLifetime(lifetime);

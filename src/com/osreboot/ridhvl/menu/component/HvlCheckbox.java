@@ -3,12 +3,15 @@ package com.osreboot.ridhvl.menu.component;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlCheckbox extends HvlComponent {
 	
+	@HvlDoNotClone
 	protected boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
 	protected HvlComponentDrawable offDrawable, offHoverDrawable, onDrawable, onHoverDrawable;
+	@HvlDoNotClone
 	protected HvlAction2<HvlCheckbox, Boolean> changedCommand;
 
 	public HvlCheckbox(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg) {
@@ -212,10 +215,9 @@ public class HvlCheckbox extends HvlComponent {
 		private HvlCheckbox tr;
 
 		public Builder() {
+			tr = new HvlCheckbox(0, 0, null, null);
 			if (HvlComponentDefault.hasDefault(HvlCheckbox.class))
-				tr = HvlComponentDefault.getDefault(HvlCheckbox.class).clone();
-			else
-				tr = new HvlCheckbox(0, 0, null, null);
+				tr = HvlComponentDefault.getDefault(HvlCheckbox.class).cloneComponent(tr);
 		}
 
 		public Builder setX(float x) {
@@ -291,25 +293,5 @@ public class HvlCheckbox extends HvlComponent {
 		public HvlCheckbox build() {
 			return tr;
 		}
-	}
-
-	public HvlCheckbox clone() {
-		HvlCheckbox tr = new HvlCheckbox(0, 0, null, null);
-		// HvlComponent
-		tr.setX(getX());
-		tr.setY(getY());
-		tr.setWidth(getWidth());
-		tr.setHeight(getHeight());
-		tr.setEnabled(isEnabled());
-		tr.setVisible(isVisible());
-		tr.setUpdateOverride(getUpdateOverride());
-		tr.setDrawOverride(getDrawOverride());
-		// HvlCheckbox
-		tr.checked = checked;
-		tr.offDrawable = offDrawable;
-		tr.offHoverDrawable = offHoverDrawable;
-		tr.onDrawable = onDrawable;
-		tr.onHoverDrawable = onHoverDrawable;
-		return tr;
 	}
 }

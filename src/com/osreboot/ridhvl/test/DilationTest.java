@@ -11,17 +11,14 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
-import com.osreboot.ridhvl.particle.collection.HvlRadialParticleSystem;
+import com.osreboot.ridhvl.particle.collection.HvlRadialPositionProvider;
 import com.osreboot.ridhvl.particle.collection.HvlSimpleParticle;
+import com.osreboot.ridhvl.particle.collection.HvlSimpleParticleSystem;
 import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
 import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class DilationTest extends HvlTemplate2D {
-	
-	public static void main(String[] args) {
-		new DilationTest();
-	}
 	
 	public DilationTest() {
 		super(60, 1280, 720, "Ridhvl Time Dilation Test", new HvlDisplayModeDefault());
@@ -34,8 +31,7 @@ public class DilationTest extends HvlTemplate2D {
 		particles = new LinkedList<>();
 
 		for (int i = -8; i < 32; i++) {
-			HvlRadialParticleSystem ash = new HvlRadialParticleSystem(i * 40, -64, 6, 6, getWhite512());
-			ash.setSpawnRadius(32f);
+			HvlSimpleParticleSystem ash = new HvlSimpleParticleSystem(i * 40, -64, 6, 6, new HvlRadialPositionProvider(32f), getWhite512());
 			ash.setMinScale(0.5f);
 			ash.setMaxScale(1.5f);
 			ash.setScaleDecay(0f);
@@ -71,8 +67,7 @@ public class DilationTest extends HvlTemplate2D {
 		}
 
 		for (int i = 0; i < 32; i++) {
-			HvlRadialParticleSystem ember = new HvlRadialParticleSystem(i * 40, Display.getHeight() - 16, 6, 6, getWhite512());
-			ember.setSpawnRadius(32f);
+			HvlSimpleParticleSystem ember = new HvlSimpleParticleSystem(i * 40, Display.getHeight() - 16, 6, 6, new HvlRadialPositionProvider(32f), getWhite512());
 			ember.setMinScale(0.5f);
 			ember.setMaxScale(1.5f);
 			ember.setScaleDecay(-1f);
@@ -95,8 +90,7 @@ public class DilationTest extends HvlTemplate2D {
 			particles.add(ember);
 		}
 
-		HvlRadialParticleSystem lava = new HvlRadialParticleSystem(-64, Display.getHeight() - 8, 32, 32, getWhite512());
-		lava.setSpawnRadius(32f);
+		HvlSimpleParticleSystem lava = new HvlSimpleParticleSystem(-64, Display.getHeight() - 8, 32, 32, new HvlRadialPositionProvider(32f), getWhite512());
 		lava.setMinScale(0.5f);
 		lava.setMaxScale(1.5f);
 		lava.setScaleDecay(0f);

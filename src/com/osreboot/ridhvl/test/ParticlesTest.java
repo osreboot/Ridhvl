@@ -13,13 +13,18 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
-import com.osreboot.ridhvl.particle.collection.HvlRadialParticleSystem;
-import com.osreboot.ridhvl.particle.collection.HvlRectangularParticleSystem;
+import com.osreboot.ridhvl.particle.collection.HvlRadialPositionProvider;
+import com.osreboot.ridhvl.particle.collection.HvlRectanglePositionProvider;
+import com.osreboot.ridhvl.particle.collection.HvlSimpleParticleSystem;
 import com.osreboot.ridhvl.particle.correlation.collection.HvlParticleVelocityToAngleCorrelator;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ParticlesTest extends HvlTemplate2D {
-	
+
+	public static void main(String[] args) {
+		new ParticlesTest();
+	}
+
 	public ParticlesTest() {
 		super(60, 1280, 720, "Ridhvl Particle Test", new HvlDisplayModeDefault());
 	}
@@ -29,22 +34,20 @@ public class ParticlesTest extends HvlTemplate2D {
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader();
 	static HvlFontPainter2D fontPainter;
-	
+
 	@Override
 	public void initialize() {
 		particles = new LinkedList<>();
 
 		textureLoader.loadResource("Font");
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0),
-				HvlFontUtil.DEFAULT, 2048, 2048, 40, 50, 51);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 40, 50, 51);
 
 		final int count = 25;
 
 		for (int i = 0; i < count; i++) {
-			HvlRectangularParticleSystem toAdd = new HvlRectangularParticleSystem(
-					1280 / 2, 720 / 2, 16, 64, 0, 0, Display.getWidth(),
-					Display.getHeight(), getWhite512(), textureLoader.getResource(0));
+			HvlSimpleParticleSystem toAdd = new HvlSimpleParticleSystem(0, 0, 16, 64, new HvlRectanglePositionProvider(0, Display.getWidth(), 0,
+					Display.getHeight()), getWhite512(), textureLoader.getResource(0));
 			toAdd.setMaxParticles(250);
 			toAdd.setMinScale(0.25f);
 			toAdd.setMaxScale(1);
@@ -68,17 +71,14 @@ public class ParticlesTest extends HvlTemplate2D {
 			toAdd.setStartColorTwo(Color.white);
 			toAdd.setEndColorOne(Color.blue);
 			toAdd.setEndColorTwo(Color.blue);
-			toAdd.setX(i * (Display.getWidth() / count));
-			toAdd.setY(Display.getHeight());
 			toAdd.setColorCoordinated(false);
 			toAdd.addCorrelator(new HvlParticleVelocityToAngleCorrelator());
 			particles.add(toAdd);
 		}
 
 		for (int i = 0; i < 0; i++) {
-			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(
-					1280 / 2, 720 / 2, 16, 16, textureLoader.getResource(0));
-			toAdd.setSpawnRadius(24.0f);
+			HvlSimpleParticleSystem toAdd = new HvlSimpleParticleSystem(1280 / 2, 720 / 2, 16, 16, new HvlRadialPositionProvider(24.0f),
+					textureLoader.getResource(0));
 			toAdd.setMinScale(.25f);
 			toAdd.setMaxScale(0.725f);
 			toAdd.setxVelDecay(0.99f);
@@ -105,9 +105,8 @@ public class ParticlesTest extends HvlTemplate2D {
 		}
 
 		for (int i = 0; i < 0; i++) {
-			HvlRadialParticleSystem toAdd = new HvlRadialParticleSystem(
-					1280 / 2, 720 / 2, 16, 16, textureLoader.getResource(0));
-			toAdd.setSpawnRadius(24.0f);
+			HvlSimpleParticleSystem toAdd = new HvlSimpleParticleSystem(1280 / 2, 720 / 2, 16, 16, new HvlRadialPositionProvider(24.0f),
+					textureLoader.getResource(0));
 			toAdd.setMinScale(.15f);
 			toAdd.setMaxScale(0.725f);
 			toAdd.setxVelDecay(0.99f);
