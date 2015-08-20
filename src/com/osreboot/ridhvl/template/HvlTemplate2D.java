@@ -16,7 +16,7 @@ import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.input.HvlInput;
-import com.osreboot.ridhvl.menu.HvlSongPlayer;
+import com.osreboot.ridhvl.menu.HvlMenuDJ;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCursor;
@@ -89,7 +89,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		
 		HvlDisplay.preUpdate(delta);
 		
-		HvlSongPlayer.update(delta);
+		HvlMenuDJ.update(delta);
 		
 		HvlAnimatedTexture.updateTextures(delta);
 		

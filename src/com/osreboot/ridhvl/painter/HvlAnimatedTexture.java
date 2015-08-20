@@ -90,4 +90,9 @@ public abstract class HvlAnimatedTexture {
 		speed = speedArg;
 	}
 	
+	public int getCurrentFrameIndex(){
+		int raw = (int)((getTotalTime())/getFrameDelay())%getAnimationLength();
+		return raw < 0 ? getAnimationLength() + raw : raw;
+	}
+	
 }
