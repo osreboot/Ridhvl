@@ -5,6 +5,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -30,16 +32,12 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 public class ParticlesTest extends HvlTemplate2D {
 
 	BufferedImage image;
-	
+
 	boolean triggered = false, pTriggered = false;
-	
-//	float scale = 0.25f;
+
+	//	float scale = 0.25f;
 
 	float tileWidth, tileHeight;
-
-	public static void main(String[] args) {
-		new ParticlesTest();
-	}
 
 	public ParticlesTest() {
 		super(60, 1280, 720, "Ridhvl Particle Test", new HvlDisplayModeDefault());
@@ -73,7 +71,7 @@ public class ParticlesTest extends HvlTemplate2D {
 		HvlSimpleParticleSystem test = new HvlSimpleParticleSystem((Display.getWidth() / 2) - (720 / 2), (Display.getHeight() / 2) - (720 / 2), tileWidth, tileHeight, new HvlParticlePositionProvider() {
 
 			int last = 0;
-			
+
 			@Override
 			public HvlCoord getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
 				int tile = last++;
@@ -85,8 +83,7 @@ public class ParticlesTest extends HvlTemplate2D {
 		test.setXVel(0.0f);
 		test.setYVel(0.0f);
 		test.setRot(0);
-		test.setMinLifetime(15f);
-		test.setMaxLifetime(25f);
+		test.setLifetime(-1);
 		test.setTimeToSpawn(0.01f);
 		test.setParticlesPerSpawn(100);
 		test.setSpawnOnTimer(false);
@@ -110,25 +107,46 @@ public class ParticlesTest extends HvlTemplate2D {
 				float blue = (pixel) & 0xff;
 
 				p.setColor(new Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f));
+
 			}
 		});
-		test.addCorrelator(new HvlParticleCorrelator() {			
+		test.addCorrelator(new HvlParticleCorrelator() {	
+			HashMap<HvlParticle, HvlCoord> origins = new HashMap<>();
 			{
 				setContinuous(true);
 			}
-			
+
 			@Override
 			public void correlate(HvlParticle in, float delta) {
 				HvlSimpleParticle p = (HvlSimpleParticle) in;
-				
+
+				if(!origins.containsKey(in)) origins.put(in, new HvlCoord(p.getX(), p.getY()));
+
 				if (!pTriggered && triggered)
 				{					
 					float angle = (float) Math.atan2(p.getY() - ((Display.getHeight() / 2)), p.getX() - ((Display.getWidth() / 2)));
-					
+
 					float length = new HvlCoord(p.getX() - ((Display.getWidth() / 2)), p.getY() - ((Display.getHeight() / 2))).length();
-					
-					p.setxVel((float) Math.cos(angle) * 1.0f / Math.min(length / 720, 1.0f));
-					p.setyVel((float) Math.sin(angle) * 1.0f / Math.min(length / 720, 1.0f));
+
+					//					p.setxVel((float) Math.cos(angle) * 1.0f / Math.min(length / 720, 1.0f));
+					//					p.setyVel((float) Math.sin(angle) * 1.0f / Math.min(length / 720, 1.0f));
+
+					p.setxVel(HvlMath.randomFloatBetween(-64 * (p.getX() - (Display.getWidth() / 2))/64, 64 * (p.getX() - (Display.getWidth() / 2))/64));
+					p.setyVel(HvlMath.randomFloatBetween(-64 * (p.getY() - (Display.getHeight() / 2))/64, 64 * (p.getY() - (Display.getHeight() / 2))/64));
+				}
+
+				if(p.getTimeAlive() > 5){
+					HvlCoord dir = new HvlCoord((origins.get(p).x - p.getX()), (origins.get(p).y - p.getY()));
+					if(dir.length() < 2){
+						p.setX(origins.get(p).x);
+						p.setY(origins.get(p).y);
+						p.setxVel(0);
+						p.setyVel(0);
+					}{
+						dir.mult(dir.length()*0.5f);
+						p.setxVel((p.getxVel()*0.999f) + (Math.signum(dir.x) * Math.min(Math.abs(dir.x), 64) * 0.001f));
+						p.setyVel((p.getyVel()*0.999f) + (Math.signum(dir.y) * Math.min(Math.abs(dir.y), 64) * 0.001f));
+					}
 				}
 			}
 		});
@@ -233,7 +251,7 @@ public class ParticlesTest extends HvlTemplate2D {
 		{
 			triggered = true;
 		}
-		
+
 		// particles.setX(HvlCursor.getCursorX());
 		// particles.setY(HvlCursor.getCursorY());
 
