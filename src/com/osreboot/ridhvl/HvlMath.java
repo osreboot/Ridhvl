@@ -57,6 +57,33 @@ public class HvlMath {
 		return (float)Math.sqrt(Math.pow(xArg1 - xArg2, 2) + Math.pow(yArg1 - yArg2, 2));
 	}
 	
+	public static HvlCoord raytrace(HvlCoord start, HvlCoord end, HvlCoord segStart, HvlCoord segEnd) {
+		HvlCoord tr = new HvlCoord(0, 0);
+
+		HvlCoord b = end.subtractNew(start);
+		HvlCoord d = segEnd.subtractNew(segStart);
+		float bDotDPerp = b.x * d.y - b.y * d.x;
+
+		if (bDotDPerp == 0)
+			return null;
+
+		HvlCoord c = segStart.subtractNew(start);
+		float t = (c.x * d.y - c.y * d.x) / bDotDPerp;
+		if (t < 0 || t > 1)
+			return null;
+
+		float u = (c.x * b.y - c.y * b.x) / bDotDPerp;
+		if (u < 0 || u > 1)
+			return null;
+
+		tr = start.addNew(b.multNew(t));
+
+		if (HvlMath.distance(tr.x, tr.y, start.x, start.y) > HvlMath.distance(start.x, start.y, end.x, end.y))
+			return null;
+
+		return tr;
+	}
+	
 	public static int randomInt(int max) {
 		return rand.nextInt(max);
 	}
