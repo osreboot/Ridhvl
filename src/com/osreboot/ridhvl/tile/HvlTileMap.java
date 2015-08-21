@@ -15,6 +15,20 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlTileMap {
 
+	private static boolean safetyOverlap = true;
+	
+	public static boolean isSafetyOverlap(){
+		return safetyOverlap;
+	}
+
+	public static void setSafetyOverlap(boolean safetyOverlapArg){
+		safetyOverlap = safetyOverlapArg;
+	}
+	
+	private static float getSafetyOverlapAmount(){
+		return safetyOverlap ? 0.01f : 0;
+	}
+
 	public class TileMapInfo {
 		public TileMapInfo(int tileWidth, int tileHeight, Texture... textures) {
 			super();
@@ -91,7 +105,7 @@ public class HvlTileMap {
 				boolean inRange = xMax > xLeft && xMin < xRight && yMax > yTop && yMin < yBottom;
 
 				if (!cutOff || inRange)
-					current.draw(info, xMin, yMin, tileWidth, tileHeight, delta, opacity);
+					current.draw(info, xMin - getSafetyOverlapAmount(), yMin - getSafetyOverlapAmount(), tileWidth + (getSafetyOverlapAmount() * 2f), tileHeight + (getSafetyOverlapAmount() * 2f), delta, opacity);
 			}
 		}
 	}
