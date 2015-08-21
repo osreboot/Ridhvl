@@ -69,11 +69,11 @@ public class HvlMath {
 
 		HvlCoord c = segStart.subtractNew(start);
 		float t = (c.x * d.y - c.y * d.x) / bDotDPerp;
-		if (t <= 0 || t >= 1)
+		if (t < 0 || t > 1)
 			return null;
 
 		float u = (c.x * b.y - c.y * b.x) / bDotDPerp;
-		if (u <= 0 || u >= 1)
+		if (u < 0 || u > 1)
 			return null;
 
 		tr = start.addNew(b.multNew(t));

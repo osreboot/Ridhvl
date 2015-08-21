@@ -31,7 +31,7 @@ public class HvlTilemapCollisionUtil {
 	}
 
 	// Note: Depends on HvlSimpleTiles for diagonals
-	public static List<LineSegment> getAllNearbySides(HvlLayeredTileMap map, float xArg, float yArg, int radiusArg) {
+	public static List<LineSegment> getAllNearbySides(HvlLayeredTileMap map, float xArg, float yArg, int radiusArg, int layer) {
 		List<LineSegment> tr = new ArrayList<>();
 
 		int tileX = map.toTileX(xArg);
@@ -39,13 +39,13 @@ public class HvlTilemapCollisionUtil {
 
 		for (int x = -radiusArg; x < radiusArg + 1; x++) {
 			for (int y = -radiusArg; y < radiusArg + 1; y++) {
-				if (tileX + x < 0 || tileX + x >= map.getLayer(1).getMapWidth() || tileY + y < 0 || tileY + y >= map.getLayer(1).getMapHeight())
+				if (tileX + x < 0 || tileX + x >= map.getLayer(layer).getMapWidth() || tileY + y < 0 || tileY + y >= map.getLayer(layer).getMapHeight())
 					continue;
 
-				if (!map.isTileInLocation(tileX + x, tileY + y, 1))
+				if (!map.isTileInLocation(tileX + x, tileY + y, layer))
 					continue;
 
-				HvlSimpleTile tile = (HvlSimpleTile) map.getLayer(1).getTile(tileX + x, tileY + y);
+				HvlSimpleTile tile = (HvlSimpleTile) map.getLayer(layer).getTile(tileX + x, tileY + y);
 
 				if (tile == null)
 					continue;
