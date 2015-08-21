@@ -161,4 +161,8 @@ public class HvlCoord
 	public float dot(HvlCoord dotter) {
 		return (x * dotter.x) + (y * dotter.y);
 	}
+	
+	public HvlCoord clone() {
+		return new HvlCoord(x, y);
+	}
 }
