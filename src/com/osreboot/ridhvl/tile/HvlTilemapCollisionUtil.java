@@ -90,9 +90,29 @@ public class HvlTilemapCollisionUtil {
 	}
 
 	public static void registerCornerSet(int ul, int ur, int ll, int lr) {
+		registerUpperLeftCorner(ul);
+		registerUpperRightCorner(ur);
+		registerLowerLeftCorner(ll);
+		registerLowerRightCorner(lr);
+	}
+
+	public static void registerUpperLeftCorner(int ul)
+	{
 		upperLeftCorners.add(ul);
+	}
+	
+	public static void registerUpperRightCorner(int ur)
+	{
 		upperRightCorners.add(ur);
-		lowerLeftCorners.add(ll);
+	}
+	
+	public static void registerLowerRightCorner(int lr)
+	{
 		lowerRightCorners.add(lr);
+	}
+	
+	public static void registerLowerLeftCorner(int ll)
+	{
+		lowerLeftCorners.add(ll);
 	}
 }
