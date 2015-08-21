@@ -7,9 +7,11 @@ import org.lwjgl.Sys;
  */
 public abstract class HvlTimer {
 
+	public static final long MD_UNLIMITED = Long.MAX_VALUE, MD_SECOND = 1000, MD_TENTH = 100, MD_TWENTIETH = 50, MD_HUNDREDTH = 10, MD_THOUSANDTH = 1;
+	
 	private float dilation = 1f, total = 0;
 	
-	private long delta, time, last;
+	private long delta, time, last, maxDelta = MD_UNLIMITED;
 	private boolean running = true;
 	
 	/**
@@ -23,7 +25,7 @@ public abstract class HvlTimer {
 	public final void start(){
 		while(running){
 			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
-			delta = (time - last);//TODO if user is not dragging window?
+			delta = Math.min((time - last), maxDelta);
 			last = time;
 			if(delta > 0 && delta < time){
 				total += ((float)delta / 1000)*dilation;
@@ -82,6 +84,14 @@ public abstract class HvlTimer {
 	 */
 	public float getTotalTime(){
 		return total;
+	}
+
+	public long getMaxDelta() {
+		return maxDelta;
+	}
+
+	public void setMaxDelta(long maxDeltaArg) {
+		maxDelta = maxDeltaArg;
 	}
 
 }

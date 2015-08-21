@@ -36,14 +36,15 @@ public abstract class HvlTemplate{
 	 * Runs the initialization method and starts the timer.
 	 */
 	final void start(){
-		initialize();
-
 		timer = new HvlTimer(){
 			@Override
 			public void update(float delta) {
 				tick(delta);
 			}
 		};
+		
+		initialize();
+		
 		timer.start();
 	}
 	
