@@ -89,6 +89,10 @@ public class HvlPainter2D {
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, texture);
 	}
+	
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, texture, c);
+	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Color c){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, white512, c);//TODO support more sizes
