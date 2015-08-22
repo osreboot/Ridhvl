@@ -41,7 +41,7 @@ public abstract class HvlAnimatedTexture {
 		if(stopTime > (float)getAnimationLength()*frameDelay){
 			running = false;
 			stopTime = 0;
-			totalTime = (getAnimationLength() - 1)*frameDelay;
+			totalTime = ((float)getAnimationLength() - 1)*frameDelay;
 		}
 	}
 
@@ -67,6 +67,7 @@ public abstract class HvlAnimatedTexture {
 
 	public void reset(){
 		totalTime = 0;
+		stopTime = 0;
 	}
 	
 	public void setCurrentFrame(int frame){
@@ -91,7 +92,7 @@ public abstract class HvlAnimatedTexture {
 	}
 	
 	public int getCurrentFrameIndex(){
-		int raw = (int)((getTotalTime())/getFrameDelay())%getAnimationLength();
+		int raw = (int)(((float)getTotalTime()/(float)getFrameDelay())%(float)getAnimationLength());
 		return raw < 0 ? getAnimationLength() + raw : raw;
 	}
 	
