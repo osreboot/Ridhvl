@@ -26,7 +26,18 @@ public class HvlCamera {
 			break;
 		}
 	}
+	
+	public enum HvlCameraTransformation{
+		NEGATIVE, UNDONEGATIVE
+	}
 
+	public static void doTransformation(HvlCameraTransformation transformationArg){
+		switch(transformationArg){
+		case NEGATIVE: glTranslatef(x + xOffset, y + yOffset, 0); break;
+		case UNDONEGATIVE: glTranslatef(-x - xOffset, -y - yOffset, 0); break;
+		}
+	}
+	
 	public static void doTransform(){
 		glPushMatrix();//TODO add zoom and test
 		glTranslatef(-x - xOffset, -y - yOffset, 0);
