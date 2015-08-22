@@ -53,7 +53,7 @@ public class HvlTilemapCollisionUtil {
 				if (upperLeftCorners.contains(tile.getTile())) {
 					tr.add(new LineSegment(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y), map.toWorldX(tileX + x), map.toWorldY(tileY + y + 1)));
 				} else if (upperRightCorners.contains(tile.getTile())) {
-					tr.add(new LineSegment(map.toWorldX(tileX + x), map.toWorldY(tileY + y), map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y + 1)));
+					tr.add(new LineSegment(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y + 1), map.toWorldX(tileX + x), map.toWorldY(tileY + y)));
 				} else if (lowerRightCorners.contains(tile.getTile())) {
 					tr.add(new LineSegment(map.toWorldX(tileX + x), map.toWorldY(tileY + y + 1), map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y)));
 				} else if (lowerLeftCorners.contains(tile.getTile())) {
@@ -62,8 +62,8 @@ public class HvlTilemapCollisionUtil {
 				{
 					if (x != 0 || y != 0) {
 						if (x < 0) {
-							HvlCoord wallStart = new HvlCoord(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y));
-							HvlCoord wallEnd = new HvlCoord(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y + 1));
+							HvlCoord wallStart = new HvlCoord(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y + 1));
+							HvlCoord wallEnd = new HvlCoord(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y));
 							tr.add(new LineSegment(wallStart, wallEnd));
 						}
 						if (x > 0) {
@@ -77,8 +77,8 @@ public class HvlTilemapCollisionUtil {
 							tr.add(new LineSegment(wallStart, wallEnd));
 						}
 						if (y > 0) {
-							HvlCoord wallStart = new HvlCoord(map.toWorldX(tileX + x), map.toWorldY(tileY + y));
-							HvlCoord wallEnd = new HvlCoord(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y));
+							HvlCoord wallStart = new HvlCoord(map.toWorldX(tileX + x + 1), map.toWorldY(tileY + y));
+							HvlCoord wallEnd = new HvlCoord(map.toWorldX(tileX + x), map.toWorldY(tileY + y));
 							tr.add(new LineSegment(wallStart, wallEnd));
 						}
 					}
