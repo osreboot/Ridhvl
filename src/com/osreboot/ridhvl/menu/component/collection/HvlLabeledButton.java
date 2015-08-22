@@ -24,6 +24,8 @@ public class HvlLabeledButton extends HvlButton {
 		this.text = text;
 		this.textScale = 1.0f;
 		this.textColor = textColor;
+		xAlign = 0.5f;
+		yAlign = 0.5f;
 	}
 
 	public HvlLabeledButton(float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable hoverArg, HvlComponentDrawable onArg,
@@ -33,6 +35,8 @@ public class HvlLabeledButton extends HvlButton {
 		this.text = text;
 		this.textScale = 1.0f;
 		this.textColor = textColor;
+		xAlign = 0.5f;
+		yAlign = 0.5f;
 	}
 
 	public HvlLabeledButton(float xArg, float yArg, float xlArg, float ylArg, HvlComponentDrawable offArg, HvlComponentDrawable onArg,

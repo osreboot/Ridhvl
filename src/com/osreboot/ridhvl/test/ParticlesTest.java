@@ -20,17 +20,22 @@ import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
+import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 import com.osreboot.ridhvl.particle.collection.HvlParticlePositionProvider;
 import com.osreboot.ridhvl.particle.collection.HvlSimpleParticle;
 import com.osreboot.ridhvl.particle.collection.HvlSimpleParticleSystem;
+import com.osreboot.ridhvl.particle.collection.HvlTorusPositionProvider;
 import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
+import com.osreboot.ridhvl.particle.correlation.collection.HvlParticleAttractionCorrelator;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ParticlesTest extends HvlTemplate2D {
 
+	HvlParticleAttractionCorrelator corr;
+	
 	BufferedImage image;
 
 	boolean triggered = false, pTriggered = false;
@@ -67,6 +72,25 @@ public class ParticlesTest extends HvlTemplate2D {
 
 		tileWidth = 720 / image.getWidth();
 		tileHeight = 720 / image.getHeight();
+		
+		corr = new HvlParticleAttractionCorrelator(-512.0f, new HvlCoord(Display.getWidth() / 2, Display.getHeight() / 2));
+		
+		HvlSimpleParticleSystem t= new HvlSimpleParticleSystem(Display.getWidth() / 2, Display.getHeight() / 2, 16, 16, new HvlTorusPositionProvider(64, 64), getWhite512());
+		t.setColor(Color.red);
+		t.setMinXVel(-64f);
+		t.setMaxXVel(64f);
+		t.setxVelDecay(-0.5f);
+		t.setMinYVel(-64f);
+		t.setMaxYVel(-16f);
+		t.setyVelDecay(0.5f);
+		t.setStartColor(Color.red);
+		t.setEndColor(Color.transparent);
+		t.setMinLifetime(3.0f);
+		t.setMaxLifetime(7.0f);
+		t.setTimeToSpawn(0.01f);
+		t.setParticlesPerSpawn(50);
+		t.addCorrelator(corr);
+		particles.add(t);
 
 		HvlSimpleParticleSystem test = new HvlSimpleParticleSystem((Display.getWidth() / 2) - (720 / 2), (Display.getHeight() / 2) - (720 / 2), tileWidth, tileHeight, new HvlParticlePositionProvider() {
 
@@ -144,46 +168,46 @@ public class ParticlesTest extends HvlTemplate2D {
 						p.setyVel(0);
 					}{
 						dir.mult(dir.length()*0.5f);
-						p.setxVel((p.getxVel()*0.999f) + (Math.signum(dir.x) * Math.min(Math.abs(dir.x), 64) * 0.001f));
-						p.setyVel((p.getyVel()*0.999f) + (Math.signum(dir.y) * Math.min(Math.abs(dir.y), 64) * 0.001f));
+						p.setxVel((p.getxVel()*0.99f) + (Math.signum(dir.x) * Math.min(Math.abs(dir.x), 64) * 0.01f));
+						p.setyVel((p.getyVel()*0.99f) + (Math.signum(dir.y) * Math.min(Math.abs(dir.y), 64) * 0.01f));
 					}
 				}
 			}
 		});
 		test.spawnAllParticles();
-		particles.add(test);
+//		particles.add(test);
 
-		// for (int i = 0; i < count; i++) {
-		// HvlSimpleParticleSystem toAdd = new HvlSimpleParticleSystem(0, 0, 16,
-		// 64, new HvlRectanglePositionProvider(0, Display.getWidth(), 0,
-		// Display.getHeight()), getWhite512(), textureLoader.getResource(0));
-		// toAdd.setMaxParticles(250);
-		// toAdd.setMinScale(0.25f);
-		// toAdd.setMaxScale(1);
-		// toAdd.setxVelDecay(-0.1f);
-		// toAdd.setyVelDecay(-0.1f);
-		// toAdd.setScaleDecay(-0.25f);
-		// toAdd.setMinRot(0f);
-		// toAdd.setMaxRot(360f);
-		// toAdd.setMinRotVel(-360);
-		// toAdd.setMaxRotVel(360);
-		// toAdd.setMinLifetime(2f);
-		// toAdd.setMaxLifetime(6f);
-		// toAdd.setMinYVel(-128);
-		// toAdd.setMaxYVel(-64);
-		// toAdd.setMinXVel(-32);
-		// toAdd.setMaxXVel(32);
-		// toAdd.setMinTimeToSpawn(1.5f);
-		// toAdd.setMaxTimeToSpawn(0.5f);
-		// toAdd.setParticlesPerSpawn(10);
-		// toAdd.setStartColorOne(Color.black);
-		// toAdd.setStartColorTwo(Color.white);
-		// toAdd.setEndColorOne(Color.blue);
-		// toAdd.setEndColorTwo(Color.blue);
-		// toAdd.setColorCoordinated(false);
-		// toAdd.addCorrelator(new HvlParticleVelocityToAngleCorrelator());
-		// particles.add(toAdd);
-		// }
+//		 for (int i = 0; i < 1; i++) {
+//		 HvlSimpleParticleSystem toAdd = new HvlSimpleParticleSystem(0, 0, 16,
+//		 64, new HvlRectanglePositionProvider(0, Display.getWidth(), 0,
+//		 Display.getHeight()), getWhite512(), textureLoader.getResource(0));
+//		 toAdd.setMaxParticles(250);
+//		 toAdd.setMinScale(0.25f);
+//		 toAdd.setMaxScale(1);
+//		 toAdd.setxVelDecay(-0.1f);
+//		 toAdd.setyVelDecay(-0.1f);
+//		 toAdd.setScaleDecay(-0.25f);
+//		 toAdd.setMinRot(0f);
+//		 toAdd.setMaxRot(360f);
+//		 toAdd.setMinRotVel(-360);
+//		 toAdd.setMaxRotVel(360);
+//		 toAdd.setMinLifetime(2f);
+//		 toAdd.setMaxLifetime(6f);
+//		 toAdd.setMinYVel(-128);
+//		 toAdd.setMaxYVel(-64);
+//		 toAdd.setMinXVel(-32);
+//		 toAdd.setMaxXVel(32);
+//		 toAdd.setMinTimeToSpawn(1.5f);
+//		 toAdd.setMaxTimeToSpawn(0.5f);
+//		 toAdd.setParticlesPerSpawn(10);
+//		 toAdd.setStartColorOne(Color.black);
+//		 toAdd.setStartColorTwo(Color.white);
+//		 toAdd.setEndColorOne(Color.blue);
+//		 toAdd.setEndColorTwo(Color.blue);
+//		 toAdd.setColorCoordinated(false);
+//		 toAdd.addCorrelator(new HvlParticleVelocityToAngleCorrelator());
+//		 particles.add(toAdd);
+//		 }
 		//
 		// for (int i = 0; i < 0; i++) {
 		// HvlSimpleParticleSystem toAdd = new HvlSimpleParticleSystem(1280 / 2,
@@ -251,6 +275,10 @@ public class ParticlesTest extends HvlTemplate2D {
 		{
 			triggered = true;
 		}
+		
+		particles.get(0).setX(HvlCursor.getCursorX());
+		particles.get(0).setY(HvlCursor.getCursorY());
+		corr.setPoints(new HvlCoord[] { new HvlCoord(HvlCursor.getCursorX(), HvlCursor.getCursorY())});
 
 		// particles.setX(HvlCursor.getCursorX());
 		// particles.setY(HvlCursor.getCursorY());
