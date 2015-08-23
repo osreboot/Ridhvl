@@ -9,30 +9,15 @@ import com.osreboot.ridhvl.menu.HvlComponentDefault;
 public class HvlDrawableComponent extends HvlComponent {
 
 	private HvlComponentDrawable drawable;
-	private Color color;
 
 	public HvlDrawableComponent(float wArg, float hArg, HvlComponentDrawable dArg) {
 		super(wArg, hArg);
 		drawable = dArg;
-		color = Color.white;
 	}
 
 	public HvlDrawableComponent(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable dArg) {
 		super(xArg, yArg, wArg, hArg);
 		drawable = dArg;
-		color = Color.white;
-	}
-
-	public HvlDrawableComponent(float wArg, float hArg, HvlComponentDrawable drawable, Color color) {
-		super(wArg, hArg);
-		this.drawable = drawable;
-		this.color = color;
-	}
-
-	public HvlDrawableComponent(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable drawable, Color color) {
-		super(xArg, yArg, wArg, hArg);
-		this.drawable = drawable;
-		this.color = color;
 	}
 
 	@Override
@@ -49,14 +34,6 @@ public class HvlDrawableComponent extends HvlComponent {
 		this.drawable = drawable;
 	}
 
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
 	public static class Builder {
 		private HvlDrawableComponent tr;
 
@@ -68,11 +45,6 @@ public class HvlDrawableComponent extends HvlComponent {
 
 		public Builder setTexture(HvlComponentDrawable drawable) {
 			tr.setDrawable(drawable);
-			return this;
-		}
-
-		public Builder setColor(Color color) {
-			tr.setColor(color);
 			return this;
 		}
 
