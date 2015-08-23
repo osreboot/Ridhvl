@@ -20,4 +20,12 @@ public class HvlTextureDrawable extends HvlComponentDrawable {
 		HvlPainter2D.hvlDrawQuad(x, y, width, height, texture);
 	}
 
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
 }

@@ -22,4 +22,12 @@ public class HvlTiledRectDrawable extends HvlComponentDrawable {
 		rect.draw();
 	}
 
+	public HvlTiledRect getRect() {
+		return rect;
+	}
+
+	public void setRect(HvlTiledRect rect) {
+		this.rect = rect;
+	}
+
 }
