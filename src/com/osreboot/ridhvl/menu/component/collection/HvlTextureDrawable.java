@@ -9,7 +9,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 public class HvlTextureDrawable extends HvlComponentDrawable {
 
 	private Texture texture;
-	private Color color;
+	private Color color = Color.white;
 
 	public HvlTextureDrawable(Texture textureArg) {
 		texture = textureArg;
