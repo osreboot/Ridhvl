@@ -13,6 +13,7 @@ public class HvlTextureDrawable extends HvlComponentDrawable {
 
 	public HvlTextureDrawable(Texture textureArg) {
 		texture = textureArg;
+		color = Color.white;
 	}
 
 	@Override
