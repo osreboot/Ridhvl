@@ -39,7 +39,8 @@ public class HvlMenuDJ {
 	}
 
 	private static void endCurrentSong(){
-		if(currentSong != null){
+		fadeGoal = 0;
+		if(currentSong != null && fadeLocation == 0){
 			currentSong.stop();
 			currentSong = null;
 
