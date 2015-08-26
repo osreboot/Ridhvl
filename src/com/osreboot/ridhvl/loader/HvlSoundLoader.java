@@ -9,7 +9,7 @@ import org.newdawn.slick.openal.AudioLoader;
 public class HvlSoundLoader extends HvlContentLoader<Audio>{
 
 	public enum HvlSoundType{
-		WAV, MP3
+		WAV, OGG
 	}
 
 	public HvlSoundLoader(String defaultPathArg){
@@ -37,7 +37,7 @@ public class HvlSoundLoader extends HvlContentLoader<Audio>{
 		Audio t;
 		try{
 			switch(typeArg){
-			case MP3: t = AudioLoader.getAudio("MP3", new BufferedInputStream(new FileInputStream(getPath() + nameArg + ".mp3"))); break; //TODO test this
+			case OGG: t = AudioLoader.getAudio("OGG", new BufferedInputStream(new FileInputStream(getPath() + nameArg + ".ogg"))); break; //TODO test this
 			default: t = AudioLoader.getAudio("WAV", new BufferedInputStream(new FileInputStream(getPath() + nameArg + ".wav"))); break;
 			}
 		}catch(Exception e){
