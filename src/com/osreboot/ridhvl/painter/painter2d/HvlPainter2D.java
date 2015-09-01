@@ -97,6 +97,42 @@ public class HvlPainter2D {
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Color c){
 		HvlQuadPainter2D.hvlDrawQuad(x, y, xl, yl, white512, c);//TODO support more sizes
 	}
+	
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, Texture t){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, t);
+	}
+
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, t, c);
+	}
+
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t);
+	}
+
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, uvx1, uvy1, uvx2, uvy2, t, c);
+	}
+
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, renderFrame);//TODO test this
+	}
+
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, texture);
+	}
+
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, texture);
+	}
+	
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, texture, c);
+	}
+
+	public static void hvlDrawQuadc(float x, float y, float xl, float yl, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(x, y, xl, yl, white512, c);//TODO support more sizes
+	}
 
 	public static void hvlRotate(float x, float y, float degrees){
 		HvlSwivel2D.hvlRotate(x, y, degrees);
