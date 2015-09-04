@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 
 public class HvlMenu {
 
@@ -101,6 +102,10 @@ public class HvlMenu {
 		}
 		
 		return null;
+	}
+	
+	public HvlArrangerBox getFirstArrangerBox(){
+		return getFirstChildOfType(HvlArrangerBox.class);
 	}
 	
 	public void update(float delta) {
