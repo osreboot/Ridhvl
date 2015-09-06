@@ -128,6 +128,11 @@ public abstract class HvlComponent {
 	public void setY(float y) {
 		this.y = y;
 	}
+	
+	public void setPosition(float x, float y){
+		this.x = x;
+		this.y = y;
+	}
 
 	public float getWidth() {
 		return width;
@@ -142,6 +147,11 @@ public abstract class HvlComponent {
 	}
 
 	public void setHeight(float height) {
+		this.height = height;
+	}
+	
+	public void setDimensions(float width, float height){
+		this.width = width;
 		this.height = height;
 	}
 
