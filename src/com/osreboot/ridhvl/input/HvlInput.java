@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.lwjgl.input.Controllers;
 
 import com.osreboot.ridhvl.action.HvlAction1;
+import com.osreboot.ridhvl.external.HvlVerifier;
 
 
 public class HvlInput {
@@ -16,13 +17,7 @@ public class HvlInput {
 	}
 	
 	public static void initialize(){
-		try{
-			Controllers.create();
-			joystickEnabled = true;
-		}catch(Exception e){
-			System.out.println("Joystick control disabled: jinput.jar not available.");
-			joystickEnabled = false;
-		}
+		if(!HvlVerifier.JINPUT.isValid()) System.out.println("Joystick control disabled: jinput.jar not available.");
 	}
 	
 	public static void update(){
@@ -31,7 +26,6 @@ public class HvlInput {
 	}
 	
 	private static int controllerIndex = 0;
-	private static boolean joystickEnabled;
 	
 	private HvlInputFilter[] filter;
 	
@@ -82,10 +76,6 @@ public class HvlInput {
 
 	public static int getControllerIndex(){
 		return controllerIndex;
-	}
-
-	public static boolean isJoystickEnabled(){
-		return joystickEnabled;
 	}
 
 	public static void setControllerIndex(int controllerIndexArg){

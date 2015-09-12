@@ -18,6 +18,7 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
+import com.osreboot.ridhvl.external.HvlVerifier;
 import com.osreboot.ridhvl.input.HvlInput;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
@@ -68,6 +69,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
 		
+		HvlVerifier.globalVerify();
+		
 		HvlDisplay.initializeDisplayMode();
 		
 		HvlInput.initialize();
@@ -99,6 +102,8 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 
 		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
 		hvlGL11Ortho(width, height);
+		
+		HvlVerifier.globalVerify();
 		
 		HvlDisplay.initializeDisplayMode();
 		
