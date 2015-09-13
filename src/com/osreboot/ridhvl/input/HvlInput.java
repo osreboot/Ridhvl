@@ -17,7 +17,7 @@ public class HvlInput {
 	}
 	
 	public static void initialize(){
-		if(!HvlVerifier.JINPUT.isValid()) System.out.println("Joystick control disabled: jinput.jar not available.");
+		if(!HvlVerifier.VFR_JINPUT.isValid()) System.out.println("Joystick control disabled: jinput.jar not available.");
 	}
 	
 	public static void update(){

@@ -3,10 +3,11 @@ package com.osreboot.ridhvl.external;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Controllers;
+import org.lwjgl.opengl.GLContext;
 
 public abstract class HvlVerifier {
 
-	public static final HvlVerifier JINPUT = new HvlVerifier(){
+	public static final HvlVerifier VFR_JINPUT = new HvlVerifier(){
 		@Override
 		public boolean verify(){
 			try{
@@ -15,6 +16,13 @@ public abstract class HvlVerifier {
 			}catch(Exception e){
 				return false;
 			}
+		}
+	};
+	
+	public static final HvlVerifier VFR_FBOENABLED = new HvlVerifier(){
+		@Override
+		public boolean verify(){
+			return GLContext.getCapabilities().GL_EXT_framebuffer_object;
 		}
 	};
 
