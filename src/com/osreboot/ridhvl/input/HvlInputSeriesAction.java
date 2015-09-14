@@ -47,7 +47,7 @@ public class HvlInputSeriesAction {
 
 	public static final HvlInputFilter FILTER_PAUSE = new HvlInputFilter(){
 		public float getCurrentOutput(){
-			return Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) ? 1 : 0;
+			return Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) || Keyboard.isKeyDown(Keyboard.KEY_P) ? 1 : 0;
 		}
 	};
 
