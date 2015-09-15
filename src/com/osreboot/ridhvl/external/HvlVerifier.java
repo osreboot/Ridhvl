@@ -34,11 +34,10 @@ public abstract class HvlVerifier {
 
 	private boolean isValid = false;
 
-	public HvlVerifier(){
-		verifiers.add(this);
-	}
+	public HvlVerifier(){}
 
 	public final void metaVerify(){
+		verifiers.add(this);
 		isValid = verify();
 	}
 
