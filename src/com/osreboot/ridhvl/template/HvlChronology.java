@@ -8,45 +8,60 @@ import com.osreboot.ridhvl.action.HvlAction1;
 public class HvlChronology {
 
 	public static final int INIT_CHRONOLOGY_EARLIEST = 0,
-			INIT_CHRONOLOGY_LATEST = 100,
+			INIT_CHRONOLOGY_EARLY = 25,
 			INIT_CHRONOLOGY_MIDDLE = 50,
+			INIT_CHRONOLOGY_LATE = 75,
+			INIT_CHRONOLOGY_LATEST = 100,
 			UPDATE_CHRONOLOGY_PRE_EARLIEST = 0,
+			UPDATE_CHRONOLOGY_PRE_EARLY = 15,
 			UPDATE_CHRONOLOGY_PRE_MIDDLE = 25,
+			UPDATE_CHRONOLOGY_PRE_LATE = 35,
 			UPDATE_CHRONOLOGY_PRE_LATEST = 50,
 			UPDATE_CHRONOLOGY_POST_EARLIEST = 51,
+			UPDATE_CHRONOLOGY_POST_EARLY = 65,
 			UPDATE_CHRONOLOGY_POST_MIDDLE = 75,
+			UPDATE_CHRONOLOGY_POST_LATE = 85,
 			UPDATE_CHRONOLOGY_POST_LATEST = 100;
 
-	private static HashMap<HvlAction0, Integer> chronoInit = new HashMap<>();
-	private static HashMap<HvlAction1<Float>, Integer> updateInit = new HashMap<>();
+	private static HashMap<Integer, HvlAction0> chronoInit = new HashMap<>();
+	private static HashMap<Integer, HvlAction1<Float>> updateInit = new HashMap<>();
 
 	public static class HvlChronoInitialize{
-		public HvlChronoInitialize(HvlAction0 actionArg, int chronologyArg){
+		public HvlChronoInitialize(int chronologyArg, HvlAction0 actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
-			else chronoInit.put(actionArg, chronologyArg);
+			else{
+				if(chronoInit.containsKey(chronologyArg)) throw new ChronologyExistsException();
+				else chronoInit.put(chronologyArg, actionArg);
+			}
 		}
 	}
 
 	public static class HvlChronoUpdate{
-		public HvlChronoUpdate(HvlAction1<Float> actionArg, int chronologyArg){
+		public HvlChronoUpdate(int chronologyArg, HvlAction1<Float> actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
-			else updateInit.put(actionArg, chronologyArg);
+			else{
+				if(updateInit.containsKey(chronologyArg)) throw new ChronologyExistsException();
+				else updateInit.put(chronologyArg, actionArg);
+			}
 		}
 	}
-
+	
+	protected static void initialize(){
+		for(int i = INIT_CHRONOLOGY_EARLIEST; i <= INIT_CHRONOLOGY_LATEST; i++) if(chronoInit.containsKey(i)) chronoInit.get(i).run();
+	}
+	
 	protected static void preUpdate(float delta){
-
+		for(int i = UPDATE_CHRONOLOGY_PRE_EARLIEST; i <= UPDATE_CHRONOLOGY_PRE_LATEST; i++) if(updateInit.containsKey(i)) updateInit.get(i).run(delta);
 	}
 
 	protected static void postUpdate(float delta){
-
-	}
-
-	protected static void initialize(){
-
+		for(int i = UPDATE_CHRONOLOGY_POST_EARLIEST; i <= UPDATE_CHRONOLOGY_POST_LATEST; i++) if(updateInit.containsKey(i)) updateInit.get(i).run(delta);
 	}
 
 	@SuppressWarnings("serial")
 	static class BrokenChronologyException extends RuntimeException{}
+	
+	@SuppressWarnings("serial")
+	static class ChronologyExistsException extends RuntimeException{}
 
 }
