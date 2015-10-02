@@ -26,8 +26,8 @@ public class HvlChronology {
 	private static HashMap<Integer, HvlAction0> chronoInit = new HashMap<>();
 	private static HashMap<Integer, HvlAction1<Float>> updateInit = new HashMap<>();
 
-	public static class HvlChronoInitialize{
-		public HvlChronoInitialize(int chronologyArg, HvlAction0 actionArg){
+	public static class Initialize{
+		public Initialize(int chronologyArg, HvlAction0 actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
 			else{
 				if(chronoInit.containsKey(chronologyArg)) throw new ChronologyExistsException();
@@ -36,8 +36,8 @@ public class HvlChronology {
 		}
 	}
 
-	public static class HvlChronoUpdate{
-		public HvlChronoUpdate(int chronologyArg, HvlAction1<Float> actionArg){
+	public static class Update{
+		public Update(int chronologyArg, HvlAction1<Float> actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
 			else{
 				if(updateInit.containsKey(chronologyArg)) throw new ChronologyExistsException();

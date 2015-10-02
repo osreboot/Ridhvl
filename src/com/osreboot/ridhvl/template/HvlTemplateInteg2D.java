@@ -66,14 +66,13 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 		
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
-		hvlGL11Ortho(width, height);
+		HvlChronology.initialize();
 		
-		HvlVerifier.globalVerify();
-		
-		HvlDisplay.initializeDisplayMode();
-		
-		HvlInput.initialize();
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);//TODO convert to HvlChronology.Initialize
+		hvlGL11Ortho(width, height);//TODO convert to HvlChronology.Initialize
+		HvlVerifier.globalVerify();//TODO convert to HvlChronology.Initialize
+		HvlDisplay.initializeDisplayMode();//TODO convert to HvlChronology.Initialize
+		HvlInput.initialize();//TODO convert to HvlChronology.Initialize
 		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();
@@ -100,14 +99,13 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
-		hvlGL11Ortho(width, height);
+		HvlChronology.initialize();
 		
-		HvlVerifier.globalVerify();
-		
-		HvlDisplay.initializeDisplayMode();
-		
-		HvlInput.initialize();
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);//TODO convert to HvlChronology.Initialize
+		hvlGL11Ortho(width, height);//TODO convert to HvlChronology.Initialize
+		HvlVerifier.globalVerify();//TODO convert to HvlChronology.Initialize
+		HvlDisplay.initializeDisplayMode();//TODO convert to HvlChronology.Initialize
+		HvlInput.initialize();//TODO convert to HvlChronology.Initialize
 		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();
@@ -120,28 +118,27 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	
 	@Override
 	public void preUpdate(float delta){
-		HvlInput.update();
+		HvlChronology.preUpdate(delta);
 		
-		HvlDisplay.preUpdate(delta);
-		
-		HvlMenuDJ.update(delta);
-		
-		HvlAnimatedTexture.updateTextures(delta);
+		HvlInput.update();//TODO convert to HvlChronology.Update
+		HvlDisplay.preUpdate(delta);//TODO convert to HvlChronology.Update
+		HvlMenuDJ.update(delta);//TODO convert to HvlChronology.Update
+		HvlAnimatedTexture.updateTextures(delta);//TODO convert to HvlChronology.Update
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		if(preCameraTransform != null) preCameraTransform.run(delta);
 		
-		HvlCamera.doTransform();
+		HvlCamera.doTransform();//TODO convert to HvlChronology.Update
 	}
 
 	@Override
 	public void postUpdate(float delta){
-		HvlCursor.drawCursor();
+		HvlChronology.postUpdate(delta);
 		
-		HvlCamera.undoTransform();
-		
-		HvlDisplay.postUpdate(delta);
+		HvlCursor.drawCursor();//TODO convert to HvlChronology.Update
+		HvlCamera.undoTransform();//TODO convert to HvlChronology.Update
+		HvlDisplay.postUpdate(delta);//TODO convert to HvlChronology.Update
 		
 		Display.update();
 		Display.sync(frameRate);
