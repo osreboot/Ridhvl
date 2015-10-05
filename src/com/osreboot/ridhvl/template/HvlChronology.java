@@ -7,11 +7,13 @@ import com.osreboot.ridhvl.action.HvlAction1;
 
 public class HvlChronology {
 
-	public static final int INIT_CHRONOLOGY_EARLIEST = 0,
+	public static final int INIT_CHRONOLOGY_DFLTINTVL = 5,
+			INIT_CHRONOLOGY_EARLIEST = 0,
 			INIT_CHRONOLOGY_EARLY = 25,
 			INIT_CHRONOLOGY_MIDDLE = 50,
 			INIT_CHRONOLOGY_LATE = 75,
 			INIT_CHRONOLOGY_LATEST = 100,
+			UPDATE_CHRONOLOGY_DFLTINTVL = 3,
 			UPDATE_CHRONOLOGY_PRE_EARLIEST = 0,
 			UPDATE_CHRONOLOGY_PRE_EARLY = 15,
 			UPDATE_CHRONOLOGY_PRE_MIDDLE = 25,
@@ -30,7 +32,7 @@ public class HvlChronology {
 		public Initialize(int chronologyArg, HvlAction0 actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
 			else{
-				if(chronoInit.containsKey(chronologyArg)) throw new ChronologyExistsException();
+				if(chronoInit.containsKey(chronologyArg)) throw new PredefinedChronologyException();
 				else chronoInit.put(chronologyArg, actionArg);
 			}
 		}
@@ -40,7 +42,7 @@ public class HvlChronology {
 		public Update(int chronologyArg, HvlAction1<Float> actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
 			else{
-				if(updateInit.containsKey(chronologyArg)) throw new ChronologyExistsException();
+				if(updateInit.containsKey(chronologyArg)) throw new PredefinedChronologyException();
 				else updateInit.put(chronologyArg, actionArg);
 			}
 		}
@@ -62,6 +64,6 @@ public class HvlChronology {
 	static class BrokenChronologyException extends RuntimeException{}
 	
 	@SuppressWarnings("serial")
-	static class ChronologyExistsException extends RuntimeException{}
+	static class PredefinedChronologyException extends RuntimeException{}
 
 }
