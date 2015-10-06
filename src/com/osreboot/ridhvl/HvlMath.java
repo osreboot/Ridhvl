@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.osreboot.ridhvl.action.HvlAction1;
@@ -125,11 +126,13 @@ public class HvlMath {
 	
 	public static class Stepper{
 		
-		{
+		private static ArrayList<Stepper> steppers = new ArrayList<>();
+		
+		static {
 			new HvlChronology.Update(new HvlAction1<Float>(){
 				@Override
-				public void run(Float a){
-					value = stepTowards(value, rate, goal);
+				public void run(Float delta){
+					for(Stepper s : steppers) s.update(delta);
 				}
 			});
 		}
@@ -140,8 +143,13 @@ public class HvlMath {
 			value = valueArg;
 			rate = rateArg;
 			goal = goalArg;
+			steppers.add(this);
 		}
 
+		private void update(float delta){
+			value = stepTowards(value, rate * delta, goal);
+		}
+		
 		public float getValue(){
 			return value;
 		}
