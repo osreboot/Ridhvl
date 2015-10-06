@@ -1,7 +1,10 @@
 package com.osreboot.ridhvl.template;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
-import static org.lwjgl.opengl.GL11.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Init;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Ortho;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
@@ -18,7 +21,6 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
-import com.osreboot.ridhvl.external.HvlVerifier;
 import com.osreboot.ridhvl.input.HvlInput;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
@@ -66,13 +68,10 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 		
-		HvlChronology.initialize();
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
+		hvlGL11Ortho(width, height);
 		
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);//TODO convert to HvlChronology.Initialize
-		hvlGL11Ortho(width, height);//TODO convert to HvlChronology.Initialize
-		HvlVerifier.globalVerify();//TODO convert to HvlChronology.Initialize
-		HvlDisplay.initializeDisplayMode();//TODO convert to HvlChronology.Initialize
-		HvlInput.initialize();//TODO convert to HvlChronology.Initialize
+		HvlChronology.initialize();
 		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();
@@ -99,13 +98,10 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 
-		HvlChronology.initialize();
+		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
+		hvlGL11Ortho(width, height);
 		
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);//TODO convert to HvlChronology.Initialize
-		hvlGL11Ortho(width, height);//TODO convert to HvlChronology.Initialize
-		HvlVerifier.globalVerify();//TODO convert to HvlChronology.Initialize
-		HvlDisplay.initializeDisplayMode();//TODO convert to HvlChronology.Initialize
-		HvlInput.initialize();//TODO convert to HvlChronology.Initialize
+		HvlChronology.initialize();
 		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();

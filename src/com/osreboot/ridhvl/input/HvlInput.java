@@ -4,11 +4,23 @@ import java.util.LinkedList;
 
 import org.lwjgl.input.Controllers;
 
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.external.HvlVerifier;
+import com.osreboot.ridhvl.template.HvlChronology;
 
 
 public class HvlInput {
+	
+	public static final int CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY + HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;
+	{
+		new HvlChronology.Initialize(CHRONOLOGY, new HvlAction0(){
+			@Override
+			public void run(){
+				initialize();
+			}
+		});
+	}
 	
 	private static LinkedList<HvlInput> inputs = new LinkedList<HvlInput>();
 	

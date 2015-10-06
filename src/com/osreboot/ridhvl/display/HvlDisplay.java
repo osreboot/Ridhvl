@@ -2,7 +2,20 @@ package com.osreboot.ridhvl.display;
 
 import org.lwjgl.opengl.Display;
 
+import com.osreboot.ridhvl.action.HvlAction0;
+import com.osreboot.ridhvl.template.HvlChronology;
+
 public class HvlDisplay {
+	
+	public static final int CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - 1;
+	{
+		new HvlChronology.Initialize(CHRONOLOGY, new HvlAction0(){
+			@Override
+			public void run(){
+				initializeDisplayMode();
+			}
+		});
+	}
 	
 	private static int oldWidth, oldHeight;
 	

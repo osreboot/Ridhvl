@@ -5,8 +5,21 @@ import java.util.ArrayList;
 import org.lwjgl.input.Controllers;
 import org.lwjgl.opengl.GLContext;
 
+import com.osreboot.ridhvl.action.HvlAction0;
+import com.osreboot.ridhvl.template.HvlChronology;
+
 public abstract class HvlVerifier {
 
+	public static final int CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;
+	{
+		new HvlChronology.Initialize(CHRONOLOGY, new HvlAction0(){
+			@Override
+			public void run(){
+				globalVerify();
+			}
+		});
+	}
+	
 	public static final HvlVerifier VFR_JINPUT = new HvlVerifier(){
 		@Override
 		public boolean verify(){
