@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl.template;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.osreboot.ridhvl.action.HvlAction0;
@@ -26,9 +27,16 @@ public class HvlChronology {
 			UPDATE_CHRONOLOGY_POST_LATEST = 100;
 
 	private static HashMap<Integer, HvlAction0> chronoInit = new HashMap<>();
-	private static HashMap<Integer, HvlAction1<Float>> updateInit = new HashMap<>();
+	private static HashMap<Integer, HvlAction1<Float>> chronoUpdate = new HashMap<>();
+	private static boolean initialized = false;
+	
+	public static boolean isInitialized(){
+		return initialized;
+	}
 
 	public static class Initialize{
+		private static ArrayList<HvlAction0> queue = new ArrayList<>();
+		
 		public Initialize(int chronologyArg, HvlAction0 actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
 			else{
@@ -36,28 +44,69 @@ public class HvlChronology {
 				else chronoInit.put(chronologyArg, actionArg);
 			}
 		}
+		
+		/**
+		 * Creates an Initialize chronology that is automatically stacked towards the latest possible slot (defined chronologies have priority over this).
+		 * @param actionArg
+		 */
+		public Initialize(HvlAction0 actionArg){
+			if(!isInitialized())
+			queue.add(actionArg);
+			else{
+				for(int i = INIT_CHRONOLOGY_LATEST; i >= INIT_CHRONOLOGY_EARLIEST; i--) if(!chronoInit.containsKey(i)) chronoInit.put(i, actionArg);
+			}
+		}
+		
+		private static void sortQueue(){
+			for(HvlAction0 action : queue){
+				for(int i = INIT_CHRONOLOGY_LATEST; i >= INIT_CHRONOLOGY_EARLIEST; i--) if(!chronoInit.containsKey(i)) chronoInit.put(i, action);
+			}
+		}
 	}
 
 	public static class Update{
+		private static ArrayList<HvlAction1<Float>> queue = new ArrayList<>();
+		
 		public Update(int chronologyArg, HvlAction1<Float> actionArg){
 			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
 			else{
-				if(updateInit.containsKey(chronologyArg)) throw new PredefinedChronologyException();
-				else updateInit.put(chronologyArg, actionArg);
+				if(chronoUpdate.containsKey(chronologyArg)) throw new PredefinedChronologyException();
+				else chronoUpdate.put(chronologyArg, actionArg);
+			}
+		}
+		
+		/**
+		 * Creates an Update chronology that is automatically stacked towards the latest possible pre-draw slot (defined chronologies have priority over this).
+		 * @param actionArg
+		 */
+		public Update(HvlAction1<Float> actionArg){
+			if(!isInitialized())
+			queue.add(actionArg);
+			else{
+				for(int i = UPDATE_CHRONOLOGY_PRE_LATEST; i >= UPDATE_CHRONOLOGY_PRE_EARLIEST; i--) if(!chronoUpdate.containsKey(i)) chronoUpdate.put(i, actionArg);
+			}
+		}
+		
+		private static void sortQueue(){
+			for(HvlAction1<Float> action : queue){
+				for(int i = UPDATE_CHRONOLOGY_PRE_LATEST; i >= UPDATE_CHRONOLOGY_PRE_EARLIEST; i--) if(!chronoUpdate.containsKey(i)) chronoUpdate.put(i, action);
 			}
 		}
 	}
 	
 	protected static void initialize(){
+		Initialize.sortQueue();
+		Update.sortQueue();
+		initialized = true;
 		for(int i = INIT_CHRONOLOGY_EARLIEST; i <= INIT_CHRONOLOGY_LATEST; i++) if(chronoInit.containsKey(i)) chronoInit.get(i).run();
 	}
 	
 	protected static void preUpdate(float delta){
-		for(int i = UPDATE_CHRONOLOGY_PRE_EARLIEST; i <= UPDATE_CHRONOLOGY_PRE_LATEST; i++) if(updateInit.containsKey(i)) updateInit.get(i).run(delta);
+		for(int i = UPDATE_CHRONOLOGY_PRE_EARLIEST; i <= UPDATE_CHRONOLOGY_PRE_LATEST; i++) if(chronoUpdate.containsKey(i)) chronoUpdate.get(i).run(delta);
 	}
 
 	protected static void postUpdate(float delta){
-		for(int i = UPDATE_CHRONOLOGY_POST_EARLIEST; i <= UPDATE_CHRONOLOGY_POST_LATEST; i++) if(updateInit.containsKey(i)) updateInit.get(i).run(delta);
+		for(int i = UPDATE_CHRONOLOGY_POST_EARLIEST; i <= UPDATE_CHRONOLOGY_POST_LATEST; i++) if(chronoUpdate.containsKey(i)) chronoUpdate.get(i).run(delta);
 	}
 
 	@SuppressWarnings("serial")

@@ -2,6 +2,9 @@ package com.osreboot.ridhvl;
 
 import java.util.Random;
 
+import com.osreboot.ridhvl.action.HvlAction1;
+import com.osreboot.ridhvl.template.HvlChronology;
+
 
 public class HvlMath {
 	
@@ -119,4 +122,50 @@ public class HvlMath {
 	public static void reseedRandom() {
 		rand = new Random();
 	}
+	
+	public static class Stepper{
+		
+		{
+			new HvlChronology.Update(new HvlAction1<Float>(){
+				@Override
+				public void run(Float a){
+					value = stepTowards(value, rate, goal);
+				}
+			});
+		}
+		
+		private float value, rate, goal;
+		
+		public Stepper(float valueArg, float rateArg, float goalArg){
+			value = valueArg;
+			rate = rateArg;
+			goal = goalArg;
+		}
+
+		public float getValue(){
+			return value;
+		}
+
+		public void setValue(float value){
+			this.value = value;
+		}
+
+		public float getRate(){
+			return rate;
+		}
+
+		public void setRate(float rate){
+			this.rate = rate;
+		}
+
+		public float getGoal(){
+			return goal;
+		}
+
+		public void setGoal(float goal){
+			this.goal = goal;
+		}
+		
+	}
+	
 }
