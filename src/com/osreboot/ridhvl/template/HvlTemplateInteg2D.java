@@ -21,12 +21,9 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
-import com.osreboot.ridhvl.input.HvlInput;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.loader.HvlTextureSeriesLoader;
-import com.osreboot.ridhvl.menu.HvlMenuDJ;
-import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
@@ -115,11 +112,6 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	@Override
 	public void preUpdate(float delta){
 		HvlChronology.preUpdate(delta);
-		
-		HvlInput.update();//TODO convert to HvlChronology.Update
-		HvlDisplay.preUpdate(delta);//TODO convert to HvlChronology.Update
-		HvlMenuDJ.update(delta);//TODO convert to HvlChronology.Update
-		HvlAnimatedTexture.updateTextures(delta);//TODO convert to HvlChronology.Update
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		

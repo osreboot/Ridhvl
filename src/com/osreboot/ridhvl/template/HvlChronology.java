@@ -28,20 +28,31 @@ public class HvlChronology {
 
 	private static HashMap<Integer, HvlAction0> chronoInit = new HashMap<>();
 	private static HashMap<Integer, HvlAction1<Float>> chronoUpdate = new HashMap<>();
-	private static boolean initialized = false;
+	private static boolean initialized = false, debugOutput = false;
 	
 	public static boolean isInitialized(){
 		return initialized;
+	}
+
+	public static boolean getDebugOutput(){
+		return debugOutput;
+	}
+
+	public static void setDebugOutput(boolean debugOutput){
+		HvlChronology.debugOutput = debugOutput;
 	}
 
 	public static class Initialize{
 		private static ArrayList<HvlAction0> queue = new ArrayList<>();
 		
 		public Initialize(int chronologyArg, HvlAction0 actionArg){
-			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
+			if(chronologyArg < INIT_CHRONOLOGY_EARLIEST || chronologyArg > INIT_CHRONOLOGY_LATEST) throw new BrokenChronologyException();
 			else{
 				if(chronoInit.containsKey(chronologyArg)) throw new PredefinedChronologyException();
-				else chronoInit.put(chronologyArg, actionArg);
+				else{
+					System.out.println("HvlChronology: manually assigning an Initialize action to slot " + chronologyArg);
+					chronoInit.put(chronologyArg, actionArg);
+				}
 			}
 		}
 		
@@ -52,14 +63,17 @@ public class HvlChronology {
 		public Initialize(HvlAction0 actionArg){
 			if(!isInitialized())
 			queue.add(actionArg);
-			else{
-				for(int i = INIT_CHRONOLOGY_LATEST; i >= INIT_CHRONOLOGY_EARLIEST; i--) if(!chronoInit.containsKey(i)) chronoInit.put(i, actionArg);
-			}
+			else defaultAdd(actionArg);
 		}
 		
 		private static void sortQueue(){
-			for(HvlAction0 action : queue){
-				for(int i = INIT_CHRONOLOGY_LATEST; i >= INIT_CHRONOLOGY_EARLIEST; i--) if(!chronoInit.containsKey(i)) chronoInit.put(i, action);
+			for(HvlAction0 action : queue) defaultAdd(action);
+		}
+		
+		private static void defaultAdd(HvlAction0 action){
+			for(int i = INIT_CHRONOLOGY_LATEST; i >= INIT_CHRONOLOGY_EARLIEST; i--) if(!chronoInit.containsKey(i)){
+				System.out.println("HvlChronology: automatically assigning an Initialize action to slot " + i);
+				chronoInit.put(i, action);
 			}
 		}
 	}
@@ -68,10 +82,13 @@ public class HvlChronology {
 		private static ArrayList<HvlAction1<Float>> queue = new ArrayList<>();
 		
 		public Update(int chronologyArg, HvlAction1<Float> actionArg){
-			if(chronologyArg < 0 || chronologyArg > 100) throw new BrokenChronologyException();
+			if(chronologyArg < UPDATE_CHRONOLOGY_PRE_EARLIEST || chronologyArg > UPDATE_CHRONOLOGY_POST_LATEST) throw new BrokenChronologyException();
 			else{
 				if(chronoUpdate.containsKey(chronologyArg)) throw new PredefinedChronologyException();
-				else chronoUpdate.put(chronologyArg, actionArg);
+				else{
+					System.out.println("HvlChronology: manually assigning an Update action to slot " + chronologyArg);
+					chronoUpdate.put(chronologyArg, actionArg);
+				}
 			}
 		}
 		
@@ -82,14 +99,17 @@ public class HvlChronology {
 		public Update(HvlAction1<Float> actionArg){
 			if(!isInitialized())
 			queue.add(actionArg);
-			else{
-				for(int i = UPDATE_CHRONOLOGY_PRE_LATEST; i >= UPDATE_CHRONOLOGY_PRE_EARLIEST; i--) if(!chronoUpdate.containsKey(i)) chronoUpdate.put(i, actionArg);
-			}
+			else defaultAdd(actionArg);
 		}
 		
 		private static void sortQueue(){
-			for(HvlAction1<Float> action : queue){
-				for(int i = UPDATE_CHRONOLOGY_PRE_LATEST; i >= UPDATE_CHRONOLOGY_PRE_EARLIEST; i--) if(!chronoUpdate.containsKey(i)) chronoUpdate.put(i, action);
+			for(HvlAction1<Float> action : queue) defaultAdd(action);
+		}
+		
+		private static void defaultAdd(HvlAction1<Float> action){
+			for(int i = UPDATE_CHRONOLOGY_PRE_LATEST; i >= UPDATE_CHRONOLOGY_PRE_EARLIEST; i--) if(!chronoUpdate.containsKey(i)){
+				System.out.println("HvlChronology: automatically assigning an Update action to slot " + i);
+				chronoUpdate.put(i, action);
 			}
 		}
 	}

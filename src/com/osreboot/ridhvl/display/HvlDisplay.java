@@ -3,16 +3,27 @@ package com.osreboot.ridhvl.display;
 import org.lwjgl.opengl.Display;
 
 import com.osreboot.ridhvl.action.HvlAction0;
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.template.HvlChronology;
 
 public class HvlDisplay {
 	
-	public static final int CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - 1;
+	public static final int INIT_CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - HvlChronology.UPDATE_CHRONOLOGY_DFLTINTVL;
 	{
-		new HvlChronology.Initialize(CHRONOLOGY, new HvlAction0(){
+		new HvlChronology.Initialize(INIT_CHRONOLOGY, new HvlAction0(){
 			@Override
 			public void run(){
 				initializeDisplayMode();
+			}
+		});
+	}
+	
+	public static final int UPDATE_CHRONOLOGY = HvlChronology.UPDATE_CHRONOLOGY_PRE_EARLY + HvlChronology.UPDATE_CHRONOLOGY_DFLTINTVL;
+	{
+		new HvlChronology.Update(UPDATE_CHRONOLOGY, new HvlAction1<Float>(){
+			@Override
+			public void run(Float delta){
+				preUpdate(delta);
 			}
 		});
 	}

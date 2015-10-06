@@ -4,8 +4,21 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.action.HvlAction1;
+import com.osreboot.ridhvl.template.HvlChronology;
+
 public abstract class HvlAnimatedTexture {
 
+	public static final int UPDATE_CHRONOLOGY = HvlChronology.UPDATE_CHRONOLOGY_PRE_LATE;
+	static {
+		new HvlChronology.Update(UPDATE_CHRONOLOGY, new HvlAction1<Float>(){
+			@Override
+			public void run(Float delta){
+				updateTextures(delta);
+			}
+		});
+	}
+	
 	private static ArrayList<HvlAnimatedTexture> animatedTextures = new ArrayList<HvlAnimatedTexture>();
 	
 	public static void updateTextures(float delta){

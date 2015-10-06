@@ -10,9 +10,9 @@ import com.osreboot.ridhvl.template.HvlChronology;
 
 public abstract class HvlVerifier {
 
-	public static final int CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;
+	public static final int INIT_CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;
 	{
-		new HvlChronology.Initialize(CHRONOLOGY, new HvlAction0(){
+		new HvlChronology.Initialize(INIT_CHRONOLOGY, new HvlAction0(){
 			@Override
 			public void run(){
 				globalVerify();

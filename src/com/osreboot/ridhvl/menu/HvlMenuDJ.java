@@ -6,9 +6,20 @@ import java.util.HashMap;
 import org.newdawn.slick.openal.Audio;
 
 import com.osreboot.ridhvl.HvlMath;
+import com.osreboot.ridhvl.action.HvlAction1;
+import com.osreboot.ridhvl.template.HvlChronology;
 
 public class HvlMenuDJ {
 
+	{
+		new HvlChronology.Update(new HvlAction1<Float>(){
+			@Override
+			public void run(Float delta){
+				update(delta);
+			}
+		});
+	}
+	
 	private static HashMap<HvlMenu, ArrayList<Audio>> songs = new HashMap<>();
 
 	private static float fadeTime = 0, fadeGoal = 0, fadeLocation = 0, volume = 1f;//TODO integrate this
