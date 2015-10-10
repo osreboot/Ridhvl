@@ -124,7 +124,6 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	public void postUpdate(float delta){
 		HvlChronology.postUpdate(delta);
 		
-		HvlCursor.drawCursor();//TODO convert to HvlChronology.Update
 		HvlCamera.undoTransform();//TODO convert to HvlChronology.Update
 		HvlDisplay.postUpdate(delta);//TODO convert to HvlChronology.Update
 		
