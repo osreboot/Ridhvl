@@ -9,7 +9,7 @@ public abstract class HvlTimer {
 
 	public static final long MD_UNLIMITED = Long.MAX_VALUE, MD_SECOND = 1000, MD_TENTH = 100, MD_TWENTIETH = 50, MD_HUNDREDTH = 10, MD_THOUSANDTH = 1;
 	
-	private float dilation = 1f, total = 0;
+	private float dilation = 1f, total = 0, lastDelta = 0;
 	
 	private long delta, time, last, maxDelta = MD_UNLIMITED;
 	private boolean running = true;
@@ -29,6 +29,7 @@ public abstract class HvlTimer {
 			last = time;
 			if(delta > 0 && delta < time){
 				total += ((float)delta / 1000)*dilation;
+				lastDelta = (float)delta / 1000;
 				update(((float)delta / 1000)*dilation);
 			}
 		}
@@ -84,6 +85,10 @@ public abstract class HvlTimer {
 	 */
 	public float getTotalTime(){
 		return total;
+	}
+	
+	public float getUpdateRate(){
+		return 1/lastDelta;
 	}
 
 	public long getMaxDelta() {
