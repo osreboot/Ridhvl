@@ -13,7 +13,7 @@ import com.osreboot.ridhvl.template.HvlChronology;
 public class HvlInput {
 	
 	public static final int INIT_CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY + HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;
-	{
+	static {
 		new HvlChronology.Initialize(INIT_CHRONOLOGY, new HvlAction0(){
 			@Override
 			public void run(){
@@ -23,7 +23,7 @@ public class HvlInput {
 	}
 	
 	public static final int UPDATE_CHRONOLOGY = HvlChronology.UPDATE_CHRONOLOGY_PRE_EARLY;
-	{
+	static {
 		new HvlChronology.Update(UPDATE_CHRONOLOGY, new HvlAction1<Float>(){
 			@Override
 			public void run(Float delta){
