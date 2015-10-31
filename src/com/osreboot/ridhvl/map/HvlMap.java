@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.map;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.newdawn.slick.opengl.Texture;
@@ -17,6 +19,9 @@ public class HvlMap {
 	private Texture texture;
 
 	private Map<Integer, HvlTileCollisionProfile> collisionData;
+
+	private List<HvlEntity> entities;
+	private List<HvlEntity> entitiesToAdd;
 
 	public HvlMap(float xArg, float yArg, float tWidthArg, float tHeightArg, int tilesAcrossArg, int tilesTallArg,
 			int layersArg, int mWidthArg, int mHeightArg, Texture tArg) {
@@ -37,6 +42,27 @@ public class HvlMap {
 				}
 			}
 		}
+		entities = new LinkedList<>();
+		entitiesToAdd = new LinkedList<>();
+	}
+
+	public void update(float delta) {
+		List<HvlEntity> toRemove = new LinkedList<>();
+
+		for (HvlEntity ent : entitiesToAdd) {
+			entities.add(ent);
+		}
+		entitiesToAdd.clear();
+		
+		for (HvlEntity ent : entities) {
+			ent.update(delta);
+			if (ent.shouldBeDeleted())
+				toRemove.add(ent);
+		}
+
+		for (HvlEntity tr : toRemove) {
+			entities.remove(tr);
+		}
 	}
 
 	public void draw(float delta) {
@@ -46,26 +72,32 @@ public class HvlMap {
 				for (int tX = 0; tX < layer[tY].length; tX++) {
 					int tile = layer[tY][tX];
 
-					if (tile < 0) continue;
-					
+					if (tile < 0)
+						continue;
+
 					int mapTileX = tile % tilesAcross;
 					int mapTileY = tile / tilesAcross;
-					HvlPainter2D.hvlDrawQuad(x + (tX * tileWidth), y + (tY * tileHeight), tileWidth, tileHeight, (float) mapTileX / tilesAcross,
-							(float) mapTileY / tilesTall, ((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
+					HvlPainter2D.hvlDrawQuad(x + (tX * tileWidth), y + (tY * tileHeight), tileWidth, tileHeight,
+							(float) mapTileX / tilesAcross, (float) mapTileY / tilesTall,
+							((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
 							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture);
 				}
 			}
+		}
+
+		for (HvlEntity ent : entities) {
+			ent.draw(delta);
 		}
 	}
 
 	public int getMapWidth() {
 		return tiles[0][0].length;
 	}
-	
+
 	public int getMapHeight() {
 		return tiles[0].length;
 	}
-	
+
 	public void setTile(int layer, int x, int y, int tile) {
 		tiles[layer][y][x] = tile;
 	}
@@ -74,19 +106,75 @@ public class HvlMap {
 		return tiles[layer][y][x];
 	}
 
-	public void fill(int layer, int tile)
-	{
+	public void fill(int layer, int tile) {
 		fill(layer, 0, 0, getMapWidth() - 1, getMapHeight() - 1, tile);
 	}
-	
-	public void fill(int layer, int sX, int sY, int eX, int eY, int tile)
-	{
-		for (int tX = sX; tX <= eX; tX++)
-		{
-			for (int tY = sY; tY <= eY; tY++)
-			{
+
+	public void fill(int layer, int sX, int sY, int eX, int eY, int tile) {
+		for (int tX = sX; tX <= eX; tX++) {
+			for (int tY = sY; tY <= eY; tY++) {
 				setTile(layer, tX, tY, tile);
 			}
 		}
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
+	}
+
+	public float getTileWidth() {
+		return tileWidth;
+	}
+
+	public void setTileWidth(float tileWidth) {
+		this.tileWidth = tileWidth;
+	}
+
+	public float getTileHeight() {
+		return tileHeight;
+	}
+
+	public void setTileHeight(float tileHeight) {
+		this.tileHeight = tileHeight;
+	}
+
+	public int getTilesAcross() {
+		return tilesAcross;
+	}
+
+	public void setTilesAcross(int tilesAcross) {
+		this.tilesAcross = tilesAcross;
+	}
+
+	public int getTilesTall() {
+		return tilesTall;
+	}
+
+	public void setTilesTall(int tilesTall) {
+		this.tilesTall = tilesTall;
+	}
+
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
+	public void addEntity(HvlEntity toAdd) {
+		entitiesToAdd.add(toAdd);
 	}
 }
