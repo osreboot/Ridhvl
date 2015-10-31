@@ -22,7 +22,6 @@ import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.loader.HvlTextureSeriesLoader;
 import com.osreboot.ridhvl.painter.HvlCamera;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
 public abstract class HvlTemplateInteg2D extends HvlTemplate{
 
@@ -61,7 +60,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 		
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
+		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
 		HvlChronology.initialize();
@@ -91,7 +90,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
+		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
 		HvlChronology.initialize();

@@ -16,7 +16,6 @@ import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.painter.HvlCamera;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
 public abstract class HvlTemplate2D extends HvlTemplate{
 
@@ -39,7 +38,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 		
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
+		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
 		HvlChronology.initialize();
@@ -65,7 +64,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 			e.printStackTrace();
 		}
 		
-		hvlGL11Init(HvlPainter2DProfile.DEFAULT);
+		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
 		HvlChronology.initialize();

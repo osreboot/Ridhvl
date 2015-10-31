@@ -9,16 +9,25 @@ import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
+import com.osreboot.ridhvl.action.HvlAction3;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlRenderFrame {
 
-	public static enum HvlRenderFrameProfile{
-		DEFAULT
-	}
-
 	private static boolean hasPushed = false;
 
+	private HvlAction3<Integer, Integer, Integer> actionInitialize = null;
+	
+	public static final HvlAction3<Integer, Integer, Integer> ACTION_INITIALIZE_DEFAULT = new HvlAction3<Integer, Integer, Integer>(){
+		@Override
+		public void run(Integer textureID, Integer width, Integer height){
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
+			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+			GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, width, height, 0, GL11.GL_RGBA, GL11.GL_INT, (ByteBuffer)null);
+			EXTFramebufferObject.glFramebufferTexture2DEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT, GL11.GL_TEXTURE_2D, textureID, 0);
+		}
+	};
+	
 	@SuppressWarnings("deprecation")
 	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame){//TODO clean this up
 		if(hasPushed){
@@ -59,7 +68,7 @@ public class HvlRenderFrame {
 
 	private int frameID, textureID, width, height, x = 0, y = 0;
 
-	public HvlRenderFrame(HvlRenderFrameProfile profile, int widthArg, int heightArg){
+	public HvlRenderFrame(int widthArg, int heightArg){
 		width = widthArg;
 		height = heightArg;
 		frameID = EXTFramebufferObject.glGenFramebuffersEXT();
@@ -67,19 +76,12 @@ public class HvlRenderFrame {
 
 		setCurrentRenderFrame(this);
 
-		switch(profile){
-		default:
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-			GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, width, height, 0, GL11.GL_RGBA, GL11.GL_INT, (ByteBuffer)null);
-			EXTFramebufferObject.glFramebufferTexture2DEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT, GL11.GL_TEXTURE_2D, textureID, 0);
-			break;
-		}
+		if(actionInitialize != null) actionInitialize.run(textureID, width, height);
 
 		setCurrentRenderFrame(null);
 	}
 
-	public HvlRenderFrame(HvlRenderFrameProfile profile, int xArg, int yArg, int widthArg, int heightArg){
+	public HvlRenderFrame(int xArg, int yArg, int widthArg, int heightArg){
 		x = xArg;
 		y = yArg;
 		width = widthArg;
@@ -89,14 +91,7 @@ public class HvlRenderFrame {
 
 		setCurrentRenderFrame(this);
 
-		switch(profile){
-		default:
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-			GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, width, height, 0, GL11.GL_RGBA, GL11.GL_INT, (ByteBuffer)null);
-			EXTFramebufferObject.glFramebufferTexture2DEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT, GL11.GL_TEXTURE_2D, textureID, 0);
-			break;
-		}
+		if(actionInitialize != null) actionInitialize.run(textureID, width, height);
 
 		setCurrentRenderFrame(null);
 	}
