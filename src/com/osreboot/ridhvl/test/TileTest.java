@@ -8,6 +8,10 @@ public class TileTest extends HvlTemplateInteg2D {
 
 	public HvlMap map;
 	
+	public static void main(String[] args) {
+		new TileTest();
+	}
+	
 	public TileTest(){
 		super(60, 1280, 720, "Ridhvl Tilemap Test", new HvlDisplayModeDefault());
 	}
@@ -15,8 +19,11 @@ public class TileTest extends HvlTemplateInteg2D {
 	@Override
 	public void initialize() {
 		getTextureLoader().loadResource("Tilemap");
-		map = new HvlMap(0, 0, 64, 64, 8, 8, 2, 32, 16, getTexture(0));
+		map = new HvlMap(0, 0, 32, 32, 8, 8, 2, 32, 16, getTexture(0));
+		map.fill(0, 0);
+		map.fill(0, 0, 0, 31, 0, 3);
 		map.setTile(0, 1, 2, 3);
+		map.setTile(0, 31, 15, 3);
 	}
 
 	@Override

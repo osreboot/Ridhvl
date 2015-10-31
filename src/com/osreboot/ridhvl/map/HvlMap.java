@@ -27,12 +27,12 @@ public class HvlMap {
 		tilesAcross = tilesAcrossArg;
 		tilesTall = tilesTallArg;
 		texture = tArg;
-		tiles = new Integer[layersArg][mWidthArg][mHeightArg];
+		tiles = new Integer[layersArg][][];
 		for (int l = 0; l < layersArg; l++) {
-			tiles[l] = new Integer[mWidthArg][mHeightArg];
-			for (int x = 0; x < mWidthArg; x++) {
-				tiles[l][x] = new Integer[mHeightArg];
-				for (int y = 0; y < mHeightArg; y++) {
+			tiles[l] = new Integer[mHeightArg][];
+			for (int x = 0; x < mHeightArg; x++) {
+				tiles[l][x] = new Integer[mWidthArg];
+				for (int y = 0; y < mWidthArg; y++) {
 					tiles[l][x][y] = -1;
 				}
 			}
@@ -40,7 +40,7 @@ public class HvlMap {
 	}
 
 	public void update(float delta) {
-
+		
 	}
 
 	public void draw(float delta) {
@@ -54,7 +54,6 @@ public class HvlMap {
 					
 					int mapTileX = tile % tilesAcross;
 					int mapTileY = tile / tilesAcross;
-					System.out.println(tile + ": " + (float) mapTileX / tilesAcross + ", " + (float) mapTileY / tilesTall);
 					HvlPainter2D.hvlDrawQuad(x + (tX * tileWidth), y + (tY * tileHeight), tileWidth, tileHeight, (float) mapTileX / tilesAcross,
 							(float) mapTileY / tilesTall, ((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
 							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture);
@@ -63,11 +62,35 @@ public class HvlMap {
 		}
 	}
 
+	public int getMapWidth() {
+		return tiles[0][0].length;
+	}
+	
+	public int getMapHeight() {
+		return tiles[0].length;
+	}
+	
 	public void setTile(int layer, int x, int y, int tile) {
 		tiles[layer][y][x] = tile;
 	}
 
 	public int getTile(int layer, int x, int y) {
 		return tiles[layer][y][x];
+	}
+
+	public void fill(int layer, int tile)
+	{
+		fill(layer, 0, 0, getMapWidth() - 1, getMapHeight() - 1, tile);
+	}
+	
+	public void fill(int layer, int sX, int sY, int eX, int eY, int tile)
+	{
+		for (int tX = sX; tX <= eX; tX++)
+		{
+			for (int tY = sY; tY <= eY; tY++)
+			{
+				setTile(layer, tX, tY, tile);
+			}
+		}
 	}
 }
