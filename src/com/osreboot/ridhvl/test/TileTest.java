@@ -8,10 +8,6 @@ public class TileTest extends HvlTemplateInteg2D {
 
 	public HvlMap map;
 	
-	public static void main(String[] args) {
-		new TileTest();
-	}
-	
 	public TileTest(){
 		super(60, 1280, 720, "Ridhvl Tilemap Test", new HvlDisplayModeDefault());
 	}
@@ -28,7 +24,6 @@ public class TileTest extends HvlTemplateInteg2D {
 
 	@Override
 	public void update(float delta) {
-		map.update(delta);
 		map.draw(delta);
 	}
 }

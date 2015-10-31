@@ -39,10 +39,6 @@ public class HvlMap {
 		}
 	}
 
-	public void update(float delta) {
-		
-	}
-
 	public void draw(float delta) {
 		for (int l = 0; l < tiles.length; l++) {
 			Integer[][] layer = tiles[l];
