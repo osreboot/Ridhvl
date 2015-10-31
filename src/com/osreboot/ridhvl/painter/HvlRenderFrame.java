@@ -19,6 +19,7 @@ public class HvlRenderFrame {
 
 	private static boolean hasPushed = false;
 
+	@SuppressWarnings("deprecation")
 	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame){//TODO clean this up
 		if(hasPushed){
 			GL11.glPopMatrix();
@@ -36,6 +37,7 @@ public class HvlRenderFrame {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame, boolean clear){//TODO clean this up
 		if(hasPushed){
 			GL11.glPopMatrix();

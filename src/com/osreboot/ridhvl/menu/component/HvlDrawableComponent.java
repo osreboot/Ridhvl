@@ -1,7 +1,5 @@
 package com.osreboot.ridhvl.menu.component;
 
-import org.newdawn.slick.Color;
-
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;

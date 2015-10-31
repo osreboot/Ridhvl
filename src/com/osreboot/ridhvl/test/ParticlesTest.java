@@ -148,9 +148,9 @@ public class ParticlesTest extends HvlTemplate2D {
 
 				if (!pTriggered && triggered)
 				{					
-					float angle = (float) Math.atan2(p.getY() - ((Display.getHeight() / 2)), p.getX() - ((Display.getWidth() / 2)));
+					//float angle = (float) Math.atan2(p.getY() - ((Display.getHeight() / 2)), p.getX() - ((Display.getWidth() / 2)));
 
-					float length = new HvlCoord(p.getX() - ((Display.getWidth() / 2)), p.getY() - ((Display.getHeight() / 2))).length();
+					//float length = new HvlCoord(p.getX() - ((Display.getWidth() / 2)), p.getY() - ((Display.getHeight() / 2))).length();
 
 					//					p.setxVel((float) Math.cos(angle) * 1.0f / Math.min(length / 720, 1.0f));
 					//					p.setyVel((float) Math.sin(angle) * 1.0f / Math.min(length / 720, 1.0f));
