@@ -75,6 +75,7 @@ public class HvlTileMap {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void draw(float delta) {
 		// if (mapWidth > 0 && mapHeight > 0)
 		// {

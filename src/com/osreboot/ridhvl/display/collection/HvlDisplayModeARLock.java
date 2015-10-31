@@ -39,7 +39,7 @@ public class HvlDisplayModeARLock extends HvlDisplayMode{
 		HvlRenderFrame.setCurrentRenderFrame(null);
 
 		float oldAR = (float)getCoordinateWidth()/(float)getCoordinateHeight();
-		float newAR = (float)Display.getWidth()/(float)Display.getHeight();
+		//float newAR = (float)Display.getWidth()/(float)Display.getHeight();
 		
 		//HvlPainter2D.hvlDrawQuad(oldAR >= newAR ? 0 : (Display.getWidth()/2) - ((oldAR * Display.getHeight())/2), Display.getHeight(), oldAR >= newAR ? Display.getWidth() : (Display.getWidth()/2) - (oldAR * Display.getHeight()), -Display.getHeight(), renderFrame);
 		float x = 0;

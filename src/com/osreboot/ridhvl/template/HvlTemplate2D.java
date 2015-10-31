@@ -1,10 +1,7 @@
 package com.osreboot.ridhvl.template;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Init;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlGL11Ortho;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
@@ -19,7 +16,6 @@ import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.painter.HvlCamera;
-import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.HvlPainter2DProfile;
 
 public abstract class HvlTemplate2D extends HvlTemplate{
