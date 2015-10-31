@@ -9,7 +9,6 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
-import com.osreboot.ridhvl.painter.HvlRenderFrame.HvlRenderFrameProfile;
 import com.osreboot.ridhvl.painter.HvlShader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
@@ -35,7 +34,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		
 		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
 		
-		frame = new HvlRenderFrame(HvlRenderFrameProfile.DEFAULT, 1280, 720);
+		frame = new HvlRenderFrame(1280, 720);
 		
 		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_QUADRUPLE_DISPLACEMENT_BLUR);
 		HvlPainter2D.TEXMAGBLUR.disable();

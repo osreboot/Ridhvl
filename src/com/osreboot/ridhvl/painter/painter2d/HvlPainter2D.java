@@ -18,6 +18,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlTextureUtil;
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
@@ -28,21 +29,30 @@ public class HvlPainter2D {
 	private static Texture refreshTexture;
 	private static Texture white512;//TODO support more sizes
 
-	public static enum HvlPainter2DProfile{
-		DEFAULT
-	}
-
-	public static void hvlGL11Init(HvlPainter2DProfile profile){
-		switch(profile){
-		default:
+	private static HvlAction0 actionInitialize = HvlPainter2D.ACTION_INITIALIZE_DEFAULT;
+	
+	public static final HvlAction0 ACTION_INITIALIZE_DEFAULT = new HvlAction0(){
+		@Override
+		public void run(){
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_COLOR_MATERIAL);
 			glClearColor(0, 0, 0, 0);
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glMatrixMode(GL_MODELVIEW);
-			break;
 		}
+	};
+
+	public static HvlAction0 getActionInitialize(){
+		return actionInitialize;
+	}
+
+	public static void setActionInitialize(HvlAction0 actionInitializeArg){
+		actionInitialize = actionInitializeArg;
+	}
+
+	public static void hvlGL11Init(){
+		if(actionInitialize != null) actionInitialize.run();
 
 		refreshTexture = HvlTextureUtil.getColoredRect(1, 1, Color.transparent);
 		white512 = HvlTextureUtil.getColoredRect(512, 512, Color.white);
