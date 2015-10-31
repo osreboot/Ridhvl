@@ -6,6 +6,7 @@ import java.util.List;
 import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.tile.collection.HvlSimpleTile;
 
+@Deprecated
 public class HvlTilemapCollisionUtil {
 	private static final List<Integer> upperLeftCorners, upperRightCorners, lowerRightCorners, lowerLeftCorners;
 

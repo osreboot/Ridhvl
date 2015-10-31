@@ -10,6 +10,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.HvlTile;
 import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;
 
+@Deprecated
 public class HvlAnimatedTile extends HvlTile {
 
 	private List<Integer> tileCoords;

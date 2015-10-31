@@ -2,6 +2,7 @@ package com.osreboot.ridhvl.tile.entity;
 
 import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 
+@Deprecated
 public abstract class HvlEntity {
 
 	private float x, y;

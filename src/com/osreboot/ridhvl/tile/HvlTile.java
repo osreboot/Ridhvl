@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl.tile;
 
+@Deprecated
 public abstract class HvlTile {	
 	public HvlTile() {
 		

@@ -14,6 +14,7 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.entity.HvlEntity;
 
+@Deprecated
 public class HvlLayeredTileMap {
 	private List<HvlTileMap> layers;
 	private float x, y;
