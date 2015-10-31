@@ -14,10 +14,6 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ExpandingRectangleTest extends HvlTemplate2D {
 	
-	public static void main(String args[]) {
-		new ExpandingRectangleTest();
-	}
-	
 	public ExpandingRectangleTest() {
 		super(60, 1280, 720, "Ridhvl Expanding Rectangle Test", new HvlDisplayModeDefault());
 	}
