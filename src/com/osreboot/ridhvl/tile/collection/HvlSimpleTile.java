@@ -9,6 +9,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.HvlTile;
 import com.osreboot.ridhvl.tile.HvlTileMap.TileMapInfo;
 
+@Deprecated
 public class HvlSimpleTile extends HvlTile {
 
 	private int tile;

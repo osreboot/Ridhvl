@@ -13,6 +13,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
+@Deprecated
 public class HvlTileMap {
 
 	private static boolean safetyOverlap = true;
