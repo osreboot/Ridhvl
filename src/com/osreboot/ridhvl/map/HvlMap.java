@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl.map;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class HvlMap {
 	private List<HvlEntity> entities;
 	private List<HvlEntity> entitiesToAdd;
 
+	private boolean collisionDebugDraw;
+
 	public HvlMap(float xArg, float yArg, float tWidthArg, float tHeightArg, int tilesAcrossArg, int tilesTallArg,
 			int layersArg, int mWidthArg, int mHeightArg, Texture tArg) {
 		x = xArg;
@@ -44,6 +47,7 @@ public class HvlMap {
 		}
 		entities = new LinkedList<>();
 		entitiesToAdd = new LinkedList<>();
+		collisionData = new HashMap<>();
 	}
 
 	public void update(float delta) {
@@ -53,7 +57,7 @@ public class HvlMap {
 			entities.add(ent);
 		}
 		entitiesToAdd.clear();
-		
+
 		for (HvlEntity ent : entities) {
 			ent.update(delta);
 			if (ent.shouldBeDeleted())
@@ -81,6 +85,24 @@ public class HvlMap {
 							(float) mapTileX / tilesAcross, (float) mapTileY / tilesTall,
 							((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
 							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture);
+				}
+			}
+		}
+
+		if (collisionDebugDraw) {
+			for (int l = 0; l < tiles.length; l++) {
+				Integer[][] layer = tiles[l];
+				for (int tY = 0; tY < layer.length; tY++) {
+					for (int tX = 0; tX < layer[tY].length; tX++) {
+						int tile = layer[tY][tX];
+
+						if (tile < 0)
+							continue;
+
+						if (collisionData.containsKey(tile)) {
+							collisionData.get(tile).debugDraw(delta, this, l, tX, tY);
+						}
+					}
 				}
 			}
 		}
@@ -174,7 +196,19 @@ public class HvlMap {
 		this.texture = texture;
 	}
 
+	public boolean isCollisionDebugDraw() {
+		return collisionDebugDraw;
+	}
+
+	public void setCollisionDebugDraw(boolean collisionDebugDraw) {
+		this.collisionDebugDraw = collisionDebugDraw;
+	}
+
 	public void addEntity(HvlEntity toAdd) {
 		entitiesToAdd.add(toAdd);
+	}
+
+	public void mapTileToCollision(Integer tile, HvlTileCollisionProfile profile) {
+		collisionData.put(tile, profile);
 	}
 }
