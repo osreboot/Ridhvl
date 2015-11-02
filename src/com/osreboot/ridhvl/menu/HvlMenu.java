@@ -13,28 +13,54 @@ public class HvlMenu {
 	private static Stack<Boolean> blocks;
 	
 	private static HvlAction2<HvlMenu, HvlMenu> menuChanged;
+	
+	private static float transitionPeriod = 0, transitionCurrent = 0;
+	private static HvlMenu transitionGoal = null;
 
+	public static float getTransitionPeriod(){
+		return transitionPeriod;
+	}
+
+	public static void setTransitionPeriod(float transitionPeriodArg){
+		transitionPeriod = transitionPeriodArg;
+	}
+
+	public static float getTransitionProgress(boolean polarArg){
+		return polarArg ? (1 - (transitionCurrent/transitionPeriod)) + (current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriod)/transitionPeriod) : 0) : (1 - (transitionCurrent/transitionPeriod));
+	}
+	
 	static {
 		popups = new Stack<>();
 		blocks = new Stack<>();
 	}
 
-	public static HvlMenu getCurrent() {
+	public static HvlMenu getCurrent(){
 		return current;
 	}
 
-	public static void setCurrent(HvlMenu currentArg) {
+	public static void setCurrent(HvlMenu currentArg){
+		if(transitionPeriod == 0) metaSetCurrent(currentArg); else{
+			if(transitionCurrent == 0){
+				transitionCurrent = transitionPeriod;
+				transitionGoal = currentArg;
+			}
+		}
+	}
+	
+	private static final void metaSetCurrent(HvlMenu currentArg){
 		if(menuChanged != null) menuChanged.run(current, currentArg);
 		current = currentArg;
 		current.setTotalTime(0);
 		if (current.getComponents().size() > 0)
-			current.setFocused(current.getComponents().get(0));// TODO implement
-																// boolean
-																// joystick
-																// using system
+			current.setFocused(current.getComponents().get(0));// TODO implement boolean joystick using system
 	}
 
 	public static void updateMenus(float delta) {
+		if(transitionCurrent > 0 && transitionCurrent - delta <= 0 && transitionGoal != null){
+			metaSetCurrent(transitionGoal);
+		}
+		transitionCurrent = Math.max(transitionCurrent - delta, 0);
+		
 		boolean blocked = false;
 
 		// Go from the top down (highest popup to lowest).
