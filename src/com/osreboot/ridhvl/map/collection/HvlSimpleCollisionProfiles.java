@@ -13,7 +13,7 @@ import com.osreboot.ridhvl.map.HvlMap;
 import com.osreboot.ridhvl.map.HvlTileCollisionProfile;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
-public class HvlMiddleCollisionProfile {
+public class HvlSimpleCollisionProfiles {
 	public static class Square extends HvlTileCollisionProfile {
 		@Override
 		public HvlCoord raytrace(final HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX, int tileY) {
@@ -157,7 +157,7 @@ public class HvlMiddleCollisionProfile {
 					collisions.add(found);
 			}
 
-			if (up) {
+			if (down) {
 				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileWidth()) + (map.getTileWidth() / 2),
 						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2));
 
