@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.test;
 
+import java.util.List;
+
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -42,11 +44,8 @@ public class TileTest extends HvlTemplateInteg2D {
 			
 			HvlCoord motionActual = new HvlCoord(0, 0);
 			
-			HvlCoord collX = map.raytrace(entPos, entPos.addNew(motionInput.x, 0));
-			if (collX == null) motionActual.x = motionInput.x;
-			
-			HvlCoord collY = map.raytrace(entPos, entPos.addNew(0, motionInput.y));
-			if (collY == null) motionActual.y = motionInput.y;
+			if (map.raytrace(entPos, entPos.addNew(motionInput.x, 0)).isEmpty()) motionActual.x = motionInput.x;
+			if (map.raytrace(entPos, entPos.addNew(0, motionInput.y)).isEmpty()) motionActual.y = motionInput.y;
 			
 			motionActual.normalize().fixNaN().mult(delta).mult(speed);
 			
@@ -101,12 +100,14 @@ public class TileTest extends HvlTemplateInteg2D {
 		map.update(delta);
 		HvlCamera.setPosition(ent.getX(), ent.getY());
 		map.draw(delta);
-		HvlCoord coll = map.raytrace(new HvlCoord(ent.getX(), ent.getY()),
+		List<HvlCoord> colls = map.raytrace(new HvlCoord(ent.getX(), ent.getY()),
 				new HvlCoord(HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth() / 2),
 						HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight() / 2)));
 
-		if (coll == null)
+		if (colls.isEmpty())
 			return;
+		HvlCoord coll = colls.get(0);
+		
 		HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y - 8, coll.x + 8, coll.y + 8, Color.green, 4.0f);
 		HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y + 8, coll.x + 8, coll.y - 8, Color.green, 4.0f);
 	}

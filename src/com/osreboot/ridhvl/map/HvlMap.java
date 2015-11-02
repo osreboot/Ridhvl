@@ -217,7 +217,7 @@ public class HvlMap {
 		collisionData.put(tile, profile);
 	}
 
-	public HvlCoord raytrace(final HvlCoord start, HvlCoord end) {
+	public List<HvlCoord> raytrace(final HvlCoord start, HvlCoord end) {
 		List<HvlCoord> collisions = new ArrayList<HvlCoord>();
 
 		for (int l = 0; l < tiles.length; l++) {
@@ -238,9 +238,6 @@ public class HvlMap {
 			}
 		}
 
-		if (collisions.isEmpty())
-			return null;
-
 		Collections.sort(collisions, new Comparator<HvlCoord>() {
 
 			@Override
@@ -255,6 +252,44 @@ public class HvlMap {
 			}
 		});
 
-		return collisions.get(0);
+		return collisions;
+	}
+
+	public List<HvlCoord> raytrace(final HvlCoord start, HvlCoord end, int... layers) {
+		List<HvlCoord> collisions = new ArrayList<HvlCoord>();
+
+		for (int l : layers) {
+			Integer[][] layer = tiles[l];
+			for (int tY = 0; tY < layer.length; tY++) {
+				for (int tX = 0; tX < layer[tY].length; tX++) {
+					int tile = layer[tY][tX];
+
+					if (tile < 0)
+						continue;
+
+					if (collisionData.containsKey(tile)) {
+						HvlCoord coll = collisionData.get(tile).raytrace(start, end, this, l, tX, tY);
+						if (coll != null)
+							collisions.add(coll);
+					}
+				}
+			}
+		}
+
+		Collections.sort(collisions, new Comparator<HvlCoord>() {
+
+			@Override
+			public int compare(HvlCoord o1, HvlCoord o2) {
+				float d1 = HvlMath.distance(start.x, start.y, o1.x, o1.y);
+				float d2 = HvlMath.distance(start.x, start.y, o2.x, o2.y);
+				if (d1 < d2)
+					return -1;
+				if (d1 > d2)
+					return 1;
+				return 0;
+			}
+		});
+		
+		return collisions;
 	}
 }
