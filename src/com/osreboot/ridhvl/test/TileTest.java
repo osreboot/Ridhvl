@@ -32,10 +32,26 @@ public class TileTest extends HvlTemplateInteg2D {
 
 		@Override
 		public void update(float delta) {
-			setRelX(getRelX()
-					+ (HvlInputSeriesAction.HORIZONTAL.getCurrentOutput() * delta * getMap().getTileWidth() * 2));
-			setRelY(getRelY()
-					+ (HvlInputSeriesAction.VERTICAL.getCurrentOutput() * delta * getMap().getTileHeight() * 2));
+			float speed = 256.0f;
+			float xMotion = HvlInputSeriesAction.HORIZONTAL.getCurrentOutput();
+			float yMotion = HvlInputSeriesAction.VERTICAL.getCurrentOutput();
+			
+			HvlCoord entPos = new HvlCoord(getX(), getY());
+			
+			HvlCoord motionInput = new HvlCoord(xMotion, yMotion).normalize().fixNaN().mult(delta).mult(speed);
+			
+			HvlCoord motionActual = new HvlCoord(0, 0);
+			
+			HvlCoord collX = map.raytrace(entPos, entPos.addNew(motionInput.x, 0));
+			if (collX == null) motionActual.x = motionInput.x;
+			
+			HvlCoord collY = map.raytrace(entPos, entPos.addNew(0, motionInput.y));
+			if (collY == null) motionActual.y = motionInput.y;
+			
+			motionActual.normalize().fixNaN().mult(delta).mult(speed);
+			
+			setRelX(getRelX() + motionActual.x);
+			setRelY(getRelY() + motionActual.y);
 		}
 
 		@Override
@@ -43,7 +59,7 @@ public class TileTest extends HvlTemplateInteg2D {
 			HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileWidth(), getMap().getTileHeight(), t);
 		}
 	}
-
+	
 	public HvlMap map;
 
 	public TileTest() {
