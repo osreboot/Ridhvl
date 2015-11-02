@@ -20,7 +20,8 @@ public class HvlMap {
 	private float tileWidth, tileHeight;
 	private int tilesAcross, tilesTall;
 
-	private Integer[][][] tiles;
+	private int[][][] tiles;
+	private boolean[] layerCollisionsEnabled;
 
 	private Texture texture;
 
@@ -40,11 +41,13 @@ public class HvlMap {
 		tilesAcross = tilesAcrossArg;
 		tilesTall = tilesTallArg;
 		texture = tArg;
-		tiles = new Integer[layersArg][][];
+		layerCollisionsEnabled = new boolean[layersArg];
+		tiles = new int[layersArg][][];
 		for (int l = 0; l < layersArg; l++) {
-			tiles[l] = new Integer[mHeightArg][];
+			tiles[l] = new int[mHeightArg][];
+			layerCollisionsEnabled[l] = true;
 			for (int x = 0; x < mHeightArg; x++) {
-				tiles[l][x] = new Integer[mWidthArg];
+				tiles[l][x] = new int[mWidthArg];
 				for (int y = 0; y < mWidthArg; y++) {
 					tiles[l][x][y] = -1;
 				}
@@ -76,7 +79,7 @@ public class HvlMap {
 
 	public void draw(float delta) {
 		for (int l = 0; l < tiles.length; l++) {
-			Integer[][] layer = tiles[l];
+			int[][] layer = tiles[l];
 			for (int tY = 0; tY < layer.length; tY++) {
 				for (int tX = 0; tX < layer[tY].length; tX++) {
 					int tile = layer[tY][tX];
@@ -96,7 +99,9 @@ public class HvlMap {
 
 		if (collisionDebugDraw) {
 			for (int l = 0; l < tiles.length; l++) {
-				Integer[][] layer = tiles[l];
+				if (!layerCollisionsEnabled[l])
+					continue;
+				int[][] layer = tiles[l];
 				for (int tY = 0; tY < layer.length; tY++) {
 					for (int tX = 0; tX < layer[tY].length; tX++) {
 						int tile = layer[tY][tX];
@@ -213,15 +218,25 @@ public class HvlMap {
 		entitiesToAdd.add(toAdd);
 	}
 
-	public void mapTileToCollision(Integer tile, HvlTileCollisionProfile profile) {
+	public void mapTileToCollision(int tile, HvlTileCollisionProfile profile) {
 		collisionData.put(tile, profile);
+	}
+
+	public void setLayerCollisonEnabled(int layer, boolean enabled) {
+		layerCollisionsEnabled[layer] = enabled;
+	}
+
+	public boolean getLayerCollisionEnabled(int layer) {
+		return layerCollisionsEnabled[layer];
 	}
 
 	public List<HvlCoord> raytrace(final HvlCoord start, HvlCoord end) {
 		List<HvlCoord> collisions = new ArrayList<HvlCoord>();
 
 		for (int l = 0; l < tiles.length; l++) {
-			Integer[][] layer = tiles[l];
+			if (!layerCollisionsEnabled[l])
+				continue;
+			int[][] layer = tiles[l];
 			for (int tY = 0; tY < layer.length; tY++) {
 				for (int tX = 0; tX < layer[tY].length; tX++) {
 					int tile = layer[tY][tX];
@@ -259,7 +274,9 @@ public class HvlMap {
 		List<HvlCoord> collisions = new ArrayList<HvlCoord>();
 
 		for (int l : layers) {
-			Integer[][] layer = tiles[l];
+			if (!layerCollisionsEnabled[l])
+				continue;
+			int[][] layer = tiles[l];
 			for (int tY = 0; tY < layer.length; tY++) {
 				for (int tX = 0; tX < layer[tY].length; tX++) {
 					int tile = layer[tY][tX];
@@ -289,7 +306,7 @@ public class HvlMap {
 				return 0;
 			}
 		});
-		
+
 		return collisions;
 	}
 }
