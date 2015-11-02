@@ -54,14 +54,8 @@ public class TileTest extends HvlTemplateInteg2D {
 	public void initialize() {
 		getTextureLoader().loadResource("Tilemap");
 		getTextureLoader().loadResource("Icon");
+		
 		map = new HvlMap(0, 0, 64, 64, 8, 8, 2, 32, 16, getTexture(0));
-		map.fill(0, 0);
-		map.fill(0, 0, 6, 31, 6, 2);
-		map.setTile(0, 2, 2, 10);
-		map.setTile(0, 4, 2, 3);
-		map.setTile(0, 3, 2, 1);
-		map.setTile(0, 3, 3, 17);
-		map.setTile(0, 4, 3, 19);
 		map.setCollisionDebugDraw(true);
 		map.mapTileToCollision(9, new HvlMiddleCollisionProfile.Vertical());
 		map.mapTileToCollision(11, new HvlMiddleCollisionProfile.Vertical());
@@ -72,6 +66,15 @@ public class TileTest extends HvlTemplateInteg2D {
 		map.mapTileToCollision(3, new HvlMiddleCollisionProfile.CustomMiddle(true, false, false, true));
 		map.mapTileToCollision(17, new HvlMiddleCollisionProfile.CustomMiddle(false, true, true, false));
 		map.mapTileToCollision(19, new HvlMiddleCollisionProfile.CustomMiddle(true, false, true, false));
+		
+		map.fill(0, 0);
+		map.fill(0, 0, 6, 31, 6, 2);
+		map.setTile(0, 2, 2, 10);
+		map.setTile(0, 4, 2, 3);
+		map.setTile(0, 3, 2, 1);
+		map.setTile(0, 3, 3, 17);
+		map.setTile(0, 4, 3, 19);
+		
 		map.addEntity(new TestEntity(0, 0, map));
 		
 		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
