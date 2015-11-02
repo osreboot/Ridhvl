@@ -72,15 +72,15 @@ public class TileTest extends HvlTemplateInteg2D {
 
 		map = new HvlMap(0, 0, 64, 64, 8, 8, 2, 32, 16, getTexture(0));
 		map.setCollisionDebugDraw(true);
-		map.mapTileToCollision(9, new HvlSimpleCollisionProfiles.Vertical());
-		map.mapTileToCollision(11, new HvlSimpleCollisionProfiles.Vertical());
-		map.mapTileToCollision(2, new HvlSimpleCollisionProfiles.Horizontal());
-		map.mapTileToCollision(18, new HvlSimpleCollisionProfiles.Horizontal());
-		map.mapTileToCollision(10, new HvlSimpleCollisionProfiles.Square());
-		map.mapTileToCollision(1, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, false, true));
-		map.mapTileToCollision(3, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, false, true));
-		map.mapTileToCollision(17, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, true, false));
-		map.mapTileToCollision(19, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, true, false));
+		map.mapTileToCollision(9, new HvlSimpleCollisionProfiles.Vertical(4));
+		map.mapTileToCollision(11, new HvlSimpleCollisionProfiles.Vertical(4));
+		map.mapTileToCollision(2, new HvlSimpleCollisionProfiles.Horizontal(4));
+		map.mapTileToCollision(18, new HvlSimpleCollisionProfiles.Horizontal(4));
+		map.mapTileToCollision(10, new HvlSimpleCollisionProfiles.Square(0));
+		map.mapTileToCollision(1, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, false, true, 2));
+		map.mapTileToCollision(3, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, false, true, 2));
+		map.mapTileToCollision(17, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, true, false, 2));
+		map.mapTileToCollision(19, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, true, false, 2));
 
 		map.fill(0, 0);
 		map.fill(0, 0, 6, 31, 6, 2);
