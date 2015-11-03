@@ -118,14 +118,20 @@ public class HvlSimpleCollisionProfiles {
 
 	public static class CustomMiddle extends HvlTileCollisionProfile {
 		private boolean left, right, up, down;
+		private boolean ul, ur, ll, lr;
 
 		private float overshoot;
 
-		public CustomMiddle(boolean l, boolean r, boolean u, boolean d, float overshoot) {
+		public CustomMiddle(boolean l, boolean r, boolean u, boolean d, boolean ul, boolean ur, boolean ll, boolean lr,
+				float overshoot) {
 			left = l;
 			right = r;
 			up = u;
 			down = d;
+			this.ul = ul;
+			this.ur = ur;
+			this.ll = ll;
+			this.lr = lr;
 			this.overshoot = overshoot;
 		}
 
@@ -181,6 +187,58 @@ public class HvlSimpleCollisionProfiles {
 					collisions.add(found);
 			}
 
+			if (ul) {
+				HvlCoord segStart = new HvlCoord(
+						map.getX() + (tileX * map.getTileWidth()) - (overshoot * (float) Math.sqrt(2)),
+						map.getY() + (tileY * map.getTileHeight()) - (overshoot * (float) Math.sqrt(2)));
+
+				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileWidth() + (map.getTileWidth() / 2)),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2));
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(found);
+			}
+
+			if (ur) {
+				HvlCoord segStart = new HvlCoord(
+						map.getX() + ((tileX + 1) * map.getTileWidth()) + (overshoot * (float) Math.sqrt(2)),
+						map.getY() + (tileY * map.getTileHeight()) - (overshoot * (float) Math.sqrt(2)));
+
+				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileWidth() + (map.getTileWidth() / 2)),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2));
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(found);
+			}
+
+			if (ll) {
+				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileWidth()) + (map.getTileWidth() / 2),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2));
+
+				HvlCoord segEnd = new HvlCoord(
+						map.getX() + (tileX * map.getTileWidth()) - (overshoot * (float) Math.sqrt(2)),
+						map.getY() + ((tileY + 1) * map.getTileHeight()) + (overshoot * (float) Math.sqrt(2)));
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(found);
+			}
+			
+			if (lr) {
+				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileWidth()) + (map.getTileWidth() / 2),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2));
+
+				HvlCoord segEnd = new HvlCoord(
+						map.getX() + ((tileX + 1) * map.getTileWidth()) + (overshoot * (float) Math.sqrt(2)),
+						map.getY() + ((tileY + 1) * map.getTileHeight()) + (overshoot * (float) Math.sqrt(2)));
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(found);
+			}
+
 			if (collisions.isEmpty())
 				return null;
 
@@ -223,6 +281,32 @@ public class HvlSimpleCollisionProfiles {
 						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2),
 						map.getX() + (tileX * map.getTileWidth() + (map.getTileWidth() / 2)),
 						map.getY() + ((tileY + 1) * map.getTileHeight()) + overshoot, Color.red, 4.0f);
+			if (ul)
+				HvlPainter2D.hvlDrawLine(map.getX() + (tileX * map.getTileWidth()) - (overshoot * (float) Math.sqrt(2)),
+						map.getY() + (tileY * map.getTileHeight()) - (overshoot * (float) Math.sqrt(2)),
+						map.getX() + (tileX * map.getTileWidth() + (map.getTileWidth() / 2)),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2), Color.red, 4.0f);
+
+			if (ur)
+				HvlPainter2D.hvlDrawLine(
+						map.getX() + ((tileX + 1) * map.getTileWidth()) + (overshoot * (float) Math.sqrt(2)),
+						map.getY() + (tileY * map.getTileHeight()) - (overshoot * (float) Math.sqrt(2)),
+						map.getX() + (tileX * map.getTileWidth() + (map.getTileWidth() / 2)),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2), Color.red, 4.0f);
+
+			if (ll)
+				HvlPainter2D.hvlDrawLine(map.getX() + (tileX * map.getTileWidth()) + (map.getTileWidth() / 2),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2),
+						map.getX() + (tileX * map.getTileWidth()) - (overshoot * (float) Math.sqrt(2)),
+						map.getY() + ((tileY + 1) * map.getTileHeight()) + (overshoot * (float) Math.sqrt(2)),
+						Color.red, 4.0f);
+
+			if (lr)
+				HvlPainter2D.hvlDrawLine(map.getX() + (tileX * map.getTileWidth()) + (map.getTileWidth() / 2),
+						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2),
+						map.getX() + ((tileX + 1) * map.getTileWidth()) + (overshoot * (float) Math.sqrt(2)),
+						map.getY() + ((tileY + 1) * map.getTileHeight()) + (overshoot * (float) Math.sqrt(2)),
+						Color.red, 4.0f);
 		}
 	}
 

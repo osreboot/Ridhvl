@@ -16,6 +16,7 @@ import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 import com.osreboot.ridhvl.tile.HvlTilemapCollisionUtil;
 import com.osreboot.ridhvl.tile.HvlTilemapCollisionUtil.LineSegment;
 
+@Deprecated
 public class HvlParticleRayCollider extends HvlParticleCorrelator {
 
 	private HvlLayeredTileMap map;

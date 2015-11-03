@@ -2,7 +2,6 @@ package com.osreboot.ridhvl.test;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
@@ -32,19 +31,19 @@ public class TileTest extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Icon");
 		getTextureLoader().loadResource("Font");
 
-		map = HvlMap.load("TestLoad", 0, 0, 64, 64, getTexture(0), 8, 8);
+		map = HvlMap.load("TestLoadMap", 0, 0, 64, 64, getTexture(0), 8, 8);
 		map.setCollisionDebugDraw(true);
 		map.mapTileToCollision(9, new HvlSimpleCollisionProfiles.Vertical(4));
 		map.mapTileToCollision(11, new HvlSimpleCollisionProfiles.Vertical(4));
 		map.mapTileToCollision(2, new HvlSimpleCollisionProfiles.Horizontal(4));
 		map.mapTileToCollision(18, new HvlSimpleCollisionProfiles.Horizontal(4));
 		map.mapTileToCollision(10, new HvlSimpleCollisionProfiles.Square(0));
-		map.mapTileToCollision(1, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, false, true, 4));
-		map.mapTileToCollision(3, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, false, true, 4));
-		map.mapTileToCollision(17, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, true, false, 4));
-		map.mapTileToCollision(19, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, true, false, 4));
+		map.mapTileToCollision(1, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, false, true, false, false, false, false, 0));
+		map.mapTileToCollision(3, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, false, true, false, false, false, false, 0));
+		map.mapTileToCollision(17, new HvlSimpleCollisionProfiles.CustomMiddle(false, true, true, false, false, false, false, false, 0));
+		map.mapTileToCollision(19, new HvlSimpleCollisionProfiles.CustomMiddle(true, false, true, false, false, false, false, false, 0));
 
-		map.save("TestSave");
+		map.save("TestSaveMap");
 
 		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
 	}

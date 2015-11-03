@@ -5,6 +5,7 @@ import com.osreboot.ridhvl.particle.collection.HvlSimpleParticle;
 import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
 import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 
+@Deprecated
 public class HvlParticlePointCollider extends HvlParticleCorrelator {
 
 	private HvlLayeredTileMap map;

@@ -7,6 +7,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.tile.HvlLayeredTileMap;
 import com.osreboot.ridhvl.tile.entity.HvlEntity;
 
+@Deprecated
 public class TestEntity extends HvlEntity {
 
 	public TestEntity(String inArg, float xArg, float yArg, HvlLayeredTileMap parentArg) {
