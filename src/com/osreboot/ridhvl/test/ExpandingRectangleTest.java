@@ -1,8 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
-import net.java.games.input.Controller;
-import net.java.games.input.ControllerEnvironment;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.getWhite512;
 
 import org.newdawn.slick.Color;
 
@@ -11,6 +9,9 @@ import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
+
+import net.java.games.input.Controller;
+import net.java.games.input.ControllerEnvironment;
 
 public class ExpandingRectangleTest extends HvlTemplate2D {
 	

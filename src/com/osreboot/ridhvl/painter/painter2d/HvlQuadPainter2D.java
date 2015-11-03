@@ -1,7 +1,19 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_LINEAR;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;

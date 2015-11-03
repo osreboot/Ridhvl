@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.menu.component;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 
 import java.util.LinkedList;
 import java.util.List;

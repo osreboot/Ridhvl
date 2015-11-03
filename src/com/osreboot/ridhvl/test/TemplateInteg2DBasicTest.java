@@ -1,6 +1,8 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;

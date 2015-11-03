@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureSeriesLoader;

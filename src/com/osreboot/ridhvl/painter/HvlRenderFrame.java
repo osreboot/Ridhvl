@@ -1,6 +1,10 @@
 package com.osreboot.ridhvl.painter;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glClear;
 
 import java.nio.ByteBuffer;
 

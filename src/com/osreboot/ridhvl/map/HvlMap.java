@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.map;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -308,5 +310,86 @@ public class HvlMap {
 		});
 
 		return collisions;
+	}
+
+	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
+			int tilemapWidth, int tilemapHeight) {
+		try {
+			BufferedReader read = new BufferedReader(new FileReader("res/" + path + ".hvlmap"));
+
+			String first = read.readLine();
+			String[] firstParts = first.split(",");
+			int tilesAcross = Integer.parseInt(firstParts[0]);
+			int tilesTall = Integer.parseInt(firstParts[1]);
+			int layers = Integer.parseInt(firstParts[2]);
+
+			HvlMap tr = new HvlMap(x, y, tileWidth, tileHeight, tilemapWidth, tilemapHeight, layers, tilesAcross,
+					tilesTall, tilemap);
+
+			int mode = -1;
+			int layer = -1;
+			int row = 0;
+
+			String line;
+
+			while ((line = read.readLine()) != null) {
+				if (line.equals("BeginMap") && mode == -1) {
+					mode = 0;
+					continue;
+				}
+				if (line.equals("EndMap") && mode == 0) {
+					mode = -1;
+					continue;
+				}
+				if (line.equals("BeginEntities") && mode == -1) {
+					mode = 1;
+					continue;
+				}
+				if (line.equals("EndEntities") && mode == 1) {
+					mode = -1;
+					continue;
+				}
+
+				switch (mode) {
+				case 0: {
+					if (line.startsWith("Layer:")) {
+						layer = Integer.parseInt(line.replaceFirst("Layer:", ""));
+						row = 0;
+						continue;
+					}
+					String[] spl = line.split(",");
+					for (int i = 0; i < spl.length; i++) {
+						if (spl[i].isEmpty()) continue;
+						tr.setTile(layer, i, row, Integer.parseInt(spl[i]));
+					}
+					row++;
+				}
+					break;
+				case 1: {
+					String[] spl = line.split(",");
+					String className = spl[0];
+					float entX = Float.parseFloat(spl[1]);
+					float entY = Float.parseFloat(spl[2]);
+					
+					Class<?> entClass = Class.forName(className);
+					if (!HvlEntity.class.isAssignableFrom(entClass))
+						throw new Exception("Class " + className + " is not of type HvlEntity.");
+					
+					HvlEntity newEnt = (HvlEntity) entClass.getConstructor(float.class, float.class, HvlMap.class).newInstance(entX, entY, tr);
+				
+					tr.addEntity(newEnt);
+				}
+					break;
+				}
+			}
+			
+			read.close();
+
+			return tr;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

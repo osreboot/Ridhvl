@@ -1,7 +1,11 @@
 package com.osreboot.ridhvl.painter;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
-import static org.lwjgl.opengl.GL11.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glScalef;
+import static org.lwjgl.opengl.GL11.glTranslatef;
 
 import org.lwjgl.opengl.Display;
 
