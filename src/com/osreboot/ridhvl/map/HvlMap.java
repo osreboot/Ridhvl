@@ -1,7 +1,10 @@
 package com.osreboot.ridhvl.map;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -390,6 +393,53 @@ public class HvlMap {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public void save(String path) {
+		try {
+			BufferedWriter write = new BufferedWriter(new FileWriter("res/" + path + ".hvlmap"));
+			
+			write.write(tilesAcross + "," + tilesTall + "," + tiles.length + System.lineSeparator());
+			
+			write.write("BeginMap" + System.lineSeparator());
+			
+			for (int l = 0; l < tiles.length; l++) {
+				int[][] layer = tiles[l];
+				write.write("Layer:" + l + System.lineSeparator());
+				for (int tY = 0; tY < layer.length; tY++) {
+					for (int tX = 0; tX < layer[tY].length; tX++) {
+						int tile = layer[tY][tX];
+						
+						write.write(tile + ",");
+					}
+					write.write(System.lineSeparator());
+				}
+			}
+			
+			write.write("EndMap" + System.lineSeparator());
+			
+			if (!entities.isEmpty() || !entitiesToAdd.isEmpty())
+			{
+				write.write("BeginEntities" + System.lineSeparator());
+				
+				for (HvlEntity ent : entities)
+				{
+					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY() + System.lineSeparator());
+				}
+				for (HvlEntity ent : entitiesToAdd)
+				{
+					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY() + System.lineSeparator());
+				}
+				
+				write.write("EndEntities" + System.lineSeparator());
+			}
+			
+			write.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
 		}
 	}
 }
