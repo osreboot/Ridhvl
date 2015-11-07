@@ -20,5 +20,5 @@ Layer:1
 -1,-1,-1,-1,-1,-1,-1,-1,
 EndMap
 BeginEntities
-com.osreboot.ridhvl.test.TestTilemapEntity,0.0,0.0
+com.osreboot.ridhvl.test.TestTilemapEntity,0.0,0.0,37.842
 EndEntities

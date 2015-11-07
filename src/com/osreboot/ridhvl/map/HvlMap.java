@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,6 +18,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlMath;
+import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlMap {
@@ -362,7 +364,8 @@ public class HvlMap {
 					}
 					String[] spl = line.split(",");
 					for (int i = 0; i < spl.length; i++) {
-						if (spl[i].isEmpty()) continue;
+						if (spl[i].isEmpty())
+							continue;
 						tr.setTile(layer, i, row, Integer.parseInt(spl[i]));
 					}
 					row++;
@@ -373,19 +376,45 @@ public class HvlMap {
 					String className = spl[0];
 					float entX = Float.parseFloat(spl[1]);
 					float entY = Float.parseFloat(spl[2]);
-					
+
 					Class<?> entClass = Class.forName(className);
 					if (!HvlEntity.class.isAssignableFrom(entClass))
 						throw new Exception("Class " + className + " is not of type HvlEntity.");
-					
-					HvlEntity newEnt = (HvlEntity) entClass.getConstructor(float.class, float.class, HvlMap.class).newInstance(entX, entY, tr);
-				
-					tr.addEntity(newEnt);
+
+					Constructor<?>[] constructors = entClass.getConstructors();
+
+					for (Constructor<?> constructor : constructors) {
+						// If this doesn't meet the minimal constructor
+						// requirements, skip it.
+						if (constructor.getParameterTypes().length < 3)
+							continue;
+
+						// If this doesn't have the same number of arguments as
+						// given in the file, skip it.
+						if (spl.length != constructor.getParameterTypes().length)
+							continue;
+
+						try {
+							Object[] params = new Object[constructor.getParameterTypes().length];
+							params[0] = entX;
+							params[1] = entY;
+							params[2] = tr;
+							for (int i = 3; i < spl.length; i++) {
+								params[i] = HvlReflectionUtil.genericParse(constructor.getParameterTypes()[i], spl[i]);
+							}
+							HvlEntity newEnt = (HvlEntity) constructor.newInstance(params);
+
+							tr.addEntity(newEnt);
+							break;
+						} catch (Exception e) {
+
+						}
+					}
 				}
 					break;
 				}
 			}
-			
+
 			read.close();
 
 			return tr;
@@ -395,48 +424,51 @@ public class HvlMap {
 			return null;
 		}
 	}
-	
+
 	public void save(String path) {
 		try {
 			BufferedWriter write = new BufferedWriter(new FileWriter("res/" + path + ".hvlmap"));
-			
+
 			write.write(tilesAcross + "," + tilesTall + "," + tiles.length + System.lineSeparator());
-			
+
 			write.write("BeginMap" + System.lineSeparator());
-			
+
 			for (int l = 0; l < tiles.length; l++) {
 				int[][] layer = tiles[l];
 				write.write("Layer:" + l + System.lineSeparator());
 				for (int tY = 0; tY < layer.length; tY++) {
 					for (int tX = 0; tX < layer[tY].length; tX++) {
 						int tile = layer[tY][tX];
-						
+
 						write.write(tile + ",");
 					}
 					write.write(System.lineSeparator());
 				}
 			}
-			
+
 			write.write("EndMap" + System.lineSeparator());
-			
-			if (!entities.isEmpty() || !entitiesToAdd.isEmpty())
-			{
+
+			if (!entities.isEmpty() || !entitiesToAdd.isEmpty()) {
 				write.write("BeginEntities" + System.lineSeparator());
-				
-				for (HvlEntity ent : entities)
-				{
-					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY() + System.lineSeparator());
+
+				for (HvlEntity ent : entities) {
+					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY()
+							+ System.lineSeparator());
 				}
-				for (HvlEntity ent : entitiesToAdd)
-				{
-					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY() + System.lineSeparator());
+				for (HvlEntity ent : entitiesToAdd) {
+					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY());
+					List<Object> toWrite = ent.getSaveParameters();
+					for (Object o : toWrite) {
+						write.write("," + o.toString());
+					}
+					write.write(System.lineSeparator());
 				}
-				
+
 				write.write("EndEntities" + System.lineSeparator());
 			}
-			
+
 			write.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

@@ -1,5 +1,8 @@
 package com.osreboot.ridhvl.map;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public abstract class HvlEntity {
 
 	private float x, y;
@@ -53,5 +56,9 @@ public abstract class HvlEntity {
 	
 	public boolean shouldBeDeleted() {
 		return shouldBeDeleted;
+	}
+
+	public List<Object> getSaveParameters() {
+		return new LinkedList<>();
 	}
 }

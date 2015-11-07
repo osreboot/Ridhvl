@@ -24,7 +24,7 @@ public class TileTest extends HvlTemplateInteg2D {
 	public TileTest() {
 		super(60, 1280, 720, "Ridhvl Tilemap Test", new HvlDisplayModeDefault());
 	}
-
+	
 	@Override
 	public void initialize() {
 		getTextureLoader().loadResource("Tilemap");

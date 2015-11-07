@@ -1,5 +1,8 @@
 package com.osreboot.ridhvl.test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlCoord;
@@ -12,11 +15,14 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 public class TestTilemapEntity extends HvlEntity {
 
 	private Texture t;
+	
+	private float someValue;
 
-	public TestTilemapEntity(float xArg, float yArg, HvlMap mapArg) {
+	public TestTilemapEntity(float xArg, float yArg, HvlMap mapArg, float sv) {
 		super(xArg, yArg, mapArg);
 		TileTest.ent = this;
 		t = HvlTemplateInteg2D.getTexture(1);
+		someValue = sv;
 	}
 
 	@Override
@@ -43,5 +49,12 @@ public class TestTilemapEntity extends HvlEntity {
 	@Override
 	public void draw(float delta) {
 		HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileWidth(), getMap().getTileHeight(), t);
+	}
+
+	@Override
+	public List<Object> getSaveParameters() {
+		List<Object> tr = new LinkedList<>();
+		tr.add(someValue);
+		return tr;
 	}
 }
