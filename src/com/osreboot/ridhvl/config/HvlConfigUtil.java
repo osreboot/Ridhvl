@@ -15,6 +15,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
 
 /**
@@ -88,7 +89,7 @@ public class HvlConfigUtil {
 							Object arr = Array.newInstance(arrayType, matches.size());
 							for (int j = 0; j < matches.size(); j++)
 							{
-								Array.set(arr, j, getValue(arrayType, matches.get(j)));
+								Array.set(arr, j, HvlReflectionUtil.genericParse(arrayType, matches.get(j)));
 							}
 							
 							fields[i].set(toReturn, arr);
@@ -97,7 +98,7 @@ public class HvlConfigUtil {
 								toReturn.getClass()
 										.getField(propName)
 										.set(toReturn,
-												getValue(toReturn.getClass()
+												HvlReflectionUtil.genericParse(toReturn.getClass()
 														.getField(propName)
 														.getType(), split[1]));
 							} catch (IllegalArgumentException
@@ -171,7 +172,7 @@ public class HvlConfigUtil {
 							Object arr = Array.newInstance(arrayType, matches.size());
 							for (int j = 0; j < matches.size(); j++)
 							{
-								Array.set(arr, j, getValue(arrayType, matches.get(j)));
+								Array.set(arr, j, HvlReflectionUtil.genericParse(arrayType, matches.get(j)));
 							}
 							
 							fields[i].set(toReturn, arr);
@@ -180,7 +181,7 @@ public class HvlConfigUtil {
 								toReturn.getClass()
 										.getField(propName)
 										.set(toReturn,
-												getValue(toReturn.getClass()
+												HvlReflectionUtil.genericParse(toReturn.getClass()
 														.getField(propName)
 														.getType(), split[1]));
 							} catch (IllegalArgumentException
@@ -312,7 +313,7 @@ public class HvlConfigUtil {
 							Object arr = Array.newInstance(arrayType, matches.size());
 							for (int j = 0; j < matches.size(); j++)
 							{
-								Array.set(arr, j, getValue(arrayType, matches.get(j)));
+								Array.set(arr, j, HvlReflectionUtil.genericParse(arrayType, matches.get(j)));
 							}
 							
 							f.set(null, arr);
@@ -321,7 +322,7 @@ public class HvlConfigUtil {
 								type
 										.getField(propName)
 										.set(null,
-												getValue(type
+												HvlReflectionUtil.genericParse(type
 														.getField(propName)
 														.getType(), split[1]));
 							} catch (IllegalArgumentException
@@ -553,18 +554,5 @@ public class HvlConfigUtil {
 		} catch (ClassNotFoundException e) {
 		}
 		return null;
-	}
-
-	private static Object getValue(Class<?> type, String in) {
-		if (type.equals(int.class) || type.equals(Integer.class))
-			return Integer.parseInt(in);
-		if (type.equals(float.class) || type.equals(Float.class))
-			return Float.parseFloat(in);
-		if (type.equals(double.class) || type.equals(Double.class))
-			return Double.parseDouble(in);
-		if (type.equals(boolean.class) || type.equals(Boolean.class))
-			return Boolean.parseBoolean(in);
-
-		return in;
 	}
 }
