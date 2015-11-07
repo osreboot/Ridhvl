@@ -10,11 +10,11 @@ import org.newdawn.slick.Color;
 import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.map.HvlMap;
-import com.osreboot.ridhvl.map.HvlTileCollisionProfile;
+import com.osreboot.ridhvl.map.HvlMapCollisionProfile;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlSimpleCollisionProfiles {
-	public static class Square extends HvlTileCollisionProfile {
+	public static class Square implements HvlMapCollisionProfile {
 		float overshoot;
 
 		public Square(float overshoot) {
@@ -116,7 +116,7 @@ public class HvlSimpleCollisionProfiles {
 		}
 	}
 
-	public static class CustomMiddle extends HvlTileCollisionProfile {
+	public static class CustomMiddle implements HvlMapCollisionProfile {
 		private boolean left, right, up, down;
 		private boolean ul, ur, ll, lr;
 
@@ -225,7 +225,7 @@ public class HvlSimpleCollisionProfiles {
 				if (found != null)
 					collisions.add(found);
 			}
-			
+
 			if (lr) {
 				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileWidth()) + (map.getTileWidth() / 2),
 						map.getY() + (tileY * map.getTileHeight()) + (map.getTileHeight() / 2));
@@ -310,7 +310,7 @@ public class HvlSimpleCollisionProfiles {
 		}
 	}
 
-	public static class Vertical extends HvlTileCollisionProfile {
+	public static class Vertical implements HvlMapCollisionProfile {
 
 		private float overshoot;
 
@@ -338,7 +338,7 @@ public class HvlSimpleCollisionProfiles {
 		}
 	}
 
-	public static class Horizontal extends HvlTileCollisionProfile {
+	public static class Horizontal implements HvlMapCollisionProfile {
 
 		private float overshoot;
 

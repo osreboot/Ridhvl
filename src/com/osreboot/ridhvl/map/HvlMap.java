@@ -30,7 +30,7 @@ public class HvlMap {
 
 	private Texture texture;
 
-	private Map<Integer, HvlTileCollisionProfile> collisionData;
+	private Map<Integer, HvlMapCollisionProfile> collisionData;
 
 	private List<HvlEntity> entities;
 	private List<HvlEntity> entitiesToAdd;
@@ -223,7 +223,7 @@ public class HvlMap {
 		entitiesToAdd.add(toAdd);
 	}
 
-	public void mapTileToCollision(int tile, HvlTileCollisionProfile profile) {
+	public void mapTileToCollision(int tile, HvlMapCollisionProfile profile) {
 		collisionData.put(tile, profile);
 	}
 
