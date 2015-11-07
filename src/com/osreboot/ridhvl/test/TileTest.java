@@ -25,6 +25,10 @@ public class TileTest extends HvlTemplateInteg2D {
 		super(60, 1280, 720, "Ridhvl Tilemap Test", new HvlDisplayModeDefault());
 	}
 	
+	public static void main(String[] args) {
+		new TileTest();
+	}
+	
 	@Override
 	public void initialize() {
 		getTextureLoader().loadResource("Tilemap");
@@ -33,6 +37,7 @@ public class TileTest extends HvlTemplateInteg2D {
 
 		map = HvlMap.load("TestLoadMap", 0, 0, 64, 64, getTexture(0), 8, 8);
 		map.setCollisionDebugDraw(true);
+		map.setOverdrawAmount(1.0f);
 		map.mapTileToCollision(9, new HvlSimpleCollisionProfiles.Vertical(4));
 		map.mapTileToCollision(11, new HvlSimpleCollisionProfiles.Vertical(4));
 		map.mapTileToCollision(2, new HvlSimpleCollisionProfiles.Horizontal(4));

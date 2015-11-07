@@ -39,6 +39,8 @@ public class HvlMap {
 
 	private boolean collisionDebugDraw;
 
+	private float overdrawAmount;
+
 	public HvlMap(float xArg, float yArg, float tWidthArg, float tHeightArg, int tilesAcrossArg, int tilesTallArg,
 			int layersArg, int mWidthArg, int mHeightArg, Texture tArg) {
 		x = xArg;
@@ -96,8 +98,8 @@ public class HvlMap {
 
 					int mapTileX = tile % tilesAcross;
 					int mapTileY = tile / tilesAcross;
-					HvlPainter2D.hvlDrawQuad(x + (tX * tileWidth), y + (tY * tileHeight), tileWidth, tileHeight,
-							(float) mapTileX / tilesAcross, (float) mapTileY / tilesTall,
+					HvlPainter2D.hvlDrawQuad(x + (tX * tileWidth), y + (tY * tileHeight), tileWidth + overdrawAmount,
+							tileHeight + overdrawAmount, (float) mapTileX / tilesAcross, (float) mapTileY / tilesTall,
 							((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
 							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture);
 				}
@@ -473,5 +475,13 @@ public class HvlMap {
 			e.printStackTrace();
 			return;
 		}
+	}
+
+	public float getOverdrawAmount() {
+		return overdrawAmount;
+	}
+
+	public void setOverdrawAmount(float overdrawAmount) {
+		this.overdrawAmount = overdrawAmount;
 	}
 }
