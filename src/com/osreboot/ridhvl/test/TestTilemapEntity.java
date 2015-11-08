@@ -42,6 +42,9 @@ public class TestTilemapEntity extends HvlEntity {
 		
 		motionActual.normalize().fixNaN().mult(delta).mult(speed);
 		
+		// If (somehow) this still would put us through a wall, just make us not move (to be safe).
+		if (!getMap().raytrace(entPos, entPos.addNew(motionActual)).isEmpty()) motionActual.mult(0);
+		
 		setRelX(getRelX() + motionActual.x);
 		setRelY(getRelY() + motionActual.y);
 	}
