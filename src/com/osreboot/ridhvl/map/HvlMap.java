@@ -484,4 +484,20 @@ public class HvlMap {
 	public void setOverdrawAmount(float overdrawAmount) {
 		this.overdrawAmount = overdrawAmount;
 	}
+
+	public float tileXToWorld(int tX) {
+		return x + (tileWidth * tX);
+	}
+
+	public float tileYToWorld(int tY) {
+		return y + (tileHeight * tY);
+	}
+	
+	public int worldXToTile(float wX) {
+		return (int)((wX - x) / tileWidth);
+	}
+	
+	public int worldYToTile(float wY) {
+		return (int)((wY - y) / tileHeight);
+	}
 }
