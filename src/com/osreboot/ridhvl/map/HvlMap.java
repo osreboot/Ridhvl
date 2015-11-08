@@ -239,51 +239,12 @@ public class HvlMap {
 		return layerCollisionsEnabled[layer];
 	}
 
-	public List<HvlCoord> raytrace(final HvlCoord start, HvlCoord end) {
-		List<HvlCoord> collisions = new ArrayList<HvlCoord>();
-
-		for (int l = 0; l < tiles.length; l++) {
-			if (!layerCollisionsEnabled[l])
-				continue;
-			int[][] layer = tiles[l];
-			
-			int yT1 = worldYToTile(start.y);
-			int yT2 = worldYToTile(end.y);
-			
-			int xT1 = worldXToTile(start.x);
-			int xT2 = worldXToTile(end.x);
-			
-			for (int tY = Math.max(0, Math.min(yT1, yT2) - 1); tY < Math.min(layer.length, Math.max(yT1, yT2) + 1); tY++) {
-				for (int tX = Math.max(0, Math.min(xT1, xT2) - 1); tX < Math.min(layer[tY].length, Math.max(xT1, xT2) + 1); tX++) {
-					int tile = layer[tY][tX];
-
-					if (tile < 0)
-						continue;
-
-					if (collisionData.containsKey(tile)) {
-						HvlCoord coll = collisionData.get(tile).raytrace(start, end, this, l, tX, tY);
-						if (coll != null)
-							collisions.add(coll);
-					}
-				}
-			}
-		}
-
-		Collections.sort(collisions, new Comparator<HvlCoord>() {
-
-			@Override
-			public int compare(HvlCoord o1, HvlCoord o2) {
-				float d1 = HvlMath.distance(start.x, start.y, o1.x, o1.y);
-				float d2 = HvlMath.distance(start.x, start.y, o2.x, o2.y);
-				if (d1 < d2)
-					return -1;
-				if (d1 > d2)
-					return 1;
-				return 0;
-			}
-		});
-
-		return collisions;
+	public List<HvlCoord> raytrace(final HvlCoord start, HvlCoord end) {		
+		int[] layerIndices = new int[tiles.length];
+		for (int i = 0; i < tiles.length; i++)
+			layerIndices[i] = i;
+		
+		return raytrace(start, end, layerIndices);
 	}
 
 	public List<HvlCoord> raytrace(final HvlCoord start, HvlCoord end, int... layers) {
