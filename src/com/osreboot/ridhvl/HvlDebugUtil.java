@@ -1,6 +1,5 @@
 package com.osreboot.ridhvl;
 
-import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
