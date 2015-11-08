@@ -246,8 +246,15 @@ public class HvlMap {
 			if (!layerCollisionsEnabled[l])
 				continue;
 			int[][] layer = tiles[l];
-			for (int tY = 0; tY < layer.length; tY++) {
-				for (int tX = 0; tX < layer[tY].length; tX++) {
+			
+			int yT1 = worldYToTile(start.y);
+			int yT2 = worldYToTile(end.y);
+			
+			int xT1 = worldXToTile(start.x);
+			int xT2 = worldXToTile(end.x);
+			
+			for (int tY = Math.max(0, Math.min(yT1, yT2) - 1); tY < Math.min(layer.length, Math.max(yT1, yT2) + 1); tY++) {
+				for (int tX = Math.max(0, Math.min(xT1, xT2) - 1); tX < Math.min(layer[tY].length, Math.max(xT1, xT2) + 1); tX++) {
 					int tile = layer[tY][tX];
 
 					if (tile < 0)
@@ -286,8 +293,15 @@ public class HvlMap {
 			if (!layerCollisionsEnabled[l])
 				continue;
 			int[][] layer = tiles[l];
-			for (int tY = 0; tY < layer.length; tY++) {
-				for (int tX = 0; tX < layer[tY].length; tX++) {
+			
+			int yT1 = worldYToTile(start.y);
+			int yT2 = worldYToTile(end.y);
+			
+			int xT1 = worldXToTile(start.x);
+			int xT2 = worldXToTile(end.x);
+			
+			for (int tY = Math.max(0, Math.min(yT1, yT2) - 1); tY < Math.min(layer.length, Math.max(yT1, yT2) + 1); tY++) {
+				for (int tX = Math.max(0, Math.min(xT1, xT2) - 1); tX < Math.min(layer[tY].length, Math.max(xT1, xT2) + 1); tX++) {
 					int tile = layer[tY][tX];
 
 					if (tile < 0)
