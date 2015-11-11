@@ -10,6 +10,7 @@ import com.osreboot.ridhvl.HvlDebugUtil;
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.map.HvlMap;
+import com.osreboot.ridhvl.map.HvlMapRaytraceResult;
 import com.osreboot.ridhvl.map.collection.HvlSimpleCollisionProfiles;
 import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCamera.HvlCameraAlignment;
@@ -65,13 +66,13 @@ public class TileTest extends HvlTemplateInteg2D {
 		map.update(delta);
 		HvlCamera.setPosition(ent.getX(), ent.getY());
 		map.draw(delta);
-		List<HvlCoord> colls = map.raytrace(new HvlCoord(ent.getX(), ent.getY()),
+		List<HvlMapRaytraceResult> colls = map.raytrace(new HvlCoord(ent.getX(), ent.getY()),
 				new HvlCoord(HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth() / 2),
 						HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight() / 2)));
 
 		if (!colls.isEmpty()) {
 
-			HvlCoord coll = colls.get(0);
+			HvlCoord coll = colls.get(0).getLocation();
 
 			HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y - 8, coll.x + 8, coll.y + 8, Color.green, 4.0f);
 			HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y + 8, coll.x + 8, coll.y - 8, Color.green, 4.0f);

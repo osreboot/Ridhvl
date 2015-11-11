@@ -36,15 +36,15 @@ public class HvlArrangerBox extends HvlPanel {
 		switch (style) {
 		case VERTICAL: {
 			float totalHeight = 0;
-			
+
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
 				if (comp == null)
 					continue;
-				
+
 				totalHeight += borderU + comp.getHeight() + borderD;
 			}
-			
+
 			float previousY = getY() + (getHeight() * yAlign) - (totalHeight * yAlign);
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
@@ -64,28 +64,30 @@ public class HvlArrangerBox extends HvlPanel {
 		}
 		case HORIZONTAL: {
 			float totalWidth = 0;
-			
+
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
 				if (comp == null)
 					continue;
-				
+
 				totalWidth += borderL + comp.getWidth() + borderR;
 			}
-			
+
 			float previousX = getX() + (getWidth() * xAlign) - (totalWidth * xAlign);
 			for (int i = 0; i < getChildCount(); i++) {
 				HvlComponent comp = get(i);
 				if (comp == null)
 					continue;
 
+				comp.setY(getY() + (getHeight() * yAlign) - (comp.getHeight() * yAlign));
+
 				if (i == 0)
 					comp.setX(previousX + borderL);
 				else
 					comp.setX(previousX + borderL + borderR);
+
 				previousX += borderL + borderR + comp.getWidth();
 
-				comp.setY(getY() + (getHeight() * yAlign) - (comp.getHeight() * yAlign));
 			}
 			break;
 		}
@@ -226,7 +228,7 @@ public class HvlArrangerBox extends HvlPanel {
 			tr.setDrawOverride(drawOverride);
 			return this;
 		}
-		
+
 		public Builder setxAlign(float xAlign) {
 			tr.setxAlign(xAlign);
 			return this;
