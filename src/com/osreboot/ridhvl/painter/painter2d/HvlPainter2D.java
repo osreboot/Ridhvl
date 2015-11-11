@@ -28,8 +28,6 @@ public class HvlPainter2D {
 	@Deprecated
 	private static Texture refreshTexture;
 	private static Texture white512;//TODO support more sizes
-
-	private static HvlAction0 actionInitialize = HvlPainter2D.ACTION_INITIALIZE_DEFAULT;
 	
 	public static final HvlAction0 ACTION_INITIALIZE_DEFAULT = new HvlAction0(){
 		@Override
@@ -42,6 +40,8 @@ public class HvlPainter2D {
 			glMatrixMode(GL_MODELVIEW);
 		}
 	};
+
+	private static HvlAction0 actionInitialize = HvlPainter2D.ACTION_INITIALIZE_DEFAULT;
 
 	public static HvlAction0 getActionInitialize(){
 		return actionInitialize;
