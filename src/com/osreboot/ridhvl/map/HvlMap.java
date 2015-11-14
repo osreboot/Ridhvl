@@ -277,6 +277,23 @@ public class HvlMap {
 
 		return collisions;
 	}
+	
+	public List<HvlMapRaytraceResult> raytraceEntities(final HvlCoord start, HvlCoord end) {
+		List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
+		
+		for (HvlEntity ent : entities) {
+			if (!(ent instanceof HvlMapCollisionProfile)) continue;
+			
+			HvlMapCollisionProfile coll = (HvlMapCollisionProfile) ent;
+			
+			// Giving negative numbers means that this isn't grid-bound.
+			collisions.addAll(coll.raytrace(start, end, this, -1, -1, -1));
+		}
+		
+		Collections.sort(collisions);
+		
+		return collisions;
+	}
 
 	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
 			int tilemapWidth, int tilemapHeight) {
