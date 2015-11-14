@@ -12,6 +12,8 @@ public class HvlTiledRect {
 	private float uvLeft, uvRight;
 	private float uvTop, uvBottom;
 	private Color color;
+	
+	private boolean allowSmallDimensions;
 
 	public HvlTiledRect(Texture tArg, float uvLeftArg,
 			float uvRightArg, float uvTopArg, float uvBottomArg, float xArg,
@@ -122,7 +124,7 @@ public class HvlTiledRect {
 	}
 
 	public void setTotalWidth(float totalWidth) {
-		this.totalWidth = totalWidth;
+		this.totalWidth = allowSmallDimensions ? totalWidth : Math.max(totalWidth, 2 * verticalBarWidth);
 	}
 
 	public float getTotalHeight() {
@@ -130,7 +132,7 @@ public class HvlTiledRect {
 	}
 
 	public void setTotalHeight(float totalHeight) {
-		this.totalHeight = totalHeight;
+		this.totalHeight = allowSmallDimensions ? totalHeight : Math.max(totalHeight, 2 * horizontalBarHeight);
 	}
 
 	public float getHorizontalBarHeight() {
@@ -187,6 +189,13 @@ public class HvlTiledRect {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	public boolean allowsSmallDimensions() {
+		return allowSmallDimensions;
+	}
+	
+	public void setAllowSmallDimensions(boolean allowSmallDimensions) {
+		this.allowSmallDimensions = allowSmallDimensions;
 	}
 
 	
