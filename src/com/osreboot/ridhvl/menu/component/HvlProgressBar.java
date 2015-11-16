@@ -16,7 +16,7 @@ public class HvlProgressBar extends HvlComponent {
 	private HvlComponentDrawable foreground;
 
 	private Direction direction;
-	private boolean inverted;
+	private boolean invertedDirection;
 
 	private float offsetL, offsetR, offsetU, offsetD;
 
@@ -46,7 +46,7 @@ public class HvlProgressBar extends HvlComponent {
 		if (foreground != null) {
 			switch (direction) {
 			case HORIZONTAL:
-				if (inverted)
+				if (invertedDirection)
 					foreground
 							.draw(delta,
 									getX() - offsetR + getWidth()
@@ -61,7 +61,7 @@ public class HvlProgressBar extends HvlComponent {
 							getHeight() - offsetU - offsetD);
 				break;
 			case VERTICAL:
-				if (inverted)
+				if (invertedDirection)
 					foreground
 							.draw(delta, getX() + offsetL,
 									getY() - offsetD + getHeight()
@@ -110,12 +110,12 @@ public class HvlProgressBar extends HvlComponent {
 		this.direction = direction;
 	}
 
-	public boolean isInverted() {
-		return inverted;
+	public boolean isInvertedDirection() {
+		return invertedDirection;
 	}
 
-	public void setInverted(boolean inverted) {
-		this.inverted = inverted;
+	public void setInvertedDirection(boolean invertedDirection) {
+		this.invertedDirection = invertedDirection;
 	}
 
 	public float getOffsetL() {
@@ -193,8 +193,8 @@ public class HvlProgressBar extends HvlComponent {
 			return this;
 		}
 
-		public Builder setInverted(boolean inverted) {
-			tr.setInverted(inverted);
+		public Builder setInvertedDirection(boolean inverted) {
+			tr.setInvertedDirection(inverted);
 			return this;
 		}
 

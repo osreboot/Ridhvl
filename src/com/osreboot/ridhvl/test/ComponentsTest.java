@@ -128,7 +128,7 @@ public class ComponentsTest extends HvlTemplate2D {
 						.addStop(0.75f, Color.white).addStop(1.0f, Color.red).toTexture(512, 512, 256, 256, 0, 0)))
 				.setForeground(new HvlTextureDrawable(textureLoader.getResource(0)))
 				.setDirection(HvlProgressBar.Direction.HORIZONTAL).setOffsetL(4f).setOffsetR(4f).setOffsetU(4f)
-				.setOffsetD(4f).setInverted(false).build());
+				.setOffsetD(4f).setInvertedDirection(false).build());
 
 		HvlComponentDefault.setDefault(new HvlLabel.Builder().setFont(fontPainter).setColor(Color.red).build());
 
