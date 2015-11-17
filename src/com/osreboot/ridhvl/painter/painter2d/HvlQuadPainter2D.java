@@ -23,7 +23,7 @@ import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 
 class HvlQuadPainter2D {
-
+	
 	protected static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		glColor4f(1, 1, 1, 1);
 		t.bind();
