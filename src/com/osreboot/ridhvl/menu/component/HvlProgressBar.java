@@ -16,9 +16,12 @@ public class HvlProgressBar extends HvlComponent {
 	private HvlComponentDrawable foreground;
 
 	private Direction direction;
-	private boolean invertedDirection;
 
-	private float offsetL, offsetR, offsetU, offsetD;
+	private int blockCount;
+	private boolean continuousBlocks;
+	private float spaceBetweenBlocks;
+
+	private float borderL, borderR, borderU, borderD;
 
 	public HvlProgressBar(float wArg, float hArg, float value, HvlComponentDrawable background,
 			HvlComponentDrawable foreground, Direction direction) {
@@ -27,6 +30,8 @@ public class HvlProgressBar extends HvlComponent {
 		this.background = background;
 		this.foreground = foreground;
 		this.direction = direction;
+		this.blockCount = 1;
+		this.continuousBlocks = true;
 	}
 
 	public HvlProgressBar(float xArg, float yArg, float wArg, float hArg, float value, HvlComponentDrawable background,
@@ -36,6 +41,8 @@ public class HvlProgressBar extends HvlComponent {
 		this.background = background;
 		this.foreground = foreground;
 		this.direction = direction;
+		this.blockCount = 1;
+		this.continuousBlocks = true;
 	}
 
 	@Override
@@ -43,39 +50,89 @@ public class HvlProgressBar extends HvlComponent {
 		if (background != null)
 			background.draw(delta, getX(), getY(), getWidth(), getHeight());
 
-		if (foreground != null) {
+		if (foreground != null && value != 0.0f) {
+			float valuePerBlock = 1.0f / blockCount;
+
 			switch (direction) {
 			case HORIZONTAL:
-				if (invertedDirection)
-					foreground
-							.draw(delta,
-									getX() - offsetR + getWidth()
-											- ((getWidth() - offsetL - offsetR)
-													* Math.min(1.0f, Math.max(0.0f, value))),
-									getY() + offsetU,
-									(getWidth() - offsetL - offsetR) * Math.min(1.0f, Math.max(0.0f, value)),
-									getHeight() - offsetU - offsetD);
-				else
-					foreground.draw(delta, getX() + offsetL, getY() + offsetU,
-							(getWidth() - offsetL - offsetR) * Math.min(1.0f, Math.max(0.0f, value)),
-							getHeight() - offsetU - offsetD);
+				float blockTW = (getWidth() - borderL - borderR) / blockCount;
+
+				for (int i = 0; i < blockCount; i++) {
+					if (value >= i * valuePerBlock) {
+						if (!continuousBlocks || value - i * valuePerBlock >= valuePerBlock) {
+							foreground.draw(delta, getX() + (i * blockTW) + (spaceBetweenBlocks / 2) + borderL,
+									getY() + borderU, blockTW - spaceBetweenBlocks, getHeight() - borderU - borderD);
+						} else {
+							float frac = (value % valuePerBlock) / valuePerBlock;
+
+							foreground.draw(delta, getX() + (i * blockTW) + (spaceBetweenBlocks / 2) + borderL,
+									getY() + borderU, Math.max((blockTW * frac) - spaceBetweenBlocks, 0),
+									getHeight() - borderU - borderD);
+						}
+					}
+				}
+
 				break;
 			case VERTICAL:
-				if (invertedDirection)
-					foreground
-							.draw(delta, getX() + offsetL,
-									getY() - offsetD + getHeight()
-											- ((getHeight() - offsetU - offsetD)
-													* Math.min(1.0f, Math.max(0.0f, value))),
-									getWidth() - offsetL - offsetR,
-									(getHeight() - offsetU - offsetD) * Math.min(1.0f, Math.max(0.0f, value)));
-				else
-					foreground.draw(delta, getX() + offsetL, getY() + offsetU,
-							getWidth() - offsetL - offsetR,
-							(getHeight() - offsetU - offsetD) * Math.min(1.0f, Math.max(0.0f, value)));
+				float blockTH = (getHeight() - borderU - borderD) / blockCount;
+
+				for (int i = 0; i < blockCount; i++) {
+					if (value >= i * valuePerBlock) {
+						if (!continuousBlocks || value - i * valuePerBlock >= valuePerBlock) {
+							foreground.draw(delta, getX() + borderL,
+									getY() + (i * blockTH) + (spaceBetweenBlocks / 2) + borderU,
+									getWidth() - borderL - borderR, blockTH - spaceBetweenBlocks);
+						} else {
+							float frac = (value % valuePerBlock) / valuePerBlock;
+
+							foreground.draw(delta, getX() + borderL,
+									getY() + (i * blockTH) + (spaceBetweenBlocks / 2) + borderU,
+									getWidth() - borderL - borderR, Math.max((blockTH * frac) - spaceBetweenBlocks, 0));
+						}
+					}
+				}
+
 				break;
 			}
 		}
+
+		// if (foreground != null) {
+		// switch (direction) {
+		// case HORIZONTAL:
+		// if (invertedDirection)
+		// foreground
+		// .draw(delta,
+		// getX() - offsetR + getWidth()
+		// - ((getWidth() - offsetL - offsetR)
+		// * Math.min(1.0f, Math.max(0.0f, value))),
+		// getY() + offsetU,
+		// (getWidth() - offsetL - offsetR) * Math.min(1.0f, Math.max(0.0f,
+		// value)),
+		// getHeight() - offsetU - offsetD);
+		// else
+		// foreground.draw(delta, getX() + offsetL, getY() + offsetU,
+		// (getWidth() - offsetL - offsetR) * Math.min(1.0f, Math.max(0.0f,
+		// value)),
+		// getHeight() - offsetU - offsetD);
+		// break;
+		// case VERTICAL:
+		// if (invertedDirection)
+		// foreground
+		// .draw(delta, getX() + offsetL,
+		// getY() - offsetD + getHeight()
+		// - ((getHeight() - offsetU - offsetD)
+		// * Math.min(1.0f, Math.max(0.0f, value))),
+		// getWidth() - offsetL - offsetR,
+		// (getHeight() - offsetU - offsetD) * Math.min(1.0f, Math.max(0.0f,
+		// value)));
+		// else
+		// foreground.draw(delta, getX() + offsetL, getY() + offsetU, getWidth()
+		// - offsetL - offsetR,
+		// (getHeight() - offsetU - offsetD) * Math.min(1.0f, Math.max(0.0f,
+		// value)));
+		// break;
+		// }
+		// }
 	}
 
 	public float getValue() {
@@ -110,55 +167,71 @@ public class HvlProgressBar extends HvlComponent {
 		this.direction = direction;
 	}
 
-	public boolean isInvertedDirection() {
-		return invertedDirection;
+	public float getBorderL() {
+		return borderL;
 	}
 
-	public void setInvertedDirection(boolean invertedDirection) {
-		this.invertedDirection = invertedDirection;
+	public void setBorderL(float borderL) {
+		this.borderL = borderL;
 	}
 
-	public float getOffsetL() {
-		return offsetL;
+	public float getBorderR() {
+		return borderR;
 	}
 
-	public void setOffsetL(float offsetL) {
-		this.offsetL = offsetL;
+	public void setBorderR(float borderR) {
+		this.borderR = borderR;
 	}
 
-	public float getOffsetR() {
-		return offsetR;
+	public float getBorderU() {
+		return borderU;
 	}
 
-	public void setOffsetR(float offsetR) {
-		this.offsetR = offsetR;
+	public void setBorderU(float borderU) {
+		this.borderU = borderU;
 	}
 
-	public float getOffsetU() {
-		return offsetU;
+	public float getBorderD() {
+		return borderD;
 	}
 
-	public void setOffsetU(float offsetU) {
-		this.offsetU = offsetU;
+	public void setBorderD(float borderD) {
+		this.borderD = borderD;
 	}
 
-	public float getOffsetD() {
-		return offsetD;
+	public int getBlockCount() {
+		return blockCount;
 	}
 
-	public void setOffsetD(float offsetD) {
-		this.offsetD = offsetD;
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
+
+	public boolean isContinuousBlocks() {
+		return continuousBlocks;
+	}
+
+	public void setContinuousBlocks(boolean continuousBlocks) {
+		this.continuousBlocks = continuousBlocks;
+	}
+
+	public float getSpaceBetweenBlocks() {
+		return spaceBetweenBlocks;
+	}
+
+	public void setSpaceBetweenBlocks(float spaceBetweenBlocks) {
+		this.spaceBetweenBlocks = spaceBetweenBlocks;
 	}
 
 	public static class Builder {
 		HvlProgressBar tr;
-		
+
 		public Builder() {
 			tr = new HvlProgressBar(0, 0, 0.0f, null, null, Direction.HORIZONTAL);
 			if (HvlComponentDefault.hasDefault(HvlProgressBar.class))
 				tr = HvlComponentDefault.getDefault(HvlProgressBar.class).cloneComponent(tr);
 		}
-		
+
 		public HvlProgressBar build() {
 			return tr;
 		}
@@ -193,18 +266,8 @@ public class HvlProgressBar extends HvlComponent {
 			return this;
 		}
 
-		public Builder setInvertedDirection(boolean inverted) {
-			tr.setInvertedDirection(inverted);
-			return this;
-		}
-
 		public Builder setWidth(float width) {
 			tr.setWidth(width);
-			return this;
-		}
-
-		public Builder setOffsetL(float offsetL) {
-			tr.setOffsetL(offsetL);
 			return this;
 		}
 
@@ -213,8 +276,23 @@ public class HvlProgressBar extends HvlComponent {
 			return this;
 		}
 
-		public Builder setOffsetR(float offsetR) {
-			tr.setOffsetR(offsetR);
+		public Builder setBorderL(float borderL) {
+			tr.setBorderL(borderL);
+			return this;
+		}
+
+		public Builder setBorderR(float borderR) {
+			tr.setBorderR(borderR);
+			return this;
+		}
+
+		public Builder setBorderU(float borderU) {
+			tr.setBorderU(borderU);
+			return this;
+		}
+
+		public Builder setBorderD(float borderD) {
+			tr.setBorderD(borderD);
 			return this;
 		}
 
@@ -223,18 +301,8 @@ public class HvlProgressBar extends HvlComponent {
 			return this;
 		}
 
-		public Builder setOffsetU(float offsetU) {
-			tr.setOffsetU(offsetU);
-			return this;
-		}
-
 		public Builder setVisible(boolean visible) {
 			tr.setVisible(visible);
-			return this;
-		}
-
-		public Builder setOffsetD(float offsetD) {
-			tr.setOffsetD(offsetD);
 			return this;
 		}
 
@@ -247,5 +315,21 @@ public class HvlProgressBar extends HvlComponent {
 			tr.setDrawOverride(drawOverride);
 			return this;
 		}
+
+		public Builder setBlockCount(int blockCount) {
+			tr.setBlockCount(blockCount);
+			return this;
+		}
+
+		public Builder setContinuousBlocks(boolean continuousBlocks) {
+			tr.setContinuousBlocks(continuousBlocks);
+			return this;
+		}
+
+		public Builder setSpaceBetweenBlocks(float spaceBetweenBlocks) {
+			tr.setSpaceBetweenBlocks(spaceBetweenBlocks);
+			return this;
+		}
+
 	}
 }

@@ -46,7 +46,7 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
 	private HvlProgressBar testProgressBar;
-
+	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Ridhvl Components Test", new HvlDisplayModeResizable());
 	}
@@ -60,7 +60,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		textureLoader.loadResource("Icon");
 		textureLoader.loadResource("Font");
 		textureLoader.loadResource("Cursor");
-
+		
 		HvlGradient grad = new HvlGradient(Style.RADIAL);
 		grad.addStop(0, Color.orange);
 		grad.addStop(1, Color.darkGray);
@@ -127,8 +127,8 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setBackground(new HvlTextureDrawable(new HvlGradient(Style.RADIAL).addStop(0.0f, Color.white)
 						.addStop(0.75f, Color.white).addStop(1.0f, Color.red).toTexture(512, 512, 256, 256, 0, 0)))
 				.setForeground(new HvlTextureDrawable(textureLoader.getResource(0)))
-				.setDirection(HvlProgressBar.Direction.HORIZONTAL).setOffsetL(4f).setOffsetR(4f).setOffsetU(4f)
-				.setOffsetD(4f).setInvertedDirection(false).build());
+				.setDirection(HvlProgressBar.Direction.HORIZONTAL).setBorderL(4f).setBorderR(4f).setBorderU(4f)
+				.setBorderD(4f).build());
 
 		HvlComponentDefault.setDefault(new HvlLabel.Builder().setFont(fontPainter).setColor(Color.red).build());
 
@@ -178,18 +178,15 @@ public class ComponentsTest extends HvlTemplate2D {
 				.addItem("nice to be you").addItem("derp!").addItem("derp2!").addItem("derp3!").addItem("derp4!")
 				.addItem("derp5!").addItem("derp6!").addItem("derp7!").build();
 
-		testProgressBar = new HvlProgressBar(512, 32, 0.0f,
-				new HvlTextureDrawable(new HvlGradient(Style.RADIAL).addStop(0.0f, Color.white)
-						.addStop(0.75f, Color.white).addStop(1.0f, Color.red).toTexture(512, 512, 256, 256, 0, 0)),
-				new HvlTextureDrawable(textureLoader.getResource(0)), HvlProgressBar.Direction.HORIZONTAL);
-		testProgressBar = new HvlProgressBar.Builder().build();
-
+		testProgressBar = new HvlProgressBar.Builder().setWidth(512).setHeight(128).build();
+		
 		testArranger = new HvlArrangerBox.Builder().setX(0).setY(0).setxAlign(0.5f).setyAlign(0.5f)
 				.setWidth(Display.getWidth() - 64).setHeight(720).add(testLabel).add(testCheck).add(testButton)
 				.add(testTextBox)
 				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(Direction.HORIZONTAL)
 						.setTextureDirection(Direction.HORIZONTAL).build())
-				.add(testListBox).add(testProgressBar).build();
+				.add(testListBox)
+				.add(testProgressBar).build();
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);
@@ -197,7 +194,9 @@ public class ComponentsTest extends HvlTemplate2D {
 
 	@Override
 	public void update(float delta) {
-		testProgressBar.setValue((float) Math.abs(Math.sin(HvlTemplate.getNewestInstance().getTimer().getTotalTime())));
+		float val = (float) Math.abs(Math.sin(HvlTemplate.getNewestInstance().getTimer().getTotalTime() / 4)) * 1.0f;
+		
+		testProgressBar.setValue(val);
 		testArranger.setWidth(Display.getWidth());
 		testArranger.setHeight(Display.getHeight());
 		HvlMenu.updateMenus(delta);
