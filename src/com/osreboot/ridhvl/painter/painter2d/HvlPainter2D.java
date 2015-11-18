@@ -28,20 +28,20 @@ public class HvlPainter2D {
 	protected static float xGridInterval, yGridInterval;
 	protected static boolean gridSnapEnabled;
 	
-	public static boolean isGridSnapEnabled() {
+	public static boolean hvlGridSnapEnabled() {
 		return gridSnapEnabled;
 	}
 	
-	public static float getXGridInterval() {
+	public static float hvlGetXGridInterval() {
 		return xGridInterval;
 	}
 	
-	public static float getYGridInterval() {
+	public static float hvlGetYGridInterval() {
 		return yGridInterval;
 	}
 	
-	public static float snapToXGrid(float xIn) {		
-		if (xIn % xGridInterval < xGridInterval) {
+	public static float hvlSnapToXGrid(float xIn) {		
+		if (xIn % xGridInterval < (xGridInterval / 2)) {
 			return xIn - (xIn % xGridInterval);
 		}
 		else
@@ -50,8 +50,8 @@ public class HvlPainter2D {
 		}
 	}
 	
-	public static float snapToYGrid(float yIn) {
-		if (yIn % yGridInterval < yGridInterval) {
+	public static float hvlSnapToYGrid(float yIn) {
+		if (yIn % yGridInterval < (yGridInterval / 2)) {
 			return yIn - (yIn % yGridInterval);
 		}
 		else
@@ -62,27 +62,27 @@ public class HvlPainter2D {
 	
 	protected static float conditionalXSnap(float xIn) {
 		if (gridSnapEnabled)
-			return snapToXGrid(xIn);
+			return hvlSnapToXGrid(xIn);
 		return xIn;
 	}
 	
 	protected static float conditionalYSnap(float yIn) {
 		if (gridSnapEnabled)
-			return snapToYGrid(yIn);
+			return hvlSnapToYGrid(yIn);
 		return yIn;
 	}
 	
-	public static void enableGridSnap(float xInterval, float yInterval) {
+	public static void hvlEnableGridSnap(float xInterval, float yInterval) {
 		gridSnapEnabled = true;
 		xGridInterval = xInterval;
 		yGridInterval = yInterval;
 	}
 	
-	public static void enableGridSnap() {
+	public static void hvlEnableGridSnap() {
 		gridSnapEnabled = true;
 	}
 	
-	public static void disableGridSnap() {
+	public static void hvlDisableGridSnap() {
 		gridSnapEnabled = false;
 	}
 	
