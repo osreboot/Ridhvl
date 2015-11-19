@@ -66,6 +66,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
+		HvlChronologyRegistry.registerChronologies();
 		HvlChronology.initialize();
 		
 		textureLoader = new HvlTextureLoader();
@@ -96,6 +97,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
+		HvlChronologyRegistry.registerChronologies();
 		HvlChronology.initialize();
 		
 		textureLoader = new HvlTextureLoader();

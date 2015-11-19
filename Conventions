@@ -9,23 +9,26 @@
  + All example/template classes extending off a parent class must be placed in their own adjacent package titled "collection".
 
 - Class Names -
- + All non-test classes must begin with "Hvl" followed by a unique name with the first letter of every word capitalized.
+ + All non-test classes must begin with "Hvl" followed by a unique name and NWC.
  + Classes extending from a parent class must begin with the complete name of the parent followed by the name of the variation.
  + Test classes must start with the goal of the test followed by "Test".
  //TODO non-public classes
  //TODO abbreviations
 
 - Variable Names -
- + Read-only variables must be completely capitalized. Everything else must start with a lower-case letter, with the first letter of every proceeding new word capitalized.
+ + Read-only variables must be completely capitalized. Everything else must start with a lower-case letter followed by NWC.
  //TODO abbreviations
 
 - Method/Constructor Argument Names -
- + All non-utility static methods must begin with "hvl", with the first letter of every proceeding word capitalized. Everything else must start with a lower-case letter, with the first letter of every proceeding new word capitalized.
+ + All non-utility static methods must begin with "hvl" followed by NWC. Everything else must start with a lower-case letter followed by NWC.
  //TODO abbreviations
 
 - Misc. -
+ + All interfaces must begin with "Hvl" followed by NWC.
+ + All inline classes should not begin with a Ridhvl prefix.
 
 - Terminology -
+"NWC": New word capitalization; every new word begins with a capital letter.
 "Component": A menu item capable of aligning to layouts.
 "Putting on your context lenses": Converting a minimum viable product into a complete product.
 "Impossible": Impractical.
