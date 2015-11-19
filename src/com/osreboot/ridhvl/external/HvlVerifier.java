@@ -7,19 +7,20 @@ import org.lwjgl.opengl.GLContext;
 
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.template.HvlChronology;
+import com.osreboot.ridhvl.template.HvlChronologyInitialize;
 
 public abstract class HvlVerifier {
 
 	public static final int INIT_CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;
-	static {
-		new HvlChronology.Initialize(INIT_CHRONOLOGY, new HvlAction0(){
-			@Override
-			public void run(){
-				globalVerify();
-			}
-		});
-	}
-	
+
+	@HvlChronologyInitialize(chronology = INIT_CHRONOLOGY)
+	public static final HvlAction0 INIT_ACTION = new HvlAction0(){
+		@Override
+		public void run(){
+			globalVerify();
+		}
+	};
+
 	public static final HvlVerifier VFR_JINPUT = new HvlVerifier(){
 		@Override
 		public boolean verify(){
@@ -31,7 +32,7 @@ public abstract class HvlVerifier {
 			}
 		}
 	};
-	
+
 	public static final HvlVerifier VFR_FBOENABLED = new HvlVerifier(){
 		@Override
 		public boolean verify(){

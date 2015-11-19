@@ -44,6 +44,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
+		HvlChronologyRegistry.registerChronologies();
 		HvlChronology.initialize();
 		
 		start();
@@ -70,6 +71,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
+		HvlChronologyRegistry.registerChronologies();
 		HvlChronology.initialize();
 		
 		start();

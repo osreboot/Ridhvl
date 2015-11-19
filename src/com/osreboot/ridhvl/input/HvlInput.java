@@ -2,76 +2,73 @@ package com.osreboot.ridhvl.input;
 
 import java.util.LinkedList;
 
-import org.lwjgl.input.Controllers;
-
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.external.HvlVerifier;
 import com.osreboot.ridhvl.template.HvlChronology;
+import com.osreboot.ridhvl.template.HvlChronologyInitialize;
+import com.osreboot.ridhvl.template.HvlChronologyUpdate;
 
 
 public class HvlInput {
-	
+
 	public static final int INIT_CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY + HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;
-	static {
-		new HvlChronology.Initialize(INIT_CHRONOLOGY, new HvlAction0(){
-			@Override
-			public void run(){
-				initialize();
-			}
-		});
-	}
-	
+
+	@HvlChronologyInitialize(chronology = INIT_CHRONOLOGY)
+	public static final HvlAction0 INIT_ACTION = new HvlAction0(){
+		@Override
+		public void run(){
+			initialize();
+		}
+	};
+
 	public static final int UPDATE_CHRONOLOGY = HvlChronology.UPDATE_CHRONOLOGY_PRE_EARLY;
-	static {
-		new HvlChronology.Update(UPDATE_CHRONOLOGY, new HvlAction1<Float>(){
-			@Override
-			public void run(Float delta){
-				update();
-			}
-		});
-	}
-	
+
+	@HvlChronologyUpdate(chronology = UPDATE_CHRONOLOGY)
+	public static final HvlAction1<Float> UPDATE_ACTION = new HvlAction1<Float>(){
+		@Override
+		public void run(Float delta){
+			update();
+		}
+	};
+
 	private static LinkedList<HvlInput> inputs = new LinkedList<HvlInput>();
-	
+
 	public static abstract class HvlInputFilter{
 		public abstract float getCurrentOutput();
 	}
-	
+
 	public static void initialize(){
 		if(!HvlVerifier.VFR_JINPUT.isValid()) System.out.println("Joystick control disabled: jinput.jar not available.");
 	}
-	
+
 	public static void update(){
-		Controllers.poll();
 		for(HvlInput input : inputs) input.updateEvents();
 	}
-	
-	private static int controllerIndex = 0;
-	
+
 	private HvlInputFilter[] filter;
-	
+
 	private float previousOutput;
 	private HvlAction1<HvlInput> pressedAction, releasedAction;
-	
+
 	public HvlInput(HvlInputFilter... filterArg){
 		filter = filterArg;
 		previousOutput = 0;
 		inputs.add(this);
 	}
-	
+
 	public float getCurrentOutput(){
 		float total = 0;
 		for(int i = 0; i < filter.length; i++) total += filter[i].getCurrentOutput();
 		return Math.min(1, Math.max(-1, total));
 	}
-	
+
 	public void updateEvents(){
 		if(previousOutput == 0 && getCurrentOutput() != 0) if(pressedAction != null) pressedAction.run(this);
 		if(previousOutput != 0 && getCurrentOutput() == 0) if(releasedAction != null) releasedAction.run(this);
 		previousOutput = getCurrentOutput();
 	}
-	
+
 	public HvlAction1<HvlInput> getPressedAction(){
 		return pressedAction;
 	}
@@ -96,12 +93,4 @@ public class HvlInput {
 		filter = filterArg;
 	}
 
-	public static int getControllerIndex(){
-		return controllerIndex;
-	}
-
-	public static void setControllerIndex(int controllerIndexArg){
-		controllerIndex = controllerIndexArg;
-	}
-	
 }

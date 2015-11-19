@@ -8,19 +8,20 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlChronology;
+import com.osreboot.ridhvl.template.HvlChronologyUpdate;
 
 
 public class HvlCursor {
 
 	public static final int UPDATE_CHRONOLOGY = HvlChronology.UPDATE_CHRONOLOGY_POST_EARLY;
-	static {
-		new HvlChronology.Update(UPDATE_CHRONOLOGY, new HvlAction1<Float>(){
+	
+	@HvlChronologyUpdate(chronology = UPDATE_CHRONOLOGY)
+	public static final HvlAction1<Float> UPDATE_ACTION = new HvlAction1<Float>(){
 			@Override
 			public void run(Float delta){
 				drawCursor();
 			}
-		});
-	}
+		};
 	
 	private static float xOffset, yOffset, width, height;
 	private static Texture texture;

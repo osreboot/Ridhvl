@@ -7,26 +7,25 @@ import org.newdawn.slick.openal.Audio;
 
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.action.HvlAction1;
-import com.osreboot.ridhvl.template.HvlChronology;
+import com.osreboot.ridhvl.template.HvlChronologyUpdate;
 
 public class HvlMenuDJ {
 
-	{
-		new HvlChronology.Update(new HvlAction1<Float>(){
-			@Override
-			public void run(Float delta){
-				update(delta);
-			}
-		});
-	}
-	
+	@HvlChronologyUpdate()
+	public static final HvlAction1<Float> UPDATE_ACTION = new HvlAction1<Float>(){
+		@Override
+		public void run(Float delta){
+			update(delta);
+		}
+	};
+
 	private static HashMap<HvlMenu, ArrayList<Audio>> songs = new HashMap<>();
 
 	private static float fadeTime = 0, fadeGoal = 0, fadeLocation = 0, volume = 1f;//TODO integrate this
 	private static Audio currentSong;
 
 	private static float lastVolume = 0;
-	
+
 	public static void update(float delta){
 		if(songs.size() > 0){//if this system is being used
 
@@ -36,7 +35,7 @@ public class HvlMenuDJ {
 				currentSong.playAsSoundEffect(1, volume, false);
 				currentSong.setPosition(position);
 			}
-				
+
 			if(fadeTime > 0 && volume > 0){
 				float previousLocation = fadeLocation;//TODO changing volume like this makes a strange clicking noise
 				fadeLocation = HvlMath.stepTowards(fadeLocation, delta * (1/fadeTime) * volume, fadeGoal * volume);
@@ -55,7 +54,7 @@ public class HvlMenuDJ {
 					playRandomSong(songs.get(HvlMenu.getCurrent()));//play a tune
 				}
 			}else endCurrentSong();//end the song if the menu does not have any songs
-			
+
 			lastVolume = volume;
 		}
 	}
