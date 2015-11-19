@@ -53,10 +53,7 @@ public class HvlArrangerBox extends HvlPanel {
 
 				comp.setX(getX() + (getWidth() * xAlign) - (comp.getWidth() * xAlign));
 
-				if (i == 0)
-					comp.setY(previousY + borderU);
-				else
-					comp.setY(previousY + borderU + borderD);
+				comp.setY(previousY + borderU);
 
 				previousY += borderU + borderD + comp.getHeight();
 			}
@@ -81,10 +78,7 @@ public class HvlArrangerBox extends HvlPanel {
 
 				comp.setY(getY() + (getHeight() * yAlign) - (comp.getHeight() * yAlign));
 
-				if (i == 0)
-					comp.setX(previousX + borderL);
-				else
-					comp.setX(previousX + borderL + borderR);
+				comp.setX(previousX + borderL);
 
 				previousX += borderL + borderR + comp.getWidth();
 

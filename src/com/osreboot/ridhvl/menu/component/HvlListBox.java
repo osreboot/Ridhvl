@@ -13,7 +13,7 @@ import com.osreboot.ridhvl.action.HvlAction3;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
-import com.osreboot.ridhvl.menu.component.HvlSlider.SliderDirection;
+import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
@@ -661,7 +661,7 @@ public class HvlListBox extends HvlComponent {
 			lb.setScrollBar(null);
 		else
 			// Make a new slider with dummy values (0s, nulls, etc.) to clone into: values shouldn't matter, they get overwritten anyways.
-			lb.setScrollBar(scrollBar.cloneComponent(new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null)));
+			lb.setScrollBar(scrollBar.cloneComponent(new HvlSlider(0, 0, Direction.HORIZONTAL, 0, 0, 0, null, null)));
 		
 		if (scrollUpButton == null)
 			lb.setScrollUpButton(null);

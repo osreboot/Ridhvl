@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.Map;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlCoord;
-import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
@@ -277,6 +275,23 @@ public class HvlMap {
 
 		Collections.sort(collisions);
 
+		return collisions;
+	}
+	
+	public List<HvlMapRaytraceResult> raytraceEntities(final HvlCoord start, HvlCoord end) {
+		List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
+		
+		for (HvlEntity ent : entities) {
+			if (!(ent instanceof HvlMapCollisionProfile)) continue;
+			
+			HvlMapCollisionProfile coll = (HvlMapCollisionProfile) ent;
+			
+			// Giving negative numbers means that this isn't grid-bound.
+			collisions.addAll(coll.raytrace(start, end, this, -1, -1, -1));
+		}
+		
+		Collections.sort(collisions);
+		
 		return collisions;
 	}
 

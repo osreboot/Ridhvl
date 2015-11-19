@@ -10,15 +10,15 @@ import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlSlider extends HvlComponent {
-	public enum SliderDirection {
+	public enum Direction {
 		VERTICAL, HORIZONTAL
 	}
 
 	private HvlComponentDrawable handleUpDrawable, handleDownDrawable;
 	private HvlComponentDrawable background;
-	private SliderDirection direction;
-	private SliderDirection textureDirection;
-	private SliderDirection handleDirection;
+	private Direction direction;
+	private Direction textureDirection;
+	private Direction handleDirection;
 	private float value;
 	@HvlDoNotClone
 	private float pValue;
@@ -32,7 +32,7 @@ public class HvlSlider extends HvlComponent {
 	@HvlDoNotClone
 	private HvlAction2<HvlSlider, Float> valueChangedCommand;
 
-	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
+	public HvlSlider(float wArg, float hArg, Direction dirArg, float handleWidthArg, float handleHeightArg, float value, HvlComponentDrawable handleArg,
 			HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
@@ -46,7 +46,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	public HvlSlider(float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	public HvlSlider(float wArg, float hArg, Direction dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(wArg, hArg);
 		direction = dirArg;
@@ -60,7 +60,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	public HvlSlider(float xArg, float yArg, float wArg, float hArg, Direction dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
@@ -74,7 +74,7 @@ public class HvlSlider extends HvlComponent {
 		liveSnap = true;
 	}
 
-	public HvlSlider(float xArg, float yArg, float wArg, float hArg, SliderDirection dirArg, float handleWidthArg, float handleHeightArg, float value,
+	public HvlSlider(float xArg, float yArg, float wArg, float hArg, Direction dirArg, float handleWidthArg, float handleHeightArg, float value,
 			HvlComponentDrawable handleUpArg, HvlComponentDrawable handleDownArg, HvlComponentDrawable backgroundArg) {
 		super(xArg, yArg, wArg, hArg);
 		direction = dirArg;
@@ -318,11 +318,11 @@ public class HvlSlider extends HvlComponent {
 		this.background = background;
 	}
 
-	public SliderDirection getDirection() {
+	public Direction getDirection() {
 		return direction;
 	}
 
-	public void setDirection(SliderDirection direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 
@@ -386,19 +386,19 @@ public class HvlSlider extends HvlComponent {
 		this.liveSnap = liveSnap;
 	}
 
-	public SliderDirection getTextureDirection() {
+	public Direction getTextureDirection() {
 		return textureDirection;
 	}
 
-	public void setTextureDirection(SliderDirection textureDirection) {
+	public void setTextureDirection(Direction textureDirection) {
 		this.textureDirection = textureDirection;
 	}
 
-	public SliderDirection getHandleDirection() {
+	public Direction getHandleDirection() {
 		return handleDirection;
 	}
 
-	public void setHandleDirection(SliderDirection handleDirection) {
+	public void setHandleDirection(Direction handleDirection) {
 		this.handleDirection = handleDirection;
 	}
 
@@ -414,7 +414,7 @@ public class HvlSlider extends HvlComponent {
 		private HvlSlider tr;
 
 		public Builder() {
-			tr = new HvlSlider(0, 0, SliderDirection.HORIZONTAL, 0, 0, 0, null, null);
+			tr = new HvlSlider(0, 0, Direction.HORIZONTAL, 0, 0, 0, null, null);
 			if (HvlComponentDefault.hasDefault(HvlSlider.class))
 				tr = HvlComponentDefault.getDefault(HvlSlider.class).cloneComponent(tr);
 		}
@@ -464,7 +464,7 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public Builder setDirection(SliderDirection direction) {
+		public Builder setDirection(Direction direction) {
 			tr.setDirection(direction);
 			return this;
 		}
@@ -504,12 +504,12 @@ public class HvlSlider extends HvlComponent {
 			return this;
 		}
 
-		public Builder setTextureDirection(SliderDirection textureDirection) {
+		public Builder setTextureDirection(Direction textureDirection) {
 			tr.setTextureDirection(textureDirection);
 			return this;
 		}
 
-		public Builder setHandleDirection(SliderDirection handleDirection) {
+		public Builder setHandleDirection(Direction handleDirection) {
 			tr.setHandleDirection(handleDirection);
 			return this;
 		}
