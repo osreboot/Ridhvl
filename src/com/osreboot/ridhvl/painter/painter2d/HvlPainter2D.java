@@ -40,35 +40,31 @@ public class HvlPainter2D {
 		return yGridInterval;
 	}
 	
-	public static float hvlSnapToXGrid(float xIn) {		
-		if (xIn % xGridInterval < (xGridInterval / 2)) {
-			return xIn - (xIn % xGridInterval);
-		}
-		else
-		{
-			return xIn + xGridInterval - (xIn % xGridInterval);
-		}
-	}
-	
-	public static float hvlSnapToYGrid(float yIn) {
-		if (yIn % yGridInterval < (yGridInterval / 2)) {
-			return yIn - (yIn % yGridInterval);
-		}
-		else
-		{
-			return yIn + yGridInterval - (yIn % yGridInterval);
-		}
-	}
-	
-	protected static float conditionalXSnap(float xIn) {
+	protected static float snapX(float xIn) {
 		if (gridSnapEnabled)
-			return hvlSnapToXGrid(xIn);
+		{
+			if (xIn % xGridInterval < (xGridInterval / 2)) {
+				return xIn - (xIn % xGridInterval);
+			}
+			else
+			{
+				return xIn + xGridInterval - (xIn % xGridInterval);
+			}
+		}
 		return xIn;
 	}
 	
-	protected static float conditionalYSnap(float yIn) {
+	protected static float snapY(float yIn) {
 		if (gridSnapEnabled)
-			return hvlSnapToYGrid(yIn);
+		{
+			if (yIn % yGridInterval < (yGridInterval / 2)) {
+				return yIn - (yIn % yGridInterval);
+			}
+			else
+			{
+				return yIn + yGridInterval - (yIn % yGridInterval);
+			}
+		}
 		return yIn;
 	}
 	
@@ -76,6 +72,12 @@ public class HvlPainter2D {
 		gridSnapEnabled = true;
 		xGridInterval = xInterval;
 		yGridInterval = yInterval;
+	}
+	
+	public static void hvlEnableGridSnap(float interval) {
+		gridSnapEnabled = true;
+		xGridInterval = interval;
+		yGridInterval = interval;
 	}
 	
 	public static void hvlEnableGridSnap() {
@@ -138,83 +140,83 @@ public class HvlPainter2D {
 	};
 
 	public static void hvlDrawLine(float x1, float y1, float x2, float y2, Color c){
-		HvlLinePainter2D.hvlDrawLine(conditionalXSnap(x1), conditionalYSnap(y1), conditionalXSnap(x2), conditionalYSnap(y2), c);
+		HvlLinePainter2D.hvlDrawLine(snapX(x1), snapY(y1), snapX(x2), snapY(y2), c);
 	}
 
 	public static void hvlDrawLine(float x1, float y1, float x2, float y2, Color c, float width){
-		HvlLinePainter2D.hvlDrawLine(conditionalXSnap(x1), conditionalYSnap(y1), conditionalXSnap(x2), conditionalYSnap(y2), c, width);
+		HvlLinePainter2D.hvlDrawLine(snapX(x1), snapY(y1), snapX(x2), snapY(y2), c, width);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), t);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), t);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t, Color c){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), t, c);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), t, c);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), uvx1, uvy1, uvx2, uvy2, t);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), uvx1, uvy1, uvx2, uvy2, t);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), uvx1, uvy1, uvx2, uvy2, t, c);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), uvx1, uvy1, uvx2, uvy2, t, c);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), renderFrame);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), renderFrame);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), texture);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), texture);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), texture);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), texture);
 	}
 	
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture, Color c){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), texture, c);
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), texture, c);
 	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Color c){
-		HvlQuadPainter2D.hvlDrawQuad(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), white512, c);//TODO support more sizes
+		HvlQuadPainter2D.hvlDrawQuad(snapX(x), snapY(y), snapX(xl), snapY(yl), white512, c);//TODO support more sizes
 	}
 	
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, Texture t){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), t);
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), t);
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, Texture t, Color c){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), t, c);
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), t, c);
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), uvx1, uvy1, uvx2, uvy2, t);
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), uvx1, uvy1, uvx2, uvy2, t);
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), uvx1, uvy1, uvx2, uvy2, t, c);
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), uvx1, uvy1, uvx2, uvy2, t, c);
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), renderFrame);//TODO test this
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), renderFrame);//TODO test this
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), texture);
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), texture);
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), texture);
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), texture);
 	}
 	
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture, Color c){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), texture, c);
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), texture, c);
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, Color c){
-		HvlQuadPainter2D.hvlDrawQuadc(conditionalXSnap(x), conditionalYSnap(y), conditionalXSnap(xl), conditionalYSnap(yl), white512, c);//TODO support more sizes
+		HvlQuadPainter2D.hvlDrawQuadc(snapX(x), snapY(y), snapX(xl), snapY(yl), white512, c);//TODO support more sizes
 	}
 
 	public static void hvlRotate(float x, float y, float degrees){
