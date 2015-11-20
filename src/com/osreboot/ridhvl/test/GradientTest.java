@@ -39,7 +39,7 @@ public class GradientTest extends HvlTemplate2D {
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
 
 		frame = new HvlRenderFrame(1280, 720);
-		HvlPainter2D.TEXMAGBLUR.disable();
+		HvlPainter2D.FLAG_TEXMAGBLUR.onDisable();
 
 		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_SIMPLE_NEGATIVE);
 	}

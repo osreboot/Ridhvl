@@ -39,7 +39,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		frame = new HvlRenderFrame(1280, 720);
 		
 		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_QUADRUPLE_DISPLACEMENT_BLUR);
-		HvlPainter2D.TEXMAGBLUR.disable();
+		HvlPainter2D.FLAG_TEXMAGBLUR.onDisable();
 		
 		texture = new HvlAnimatedTextureArray(new Texture[]{
 				getTextureLoader().getResource(0),

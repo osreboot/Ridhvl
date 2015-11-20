@@ -56,7 +56,7 @@ public class HvlLayeredTileMap {
 	}
 
 	public void draw(float delta) {
-		HvlPainter2D.TEXMAGBLUR.disable();
+		HvlPainter2D.FLAG_TEXMAGBLUR.onDisable();
 
 		for (HvlTileMap map : layers) {
 			map.setX(x);
@@ -87,7 +87,7 @@ public class HvlLayeredTileMap {
 			entities.remove(tr);
 		}
 
-		HvlPainter2D.TEXMAGBLUR.enable();
+		HvlPainter2D.FLAG_TEXMAGBLUR.onEnable();
 	}
 
 	public HvlTileMap getLayer(int layerArg) {
