@@ -1,8 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -13,7 +11,6 @@ import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlShader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class ShaderTest extends HvlTemplateInteg2D{
@@ -39,7 +36,6 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		frame = new HvlRenderFrame(1280, 720);
 		
 		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_QUADRUPLE_DISPLACEMENT_BLUR);
-		HvlPainter2D.FLAG_TEXMAGBLUR.onDisable();
 		
 		texture = new HvlAnimatedTextureArray(new Texture[]{
 				getTextureLoader().getResource(0),
