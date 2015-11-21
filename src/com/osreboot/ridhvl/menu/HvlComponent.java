@@ -7,13 +7,15 @@ import java.util.List;
 
 import org.lwjgl.input.Mouse;
 
+import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 
 public abstract class HvlComponent {
 
-	private float x, y, width, height;
+	private HvlCoord pos;
+	private float width, height;
 
 	private boolean enabled, visible, focused;
 
@@ -29,8 +31,7 @@ public abstract class HvlComponent {
 	}
 
 	protected HvlComponent(float xArg, float yArg, float wArg, float hArg) {
-		x = xArg;
-		y = yArg;
+		pos = new HvlCoord(xArg, yArg);
 		width = wArg;
 		height = hArg;
 		visible = true;
@@ -114,24 +115,24 @@ public abstract class HvlComponent {
 	}
 
 	public float getX() {
-		return x;
+		return pos.x;
 	}
 
 	public void setX(float x) {
-		this.x = x;
+		pos.x = x;
 	}
 
 	public float getY() {
-		return y;
+		return pos.y;
 	}
 
 	public void setY(float y) {
-		this.y = y;
+		pos.y = y;
 	}
 	
 	public void setPosition(float x, float y){
-		this.x = x;
-		this.y = y;
+		pos.x = x;
+		pos.y = y;
 	}
 
 	public float getWidth() {

@@ -3,17 +3,18 @@ package com.osreboot.ridhvl.map;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.osreboot.ridhvl.HvlCoord;
+
 public abstract class HvlEntity {
 
-	private float x, y;
+	private HvlCoord pos;
 	
 	private HvlMap map;
 	
 	private boolean shouldBeDeleted;
 	
 	public HvlEntity(float xArg, float yArg, HvlMap mapArg) {
-		x = xArg;
-		y = yArg;
+		pos = new HvlCoord(xArg, yArg);
 		map = mapArg;
 	}
 	
@@ -22,27 +23,27 @@ public abstract class HvlEntity {
 	public abstract void draw(float delta);
 	
 	public float getX() {
-		return x + map.getX();
+		return pos.x + map.getX();
 	}
 	
 	public float getY() {
-		return y + map.getY();
+		return pos.y + map.getY();
 	}
 	
 	public float getRelX() {
-		return x;
+		return pos.x;
 	}
 	
 	public float getRelY() {
-		return y;
+		return pos.y;
 	}
 	
 	public void setRelX(float xArg) {
-		x = xArg;
+		pos.x = xArg;
 	}
 	
 	public void setRelY(float yArg) {
-		y = yArg;
+		pos.y = yArg;
 	}
 	
 	public HvlMap getMap() {

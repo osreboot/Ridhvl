@@ -21,7 +21,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlMap {
 
-	private float x, y;
+	private HvlCoord pos;
 	private float tileWidth, tileHeight;
 	private int tilesAcross, tilesTall;
 
@@ -41,8 +41,7 @@ public class HvlMap {
 
 	public HvlMap(float xArg, float yArg, float tWidthArg, float tHeightArg, int tilesAcrossArg, int tilesTallArg,
 			int layersArg, int mWidthArg, int mHeightArg, Texture tArg) {
-		x = xArg;
-		y = yArg;
+		pos = new HvlCoord(xArg, yArg);
 		tileWidth = tWidthArg;
 		tileHeight = tHeightArg;
 		tilesAcross = tilesAcrossArg;
@@ -96,7 +95,7 @@ public class HvlMap {
 
 					int mapTileX = tile % tilesAcross;
 					int mapTileY = tile / tilesAcross;
-					HvlPainter2D.hvlDrawQuad(x + (tX * tileWidth), y + (tY * tileHeight), tileWidth + overdrawAmount,
+					HvlPainter2D.hvlDrawQuad(pos.x + (tX * tileWidth), pos.y + (tY * tileHeight), tileWidth + overdrawAmount,
 							tileHeight + overdrawAmount, (float) mapTileX / tilesAcross, (float) mapTileY / tilesTall,
 							((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
 							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture);
@@ -158,19 +157,19 @@ public class HvlMap {
 	}
 
 	public float getX() {
-		return x;
+		return pos.x;
 	}
 
 	public void setX(float x) {
-		this.x = x;
+		pos.x = x;
 	}
 
 	public float getY() {
-		return y;
+		return pos.y;
 	}
 
 	public void setY(float y) {
-		this.y = y;
+		pos.y = y;
 	}
 
 	public float getTileWidth() {
@@ -462,18 +461,18 @@ public class HvlMap {
 	}
 
 	public float tileXToWorld(int tX) {
-		return x + (tileWidth * tX);
+		return pos.x + (tileWidth * tX);
 	}
 
 	public float tileYToWorld(int tY) {
-		return y + (tileHeight * tY);
+		return pos.y + (tileHeight * tY);
 	}
 	
 	public int worldXToTile(float wX) {
-		return (int)((wX - x) / tileWidth);
+		return (int)((wX - pos.x) / tileWidth);
 	}
 	
 	public int worldYToTile(float wY) {
-		return (int)((wY - y) / tileHeight);
+		return (int)((wY - pos.y) / tileHeight);
 	}
 }
