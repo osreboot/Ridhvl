@@ -11,7 +11,7 @@ public class HvlFontPainter2D {
 	private char[] layout;
 	private float textureWidth, textureHeight, fontWidth, fontHeight;
 	private int rowCount;
-	private float rowSpacing;
+	private float rowSpacing; // TODO: Convert to percentage
 
 	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float textureWidthArg, float textureHeightArg,
 			float fontWidthArg, float fontHeightArg, int rowCountArg) {
@@ -37,10 +37,19 @@ public class HvlFontPainter2D {
 		rowSpacing = rowSpaceArg;
 	}
 
-	// TODO: Boolean for stretching individual lines?
 	public void drawWord(String text, float x, float y, float width, float height, Color c) {
+		drawWord(text, x, y, width, height, c, false);
+	}
+	
+	public void drawWord(String text, float x, float y, float width, float height, Color c, boolean individualLineStretch) {
 		String[] lines = text.split("\n");
 
+		int longestLine = 0;
+		
+		for (String line : lines) {
+			longestLine = Math.max(longestLine, line.length());
+		}
+		
 		for (int l = 0; l < lines.length; l++) {
 			String line = lines[l];
 			int lineLength = line.length();
@@ -48,7 +57,12 @@ public class HvlFontPainter2D {
 				if (HvlFontUtil.containsChar(layout, line.charAt(i))) {
 					int xpos = HvlFontUtil.indexOfChar(layout, line.charAt(i)) % rowCount;
 					int ypos = HvlFontUtil.indexOfChar(layout, line.charAt(i)) / rowCount;
-					float charWidth = width / line.length();
+					float charWidth;
+					
+					if (individualLineStretch)
+						charWidth = width / line.length();
+					else
+						charWidth = width / longestLine;
 
 					HvlPainter2D.hvlDrawQuad(x + (i * charWidth),
 							y + (l * ((height - (rowSpacing * lines.length)) / lines.length)) + (l * rowSpacing),
@@ -81,7 +95,6 @@ public class HvlFontPainter2D {
 		}
 	}
 
-	// TODO: Should spacing be affected by scale?
 	public void drawWord(String text, float x, float y, float scale, Color c) {
 		String[] lines = text.split("\n");
 

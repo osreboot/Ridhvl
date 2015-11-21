@@ -53,7 +53,7 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
 		hvlDrawQuad(250, 250, 100, 100, getTextureLoader().getResource(0));
 		hvlResetRotation();
 		
-		fontPainter.drawWord("test of the most\nbasic\ntemplate!", 10, 10, 0.1f, 
+		fontPainter.drawWord("test of the most\nbasic\ntemplate!", 10, 10, 200, 100, 
 				new Color(gradient / 1280f, gradient / 1280f, gradient / 1280f));
 		fontPainter.drawWord("and rotation!\nyay?", 10, 200, 0.25f,
 				new Color(1 - (gradient / 1280f), 1 - (gradient / 1280f), 1 - (gradient / 1280f)));
