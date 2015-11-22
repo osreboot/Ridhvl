@@ -13,10 +13,20 @@ import com.osreboot.ridhvl.map.HvlMapCollisionProfile;
 import com.osreboot.ridhvl.map.HvlMapRaytraceResult;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
+/**
+ * A collection of simple collision profiles for use with common map situations.
+ */
 public class HvlSimpleCollisionProfiles {
+	/**
+	 * A collision profile with four solid sides.
+	 */
 	public static class Square implements HvlMapCollisionProfile {
 		float overshoot;
 
+		/**
+		 * A basic constructor.
+		 * @param overshoot The amount of overshoot to have (makes the corner "stick out" a bit more).
+		 */
 		public Square(float overshoot) {
 			this.overshoot = overshoot;
 		}
@@ -108,12 +118,27 @@ public class HvlSimpleCollisionProfiles {
 		}
 	}
 
+	/**
+	 * A collision profile that lets you specify which portions are solid.
+	 */
 	public static class CustomMiddle implements HvlMapCollisionProfile {
 		private boolean left, right, up, down;
 		private boolean ul, ur, ll, lr;
 
 		private float overshoot;
 
+		/**
+		 * A basic constructor.
+		 * @param l Whether the line of (-1, 0) is solid
+		 * @param r Whether the line of (1, 0) is solid
+		 * @param u Whether the line of (0, -1) is solid
+		 * @param d Whether the line of (0, 1) is solid
+		 * @param ul Whether the line of (-1, -1) is solid
+		 * @param ur Whether the line of (1, -1) is solid
+		 * @param ll Whether the line of (-1, 1) is solid
+		 * @param lr Whether the line of (1, 1) is solid
+		 * @param overshoot The amount of overshoot to have (makes the outside ends "stick out" a bit more).
+		 */
 		public CustomMiddle(boolean l, boolean r, boolean u, boolean d, boolean ul, boolean ur, boolean ll, boolean lr,
 				float overshoot) {
 			left = l;
@@ -294,10 +319,17 @@ public class HvlSimpleCollisionProfiles {
 		}
 	}
 
+	/**
+	 * A collision profile that is a vertical line centered in the tile.
+	 */
 	public static class Vertical implements HvlMapCollisionProfile {
 
 		private float overshoot;
 
+		/**
+		 * A basic constructor.
+		 * @param overshoot The amount of overshoot to have (makes the ends "stick out" a bit more).
+		 */
 		public Vertical(float overshoot) {
 			this.overshoot = overshoot;
 		}
@@ -328,10 +360,17 @@ public class HvlSimpleCollisionProfiles {
 		}
 	}
 
+	/**
+	 * A collision profile that is a horizontal line centered in the tile.
+	 */
 	public static class Horizontal implements HvlMapCollisionProfile {
 
 		private float overshoot;
 
+		/**
+		 * A basic constructor.
+		 * @param overshoot The amount of overshoot to have (makes the ends "stick out" a bit more).
+		 */
 		public Horizontal(float overshoot) {
 			this.overshoot = overshoot;
 		}

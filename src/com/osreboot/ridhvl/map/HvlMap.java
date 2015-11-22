@@ -19,6 +19,9 @@ import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
+/**
+ * Represents a map made out of rectangular tiles.
+ */
 public class HvlMap {
 
 	private HvlCoord pos;
@@ -39,6 +42,30 @@ public class HvlMap {
 
 	private float overdrawAmount;
 
+	/**
+	 * Basic constructor.
+	 * 
+	 * @param xArg
+	 *            The X position of the map.
+	 * @param yArg
+	 *            The Y position of the map.
+	 * @param tWidthArg
+	 *            The width of a tile in pixels.
+	 * @param tHeightArg
+	 *            The height of a tile in pixels.
+	 * @param tilesAcrossArg
+	 *            How many tiles across the tilemap texture is.
+	 * @param tilesTallArg
+	 *            How many tiles tall the tilemap texture is.
+	 * @param layersArg
+	 *            The number of layers the map has.
+	 * @param mWidthArg
+	 *            How wide the map is in tiles.
+	 * @param mHeightArg
+	 *            How tall the map is in tiles.
+	 * @param tArg
+	 *            The tilemap texture.
+	 */
 	public HvlMap(float xArg, float yArg, float tWidthArg, float tHeightArg, int tilesAcrossArg, int tilesTallArg,
 			int layersArg, int mWidthArg, int mHeightArg, Texture tArg) {
 		pos = new HvlCoord(xArg, yArg);
@@ -64,6 +91,12 @@ public class HvlMap {
 		collisionData = new HashMap<>();
 	}
 
+	/**
+	 * Updates the map and entities.
+	 * 
+	 * @param delta
+	 *            The time (in seconds) since the last update loop.
+	 */
 	public void update(float delta) {
 		List<HvlEntity> toRemove = new LinkedList<>();
 
@@ -83,6 +116,12 @@ public class HvlMap {
 		}
 	}
 
+	/**
+	 * Draws the map.
+	 * 
+	 * @param delta
+	 *            The time (in seconds) since the last update loop.
+	 */
 	public void draw(float delta) {
 		for (int l = 0; l < tiles.length; l++) {
 			int[][] layer = tiles[l];
@@ -95,9 +134,9 @@ public class HvlMap {
 
 					int mapTileX = tile % tilesAcross;
 					int mapTileY = tile / tilesAcross;
-					HvlPainter2D.hvlDrawQuad(pos.x + (tX * tileWidth), pos.y + (tY * tileHeight), tileWidth + overdrawAmount,
-							tileHeight + overdrawAmount, (float) mapTileX / tilesAcross, (float) mapTileY / tilesTall,
-							((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
+					HvlPainter2D.hvlDrawQuad(pos.x + (tX * tileWidth), pos.y + (tY * tileHeight),
+							tileWidth + overdrawAmount, tileHeight + overdrawAmount, (float) mapTileX / tilesAcross,
+							(float) mapTileY / tilesTall, ((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
 							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture);
 				}
 			}
@@ -128,26 +167,83 @@ public class HvlMap {
 		}
 	}
 
+	/**
+	 * Gets the width of the map in tiles.
+	 * 
+	 * @return The width of the map in tiles.
+	 */
 	public int getMapWidth() {
 		return tiles[0][0].length;
 	}
 
+	/**
+	 * Gets the height of the map in tiles.
+	 * 
+	 * @return The height of the map in tiles.
+	 */
 	public int getMapHeight() {
 		return tiles[0].length;
 	}
 
+	/**
+	 * Sets a tile in the map.
+	 * 
+	 * @param layer
+	 *            The layer of the tile.
+	 * @param x
+	 *            The X position of the tile.
+	 * @param y
+	 *            The Y position of the tile.
+	 * @param tile
+	 *            The new tile.
+	 */
 	public void setTile(int layer, int x, int y, int tile) {
 		tiles[layer][y][x] = tile;
 	}
 
+	/**
+	 * Gets a tile in the map.
+	 * 
+	 * @param layer
+	 *            The layer of the tile.
+	 * @param x
+	 *            The X position of the tile.
+	 * @param y
+	 *            The Y position of the tile.
+	 * @return The tile at the given location.
+	 */
 	public int getTile(int layer, int x, int y) {
 		return tiles[layer][y][x];
 	}
 
+	/**
+	 * Fills a layer with the given tile.
+	 * 
+	 * @param layer
+	 *            The layer to fill.
+	 * @param tile
+	 *            The tile to fill the layer with.
+	 */
 	public void fill(int layer, int tile) {
 		fill(layer, 0, 0, getMapWidth() - 1, getMapHeight() - 1, tile);
 	}
 
+	/**
+	 * Fills a rectangular area with the given tile.
+	 * 
+	 * @param layer
+	 *            The layer of the rectangle.
+	 * @param sX
+	 *            The starting X coordinate of the rectangle.
+	 * @param sY
+	 *            The starting Y coordinate of the rectangle.
+	 * @param eX
+	 *            The ending X coordinate of the rectangle.
+	 * @param eY
+	 *            The ending Y coordinate of the rectangle.
+	 * @param tile
+	 *            The tile to fill the rectangle with.
+	 */
 	public void fill(int layer, int sX, int sY, int eX, int eY, int tile) {
 		for (int tX = sX; tX <= eX; tX++) {
 			for (int tY = sY; tY <= eY; tY++) {
@@ -156,94 +252,236 @@ public class HvlMap {
 		}
 	}
 
+	/**
+	 * Gets the X position of the map.
+	 * 
+	 * @return The X position of the map.
+	 */
 	public float getX() {
 		return pos.x;
 	}
 
+	/**
+	 * Sets the X position of the map.
+	 * 
+	 * @param x
+	 *            The new X position of the map.
+	 */
 	public void setX(float x) {
 		pos.x = x;
 	}
 
+	/**
+	 * Gets the Y position of the map.
+	 * 
+	 * @return The Y position of the map.
+	 */
 	public float getY() {
 		return pos.y;
 	}
 
+	/**
+	 * Sets the Y position of the map.
+	 * 
+	 * @param y
+	 *            The new Y position of the map.
+	 */
 	public void setY(float y) {
 		pos.y = y;
 	}
 
+	/**
+	 * Gets the width of a tile in pixels.
+	 * 
+	 * @return The width of a tile in pixels.
+	 */
 	public float getTileWidth() {
 		return tileWidth;
 	}
 
+	/**
+	 * Sets the width of a tile in pixels.
+	 * 
+	 * @param tileWidth
+	 *            The new width of a tile in pixels.
+	 */
 	public void setTileWidth(float tileWidth) {
 		this.tileWidth = tileWidth;
 	}
 
+	/**
+	 * Gets the height of a tile in pixels.
+	 * 
+	 * @return The height of a tile in pixels.
+	 */
 	public float getTileHeight() {
 		return tileHeight;
 	}
 
+	/**
+	 * Sets the height of a tile in pixels.
+	 * 
+	 * @param tileHeight
+	 *            The new height of a tile in pixels.
+	 */
 	public void setTileHeight(float tileHeight) {
 		this.tileHeight = tileHeight;
 	}
 
+	/**
+	 * Gets how many tiles wide the tilemap texture is.
+	 * 
+	 * @return How many tiles wide the tilemap texture is.
+	 */
 	public int getTilesAcross() {
 		return tilesAcross;
 	}
 
+	/**
+	 * Sets how many tiles wide the tilemap texture is.
+	 * 
+	 * @param tilesAcross
+	 *            How many tiles wide the tilemap texture is.
+	 */
 	public void setTilesAcross(int tilesAcross) {
 		this.tilesAcross = tilesAcross;
 	}
 
+	/**
+	 * Gets how many tiles tall the tilemap texture is.
+	 * 
+	 * @return How many tiles tall the tilemap texture is.
+	 */
 	public int getTilesTall() {
 		return tilesTall;
 	}
 
+	/**
+	 * Sets how many tiles tall the tilemap texture is.
+	 * 
+	 * @param tilesTall
+	 *            How many tiles tall the tilemap texture is.
+	 */
 	public void setTilesTall(int tilesTall) {
 		this.tilesTall = tilesTall;
 	}
 
+	/**
+	 * Gets the texture of the tilemap.
+	 * 
+	 * @return The tilemap texture.
+	 */
 	public Texture getTexture() {
 		return texture;
 	}
 
+	/**
+	 * Sets the texture of the tilemap.
+	 * 
+	 * @param texture
+	 *            The new tilemap texture.
+	 */
 	public void setTexture(Texture texture) {
 		this.texture = texture;
 	}
 
+	/**
+	 * Gets whether collision debug draw is enabled.
+	 * 
+	 * @return Whether collision debug draw is enabled.
+	 */
 	public boolean isCollisionDebugDraw() {
 		return collisionDebugDraw;
 	}
 
+	/**
+	 * Sets whether collision debug draw is enabled.
+	 * 
+	 * @param collisionDebugDraw
+	 *            Whether collision debug draw is enabled.
+	 */
 	public void setCollisionDebugDraw(boolean collisionDebugDraw) {
 		this.collisionDebugDraw = collisionDebugDraw;
 	}
 
+	/**
+	 * Adds an entity to the map.
+	 * 
+	 * @param toAdd
+	 *            The entity to add.
+	 */
 	public void addEntity(HvlEntity toAdd) {
 		entitiesToAdd.add(toAdd);
 	}
 
+	/**
+	 * Maps a collision profile to a tile. This means that any instances of this
+	 * tile will have the given collision profile.
+	 * 
+	 * @param tile
+	 *            The tile to map to.
+	 * @param profile
+	 *            The profile to map to the tile.
+	 */
 	public void mapTileToCollision(int tile, HvlMapCollisionProfile profile) {
 		collisionData.put(tile, profile);
 	}
 
+	/**
+	 * Sets whether collision is enabled for a given layer.
+	 * 
+	 * @param layer
+	 *            The layer to set collision for.
+	 * @param enabled
+	 *            Whether collision is enabled for this layer or not.
+	 */
 	public void setLayerCollisonEnabled(int layer, boolean enabled) {
 		layerCollisionsEnabled[layer] = enabled;
 	}
 
+	/**
+	 * Gets whether collision is enabled for a given layer.
+	 * 
+	 * @param layer
+	 *            The layer to check.
+	 * @return Whether oollision is enabled for this layer.
+	 */
 	public boolean getLayerCollisionEnabled(int layer) {
 		return layerCollisionsEnabled[layer];
 	}
 
-	public List<HvlMapRaytraceResult> raytrace(final HvlCoord start, HvlCoord end) {		
+	/**
+	 * Traces a line from the start to end point and gets all collisions along
+	 * that line.
+	 * 
+	 * @param start
+	 *            The start point of the line.
+	 * @param end
+	 *            The end point of the line.
+	 * @return The collision results along this line, sorted closest to furthest
+	 *         from the start point.
+	 */
+	public List<HvlMapRaytraceResult> raytrace(final HvlCoord start, HvlCoord end) {
 		int[] layerIndices = new int[tiles.length];
 		for (int i = 0; i < tiles.length; i++)
 			layerIndices[i] = i;
-		
+
 		return raytrace(start, end, layerIndices);
 	}
 
+	/**
+	 * Traces a line from the start to end point and gets all collision along
+	 * that line in the given layers.
+	 * 
+	 * @param start
+	 *            The start point of the line.
+	 * @param end
+	 *            The end point of the line.
+	 * @param layers
+	 *            The layers to raytrace in.
+	 * @return The collision results along this line in the given layers, sorted
+	 *         closest to furthest from the start point.
+	 */
 	public List<HvlMapRaytraceResult> raytrace(final HvlCoord start, HvlCoord end, int... layers) {
 		List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
 
@@ -251,15 +489,17 @@ public class HvlMap {
 			if (!layerCollisionsEnabled[l])
 				continue;
 			int[][] layer = tiles[l];
-			
+
 			int yT1 = worldYToTile(start.y);
 			int yT2 = worldYToTile(end.y);
-			
+
 			int xT1 = worldXToTile(start.x);
 			int xT2 = worldXToTile(end.x);
-			
-			for (int tY = Math.max(0, Math.min(yT1, yT2) - 1); tY < Math.min(layer.length, Math.max(yT1, yT2) + 1); tY++) {
-				for (int tX = Math.max(0, Math.min(xT1, xT2) - 1); tX < Math.min(layer[tY].length, Math.max(xT1, xT2) + 1); tX++) {
+
+			for (int tY = Math.max(0, Math.min(yT1, yT2) - 1); tY < Math.min(layer.length,
+					Math.max(yT1, yT2) + 1); tY++) {
+				for (int tX = Math.max(0, Math.min(xT1, xT2) - 1); tX < Math.min(layer[tY].length,
+						Math.max(xT1, xT2) + 1); tX++) {
 					int tile = layer[tY][tX];
 
 					if (tile < 0)
@@ -276,24 +516,52 @@ public class HvlMap {
 
 		return collisions;
 	}
-	
+
+	/**
+	 * Traces a line from the start to end point and gets all collisions with
+	 * entities along that line.
+	 * 
+	 * @param start
+	 *            The start point of the line.
+	 * @param end
+	 *            The end point of the line.
+	 * @return The collision results along this line in the given layers, sorted
+	 *         closest to furthest from the start point.
+	 */
 	public List<HvlMapRaytraceResult> raytraceEntities(final HvlCoord start, HvlCoord end) {
 		List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
-		
+
 		for (HvlEntity ent : entities) {
-			if (!(ent instanceof HvlMapCollisionProfile)) continue;
-			
+			if (!(ent instanceof HvlMapCollisionProfile))
+				continue;
+
 			HvlMapCollisionProfile coll = (HvlMapCollisionProfile) ent;
-			
+
 			// Giving negative numbers means that this isn't grid-bound.
 			collisions.addAll(coll.raytrace(start, end, this, -1, -1, -1));
 		}
-		
+
 		Collections.sort(collisions);
-		
+
 		return collisions;
 	}
 
+	/**
+	 * Loads a map from file.
+	 * 
+	 * @param path
+	 *            The name of the file to load. This should be in the "res"
+	 *            folder and must have the extension ".hvlmap". Do not include
+	 *            the extension in the name.
+	 * @param x The X position of the map once it's loaded.
+	 * @param y The Y position of the map once it's loaded.
+	 * @param tileWidth The width of a tile in pixels.
+	 * @param tileHeight The height of a tile in pixels.
+	 * @param tilemap The tilemap texture.
+	 * @param tilemapWidth The width of the tilemap texture in tiles.
+	 * @param tilemapHeight The height of the tilemap texture in tiles.
+	 * @return The loaded map.
+	 */
 	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
 			int tilemapWidth, int tilemapHeight) {
 		try {
@@ -402,6 +670,10 @@ public class HvlMap {
 		}
 	}
 
+	/**
+	 * Saves a map to file.
+	 * @param path The path to save to. Will be in the format "res/[filename].hvlmap"
+	 */
 	public void save(String path) {
 		try {
 			BufferedWriter write = new BufferedWriter(new FileWriter("res/" + path + ".hvlmap"));
@@ -452,27 +724,55 @@ public class HvlMap {
 		}
 	}
 
+	/**
+	 * Gets the amount of overlap (in pixels) between tiles.
+	 * @return The amount of overlap between tiles in pixels.
+	 */
 	public float getOverdrawAmount() {
 		return overdrawAmount;
 	}
 
+	/**
+	 * Sets the amount of overlap (in pixels) between tiles.
+	 * @param overdrawAmount The new amount of overlap between tiles in pixels.
+	 */
 	public void setOverdrawAmount(float overdrawAmount) {
 		this.overdrawAmount = overdrawAmount;
 	}
 
+	/**
+	 * Converts tile X coordinates into world coordinates (results in upper left corner).
+	 * @param tX The tile X coordinate to convert.
+	 * @return The converted coordinate.
+	 */
 	public float tileXToWorld(int tX) {
 		return pos.x + (tileWidth * tX);
 	}
 
+	/**
+	 * Converts tile Y coordinates into world coordinates (results in upper left corner).
+	 * @param tY The tile Y coordinate to convert.
+	 * @return The converted coordinate.
+	 */
 	public float tileYToWorld(int tY) {
 		return pos.y + (tileHeight * tY);
 	}
-	
+
+	/**
+	 * Converts world X coordinates into tile coordinates.
+	 * @param wX The world X coordinate to convert.
+	 * @return The converted coordinate.
+	 */
 	public int worldXToTile(float wX) {
-		return (int)((wX - pos.x) / tileWidth);
+		return (int) ((wX - pos.x) / tileWidth);
 	}
-	
+
+	/**
+	 * Converts world Y coordinates into tile coordinates.
+	 * @param wY The world Y coordinate to convert.
+	 * @return The converted coordinate.
+	 */
 	public int worldYToTile(float wY) {
-		return (int)((wY - pos.y) / tileHeight);
+		return (int) ((wY - pos.y) / tileHeight);
 	}
 }
