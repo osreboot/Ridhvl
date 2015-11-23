@@ -1,4 +1,7 @@
-package com.osreboot.ridhvl.input;
+package com.osreboot.ridhvl.input.collection;
+
+import com.osreboot.ridhvl.input.HvlControllerProfile;
+import com.osreboot.ridhvl.input.HvlPollValue;
 
 
 public class HvlCPXBoxTest extends HvlControllerProfile{
@@ -9,8 +12,5 @@ public class HvlCPXBoxTest extends HvlControllerProfile{
 
 	@HvlPollValue(component = "X Axis", deadZone = 0.3f)
 	public static final String JOY1X = "JOY1X";
-	
-	@HvlPollValue(component = "Y Axis", deadZone = 0.3f)
-	public static final String JOY1Y = "JOY1Y";
 	
 }
