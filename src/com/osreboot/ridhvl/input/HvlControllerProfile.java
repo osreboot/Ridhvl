@@ -9,7 +9,7 @@ import net.java.games.input.Event;
 import net.java.games.input.EventQueue;
 
 import com.osreboot.ridhvl.action.HvlAction1;
-import com.osreboot.ridhvl.action.HvlAction1r;
+import com.osreboot.ridhvl.action.HvlAction2r;
 import com.osreboot.ridhvl.template.HvlChronology;
 import com.osreboot.ridhvl.template.HvlChronologyUpdate;
 
@@ -37,14 +37,14 @@ public abstract class HvlControllerProfile {
 	}
 
 	private static ArrayList<HvlControllerProfile> profiles = new ArrayList<>();
-	
+
 	protected static ArrayList<HvlControllerProfile> getProfiles(){
 		return profiles;
 	}
 
 	public boolean autoIndex = true;
 	private String controllerIdentifier = null;
-	private HvlAction1r<Boolean, Controller> actionIsController;
+	private HvlAction2r<Boolean, HvlControllerProfile, Controller> actionIsController;
 	private LinkedHashMap<String, HvlPollValue> staticPollAnnotations = new LinkedHashMap<>();
 	private ArrayList<String> staticPollValues = new ArrayList<>();
 	private LinkedHashMap<Controller, ArrayList<Float>> pollValues = new LinkedHashMap<>();
@@ -55,14 +55,16 @@ public abstract class HvlControllerProfile {
 
 		String value = null;
 		for(Field f : hostArg.getDeclaredFields()){
-			if(f.getType() == String.class && f.isAnnotationPresent(HvlPollValue.class)){
-				try{
-					value = (String)f.get(hostArg);
-				}catch(IllegalArgumentException | IllegalAccessException e){
-					e.printStackTrace();
-				}
-				staticPollAnnotations.put(value, f.getAnnotation(HvlPollValue.class));
-				staticPollValues.add(value);
+			if(f.isAnnotationPresent(HvlPollValue.class)){
+				if(f.getType() == String.class){
+					try{
+						value = (String)f.get(hostArg);
+					}catch(IllegalArgumentException | IllegalAccessException e){
+						e.printStackTrace();
+					}
+					staticPollAnnotations.put(value, f.getAnnotation(HvlPollValue.class));
+					staticPollValues.add(value);
+				}else throw new CPImproperTypeException();
 			}
 		}
 
@@ -71,19 +73,21 @@ public abstract class HvlControllerProfile {
 		profiles.add(this);
 	}
 
-	public HvlControllerProfile(Class<? extends HvlControllerProfile> hostArg, HvlAction1r<Boolean, Controller> actionIsControllerArg){
+	public HvlControllerProfile(Class<? extends HvlControllerProfile> hostArg, HvlAction2r<Boolean, HvlControllerProfile, Controller> actionIsControllerArg){
 		actionIsController = actionIsControllerArg;
 
 		String value = null;
 		for(Field f : hostArg.getDeclaredFields()){
-			if(f.getType() == String.class && f.isAnnotationPresent(HvlPollValue.class)){
-				try{
-					value = (String)f.get(hostArg);
-				}catch(IllegalArgumentException | IllegalAccessException e){
-					e.printStackTrace();
-				}
-				staticPollAnnotations.put(value, f.getAnnotation(HvlPollValue.class));
-				staticPollValues.add(value);
+			if(f.isAnnotationPresent(HvlPollValue.class)){
+				if(f.getType() == String.class){
+					try{
+						value = (String)f.get(hostArg);
+					}catch(IllegalArgumentException | IllegalAccessException e){
+						e.printStackTrace();
+					}
+					staticPollAnnotations.put(value, f.getAnnotation(HvlPollValue.class));
+					staticPollValues.add(value);
+				}else throw new CPImproperTypeException();
 			}
 		}
 
@@ -91,7 +95,7 @@ public abstract class HvlControllerProfile {
 
 		profiles.add(this);
 	}
-
+	
 	public void syncControllers(){
 		pollValues.clear();
 		if(autoIndex) controllerIndexes.clear();
@@ -141,12 +145,12 @@ public abstract class HvlControllerProfile {
 			return pollValues.get(controllerIndexes.get(controllerIndex)).get(staticPollValues.indexOf(fieldArg));
 		}
 	}
-	
+
 	public boolean isOfType(Controller c){
 		return (controllerIdentifier != null && c.getName().contains(controllerIdentifier)) || 
-				(actionIsController != null && actionIsController.run(c));
+				(actionIsController != null && actionIsController.run(this, c));
 	}
-	
+
 	public boolean getAutoIndex(){
 		return autoIndex;
 	}
@@ -164,6 +168,9 @@ public abstract class HvlControllerProfile {
 	}
 
 	@SuppressWarnings("serial")
-	static class UndefinedFieldException extends RuntimeException{}
+	static class CPUndefinedFieldException extends RuntimeException{}
+
+	@SuppressWarnings("serial")
+	static class CPImproperTypeException extends RuntimeException{}
 
 }
