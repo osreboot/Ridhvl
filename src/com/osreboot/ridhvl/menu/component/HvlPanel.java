@@ -5,10 +5,11 @@ import java.util.List;
 
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.HvlComponent;
+import com.osreboot.ridhvl.menu.HvlComponentContainer;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
-public class HvlPanel extends HvlComponent {
+public class HvlPanel extends HvlComponent implements HvlComponentContainer {
 
 	@HvlDoNotClone
 	protected List<HvlComponent> children;
@@ -28,6 +29,7 @@ public class HvlPanel extends HvlComponent {
 		for (HvlComponent comp : children) {
 			if (comp == null)
 				continue;
+			comp.setContainer(this);
 			comp.metaUpdate(delta);
 		}
 	}
@@ -42,24 +44,44 @@ public class HvlPanel extends HvlComponent {
 		}
 	}
 
+	@Override
 	public void add(HvlComponent toAdd) {
 		children.add(toAdd);
 	}
+	
+	@Override
+	public void add(HvlComponent toAdd, int indexArg) {
+		children.add(indexArg, toAdd);
+	}
 
+	@Override
 	public void remove(HvlComponent toRemove) {
 		children.remove(toRemove);
 	}
 
+	@Override
 	public void remove(int i) {
 		children.remove(i);
 	}
 
-	public void removeAll() {
+	@Override
+	public void clear() {
 		children.clear();
 	}
 
-	public HvlComponent get(int i) {
-		return children.get(i);
+	@SuppressWarnings("unchecked")
+	public <T extends HvlComponent> T get(int i) {
+		return (T) children.get(i);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends HvlComponent> T getFirstOfType(Class<? extends T> type) {
+		for (HvlComponent c : children) {
+			if (c.getClass().isAssignableFrom(type)) return (T) c;
+		}
+		
+		return null;
 	}
 
 	public int getChildCount() {

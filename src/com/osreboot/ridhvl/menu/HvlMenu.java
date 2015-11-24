@@ -6,7 +6,7 @@ import java.util.Stack;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 
-public class HvlMenu {
+public class HvlMenu implements HvlComponentContainer {
 
 	private static HvlMenu current;
 	private static Stack<HvlMenu> popups;
@@ -107,10 +107,6 @@ public class HvlMenu {
 		return components;
 	}
 
-	public void add(HvlComponent control) {
-		components.add(control);
-	}
-
 	@SuppressWarnings("unchecked")
 	public <T> T getChild(int index) {
 		if (index >= components.size())
@@ -119,25 +115,17 @@ public class HvlMenu {
 		return (T) components.get(index);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <T> T getFirstChildOfType(Class<? extends T> type) {
-		for (HvlComponent comp : components)
-		{
-			if (comp.getClass().equals(type))
-				return (T) comp;
-		}
-		
-		return null;
-	}
-	
 	public HvlArrangerBox getFirstArrangerBox(){
-		return getFirstChildOfType(HvlArrangerBox.class);
+		return getFirstOfType(HvlArrangerBox.class);
 	}
 	
 	public void update(float delta) {
 		totalTime += delta;
 		for (HvlComponent c : components)
+		{
+			c.setContainer(this);
 			c.metaUpdate(delta);
+		}
 	}
 
 	public void draw(float delta) {
@@ -233,5 +221,53 @@ public class HvlMenu {
 
 	public static void setMenuChanged(HvlAction2<HvlMenu, HvlMenu> menuChangedArg) {
 		menuChanged = menuChangedArg;
+	}
+
+	@Override
+	public void add(HvlComponent control) {
+		components.add(control);
+	}
+
+	@Override
+	public void add(HvlComponent componentArg, int indexArg) {
+		components.add(indexArg, componentArg);
+	}
+
+	@Override
+	public void remove(HvlComponent componentArg) {
+		components.remove(componentArg);
+	}
+
+	@Override
+	public void remove(int indexArg) {
+		components.remove(indexArg);
+	}
+
+	@Override
+	public void clear() {
+		components.clear();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T extends HvlComponent> T get(int i) {
+		return (T) components.get(i);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public <T extends HvlComponent> T getFirstOfType(Class<? extends T> type) {
+		for (HvlComponent comp : components)
+		{
+			if (comp.getClass().equals(type))
+				return (T) comp;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public int getChildCount() {
+		return components.size();
 	}
 }

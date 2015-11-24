@@ -296,7 +296,7 @@ public class HvlListBox extends HvlComponent {
 	}
 
 	private void layoutUpdate() {
-		scrollBox.removeAll();
+		scrollBox.clear();
 		scrollBox.add(scrollUpButton);
 		scrollBox.add(scrollBar);
 		scrollBox.add(scrollDownButton);

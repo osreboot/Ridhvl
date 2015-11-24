@@ -23,7 +23,10 @@ public abstract class HvlComponent {
 
 	private static HvlAction2<HvlComponent, Float> universalUpdateOverride, universalDrawOverride;
 
+	private HvlComponentContainer container;
+
 	protected HvlComponent(float wArg, float hArg) {
+		pos = new HvlCoord(0, 0);
 		width = wArg;
 		height = hArg;
 		visible = true;
@@ -74,8 +77,8 @@ public abstract class HvlComponent {
 		if (!enabled || !HvlMenu.getCurrent().isInteractable())
 			return false;
 
-		return Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY() && HvlCursor.getCursorX() < getX() + getWidth()
-				&& HvlCursor.getCursorY() < getY() + getHeight();
+		return Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY()
+				&& HvlCursor.getCursorX() < getX() + getWidth() && HvlCursor.getCursorY() < getY() + getHeight();
 	}
 
 	public <T> T cloneComponent(T cloneTo) {
@@ -85,9 +88,10 @@ public abstract class HvlComponent {
 
 		while (!currentClass.equals(HvlComponent.class.getSuperclass())) {
 			for (Field f : currentClass.getDeclaredFields()) {
-				if (Modifier.isStatic(f.getModifiers()) || Modifier.isFinal(f.getModifiers()) || f.isAnnotationPresent(HvlDoNotClone.class))
+				if (Modifier.isStatic(f.getModifiers()) || Modifier.isFinal(f.getModifiers())
+						|| f.isAnnotationPresent(HvlDoNotClone.class))
 					continue;
-				
+
 				f.setAccessible(true);
 				fields.add(f);
 			}
@@ -102,15 +106,15 @@ public abstract class HvlComponent {
 				// see above - "f.setAccessible(true)"
 			}
 		}
-		
+
 		return specialClone(cloneTo);
 	}
-	
+
 	/**
-	 * Used for any special cloning that can't be handled normally (like recursive cloning)
+	 * Used for any special cloning that can't be handled normally (like
+	 * recursive cloning)
 	 */
-	protected <T> T specialClone(T cloneTo)
-	{
+	protected <T> T specialClone(T cloneTo) {
 		return cloneTo;
 	}
 
@@ -129,8 +133,8 @@ public abstract class HvlComponent {
 	public void setY(float y) {
 		pos.y = y;
 	}
-	
-	public void setPosition(float x, float y){
+
+	public void setPosition(float x, float y) {
 		pos.x = x;
 		pos.y = y;
 	}
@@ -150,8 +154,8 @@ public abstract class HvlComponent {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	
-	public void setDimensions(float width, float height){
+
+	public void setDimensions(float width, float height) {
 		this.width = width;
 		this.height = height;
 	}
@@ -210,5 +214,13 @@ public abstract class HvlComponent {
 
 	public static void setUniversalDrawOverride(HvlAction2<HvlComponent, Float> universalDrawOverride) {
 		HvlComponent.universalDrawOverride = universalDrawOverride;
+	}
+
+	public HvlComponentContainer getContainer() {
+		return container;
+	}
+
+	public void setContainer(HvlComponentContainer container) {
+		this.container = container;
 	}
 }
