@@ -72,7 +72,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		grad.addStop(1, Color.green);
 		Texture gradient3 = grad.toTexture(512, 512, 256, 256, 0, 0);
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256, 10);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 192, 256);
 
 		HvlComponentDefault.setDefault(new HvlLabeledButton.Builder().setOffDrawable(new HvlTextureDrawable(gradient2))
 				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))

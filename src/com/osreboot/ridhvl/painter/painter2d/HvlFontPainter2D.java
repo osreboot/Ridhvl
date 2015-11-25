@@ -7,33 +7,45 @@ import com.osreboot.ridhvl.HvlFontUtil;
 
 public class HvlFontPainter2D {
 
+	public static final Preset BITZAP = new Preset(112, 144, 0),
+			CHALK = new Preset(128, 160, 0);
+	
 	private Texture image;
 	private char[] layout;
 	private float textureWidth, textureHeight, fontWidth, fontHeight;
 	private int rowCount;
 	private float rowSpacing; // TODO: Convert to percentage
 
-	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float textureWidthArg, float textureHeightArg,
-			float fontWidthArg, float fontHeightArg, int rowCountArg) {
+	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, Preset presetArg){
 		image = imageArg;
 		layout = layoutArg;
-		textureWidth = textureWidthArg;
-		textureHeight = textureHeightArg;
+		textureWidth = imageArg.getImageWidth();
+		textureHeight = imageArg.getImageHeight();
+		fontWidth = presetArg.getFontWidth();
+		fontHeight = presetArg.getFontHeight();
+		rowCount = (int)(textureWidth/fontWidth);
+		rowSpacing = presetArg.getRowSpace();
+	}
+	
+	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float fontWidthArg, float fontHeightArg) {
+		image = imageArg;
+		layout = layoutArg;
+		textureWidth = imageArg.getImageWidth();
+		textureHeight = imageArg.getImageHeight();
 		fontWidth = fontWidthArg;
 		fontHeight = fontHeightArg;
-		rowCount = rowCountArg;
+		rowCount = (int)(textureWidth/fontWidth);
 		rowSpacing = 0f;
 	}
 
-	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float textureWidthArg, float textureHeightArg,
-			float fontWidthArg, float fontHeightArg, int rowCountArg, float rowSpaceArg) {
+	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float fontWidthArg, float fontHeightArg, float rowSpaceArg) {
 		image = imageArg;
 		layout = layoutArg;
-		textureWidth = textureWidthArg;
-		textureHeight = textureHeightArg;
+		textureWidth = imageArg.getImageWidth();
+		textureHeight = imageArg.getImageHeight();
 		fontWidth = fontWidthArg;
 		fontHeight = fontHeightArg;
-		rowCount = rowCountArg;
+		rowCount = (int)(textureWidth/fontWidth);
 		rowSpacing = rowSpaceArg;
 	}
 
@@ -125,6 +137,31 @@ public class HvlFontPainter2D {
 
 	public float getLineWidth(String text) {
 		return getFontWidth() * text.length();
+	}
+	
+	public static class Preset{
+		
+		private int fontWidth, fontHeight;
+		private float rowSpace;
+		
+		public Preset(int fontWidthArg, int fontHeightArg, float rowSpaceArg){
+			fontWidth = fontWidthArg;
+			fontHeight = fontHeightArg;
+			rowSpace = rowSpaceArg;
+		}
+
+		public int getFontWidth(){
+			return fontWidth;
+		}
+
+		public int getFontHeight(){
+			return fontHeight;
+		}
+
+		public float getRowSpace(){
+			return rowSpace;
+		}
+		
 	}
 
 }

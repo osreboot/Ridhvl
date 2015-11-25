@@ -31,7 +31,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		getTextureLoader().loadResource("Cursor");
 		getTextureLoader().loadResource("Icon");
 		
-		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 112, 144, 18);
+		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 112, 144);
 		
 		frame = new HvlRenderFrame(1280, 720);
 		
