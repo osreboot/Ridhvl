@@ -27,8 +27,7 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Font");
 		getTextureLoader().loadResource("Cursor");
 
-		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256,
-				10, 8);
+		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 192, 256, 10);
 
 		HvlCursor.setNativeHidden(true);
 		HvlCursor.setTexture(getTextureLoader().getResource(1));

@@ -37,7 +37,7 @@ public class TileTest extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Icon");
 		getTextureLoader().loadResource("Font");
 
-		font = new HvlFontPainter2D(getTextureLoader().getResource(2), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256, 10);
+		font = new HvlFontPainter2D(getTextureLoader().getResource(2), HvlFontUtil.DEFAULT, 192, 256);
 
 		map = HvlMap.load("TestLoadMap", 0, 0, 64, 64, getTexture(0), 8, 8);
 		map.setCollisionDebugDraw(true);

@@ -25,7 +25,7 @@ public class Template2DBasicTest extends HvlTemplate2D{
 	public void initialize(){
 		textureLoader.loadResource("Font");
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 192, 256, 10);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 192, 256);
 	}
 
 	@Override

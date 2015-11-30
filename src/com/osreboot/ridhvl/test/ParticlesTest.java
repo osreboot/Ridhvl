@@ -65,7 +65,7 @@ public class ParticlesTest extends HvlTemplate2D {
 
 		textureLoader.loadResource("Font");
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 2048, 2048, 40, 50, 51);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 40, 50);
 
 		// final int count = 25;
 
