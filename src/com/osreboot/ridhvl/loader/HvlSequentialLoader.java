@@ -17,8 +17,8 @@ public class HvlSequentialLoader{
 		if(progress < objects.size()){
 			String resource = new ArrayList<String>(objects.keySet()).get(progress);
 			objects.get(resource).loadResource(resource);
+			progress++;
 		}
-		progress++;
 	}
 
 	public boolean isFinished(){
