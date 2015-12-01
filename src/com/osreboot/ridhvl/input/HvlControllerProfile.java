@@ -4,14 +4,14 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import net.java.games.input.Controller;
-import net.java.games.input.Event;
-import net.java.games.input.EventQueue;
-
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2r;
 import com.osreboot.ridhvl.template.HvlChronology;
 import com.osreboot.ridhvl.template.HvlChronologyUpdate;
+
+import net.java.games.input.Controller;
+import net.java.games.input.Event;
+import net.java.games.input.EventQueue;
 
 
 public abstract class HvlControllerProfile {
@@ -49,7 +49,9 @@ public abstract class HvlControllerProfile {
 	private ArrayList<String> staticPollValues = new ArrayList<>();
 	private LinkedHashMap<Controller, ArrayList<Float>> pollValues = new LinkedHashMap<>();
 	private ArrayList<Controller> controllerIndexes = new ArrayList<>();
+	private LinkedHashMap<String, HvlAction2r<Float, Controller, HvlControllerProfile>> pollCustom = new LinkedHashMap<>();
 
+	@SuppressWarnings("unchecked")
 	public HvlControllerProfile(Class<? extends HvlControllerProfile> hostArg, String controllerIdentifierArg){
 		controllerIdentifier = controllerIdentifierArg;
 
@@ -58,9 +60,21 @@ public abstract class HvlControllerProfile {
 			if(f.isAnnotationPresent(HvlPollValue.class)){
 				if(f.getType() == String.class){
 					try{
+						if(!f.isAccessible()) f.setAccessible(true);
 						value = (String)f.get(hostArg);
 					}catch(IllegalArgumentException | IllegalAccessException e){
 						e.printStackTrace();
+					}
+					if(!f.getAnnotation(HvlPollValue.class).custom().equals("")){
+						try{
+							Field c = hostArg.getField(f.getAnnotation(HvlPollValue.class).custom());
+							if(c.getType() == HvlAction2r.class){
+								pollCustom.put(value, (HvlAction2r<Float, Controller, HvlControllerProfile>)c.get(HvlAction2r.class));
+							}
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new CPCustomNotFoundException();
+						}
 					}
 					staticPollAnnotations.put(value, f.getAnnotation(HvlPollValue.class));
 					staticPollValues.add(value);
@@ -73,6 +87,7 @@ public abstract class HvlControllerProfile {
 		profiles.add(this);
 	}
 
+	@SuppressWarnings("unchecked")
 	public HvlControllerProfile(Class<? extends HvlControllerProfile> hostArg, HvlAction2r<Boolean, HvlControllerProfile, Controller> actionIsControllerArg){
 		actionIsController = actionIsControllerArg;
 
@@ -81,9 +96,21 @@ public abstract class HvlControllerProfile {
 			if(f.isAnnotationPresent(HvlPollValue.class)){
 				if(f.getType() == String.class){
 					try{
+						if(!f.isAccessible()) f.setAccessible(true);
 						value = (String)f.get(hostArg);
 					}catch(IllegalArgumentException | IllegalAccessException e){
 						e.printStackTrace();
+					}
+					if(!f.getAnnotation(HvlPollValue.class).custom().equals("")){
+						try{
+							Field c = hostArg.getField(f.getAnnotation(HvlPollValue.class).custom());
+							if(c.getType() == HvlAction2r.class){
+								pollCustom.put(value, (HvlAction2r<Float, Controller, HvlControllerProfile>)c.get(HvlAction2r.class));
+							}
+						}catch(Exception e){
+							e.printStackTrace();
+							throw new CPCustomNotFoundException();
+						}
 					}
 					staticPollAnnotations.put(value, f.getAnnotation(HvlPollValue.class));
 					staticPollValues.add(value);
@@ -95,7 +122,7 @@ public abstract class HvlControllerProfile {
 
 		profiles.add(this);
 	}
-	
+
 	public void syncControllers(){
 		pollValues.clear();
 		if(autoIndex) controllerIndexes.clear();
@@ -133,7 +160,7 @@ public abstract class HvlControllerProfile {
 	public float getValue(String fieldArg){
 		float output = 0;
 		for(Controller c : pollValues.keySet()){
-			output += pollValues.get(c).get(staticPollValues.indexOf(fieldArg));
+			output += getMetaValue(c, fieldArg);
 		}
 		output = (float)Math.max(staticPollAnnotations.get(fieldArg).min(), Math.min(staticPollAnnotations.get(fieldArg).max(), output));
 		return output;
@@ -142,8 +169,17 @@ public abstract class HvlControllerProfile {
 	public float getValue(String fieldArg, int controllerIndex){
 		if(controllerIndexes.size() <= controllerIndex) return 0;
 		else{
-			return pollValues.get(controllerIndexes.get(controllerIndex)).get(staticPollValues.indexOf(fieldArg));
+			return getMetaValue(controllerIndexes.get(controllerIndex), fieldArg);
 		}
+	}
+	
+	private float getMetaValue(Controller c, String fieldArg){
+		if(pollCustom.containsKey(fieldArg)) return pollCustom.get(fieldArg).run(c, this);
+		else return pollValues.get(c).get(staticPollValues.indexOf(fieldArg));
+	}
+	
+	public float getRawValue(Controller c, String fieldArg){
+		return pollValues.get(c).get(staticPollValues.indexOf(fieldArg));
 	}
 
 	public boolean isOfType(Controller c){
@@ -172,5 +208,8 @@ public abstract class HvlControllerProfile {
 
 	@SuppressWarnings("serial")
 	static class CPImproperTypeException extends RuntimeException{}
+
+	@SuppressWarnings("serial")
+	static class CPCustomNotFoundException extends RuntimeException{}
 
 }

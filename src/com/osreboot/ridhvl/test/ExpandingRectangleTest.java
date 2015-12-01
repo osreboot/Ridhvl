@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.getWhite512;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -9,7 +9,7 @@ import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.input.HvlControllerProfile;
-import com.osreboot.ridhvl.input.collection.HvlCPGGamepadTest;
+import com.osreboot.ridhvl.input.collection.HvlCPLogitechTest;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
@@ -31,10 +31,6 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 			}
 		});
 	}
-
-	public static void main(String args[]) {
-		new ExpandingRectangleTest();
-	}
 	
 	public ExpandingRectangleTest() {
 		super(60, 1280, 720, "Ridhvl Expanding Rectangle Test", new HvlDisplayModeDefault());
@@ -45,11 +41,11 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 	
 	Color color;
 
-	HvlCPGGamepadTest profile;
+	HvlCPLogitechTest profile;
 	
 	@Override
 	public void initialize() {
-		profile = new HvlCPGGamepadTest();
+		profile = new HvlCPLogitechTest();
 		textureLoader.loadResource("Icon");
 		color = Color.white;
 		testRect = new HvlTiledRect(textureLoader.getResource(0), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 512, 256, 16, 16);
@@ -58,9 +54,9 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 	@Override
 	public void update(float delta) {
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, getWhite512(), color);
-
-		testRect.setTotalWidth(testRect.getTotalWidth() + profile.getValue(HvlCPGGamepadTest.JOYINPUT) * 256 * delta);
-		testRect.setTotalHeight(testRect.getTotalHeight() + profile.getValue(HvlCPGGamepadTest.JOYINPUT) * 256 * delta);
+System.out.println(profile.getValue(HvlCPLogitechTest.UP_ARROW));
+		testRect.setTotalWidth(testRect.getTotalWidth() + profile.getValue(HvlCPLogitechTest.UP_ARROW) * 256 * delta);
+		testRect.setTotalHeight(testRect.getTotalHeight() + profile.getValue(HvlCPLogitechTest.UP_ARROW) * 256 * delta);
 
 		testRect.setX(640 - (testRect.getTotalWidth()/2));
 		testRect.setY(360 - (testRect.getTotalHeight()/2));
