@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2r;
 import com.osreboot.ridhvl.template.HvlChronology;
@@ -148,6 +149,8 @@ public abstract class HvlControllerProfile {
 					if(event.getComponent().getName().contains(staticPollAnnotations.get(s).component())){
 						float value = event.getValue();
 						if(Math.abs(value) < Math.abs(staticPollAnnotations.get(s).deadZone())) value = 0;
+						value *= staticPollAnnotations.get(s).amplifier();
+						value = HvlMath.constrain(value, staticPollAnnotations.get(s).min(), staticPollAnnotations.get(s).max());
 						ArrayList<Float> list = pollValues.get(c);
 						list.set(staticPollValues.indexOf(s), value);
 						pollValues.put(c, list);

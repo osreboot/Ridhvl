@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.input.collection;
+package com.osreboot.ridhvl.input.collection.test;
 
 import com.osreboot.ridhvl.action.HvlAction2r;
 import com.osreboot.ridhvl.input.HvlControllerProfile;
