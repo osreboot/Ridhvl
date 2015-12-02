@@ -32,6 +32,10 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 		});
 	}
 	
+//	public static void main(String[] args) {
+//		new ExpandingRectangleTest();
+//	}
+	
 	public ExpandingRectangleTest() {
 		super(60, 1280, 720, "Ridhvl Expanding Rectangle Test", new HvlDisplayModeDefault());
 	}
@@ -55,8 +59,8 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 	public void update(float delta) {
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, getWhite512(), color);
 
-		testRect.setTotalWidth(testRect.getTotalWidth() + profile.getValue(HvlCP_LogitechF510.BUMPER_LEFT) * 256 * delta);
-		testRect.setTotalHeight(testRect.getTotalHeight() + profile.getValue(HvlCP_LogitechF510.BUMPER_RIGHT) * 256 * delta);
+		testRect.setTotalWidth(testRect.getTotalWidth() + profile.getValue(HvlCP_LogitechF510.TRIGGER_LEFT) * 256 * delta);
+		testRect.setTotalHeight(testRect.getTotalHeight() + profile.getValue(HvlCP_LogitechF510.TRIGGER_RIGHT) * 256 * delta);
 
 		testRect.setX(640 - (testRect.getTotalWidth()/2));
 		testRect.setY(360 - (testRect.getTotalHeight()/2));

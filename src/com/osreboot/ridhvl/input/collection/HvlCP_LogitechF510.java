@@ -39,7 +39,25 @@ public class HvlCP_LogitechF510 extends HvlControllerProfile{
 	@HvlPollValue(component = "Button 5")
 	public static final String BUMPER_RIGHT = "BUMPER_RIGHT";
 	
-	//TODO 'hat', back, start, joy3, trigger
+	@HvlPollValue(component = "Button 6")
+	public static final String BUTTON_BACK = "BUTTON_BACK";
+	
+	@HvlPollValue(component = "Button 7")
+	public static final String BUTTON_START = "BUTTON_START";
+	
+	@HvlPollValue(component = "Button 8")
+	public static final String JOY1PRESS = "JOY1PRESS";
+	
+	@HvlPollValue(component = "Button 9")
+	public static final String JOY2PRESS = "JOY2PRESS";
+	
+	@HvlPollValue(component = "Z Axis", min = 0f, max = 1f)
+	public static final String TRIGGER_LEFT = "TRIGGER_LEFT";//TODO simultaneous trigger detection
+	
+	@HvlPollValue(component = "Z Axis", min = 0f, max = 1f, amplifier = -1f)
+	public static final String TRIGGER_RIGHT = "TRIGGER_RIGHT";//TODO simultaneous trigger detection
+	
+	//TODO 'hat'
 	
 }
 
