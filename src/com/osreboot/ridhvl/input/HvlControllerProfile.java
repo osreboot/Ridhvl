@@ -150,7 +150,7 @@ public abstract class HvlControllerProfile {
 						float value = event.getValue();
 						if(Math.abs(value) < Math.abs(staticPollAnnotations.get(s).deadZone())) value = 0;
 						value *= staticPollAnnotations.get(s).amplifier();
-						value = HvlMath.constrain(value, staticPollAnnotations.get(s).min(), staticPollAnnotations.get(s).max());
+						value = HvlMath.limit(value, staticPollAnnotations.get(s).min(), staticPollAnnotations.get(s).max());
 						ArrayList<Float> list = pollValues.get(c);
 						list.set(staticPollValues.indexOf(s), value);
 						pollValues.put(c, list);
