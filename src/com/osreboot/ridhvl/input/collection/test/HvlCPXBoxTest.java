@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.input.collection;
+package com.osreboot.ridhvl.input.collection.test;
 
 import com.osreboot.ridhvl.input.HvlControllerProfile;
 import com.osreboot.ridhvl.input.HvlPollValue;
