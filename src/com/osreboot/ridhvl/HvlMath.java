@@ -124,8 +124,16 @@ public class HvlMath {
 		rand = new Random();
 	}
 	
+	public static float mapl(float x, float in_min, float in_max, float out_min, float out_max){
+		return limit(map(x, in_min, in_max, out_min, out_max), out_min, out_max);
+	}
+	
 	public static float map(float x, float in_min, float in_max, float out_min, float out_max){
 		return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+	}
+	
+	public static float limit(float x, float min, float max){
+		return Math.min(Math.max(x, min), max);
 	}
 
 	public static class Stepper{

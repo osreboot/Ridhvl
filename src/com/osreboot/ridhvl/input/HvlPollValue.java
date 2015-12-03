@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Target(value = ElementType.FIELD)
 public @interface HvlPollValue {
 	public String component();
+	public String custom() default ""; //TODO magic numbers
 	public float max() default 1.0f;
 	public float min() default -1.0f;
 	public float amplifier() default 1.0f;
