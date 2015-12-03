@@ -70,6 +70,7 @@ public class HvlPanel extends HvlComponent implements HvlComponentContainer {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public <T extends HvlComponent> T get(int i) {
 		return (T) children.get(i);
 	}

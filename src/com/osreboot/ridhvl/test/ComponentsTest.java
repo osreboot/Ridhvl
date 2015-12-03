@@ -21,6 +21,7 @@ import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
 import com.osreboot.ridhvl.menu.component.HvlProgressBar;
+import com.osreboot.ridhvl.menu.component.HvlRadioButton;
 import com.osreboot.ridhvl.menu.component.HvlSlider;
 import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
@@ -46,6 +47,8 @@ public class ComponentsTest extends HvlTemplate2D {
 	private HvlTextBox testTextBox;
 	private HvlListBox testListBox;
 	private HvlProgressBar testProgressBar;
+	private HvlRadioButton testRadioButton1;
+	private HvlRadioButton testRadioButton2;
 	
 	public ComponentsTest() {
 		super(60, 1280, 720, "Ridhvl Components Test", new HvlDisplayModeResizable());
@@ -86,6 +89,13 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setOffHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.cyan)))
 				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
 				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink))).build());
+		
+		HvlComponentDefault.setDefault(new HvlRadioButton.Builder()
+				.setOffDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.blue)))
+				.setOffHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.cyan)))
+				.setOnDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.red)))
+				.setOnHoverDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.pink)))
+				.setWidth(64).setHeight(64).build());
 
 		HvlComponentDefault.setDefault(new HvlLabeledCheckbox.Builder()
 				.setOffDrawable(new HvlTextureDrawable(HvlTextureUtil.getColoredRect(64, 64, Color.blue)))
@@ -180,13 +190,27 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testProgressBar = new HvlProgressBar.Builder().setWidth(512).setHeight(128).build();
 		
-		testArranger = new HvlArrangerBox.Builder().setX(0).setY(0).setxAlign(0.5f).setyAlign(0.5f)
-				.setWidth(Display.getWidth() - 64).setHeight(720).add(testLabel).add(testCheck).add(testButton)
+		testRadioButton1 = new HvlRadioButton.Builder().setWidth(64).setHeight(64).build();
+		
+		testRadioButton2 = new HvlRadioButton.Builder().setWidth(64).setHeight(64).build();
+		
+		testArranger = new HvlArrangerBox.Builder().setX(0).setY(0).setxAlign(0.5f).setyAlign(0f)
+				.setWidth(Display.getWidth() - 64).setHeight(720)
+//				.add(testLabel)
+				.add(testCheck)
+				.add(testButton)
 				.add(testTextBox)
 				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(Direction.HORIZONTAL)
 						.setTextureDirection(Direction.HORIZONTAL).build())
-				.add(testListBox)
-				.add(testProgressBar).build();
+//				.add(testListBox)
+				.add(testProgressBar)
+				.add(testRadioButton1)
+				.add(testRadioButton2)
+				.build();
+		
+				
+		testArranger.add(testRadioButton1);
+		testArranger.add(testRadioButton2);
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);

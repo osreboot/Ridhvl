@@ -14,7 +14,7 @@ import com.osreboot.ridhvl.painter.HvlCursor;
 
 public abstract class HvlComponent {
 
-	private HvlCoord pos;
+	private float x, y;
 	private float width, height;
 
 	private boolean enabled, visible, focused;
@@ -26,7 +26,8 @@ public abstract class HvlComponent {
 	private HvlComponentContainer container;
 
 	protected HvlComponent(float wArg, float hArg) {
-		pos = new HvlCoord(0, 0);
+		x = 0;
+		y = 0;
 		width = wArg;
 		height = hArg;
 		visible = true;
@@ -34,7 +35,8 @@ public abstract class HvlComponent {
 	}
 
 	protected HvlComponent(float xArg, float yArg, float wArg, float hArg) {
-		pos = new HvlCoord(xArg, yArg);
+		x = xArg;
+		y = yArg;
 		width = wArg;
 		height = hArg;
 		visible = true;
@@ -119,24 +121,24 @@ public abstract class HvlComponent {
 	}
 
 	public float getX() {
-		return pos.x;
+		return x;
 	}
 
 	public void setX(float x) {
-		pos.x = x;
+		this.x = x;
 	}
 
 	public float getY() {
-		return pos.y;
+		return y;
 	}
 
 	public void setY(float y) {
-		pos.y = y;
+		this.y = y;
 	}
 
 	public void setPosition(float x, float y) {
-		pos.x = x;
-		pos.y = y;
+		this.x = x;
+		this.y = y;
 	}
 
 	public float getWidth() {
