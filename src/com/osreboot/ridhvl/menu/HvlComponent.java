@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.lwjgl.input.Mouse;
 
-import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
