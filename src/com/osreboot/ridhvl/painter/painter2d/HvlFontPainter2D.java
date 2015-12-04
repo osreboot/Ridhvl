@@ -15,6 +15,7 @@ public class HvlFontPainter2D {
 	private float textureWidth, textureHeight, fontWidth, fontHeight;
 	private int rowCount;
 	private float rowSpacing; // TODO: Convert to percentage
+	private float scale;
 
 	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, Preset presetArg){
 		image = imageArg;
@@ -25,6 +26,19 @@ public class HvlFontPainter2D {
 		fontHeight = presetArg.getFontHeight();
 		rowCount = (int)(textureWidth/fontWidth);
 		rowSpacing = presetArg.getRowSpace();
+		scale = 1f;
+	}
+	
+	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, Preset presetArg, float scaleArg){
+		image = imageArg;
+		layout = layoutArg;
+		textureWidth = imageArg.getImageWidth();
+		textureHeight = imageArg.getImageHeight();
+		fontWidth = presetArg.getFontWidth();
+		fontHeight = presetArg.getFontHeight();
+		rowCount = (int)(textureWidth/fontWidth);
+		rowSpacing = presetArg.getRowSpace();
+		scale = scaleArg;
 	}
 	
 	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float fontWidthArg, float fontHeightArg) {
@@ -36,6 +50,7 @@ public class HvlFontPainter2D {
 		fontHeight = fontHeightArg;
 		rowCount = (int)(textureWidth/fontWidth);
 		rowSpacing = 0f;
+		scale = 1f;
 	}
 
 	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float fontWidthArg, float fontHeightArg, float rowSpaceArg) {
@@ -47,6 +62,19 @@ public class HvlFontPainter2D {
 		fontHeight = fontHeightArg;
 		rowCount = (int)(textureWidth/fontWidth);
 		rowSpacing = rowSpaceArg;
+		scale = 1f;
+	}
+	
+	public HvlFontPainter2D(Texture imageArg, char[] layoutArg, float fontWidthArg, float fontHeightArg, float rowSpaceArg, float scaleArg) {
+		image = imageArg;
+		layout = layoutArg;
+		textureWidth = imageArg.getImageWidth();
+		textureHeight = imageArg.getImageHeight();
+		fontWidth = fontWidthArg;
+		fontHeight = fontHeightArg;
+		rowCount = (int)(textureWidth/fontWidth);
+		rowSpacing = rowSpaceArg;
+		scale = scaleArg;
 	}
 
 	public void drawWord(String text, float x, float y, float width, float height, Color c) {
@@ -88,26 +116,10 @@ public class HvlFontPainter2D {
 	}
 
 	public void drawWord(String text, float x, float y, Color c) {
-		String[] lines = text.split("\n");
-
-		for (int l = 0; l < lines.length; l++) {
-			String line = lines[l];
-
-			for (int i = 0; i < line.length(); i++) {
-				if (HvlFontUtil.containsChar(layout, line.charAt(i))) {
-					int xpos = HvlFontUtil.indexOfChar(layout, line.charAt(i)) % rowCount;
-					int ypos = HvlFontUtil.indexOfChar(layout, line.charAt(i)) / rowCount;
-
-					HvlPainter2D.hvlDrawQuad(x + (i * fontWidth), y + (l * fontHeight) + (l * rowSpacing), fontWidth,
-							fontHeight, (fontWidth / textureWidth) * xpos, (fontHeight / textureHeight) * ypos,
-							(fontWidth / textureWidth) * xpos + (fontWidth / textureHeight),
-							(fontHeight / textureHeight) * ypos + (fontHeight / textureHeight), image, c);
-				}
-			}
-		}
+		drawWord(text, x, y, 1.0f, c);
 	}
 
-	public void drawWord(String text, float x, float y, float scale, Color c) {
+	public void drawWord(String text, float x, float y, float scaleArg, Color c) {
 		String[] lines = text.split("\n");
 
 		for (int l = 0; l < lines.length; l++) {
@@ -118,7 +130,7 @@ public class HvlFontPainter2D {
 					int xpos = HvlFontUtil.indexOfChar(layout, line.charAt(i)) % rowCount;
 					int ypos = HvlFontUtil.indexOfChar(layout, line.charAt(i)) / rowCount;
 
-					HvlPainter2D.hvlDrawQuad(x + (i * fontWidth * scale), y + (l * fontHeight * scale) + (l * rowSpacing * scale), fontWidth * scale, fontHeight * scale,
+					HvlPainter2D.hvlDrawQuad(x + (i * fontWidth * scale * scaleArg), y + (l * fontHeight * scale * scaleArg) + (l * rowSpacing * scale * scaleArg), fontWidth * scale * scaleArg, fontHeight * scale * scaleArg,
 							(fontWidth / textureWidth) * xpos, (fontHeight / textureHeight) * ypos,
 							(fontWidth / textureWidth) * xpos + (fontWidth / textureHeight),
 							(fontHeight / textureHeight) * ypos + (fontHeight / textureHeight), image, c);
@@ -139,6 +151,10 @@ public class HvlFontPainter2D {
 		return getFontWidth() * text.length();
 	}
 	
+	public float getScale() {
+		return scale;
+	}
+
 	public static class Preset{
 		
 		private int fontWidth, fontHeight;

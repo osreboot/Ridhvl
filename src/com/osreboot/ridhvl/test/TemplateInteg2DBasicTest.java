@@ -15,11 +15,10 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
-
 	public TemplateInteg2DBasicTest() {
 		super(60, 1280, 720, "Ridhvl TemplateInteg2D Test", new HvlDisplayModeDefault());
 	}
-	
+
 	static HvlFontPainter2D fontPainter;
 
 	@Override
@@ -27,7 +26,7 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Font");
 		getTextureLoader().loadResource("Cursor");
 
-		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 192, 256, 10);
+		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 192, 256, 10, 0.25f);
 
 		HvlCursor.setNativeHidden(true);
 		HvlCursor.setTexture(getTextureLoader().getResource(1));
@@ -51,10 +50,10 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
 		hvlRotate(300f, 300f, gradient / 1280f * 360f);
 		hvlDrawQuad(250, 250, 100, 100, getTextureLoader().getResource(0));
 		hvlResetRotation();
-		
-		fontPainter.drawWord("test of the most\nbasic\ntemplate!", 10, 10, 200, 100, 
+
+		fontPainter.drawWord("test of the most\nbasic\ntemplate!", 10, 10, 200, 100,
 				new Color(gradient / 1280f, gradient / 1280f, gradient / 1280f));
-		fontPainter.drawWord("and rotation!\nyay?", 10, 200, 0.25f,
+		fontPainter.drawWord("and rotation!\nyay?", 10, 150, 1f,
 				new Color(1 - (gradient / 1280f), 1 - (gradient / 1280f), 1 - (gradient / 1280f)));
 	}
 
