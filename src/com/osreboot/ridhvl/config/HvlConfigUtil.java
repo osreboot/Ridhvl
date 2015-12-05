@@ -28,22 +28,27 @@ public class HvlConfigUtil {
 	 * The delimiter between property name and value in a saved file.
 	 */
 	public static final String delimiter = ":";
-	
+
 	@HvlConfigIgnore
 	/**
-	 * The regex-quoted version of <code>delimiter</code> (Pattern.quote(delimiter))
+	 * The regex-quoted version of <code>delimiter</code>
+	 * (Pattern.quote(delimiter))
+	 * 
 	 * @see HvlConfigUtil.delimiter
 	 */
 	public static final String regexDelim = Pattern.quote(delimiter);
 
 	/**
 	 * Loads a config file from the given path into a newly created object.
-	 * @param type The type to load the data into.
-	 * @param path The path to the config file.
-	 * @return The loaded config class with the variables set from the config file.
+	 * 
+	 * @param type
+	 *            The type to load the data into.
+	 * @param path
+	 *            The path to the config file.
+	 * @return The loaded config class with the variables set from the config
+	 *         file.
 	 */
-	public static <TConfigType> TConfigType loadConfig(
-			Class<? extends TConfigType> type, String path) {
+	public static <TConfigType> TConfigType loadConfig(Class<? extends TConfigType> type, String path) {
 		Scanner scan = null;
 
 		Field[] fields = type.getFields();
@@ -59,15 +64,16 @@ public class HvlConfigUtil {
 				String[] split = ln.split(regexDelim);
 				String propName = split[0];
 
+				if (split.length != 2)
+					continue;
+				
 				for (int i = 0; i < fields.length; i++) {
 					if (fields[i].getName().equals(propName)) {
 						boolean shouldBeIgnored = false;
 						for (Annotation a : fields[i].getDeclaredAnnotations()) {
-							if (a.annotationType()
-									.equals(HvlConfigIgnore.class)) {
+							if (a.annotationType().equals(HvlConfigIgnore.class)) {
 								HvlConfigIgnore ign = (HvlConfigIgnore) a;
-								if (ign.value() == IgnoreType.BOTH
-										|| ign.value() == IgnoreType.LOAD)
+								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD)
 									shouldBeIgnored = true;
 								break;
 							}
@@ -78,31 +84,23 @@ public class HvlConfigUtil {
 						if (fields[i].getType().isArray()) {
 							Pattern pattern = Pattern.compile("'(.*?)'");
 							Matcher match = pattern.matcher(split[1]);
-							Class<?> arrayType = getArrayType(fields[i]
-									.getType());
+							Class<?> arrayType = getArrayType(fields[i].getType());
 							List<String> matches = new LinkedList<>();
-							while (match.find())
-							{
+							while (match.find()) {
 								matches.add(match.group(1));
 							}
-							
+
 							Object arr = Array.newInstance(arrayType, matches.size());
-							for (int j = 0; j < matches.size(); j++)
-							{
+							for (int j = 0; j < matches.size(); j++) {
 								Array.set(arr, j, HvlReflectionUtil.genericParse(arrayType, matches.get(j)));
 							}
-							
+
 							fields[i].set(toReturn, arr);
 						} else {
 							try {
-								toReturn.getClass()
-										.getField(propName)
-										.set(toReturn,
-												HvlReflectionUtil.genericParse(toReturn.getClass()
-														.getField(propName)
-														.getType(), split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e1) {
+									toReturn.getClass().getField(propName).set(toReturn, HvlReflectionUtil
+											.genericParse(toReturn.getClass().getField(propName).getType(), split[1]));
+							} catch (IllegalArgumentException | NoSuchFieldException | SecurityException e1) {
 								e1.printStackTrace();
 							}
 						}
@@ -110,8 +108,7 @@ public class HvlConfigUtil {
 				}
 			}
 			return toReturn;
-		} catch (FileNotFoundException | InstantiationException
-				| IllegalAccessException e) {
+		} catch (FileNotFoundException | InstantiationException | IllegalAccessException e) {
 			return null;
 		} finally {
 			if (scan != null)
@@ -121,12 +118,15 @@ public class HvlConfigUtil {
 
 	/**
 	 * Loads a config file from the given path into an existing object.
-	 * @param obj The object to load the data into.
-	 * @param path The path to the config file.
-	 * @return The object sent in from obj, but with the properties set from the config file.
+	 * 
+	 * @param obj
+	 *            The object to load the data into.
+	 * @param path
+	 *            The path to the config file.
+	 * @return The object sent in from obj, but with the properties set from the
+	 *         config file.
 	 */
-	public static <TConfigType> TConfigType loadConfig(TConfigType obj,
-			String path) {
+	public static <TConfigType> TConfigType loadConfig(TConfigType obj, String path) {
 		Scanner scan = null;
 
 		Field[] fields = obj.getClass().getFields();
@@ -142,15 +142,16 @@ public class HvlConfigUtil {
 				String[] split = ln.split(regexDelim);
 				String propName = split[0];
 
+				if (split.length != 2)
+					continue;
+
 				for (int i = 0; i < fields.length; i++) {
 					if (fields[i].getName().equals(propName)) {
 						boolean shouldBeIgnored = false;
 						for (Annotation a : fields[i].getDeclaredAnnotations()) {
-							if (a.annotationType()
-									.equals(HvlConfigIgnore.class)) {
+							if (a.annotationType().equals(HvlConfigIgnore.class)) {
 								HvlConfigIgnore ign = (HvlConfigIgnore) a;
-								if (ign.value() == IgnoreType.BOTH
-										|| ign.value() == IgnoreType.LOAD)
+								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD)
 									shouldBeIgnored = true;
 								break;
 							}
@@ -161,91 +162,26 @@ public class HvlConfigUtil {
 						if (fields[i].getType().isArray()) {
 							Pattern pattern = Pattern.compile("'(.*?)'");
 							Matcher match = pattern.matcher(split[1]);
-							Class<?> arrayType = getArrayType(fields[i]
-									.getType());
+							Class<?> arrayType = getArrayType(fields[i].getType());
 							List<String> matches = new LinkedList<>();
-							while (match.find())
-							{
+							while (match.find()) {
 								matches.add(match.group(1));
 							}
-							
+
 							Object arr = Array.newInstance(arrayType, matches.size());
-							for (int j = 0; j < matches.size(); j++)
-							{
+							for (int j = 0; j < matches.size(); j++) {
 								Array.set(arr, j, HvlReflectionUtil.genericParse(arrayType, matches.get(j)));
 							}
-							
+
 							fields[i].set(toReturn, arr);
 						} else {
 							try {
-								toReturn.getClass()
-										.getField(propName)
-										.set(toReturn,
-												HvlReflectionUtil.genericParse(toReturn.getClass()
-														.getField(propName)
-														.getType(), split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e1) {
+								toReturn.getClass().getField(propName).set(toReturn, HvlReflectionUtil
+										.genericParse(toReturn.getClass().getField(propName).getType(), split[1]));
+							} catch (IllegalArgumentException | NoSuchFieldException | SecurityException e1) {
 								e1.printStackTrace();
 							}
 						}
-						
-//						if (fields[i].getType().equals(int.class)
-//								|| fields[i].getType().equals(Integer.class)) {
-//							try {
-//								toReturn.getClass()
-//										.getField(propName)
-//										.setInt(toReturn,
-//												Integer.parseInt(split[1]));
-//							} catch (IllegalArgumentException
-//									| NoSuchFieldException | SecurityException e) {
-//							}
-//						}
-//
-//						if (fields[i].getType().equals(float.class)
-//								|| fields[i].getType().equals(Float.class)) {
-//							try {
-//								toReturn.getClass()
-//										.getField(propName)
-//										.setFloat(toReturn,
-//												Float.parseFloat(split[1]));
-//							} catch (IllegalArgumentException
-//									| NoSuchFieldException | SecurityException e) {
-//							}
-//						}
-//
-//						if (fields[i].getType().equals(double.class)
-//								|| fields[i].getType().equals(Double.class)) {
-//							try {
-//								toReturn.getClass()
-//										.getField(propName)
-//										.setDouble(toReturn,
-//												Double.parseDouble(split[1]));
-//							} catch (IllegalArgumentException
-//									| NoSuchFieldException | SecurityException e) {
-//							}
-//						}
-//
-//						if (fields[i].getType().equals(boolean.class)
-//								|| fields[i].getType().equals(Boolean.class)) {
-//							try {
-//								toReturn.getClass()
-//										.getField(propName)
-//										.setBoolean(toReturn,
-//												Boolean.parseBoolean(split[1]));
-//							} catch (IllegalArgumentException
-//									| NoSuchFieldException | SecurityException e) {
-//							}
-//						}
-//
-//						if (fields[i].getType().equals(String.class)) {
-//							try {
-//								toReturn.getClass().getField(propName)
-//										.set(toReturn, split[1]);
-//							} catch (IllegalArgumentException
-//									| NoSuchFieldException | SecurityException e) {
-//							}
-//						}
 					}
 				}
 			}
@@ -259,12 +195,15 @@ public class HvlConfigUtil {
 	}
 
 	/**
-	 * Loads a config file from the given path into the static variables of a class.
-	 * @param type The type to load the data into.
-	 * @param path The path to the config file.
+	 * Loads a config file from the given path into the static variables of a
+	 * class.
+	 * 
+	 * @param type
+	 *            The type to load the data into.
+	 * @param path
+	 *            The path to the config file.
 	 */
-	public static void loadStaticConfig(Class<? extends Object> type,
-			String path) {
+	public static void loadStaticConfig(Class<? extends Object> type, String path) {
 		Scanner scan = null;
 
 		Field[] allFields = type.getFields();
@@ -283,15 +222,16 @@ public class HvlConfigUtil {
 				String[] split = ln.split(regexDelim);
 				String propName = split[0];
 
+				if (split.length != 2)
+					continue;
+
 				for (Field f : fields) {
 					if (f.getName().equals(propName)) {
 						boolean shouldBeIgnored = false;
 						for (Annotation a : f.getDeclaredAnnotations()) {
-							if (a.annotationType()
-									.equals(HvlConfigIgnore.class)) {
+							if (a.annotationType().equals(HvlConfigIgnore.class)) {
 								HvlConfigIgnore ign = (HvlConfigIgnore) a;
-								if (ign.value() == IgnoreType.BOTH
-										|| ign.value() == IgnoreType.LOAD)
+								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD)
 									shouldBeIgnored = true;
 								break;
 							}
@@ -302,31 +242,23 @@ public class HvlConfigUtil {
 						if (f.getType().isArray()) {
 							Pattern pattern = Pattern.compile("'(.*?)'");
 							Matcher match = pattern.matcher(split[1]);
-							Class<?> arrayType = getArrayType(f
-									.getType());
+							Class<?> arrayType = getArrayType(f.getType());
 							List<String> matches = new LinkedList<>();
-							while (match.find())
-							{
+							while (match.find()) {
 								matches.add(match.group(1));
 							}
-							
+
 							Object arr = Array.newInstance(arrayType, matches.size());
-							for (int j = 0; j < matches.size(); j++)
-							{
+							for (int j = 0; j < matches.size(); j++) {
 								Array.set(arr, j, HvlReflectionUtil.genericParse(arrayType, matches.get(j)));
 							}
-							
+
 							f.set(null, arr);
 						} else {
 							try {
-								type
-										.getField(propName)
-										.set(null,
-												HvlReflectionUtil.genericParse(type
-														.getField(propName)
-														.getType(), split[1]));
-							} catch (IllegalArgumentException
-									| NoSuchFieldException | SecurityException e1) {
+								type.getField(propName).set(null,
+										HvlReflectionUtil.genericParse(type.getField(propName).getType(), split[1]));
+							} catch (IllegalArgumentException | NoSuchFieldException | SecurityException e1) {
 								e1.printStackTrace();
 							}
 						}
@@ -345,14 +277,17 @@ public class HvlConfigUtil {
 	/**
 	 * Saves the properties of a class to a config file.
 	 * <ul>
-	 * Note regarding the <code>includeStatic</code> parameter:
-	 * To load files saved like this, you need to use both loadConfig and loadStaticConfig.
-	 * @param in The object to save the properties of.
-	 * @param path The path to save the config file at.
-	 * @param includeStatic Should this also save the static properties of the class?
+	 * Note regarding the <code>includeStatic</code> parameter: To load files
+	 * saved like this, you need to use both loadConfig and loadStaticConfig.
+	 * 
+	 * @param in
+	 *            The object to save the properties of.
+	 * @param path
+	 *            The path to save the config file at.
+	 * @param includeStatic
+	 *            Should this also save the static properties of the class?
 	 */
-	public static <TConfigType> void saveConfig(TConfigType in, String path,
-			boolean includeStatic) {
+	public static <TConfigType> void saveConfig(TConfigType in, String path, boolean includeStatic) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
@@ -361,8 +296,7 @@ public class HvlConfigUtil {
 				for (Annotation a : f.getDeclaredAnnotations()) {
 					if (a.annotationType().equals(HvlConfigIgnore.class)) {
 						HvlConfigIgnore ign = (HvlConfigIgnore) a;
-						if (ign.value() == IgnoreType.BOTH
-								|| ign.value() == IgnoreType.SAVE)
+						if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.SAVE)
 							shouldBeIgnored = true;
 						break;
 					}
@@ -373,52 +307,37 @@ public class HvlConfigUtil {
 				if (shouldBeIgnored)
 					continue;
 
-				
-				if (f.getType().isArray())
-				{
+				if (f.getType().isArray()) {
 					Class<?> arrType = getArrayType(f.getType());
-					if (arrType.equals(String.class)
-							|| arrType.equals(Integer.class)
-							|| arrType.equals(int.class)
-							|| arrType.equals(Float.class)
-							|| arrType.equals(float.class)
-							|| arrType.equals(Double.class)
-							|| arrType.equals(double.class)
-							|| arrType.equals(Boolean.class)
-							|| arrType.equals(boolean.class)) {
+					if (arrType.equals(String.class) || arrType.equals(Integer.class) || arrType.equals(int.class)
+							|| arrType.equals(Float.class) || arrType.equals(float.class)
+							|| arrType.equals(Double.class) || arrType.equals(double.class)
+							|| arrType.equals(Boolean.class) || arrType.equals(boolean.class)) {
 						int l = Array.getLength(f.get(in));
-						
+
 						StringBuilder sb = new StringBuilder();
 						sb.append(f.getName() + delimiter);
 						sb.append("{");
-						if (l > 0)
-						{
-							for (int j = 0; j < l - 1; j++)
-							{
+						if (l > 0) {
+							for (int j = 0; j < l - 1; j++) {
 
 								sb.append("'" + Array.get(f.get(in), j) + "', ");
 							}
-							
+
 							sb.append("'" + Array.get(f.get(in), l - 1) + "'");
 						}
-						
+
 						sb.append("}");
-						
+
 						writer.write(sb.toString());
 						writer.write(System.lineSeparator());
 					}
-				}
-				else
-				{
+				} else {
 					// If we support the type
-					if (f.getType().equals(String.class)
-							|| f.getType().equals(Integer.class)
-							|| f.getType().equals(int.class)
-							|| f.getType().equals(Float.class)
-							|| f.getType().equals(float.class)
-							|| f.getType().equals(Double.class)
-							|| f.getType().equals(double.class)
-							|| f.getType().equals(Boolean.class)
+					if (f.getType().equals(String.class) || f.getType().equals(Integer.class)
+							|| f.getType().equals(int.class) || f.getType().equals(Float.class)
+							|| f.getType().equals(float.class) || f.getType().equals(Double.class)
+							|| f.getType().equals(double.class) || f.getType().equals(Boolean.class)
 							|| f.getType().equals(boolean.class)) {
 						try {
 							writer.write(f.getName() + delimiter + f.get(in));
@@ -438,11 +357,13 @@ public class HvlConfigUtil {
 
 	/**
 	 * Saves the static properties of a class to a config file.
-	 * @param type The type to save the properties of.
-	 * @param path The path to save the config file at.
+	 * 
+	 * @param type
+	 *            The type to save the properties of.
+	 * @param path
+	 *            The path to save the config file at.
 	 */
-	public static void saveStaticConfig(Class<? extends Object> type,
-			String path) {
+	public static void saveStaticConfig(Class<? extends Object> type, String path) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
@@ -451,8 +372,7 @@ public class HvlConfigUtil {
 				for (Annotation a : f.getDeclaredAnnotations()) {
 					if (a.annotationType().equals(HvlConfigIgnore.class)) {
 						HvlConfigIgnore ign = (HvlConfigIgnore) a;
-						if (ign.value() == IgnoreType.BOTH
-								|| ign.value() == IgnoreType.SAVE)
+						if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.SAVE)
 							shouldBeIgnored = true;
 						break;
 					}
@@ -463,51 +383,37 @@ public class HvlConfigUtil {
 				if (shouldBeIgnored)
 					continue;
 
-				if (f.getType().isArray())
-				{
+				if (f.getType().isArray()) {
 					Class<?> arrType = getArrayType(f.getType());
-					if (arrType.equals(String.class)
-							|| arrType.equals(Integer.class)
-							|| arrType.equals(int.class)
-							|| arrType.equals(Float.class)
-							|| arrType.equals(float.class)
-							|| arrType.equals(Double.class)
-							|| arrType.equals(double.class)
-							|| arrType.equals(Boolean.class)
-							|| arrType.equals(boolean.class)) {
+					if (arrType.equals(String.class) || arrType.equals(Integer.class) || arrType.equals(int.class)
+							|| arrType.equals(Float.class) || arrType.equals(float.class)
+							|| arrType.equals(Double.class) || arrType.equals(double.class)
+							|| arrType.equals(Boolean.class) || arrType.equals(boolean.class)) {
 						int l = Array.getLength(f.get(null));
-						
+
 						StringBuilder sb = new StringBuilder();
 						sb.append(f.getName() + delimiter);
 						sb.append("{");
-						if (l > 0)
-						{
-							for (int j = 0; j < l - 1; j++)
-							{
+						if (l > 0) {
+							for (int j = 0; j < l - 1; j++) {
 
 								sb.append("'" + Array.get(f.get(null), j) + "', ");
 							}
-							
+
 							sb.append("'" + Array.get(f.get(null), l - 1) + "'");
 						}
-						
+
 						sb.append("}");
-						
+
 						writer.write(sb.toString());
 						writer.write(System.lineSeparator());
 					}
-				}
-				else
-				{
+				} else {
 					// If we support the type
-					if (f.getType().equals(String.class)
-							|| f.getType().equals(Integer.class)
-							|| f.getType().equals(int.class)
-							|| f.getType().equals(Float.class)
-							|| f.getType().equals(float.class)
-							|| f.getType().equals(Double.class)
-							|| f.getType().equals(double.class)
-							|| f.getType().equals(Boolean.class)
+					if (f.getType().equals(String.class) || f.getType().equals(Integer.class)
+							|| f.getType().equals(int.class) || f.getType().equals(Float.class)
+							|| f.getType().equals(float.class) || f.getType().equals(Double.class)
+							|| f.getType().equals(double.class) || f.getType().equals(Boolean.class)
 							|| f.getType().equals(boolean.class)) {
 						try {
 							writer.write(f.getName() + delimiter + f.get(null));
@@ -533,7 +439,7 @@ public class HvlConfigUtil {
 
 		if (thing.endsWith(";"))
 			thing = thing.substring(0, thing.length() - 1);
-		
+
 		if (thing.equals("I"))
 			return int.class;
 		if (thing.equals("F"))
