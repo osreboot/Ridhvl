@@ -12,16 +12,16 @@ public class HvlCP_XBox360WirelessReceiver extends HvlControllerProfile{
 		super(HvlCP_XBox360WirelessReceiver.class, "Controller (Xbox 360 Wireless Receiver for Windows)");
 	}
 	
-	@HvlPollValue(component = "X Axis", deadZone = 0.2f)
+	@HvlPollValue(component = "X Axis", deadZone = 0.3f)
 	public static final String JOY1X = "JOY1X";
 	
-	@HvlPollValue(component = "Y Axis", deadZone = 0.2f, amplifier = -1f)
+	@HvlPollValue(component = "Y Axis", deadZone = 0.3f, amplifier = -1f)
 	public static final String JOY1Y = "JOY1Y";
 	
-	@HvlPollValue(component = "X Rotation", deadZone = 0.2f)
+	@HvlPollValue(component = "X Rotation", deadZone = 0.3f)
 	public static final String JOY2X = "JOY2X";
 	
-	@HvlPollValue(component = "Y Rotation", deadZone = 0.2f, amplifier = -1f)
+	@HvlPollValue(component = "Y Rotation", deadZone = 0.3f, amplifier = -1f)
 	public static final String JOY2Y = "JOY2Y";
 	
 	@HvlPollValue(component = "Button 8")
