@@ -41,11 +41,11 @@ public class ComponentsTest extends HvlTemplate2D {
 
 	private HvlMenu testMenu;
 	private HvlArrangerBox testArranger;
-	private HvlLabel testLabel;
+//	private HvlLabel testLabel;
 	private HvlCheckbox testCheck;
 	private HvlLabeledButton testButton;
 	private HvlTextBox testTextBox;
-	private HvlListBox testListBox;
+//	private HvlListBox testListBox;
 	private HvlProgressBar testProgressBar;
 	private HvlRadioButton testRadioButton1;
 	private HvlRadioButton testRadioButton2;
@@ -146,7 +146,7 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		};
 
-		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
+//		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
 		testCheck = new HvlLabeledCheckbox.Builder().setWidth(64).setHeight(64).setTextSide(HvlTextSide.LEFT).build();
 
@@ -184,9 +184,9 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		testTextBox = new HvlTextBox.Builder().setWidth(512).setHeight(96).setText("hey").setMaxCharacters(10).build();
 
-		testListBox = new HvlListBox.Builder().setWidth(512).setHeight(128).addItem("hey").addItem("nice to meet you")
-				.addItem("nice to be you").addItem("derp!").addItem("derp2!").addItem("derp3!").addItem("derp4!")
-				.addItem("derp5!").addItem("derp6!").addItem("derp7!").build();
+//		testListBox = new HvlListBox.Builder().setWidth(512).setHeight(128).addItem("hey").addItem("nice to meet you")
+//				.addItem("nice to be you").addItem("derp!").addItem("derp2!").addItem("derp3!").addItem("derp4!")
+//				.addItem("derp5!").addItem("derp6!").addItem("derp7!").build();
 
 		testProgressBar = new HvlProgressBar.Builder().setWidth(512).setHeight(128).build();
 		
