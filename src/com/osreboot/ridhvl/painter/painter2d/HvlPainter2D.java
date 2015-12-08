@@ -135,6 +135,14 @@ public class HvlPainter2D {
 	public static void hvlDrawLine(float x1, float y1, float x2, float y2, Color c, float width){
 		HvlLinePainter2D.hvlDrawLine(getSnappedX(x1), getSnappedY(y1), getSnappedX(x2), getSnappedY(y2), c, width);
 	}
+	
+	public static void hvlDrawLinec(float x, float y, float xl, float yl, Color c){
+		HvlLinePainter2D.hvlDrawLinec(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), c);
+	}
+	
+	public static void hvlDrawLinec(float x, float y, float xl, float yl, Color c, float width){
+		HvlLinePainter2D.hvlDrawLinec(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), c, width);
+	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, Texture t){
 		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), t);

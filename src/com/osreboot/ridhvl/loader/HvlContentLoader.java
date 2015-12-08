@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public abstract class HvlContentLoader<T> {
 	
-	@SuppressWarnings("rawtypes")
-	public static ArrayList<HvlContentLoader> loaders = new ArrayList<HvlContentLoader>();
+	public static ArrayList<HvlContentLoader<?>> loaders = new ArrayList<HvlContentLoader<?>>();
 	
 	private String path;
 	
