@@ -20,7 +20,7 @@ public class HvlRenderFrame {
 
 	private static boolean hasPushed = false;
 
-	private HvlAction3<Integer, Integer, Integer> actionInitialize = null;
+	private HvlAction3<Integer, Integer, Integer> actionInitialize = ACTION_INITIALIZE_DEFAULT;
 	
 	public static final HvlAction3<Integer, Integer, Integer> ACTION_INITIALIZE_DEFAULT = new HvlAction3<Integer, Integer, Integer>(){
 		@Override
