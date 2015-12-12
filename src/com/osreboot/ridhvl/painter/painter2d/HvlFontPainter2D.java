@@ -140,11 +140,11 @@ public class HvlFontPainter2D {
 	}
 
 	public float getFontWidth() {
-		return fontWidth;
+		return fontWidth * scale;
 	}
 
 	public float getFontHeight() {
-		return fontHeight;
+		return fontHeight * scale;
 	}
 
 	public float getLineWidth(String text) {

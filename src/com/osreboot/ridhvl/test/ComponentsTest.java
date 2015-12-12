@@ -9,14 +9,12 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlTextureUtil;
-import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
-import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
 import com.osreboot.ridhvl.menu.component.HvlListBox;
@@ -27,7 +25,6 @@ import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
 import com.osreboot.ridhvl.menu.component.HvlTextBox;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledButton;
 import com.osreboot.ridhvl.menu.component.collection.HvlLabeledCheckbox;
-import com.osreboot.ridhvl.menu.component.collection.HvlLabeledCheckbox.HvlTextSide;
 import com.osreboot.ridhvl.menu.component.collection.HvlTextureDrawable;
 import com.osreboot.ridhvl.menu.component.collection.HvlTiledRectDrawable;
 import com.osreboot.ridhvl.painter.HvlGradient;
@@ -38,12 +35,12 @@ import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ComponentsTest extends HvlTemplate2D {
-
+	
 	private HvlMenu testMenu;
 	private HvlArrangerBox testArranger;
-//	private HvlLabel testLabel;
-	private HvlCheckbox testCheck;
-	private HvlLabeledButton testButton;
+	private HvlLabel testLabel;
+//	private HvlCheckbox testCheck;
+//	private HvlLabeledButton testButton;
 	private HvlTextBox testTextBox;
 //	private HvlListBox testListBox;
 	private HvlProgressBar testProgressBar;
@@ -75,7 +72,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		grad.addStop(1, Color.green);
 		Texture gradient3 = grad.toTexture(512, 512, 256, 256, 0, 0);
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 192, 256);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 192, 256, 0f, 0.5f);
 
 		HvlComponentDefault.setDefault(new HvlLabeledButton.Builder().setOffDrawable(new HvlTextureDrawable(gradient2))
 				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
@@ -146,41 +143,41 @@ public class ComponentsTest extends HvlTemplate2D {
 
 		};
 
-//		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
+		testLabel = new HvlLabel.Builder().setFont(fontPainter).setText("testing!").setColor(Color.red).build();
 
-		testCheck = new HvlLabeledCheckbox.Builder().setWidth(64).setHeight(64).setTextSide(HvlTextSide.LEFT).build();
-
-		testButton = new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!")
-				.setClickedCommand(new HvlAction1<HvlButton>() {
-					@Override
-					public void run(HvlButton callingButton) {
-						HvlMenu.addPopup(new HvlMenu() {
-							{
-								add(new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!")
-										.setClickedCommand(new HvlAction1<HvlButton>() {
-									@Override
-									public void run(HvlButton callingButton) {
-										System.out.println("BUTTONCLICK1!");
-										HvlMenu.removePopup();
-									}
-								}).build());
-							}
-						}, true);
-
-						HvlMenu.addPopup(new HvlMenu() {
-							{
-								add(new HvlLabeledButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128)
-										.setText("hey!").setClickedCommand(new HvlAction1<HvlButton>() {
-									@Override
-									public void run(HvlButton callingButton) {
-										System.out.println("BUTTONCLICK2!");
-										HvlMenu.removePopup();
-									}
-								}).build());
-							}
-						}, true);
-					}
-				}).build();
+//		testCheck = new HvlLabeledCheckbox.Builder().setWidth(64).setHeight(64).setTextSide(HvlTextSide.LEFT).build();
+//
+//		testButton = new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!")
+//				.setClickedCommand(new HvlAction1<HvlButton>() {
+//					@Override
+//					public void run(HvlButton callingButton) {
+//						HvlMenu.addPopup(new HvlMenu() {
+//							{
+//								add(new HvlLabeledButton.Builder().setWidth(256).setHeight(128).setText("hey!")
+//										.setClickedCommand(new HvlAction1<HvlButton>() {
+//									@Override
+//									public void run(HvlButton callingButton) {
+//										System.out.println("BUTTONCLICK1!");
+//										HvlMenu.removePopup();
+//									}
+//								}).build());
+//							}
+//						}, true);
+//
+//						HvlMenu.addPopup(new HvlMenu() {
+//							{
+//								add(new HvlLabeledButton.Builder().setX(512).setY(256).setWidth(256).setHeight(128)
+//										.setText("hey!").setClickedCommand(new HvlAction1<HvlButton>() {
+//									@Override
+//									public void run(HvlButton callingButton) {
+//										System.out.println("BUTTONCLICK2!");
+//										HvlMenu.removePopup();
+//									}
+//								}).build());
+//							}
+//						}, true);
+//					}
+//				}).build();
 
 		testTextBox = new HvlTextBox.Builder().setWidth(512).setHeight(96).setText("hey").setMaxCharacters(10).build();
 
@@ -196,9 +193,9 @@ public class ComponentsTest extends HvlTemplate2D {
 		
 		testArranger = new HvlArrangerBox.Builder().setX(0).setY(0).setxAlign(0.5f).setyAlign(0f)
 				.setWidth(Display.getWidth() - 64).setHeight(720)
-//				.add(testLabel)
-				.add(testCheck)
-				.add(testButton)
+				.add(testLabel)
+//				.add(testCheck)
+//				.add(testButton)
 				.add(testTextBox)
 				.add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(Direction.HORIZONTAL)
 						.setTextureDirection(Direction.HORIZONTAL).build())
