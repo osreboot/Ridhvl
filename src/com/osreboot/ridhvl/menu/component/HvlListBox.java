@@ -484,6 +484,10 @@ public class HvlListBox extends HvlComponent {
 		return items.get(index);
 	}
 
+	public List<Object> getItems(){
+		return items;
+	}
+
 	public HvlAction3<HvlListBox, Integer, Object> getSelectionChangedCommand() {
 		return selectionChangedCommand;
 	}
