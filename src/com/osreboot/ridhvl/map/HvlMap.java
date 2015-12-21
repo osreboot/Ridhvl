@@ -676,7 +676,7 @@ public class HvlMap {
 	 */
 	public void save(String path) {
 		try {
-			BufferedWriter write = new BufferedWriter(new FileWriter("res/" + path + ".hvlmap"));
+			BufferedWriter write = new BufferedWriter(new FileWriter(path + ".hvlmap"));
 
 			write.write(tilesAcross + "," + tilesTall + "," + tiles.length + System.lineSeparator());
 
