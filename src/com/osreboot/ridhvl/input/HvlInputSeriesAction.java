@@ -3,61 +3,61 @@ package com.osreboot.ridhvl.input;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import com.osreboot.ridhvl.input.HvlInput.HvlInputFilter;
+import com.osreboot.ridhvl.input.HvlInput.InputFilter;
 
 public class HvlInputSeriesAction {
 
 	//TODO boolean mode for using joystick
 
-	public static final HvlInputFilter FILTER_UP = new HvlInputFilter(){
+	public static final InputFilter FILTER_UP = new InputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP) ? 1 : 0;
 		}
 	};
 	
-	public static final HvlInputFilter FILTER_UP_NEGATIVE = new HvlInputFilter(){
+	public static final InputFilter FILTER_UP_NEGATIVE = new InputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP) ? -1 : 0;
 		}
 	};
 	
-	public static final HvlInputFilter FILTER_DOWN = new HvlInputFilter(){
+	public static final InputFilter FILTER_DOWN = new InputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN) ? 1 : 0;
 		}
 	};
 
-	public static final HvlInputFilter FILTER_LEFT = new HvlInputFilter(){
+	public static final InputFilter FILTER_LEFT = new InputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_A) || Keyboard.isKeyDown(Keyboard.KEY_LEFT) ? 1 : 0;
 		}
 	};
 	
-	public static final HvlInputFilter FILTER_LEFT_NEGATIVE = new HvlInputFilter(){
+	public static final InputFilter FILTER_LEFT_NEGATIVE = new InputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_A) || Keyboard.isKeyDown(Keyboard.KEY_LEFT) ? -1 : 0;
 		}
 	};
 
-	public static final HvlInputFilter FILTER_RIGHT = new HvlInputFilter(){
+	public static final InputFilter FILTER_RIGHT = new InputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_RIGHT) ? 1 : 0;
 		}
 	};
 
-	public static final HvlInputFilter FILTER_PAUSE = new HvlInputFilter(){
+	public static final InputFilter FILTER_PAUSE = new InputFilter(){
 		public float getCurrentOutput(){
 			return Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) || Keyboard.isKeyDown(Keyboard.KEY_P) ? 1 : 0;
 		}
 	};
 
-	public static final HvlInputFilter FILTER_PRIMARY = new HvlInputFilter(){
+	public static final InputFilter FILTER_PRIMARY = new InputFilter(){
 		public float getCurrentOutput(){
 			return Mouse.isButtonDown(0) ? 1 : 0;
 		}
 	};
 
-	public static final HvlInputFilter FILTER_SECONDARY = new HvlInputFilter(){
+	public static final InputFilter FILTER_SECONDARY = new InputFilter(){
 		public float getCurrentOutput(){
 			return Mouse.isButtonDown(1) ? 1 : 0;
 		}
