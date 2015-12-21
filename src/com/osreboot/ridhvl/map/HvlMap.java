@@ -550,8 +550,7 @@ public class HvlMap {
 	 * Loads a map from file.
 	 * 
 	 * @param path
-	 *            The name of the file to load. This should be in the "res"
-	 *            folder and must have the extension ".hvlmap". Do not include
+	 *            The name of the file to load. This should have the extension ".hvlmap". Do not include
 	 *            the extension in the name.
 	 * @param x The X position of the map once it's loaded.
 	 * @param y The Y position of the map once it's loaded.
@@ -565,7 +564,7 @@ public class HvlMap {
 	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
 			int tilemapWidth, int tilemapHeight) {
 		try {
-			BufferedReader read = new BufferedReader(new FileReader("res/" + path + ".hvlmap"));
+			BufferedReader read = new BufferedReader(new FileReader(path + ".hvlmap"));
 
 			String first = read.readLine();
 			String[] firstParts = first.split(",");
@@ -672,13 +671,13 @@ public class HvlMap {
 
 	/**
 	 * Saves a map to file.
-	 * @param path The path to save to. Will be in the format "res/[filename].hvlmap"
+	 * @param path The path to save to. Will be in the format "[filename].hvlmap"
 	 */
 	public void save(String path) {
 		try {
 			BufferedWriter write = new BufferedWriter(new FileWriter(path + ".hvlmap"));
 
-			write.write(tilesAcross + "," + tilesTall + "," + tiles.length + System.lineSeparator());
+			write.write(getMapWidth() + "," + getMapHeight() + "," + tiles.length + System.lineSeparator());
 
 			write.write("BeginMap" + System.lineSeparator());
 
