@@ -34,7 +34,7 @@ public class HvlInput {
 
 	private static LinkedList<HvlInput> inputs = new LinkedList<HvlInput>();
 
-	public static abstract class HvlInputFilter{
+	public static abstract class InputFilter{
 		public abstract float getCurrentOutput();
 	}
 
@@ -46,12 +46,12 @@ public class HvlInput {
 		for(HvlInput input : inputs) input.updateEvents();
 	}
 
-	private HvlInputFilter[] filter;
+	private InputFilter[] filter;
 
 	private float previousOutput;
 	private HvlAction1<HvlInput> pressedAction, releasedAction;
 
-	public HvlInput(HvlInputFilter... filterArg){
+	public HvlInput(InputFilter... filterArg){
 		filter = filterArg;
 		previousOutput = 0;
 		inputs.add(this);
@@ -85,11 +85,11 @@ public class HvlInput {
 		releasedAction = releasedActionArg;
 	}
 
-	public HvlInputFilter[] getFilters(){
+	public InputFilter[] getFilters(){
 		return filter;
 	}
 
-	public void setFilter(HvlInputFilter... filterArg){
+	public void setFilter(InputFilter... filterArg){
 		filter = filterArg;
 	}
 
