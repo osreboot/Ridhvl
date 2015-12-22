@@ -16,7 +16,7 @@ public abstract class HvlComponent {
 	private float x, y;
 	private float width, height;
 
-	private boolean enabled, visible, focused;
+	private boolean enabled, visible;
 
 	private HvlAction2<HvlComponent, Float> updateOverride, drawOverride;
 
@@ -71,15 +71,15 @@ public abstract class HvlComponent {
 		if (!enabled || !HvlMenu.getCurrent().isInteractable())
 			return false;
 
-		return isHovering() && Mouse.isButtonDown(buttonArg);
+		return (isHovering() && Mouse.isButtonDown(buttonArg)) || HvlMenuInteractor.isBeingClicked(this);
 	}
 
 	public boolean isHovering() {// TODO account for HvlDisplayMode
 		if (!enabled || !HvlMenu.getCurrent().isInteractable())
 			return false;
 
-		return Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY()
-				&& HvlCursor.getCursorX() < getX() + getWidth() && HvlCursor.getCursorY() < getY() + getHeight();
+		return (Mouse.isInsideWindow() && HvlCursor.getCursorX() > getX() && HvlCursor.getCursorY() > getY()
+				&& HvlCursor.getCursorX() < getX() + getWidth() && HvlCursor.getCursorY() < getY() + getHeight()) || HvlMenuInteractor.isHovering(this);
 	}
 
 	public <T> T cloneComponent(T cloneTo) {
@@ -175,14 +175,6 @@ public abstract class HvlComponent {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
-	}
-
-	public boolean isFocused() {
-		return focused;
-	}
-
-	public void setFocused(boolean focusedArg) {
-		focused = focusedArg;
 	}
 
 	public HvlAction2<HvlComponent, Float> getUpdateOverride() {

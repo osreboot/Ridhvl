@@ -7,6 +7,7 @@ import com.osreboot.ridhvl.input.HvlController;
 import com.osreboot.ridhvl.input.HvlControllerProfile;
 import com.osreboot.ridhvl.input.HvlInput;
 import com.osreboot.ridhvl.menu.HvlMenuDJ;
+import com.osreboot.ridhvl.menu.HvlMenuInteractor;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlCursor;
 
@@ -22,6 +23,7 @@ public class HvlChronologyRegistry {
 		HvlChronology.registerChronology(HvlVerifier.class);
 		HvlChronology.registerChronology(HvlControllerProfile.class);
 		HvlChronology.registerChronology(HvlController.class);
+		HvlChronology.registerChronology(HvlMenuInteractor.class);
 	}
 	
 }
