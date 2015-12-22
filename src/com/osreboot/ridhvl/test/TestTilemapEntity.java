@@ -17,16 +17,34 @@ public class TestTilemapEntity extends HvlEntity {
 	private Texture t;
 	
 	private float someValue;
+	private String magicalString;
 
+	public TestTilemapEntity(float xArg, float yArg, HvlMap mapArg) {
+		super(xArg, yArg, mapArg);
+		TileTest.ent = this;
+		t = HvlTemplateInteg2D.getTexture(1);
+		someValue = 64f;
+	}
+	
 	public TestTilemapEntity(float xArg, float yArg, HvlMap mapArg, float sv) {
 		super(xArg, yArg, mapArg);
 		TileTest.ent = this;
 		t = HvlTemplateInteg2D.getTexture(1);
 		someValue = sv;
 	}
+	
+	public TestTilemapEntity(float xArg, float yArg, HvlMap mapArg, float sv, String magicalString) {
+		super(xArg, yArg, mapArg);
+		TileTest.ent = this;
+		t = HvlTemplateInteg2D.getTexture(1);
+		someValue = sv;
+		this.magicalString = magicalString;
+	}
 
 	@Override
 	public void update(float delta) {
+		System.out.println(someValue);
+		System.out.println(magicalString);
 		float speed = 256.0f;
 		float xMotion = HvlInputSeriesAction.HORIZONTAL.getCurrentOutput();
 		float yMotion = HvlInputSeriesAction.VERTICAL.getCurrentOutput();
