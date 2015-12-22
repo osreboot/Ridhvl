@@ -141,7 +141,8 @@ public class HvlMap {
 					HvlPainter2D.hvlDrawQuad(pos.x + (tX * tileWidth), pos.y + (tY * tileHeight),
 							tileWidth + overdrawAmount, tileHeight + overdrawAmount, (float) mapTileX / tilesAcross,
 							(float) mapTileY / tilesTall, ((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
-							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture, new Color(1.0f, 1.0f, 1.0f, opacities[l]));
+							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture,
+							new Color(1.0f, 1.0f, 1.0f, opacities[l]));
 				}
 			}
 		}
@@ -197,7 +198,7 @@ public class HvlMap {
 	public int getLayerCount() {
 		return tiles.length;
 	}
-	
+
 	/**
 	 * Sets a tile in the map.
 	 * 
@@ -563,19 +564,55 @@ public class HvlMap {
 	 * Loads a map from file.
 	 * 
 	 * @param path
-	 *            The name of the file to load. This should have the extension ".hvlmap". Do not include
-	 *            the extension in the name.
-	 * @param x The X position of the map once it's loaded.
-	 * @param y The Y position of the map once it's loaded.
-	 * @param tileWidth The width of a tile in pixels.
-	 * @param tileHeight The height of a tile in pixels.
-	 * @param tilemap The tilemap texture.
-	 * @param tilemapWidth The width of the tilemap texture in tiles.
-	 * @param tilemapHeight The height of the tilemap texture in tiles.
+	 *            The name of the file to load. This should have the extension
+	 *            ".hvlmap". Do not include the extension in the name.
+	 * @param x
+	 *            The X position of the map once it's loaded.
+	 * @param y
+	 *            The Y position of the map once it's loaded.
+	 * @param tileWidth
+	 *            The width of a tile in pixels.
+	 * @param tileHeight
+	 *            The height of a tile in pixels.
+	 * @param tilemap
+	 *            The tilemap texture.
+	 * @param tilemapWidth
+	 *            The width of the tilemap texture in tiles.
+	 * @param tilemapHeight
+	 *            The height of the tilemap texture in tiles.
 	 * @return The loaded map.
 	 */
 	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
 			int tilemapWidth, int tilemapHeight) {
+		return load(path, x, y, tileWidth, tileHeight, tilemap, tilemapWidth, tilemapHeight, true);
+	}
+
+	/**
+	 * Loads a map from file.
+	 * 
+	 * @param path
+	 *            The name of the file to load. This should have the extension
+	 *            ".hvlmap". Do not include the extension in the name.
+	 * @param x
+	 *            The X position of the map once it's loaded.
+	 * @param y
+	 *            The Y position of the map once it's loaded.
+	 * @param tileWidth
+	 *            The width of a tile in pixels.
+	 * @param tileHeight
+	 *            The height of a tile in pixels.
+	 * @param tilemap
+	 *            The tilemap texture.
+	 * @param tilemapWidth
+	 *            The width of the tilemap texture in tiles.
+	 * @param tilemapHeight
+	 *            The height of the tilemap texture in tiles.
+	 * @param replaceArbitrary
+	 * 			  Whether arbitrary entities should be replaced with their correct version.
+	 * @return The loaded map.
+	 */
+	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
+			int tilemapWidth, int tilemapHeight, boolean replaceArbitrary) {
 		try {
 			BufferedReader read = new BufferedReader(new FileReader(path + ".hvlmap"));
 
@@ -643,28 +680,40 @@ public class HvlMap {
 					for (Constructor<?> constructor : constructors) {
 						// If this doesn't meet the minimal constructor
 						// requirements, skip it.
-						if (constructor.getParameterTypes().length < 3)
+						if (constructor.getParameterCount() < 3)
 							continue;
 
 						// If this doesn't have the same number of arguments as
-						// given in the file, skip it.
-						if (spl.length != constructor.getParameterTypes().length)
+						// given in the file, skip it (unless it's an arbitrary entity)
+						if (!entClass.equals(HvlArbitraryEntity.class) && spl.length != constructor.getParameterCount())
 							continue;
 
 						try {
-							Object[] params = new Object[constructor.getParameterTypes().length];
+							Object[] params = new Object[constructor.getParameterCount()];
 							params[0] = entX;
 							params[1] = entY;
 							params[2] = tr;
-							for (int i = 3; i < spl.length; i++) {
-								params[i] = HvlReflectionUtil.genericParse(constructor.getParameterTypes()[i], spl[i]);
+							if (entClass.equals(HvlArbitraryEntity.class)) {
+								params[3] = spl[3];
+								String[] others = new String[spl.length - 4];
+								for (int i = 4; i < spl.length; i++) {
+									others[i - 4] = spl[i];
+								}
+								params[4] = others;
+								HvlArbitraryEntity newEnt = (HvlArbitraryEntity) constructor.newInstance(params);
+								tr.addEntity(replaceArbitrary ? newEnt.toActualEntity() : newEnt);
+							} else {
+								for (int i = 3; i < spl.length; i++) {
+									params[i] = HvlReflectionUtil.genericParse(constructor.getParameterTypes()[i],
+											spl[i]);
+								}
+								HvlEntity newEnt = (HvlEntity) constructor.newInstance(params);
+								tr.addEntity(newEnt);
 							}
-							HvlEntity newEnt = (HvlEntity) constructor.newInstance(params);
-
-							tr.addEntity(newEnt);
+								
 							break;
 						} catch (Exception e) {
-
+							e.printStackTrace();
 						}
 					}
 				}
@@ -681,10 +730,12 @@ public class HvlMap {
 			return null;
 		}
 	}
-
+	
 	/**
 	 * Saves a map to file.
-	 * @param path The path to save to. Will be in the format "[filename].hvlmap"
+	 * 
+	 * @param path
+	 *            The path to save to. Will be in the format "[filename].hvlmap"
 	 */
 	public void save(String path) {
 		try {
@@ -738,6 +789,7 @@ public class HvlMap {
 
 	/**
 	 * Gets the amount of overlap (in pixels) between tiles.
+	 * 
 	 * @return The amount of overlap between tiles in pixels.
 	 */
 	public float getOverdrawAmount() {
@@ -746,15 +798,20 @@ public class HvlMap {
 
 	/**
 	 * Sets the amount of overlap (in pixels) between tiles.
-	 * @param overdrawAmount The new amount of overlap between tiles in pixels.
+	 * 
+	 * @param overdrawAmount
+	 *            The new amount of overlap between tiles in pixels.
 	 */
 	public void setOverdrawAmount(float overdrawAmount) {
 		this.overdrawAmount = overdrawAmount;
 	}
 
 	/**
-	 * Converts tile X coordinates into world coordinates (results in upper left corner).
-	 * @param tX The tile X coordinate to convert.
+	 * Converts tile X coordinates into world coordinates (results in upper left
+	 * corner).
+	 * 
+	 * @param tX
+	 *            The tile X coordinate to convert.
 	 * @return The converted coordinate.
 	 */
 	public float tileXToWorld(int tX) {
@@ -762,8 +819,11 @@ public class HvlMap {
 	}
 
 	/**
-	 * Converts tile Y coordinates into world coordinates (results in upper left corner).
-	 * @param tY The tile Y coordinate to convert.
+	 * Converts tile Y coordinates into world coordinates (results in upper left
+	 * corner).
+	 * 
+	 * @param tY
+	 *            The tile Y coordinate to convert.
 	 * @return The converted coordinate.
 	 */
 	public float tileYToWorld(int tY) {
@@ -772,7 +832,9 @@ public class HvlMap {
 
 	/**
 	 * Converts world X coordinates into tile coordinates.
-	 * @param wX The world X coordinate to convert.
+	 * 
+	 * @param wX
+	 *            The world X coordinate to convert.
 	 * @return The converted coordinate.
 	 */
 	public int worldXToTile(float wX) {
@@ -781,7 +843,9 @@ public class HvlMap {
 
 	/**
 	 * Converts world Y coordinates into tile coordinates.
-	 * @param wY The world Y coordinate to convert.
+	 * 
+	 * @param wY
+	 *            The world Y coordinate to convert.
 	 * @return The converted coordinate.
 	 */
 	public int worldYToTile(float wY) {
@@ -790,18 +854,22 @@ public class HvlMap {
 
 	/**
 	 * Gets the draw opacity for a layer.
-	 * @param layer They layer to get the opacity of.
+	 * 
+	 * @param layer
+	 *            They layer to get the opacity of.
 	 * @return The opacity of the layer.
 	 */
 	public float getLayerOpacity(int layer) {
 		return opacities[layer];
 	}
-	
+
 	/**
 	 * Sets the draw opacity for a layer.
 	 * 
-	 * @param layer The layer to set the opacity for.
-	 * @param opacity The new opacity for the layer.
+	 * @param layer
+	 *            The layer to set the opacity for.
+	 * @param opacity
+	 *            The new opacity for the layer.
 	 */
 	public void setLayerOpacity(int layer, float opacity) {
 		opacities[layer] = opacity;

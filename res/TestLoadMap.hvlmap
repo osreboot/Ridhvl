@@ -13,5 +13,5 @@ Layer:1
 
 EndMap
 BeginEntities
-com.osreboot.ridhvl.test.TestTilemapEntity,0,0,37.842
+com.osreboot.ridhvl.map.HvlArbitraryEntity,0,0,com.osreboot.ridhvl.test.TestTilemapEntity,37.124,wazzup?
 EndEntities
