@@ -32,16 +32,16 @@ public class HvlArbitraryEntity extends HvlEntity {
 			Class<?> type = Class.forName(className);
 			
 			for (Constructor<?> constructor : type.getConstructors()) {
-				if (constructor.getParameterCount() != parameters.length) continue;
+				if (constructor.getParameterTypes().length != parameters.length) continue;
 				
 				boolean isValid = true;
 				
-				Object[] proper = new Object[constructor.getParameterCount()];
+				Object[] proper = new Object[constructor.getParameterTypes().length];
 				proper[0] = getRelX();
 				proper[1] = getRelY();
 				proper[2] = getMap();
 				
-				for (int i = 3; i < constructor.getParameterCount(); i++) {
+				for (int i = 3; i < constructor.getParameterTypes().length; i++) {
 					Object supposed = HvlReflectionUtil.genericParse(constructor.getParameterTypes()[i], parameters[i].toString());
 					
 					proper[i] = supposed;

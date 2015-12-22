@@ -680,16 +680,16 @@ public class HvlMap {
 					for (Constructor<?> constructor : constructors) {
 						// If this doesn't meet the minimal constructor
 						// requirements, skip it.
-						if (constructor.getParameterCount() < 3)
+						if (constructor.getParameterTypes().length < 3)
 							continue;
 
 						// If this doesn't have the same number of arguments as
 						// given in the file, skip it (unless it's an arbitrary entity)
-						if (!entClass.equals(HvlArbitraryEntity.class) && spl.length != constructor.getParameterCount())
+						if (!entClass.equals(HvlArbitraryEntity.class) && spl.length != constructor.getParameterTypes().length)
 							continue;
 
 						try {
-							Object[] params = new Object[constructor.getParameterCount()];
+							Object[] params = new Object[constructor.getParameterTypes().length];
 							params[0] = entX;
 							params[1] = entY;
 							params[2] = tr;
