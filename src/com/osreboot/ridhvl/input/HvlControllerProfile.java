@@ -124,7 +124,7 @@ public abstract class HvlControllerProfile {
 		profiles.add(this);
 	}
 
-	public void syncControllers(){
+	protected void syncControllers(){
 		pollValues.clear();
 		if(autoIndex) controllerIndexes.clear();
 		for(Controller c : HvlController.getControllers()){
@@ -138,7 +138,7 @@ public abstract class HvlControllerProfile {
 		}
 	}
 
-	public void pollValues(){
+	protected void pollValues(){
 		for(Controller c : pollValues.keySet()){
 			c.poll();
 			EventQueue queue = c.getEventQueue();
@@ -175,12 +175,12 @@ public abstract class HvlControllerProfile {
 			return getMetaValue(controllerIndexes.get(controllerIndex), fieldArg);
 		}
 	}
-	
+
 	private float getMetaValue(Controller c, String fieldArg){
 		if(pollCustom.containsKey(fieldArg)) return pollCustom.get(fieldArg).run(c, this);
 		else return pollValues.get(c).get(staticPollValues.indexOf(fieldArg));
 	}
-	
+
 	public float getRawValue(Controller c, String fieldArg){
 		return pollValues.get(c).get(staticPollValues.indexOf(fieldArg));
 	}
@@ -188,6 +188,22 @@ public abstract class HvlControllerProfile {
 	public boolean isOfType(Controller c){
 		return (controllerIdentifier != null && c.getName().contains(controllerIdentifier)) || 
 				(actionIsController != null && actionIsController.run(this, c));
+	}
+
+	public boolean isRangeActive(String[] fieldArgs){
+		boolean active = false;
+		for(int i = 0; i < fieldArgs.length; i++){
+			if(getValue(fieldArgs[i]) != 0) active = true;
+		}
+		return active;
+	}
+
+	public boolean isRangeActive(String[] fieldArgs, int controllerIndexArg){
+		boolean active = false;
+		for(int i = 0; i < fieldArgs.length; i++){
+			if(getValue(fieldArgs[i], controllerIndexArg) != 0) active = true;
+		}
+		return active;
 	}
 
 	public boolean getAutoIndex(){

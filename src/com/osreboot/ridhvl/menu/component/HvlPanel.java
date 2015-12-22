@@ -85,6 +85,10 @@ public class HvlPanel extends HvlComponent implements HvlComponentContainer {
 		return null;
 	}
 
+	public List<HvlComponent> getChildren(){
+		return children;
+	}
+
 	public int getChildCount() {
 		return children.size();
 	}

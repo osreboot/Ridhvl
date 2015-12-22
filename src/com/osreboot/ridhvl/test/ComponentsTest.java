@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.getWhite512;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
