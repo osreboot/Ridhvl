@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlCoord;
@@ -29,6 +30,7 @@ public class HvlMap {
 	private int tilesAcross, tilesTall;
 
 	private int[][][] tiles;
+	private float[] opacities;
 	private boolean[] layerCollisionsEnabled;
 
 	private Texture texture;
@@ -76,8 +78,10 @@ public class HvlMap {
 		texture = tArg;
 		layerCollisionsEnabled = new boolean[layersArg];
 		tiles = new int[layersArg][][];
+		opacities = new float[layersArg];
 		for (int l = 0; l < layersArg; l++) {
 			tiles[l] = new int[mHeightArg][];
+			opacities[l] = 1.0f;
 			layerCollisionsEnabled[l] = true;
 			for (int x = 0; x < mHeightArg; x++) {
 				tiles[l][x] = new int[mWidthArg];
@@ -137,7 +141,7 @@ public class HvlMap {
 					HvlPainter2D.hvlDrawQuad(pos.x + (tX * tileWidth), pos.y + (tY * tileHeight),
 							tileWidth + overdrawAmount, tileHeight + overdrawAmount, (float) mapTileX / tilesAcross,
 							(float) mapTileY / tilesTall, ((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
-							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture);
+							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture, new Color(1.0f, 1.0f, 1.0f, opacities[l]));
 				}
 			}
 		}
@@ -782,5 +786,24 @@ public class HvlMap {
 	 */
 	public int worldYToTile(float wY) {
 		return (int) ((wY - pos.y) / tileHeight);
+	}
+
+	/**
+	 * Gets the draw opacity for a layer.
+	 * @param layer They layer to get the opacity of.
+	 * @return The opacity of the layer.
+	 */
+	public float getLayerOpacity(int layer) {
+		return opacities[layer];
+	}
+	
+	/**
+	 * Sets the draw opacity for a layer.
+	 * 
+	 * @param layer The layer to set the opacity for.
+	 * @param opacity The new opacity for the layer.
+	 */
+	public void setLayerOpacity(int layer, float opacity) {
+		opacities[layer] = opacity;
 	}
 }
