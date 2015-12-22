@@ -27,6 +27,14 @@ public class HvlArbitraryEntity extends HvlEntity {
 	private String className;
 	private Object[] parameters;
 	
+	public String getClassName() {
+		return className;
+	}
+
+	public Object[] getParameters() {
+		return parameters;
+	}
+
 	public HvlEntity toActualEntity() {		
 		try {
 			Class<?> type = Class.forName(className);
