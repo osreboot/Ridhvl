@@ -186,6 +186,15 @@ public class HvlMap {
 	}
 
 	/**
+	 * Gets how many layers this map has.
+	 * 
+	 * @return The number of layers this map has.
+	 */
+	public int getLayerCount() {
+		return tiles.length;
+	}
+	
+	/**
 	 * Sets a tile in the map.
 	 * 
 	 * @param layer
