@@ -764,8 +764,12 @@ public class HvlMap {
 				write.write("BeginEntities" + System.lineSeparator());
 
 				for (HvlEntity ent : entities) {
-					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY()
-							+ System.lineSeparator());
+					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY());
+					List<Object> toWrite = ent.getSaveParameters();
+					for (Object o : toWrite) {
+						write.write("," + o.toString());
+					}
+					write.write(System.lineSeparator());
 				}
 				for (HvlEntity ent : entitiesToAdd) {
 					write.write(ent.getClass().getName() + "," + ent.getRelX() + "," + ent.getRelY());
@@ -873,5 +877,13 @@ public class HvlMap {
 	 */
 	public void setLayerOpacity(int layer, float opacity) {
 		opacities[layer] = opacity;
+	}
+
+	/**
+	 * Gets the list of all entities NOT ADDED IN THE CURRENT FRAME.
+	 * @return The list of all entities in this map.
+	 */
+	public List<HvlEntity> getEntities() {
+		return entities;
 	}
 }

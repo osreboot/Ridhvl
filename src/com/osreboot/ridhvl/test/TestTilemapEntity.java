@@ -43,6 +43,8 @@ public class TestTilemapEntity extends HvlEntity {
 
 	@Override
 	public void update(float delta) {
+		System.out.println(someValue);
+		System.out.println(magicalString);
 		float speed = 256.0f;
 		float xMotion = HvlInputSeriesAction.HORIZONTAL.getCurrentOutput();
 		float yMotion = HvlInputSeriesAction.VERTICAL.getCurrentOutput();

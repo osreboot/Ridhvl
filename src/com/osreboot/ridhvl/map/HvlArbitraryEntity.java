@@ -72,13 +72,12 @@ public class HvlArbitraryEntity extends HvlEntity {
 	@Override
 	public void draw(float delta) {
 		int hc = className.hashCode();
-		float r = (float)(hc % 17) / 17;
-		float g = (float)(hc % 37) / 37;
-		float b = (float)(hc % 29) / 29;
+		float r = (float)((hc & 0xFF0000) >> 16) / 255;
+		float g = (float)((hc & 0x00FF00) >> 8 ) / 255;
+		float b = (float)(hc & 0x0000FF) / 255;
 		
-		HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileWidth(), getMap().getTileHeight(), new Color(r, g, b, 1.0f));
+		HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileWidth(), getMap().getTileHeight(), new Color(r, g, b, 0.75f));
 	}
-
 	
 	@Override
 	public List<Object> getSaveParameters() {
