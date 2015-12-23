@@ -36,6 +36,12 @@ public class HvlMenuInteractor {
 			x = HvlCursor.getCursorX();
 			y = HvlCursor.getCursorY();
 		}
+		if(enabled){
+			if(!getCurrentComponents().contains(selected)){
+				selected = null;
+				if(getCurrentComponents().size() > 0) selected = getCurrentComponents().get(0);
+			}
+		}
 	}
 	
 	public static void setFilters(HvlInput.InputFilter upArg, HvlInput.InputFilter downArg, HvlInput.InputFilter selectArg, HvlInput.InputFilter toggleArg){
@@ -88,7 +94,7 @@ public class HvlMenuInteractor {
 			contains = false;
 			ArrayList<HvlComponent> newTemp = new ArrayList<>();
 			for(HvlComponent c : temp){
-				if(c instanceof HvlButton || c instanceof HvlCheckbox) current.add(c);//TODO add support for other types
+				if(c.isEnabled() && (c instanceof HvlButton || c instanceof HvlCheckbox)) current.add(c);//TODO add support for other types
 				if(c instanceof HvlPanel){
 					newTemp.addAll(((HvlPanel)c).getChildren());
 					contains = true;
