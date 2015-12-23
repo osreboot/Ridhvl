@@ -151,7 +151,7 @@ public class HvlSlider extends HvlComponent {
 			}
 		}
 
-		if (liveSnap || !Mouse.isButtonDown(0)) {
+		if ((liveSnap || !Mouse.isButtonDown(0)) && snapInterval != 0) {
 			value = snapInterval * Math.round(value / snapInterval);
 		}
 
