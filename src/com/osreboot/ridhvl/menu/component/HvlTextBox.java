@@ -13,7 +13,7 @@ import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlTextBox extends HvlComponent {
-	
+
 	private HvlComponentDrawable focusedDrawable, unfocusedDrawable;
 	private float offsetX, offsetY;
 	private float textScale;
@@ -29,11 +29,12 @@ public class HvlTextBox extends HvlComponent {
 	private boolean numbersOnly;
 	private String blacklistCharacters;
 	private boolean ignoreFocus;
-	
+
 	@HvlDoNotClone
 	private HvlAction2<HvlTextBox, String> textChangedCommand;
 
-	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
+	public HvlTextBox(float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg,
+			HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
 		super(wArg, hArg);
 		text = textArg;
 		isFocused = false;
@@ -48,8 +49,8 @@ public class HvlTextBox extends HvlComponent {
 		ignoreFocus = false;
 	}
 
-	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg, HvlComponentDrawable unfocusedArg,
-			HvlFontPainter2D fontArg) {
+	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, String textArg, HvlComponentDrawable focusedArg,
+			HvlComponentDrawable unfocusedArg, HvlFontPainter2D fontArg) {
 		super(xArg, yArg, wArg, hArg);
 		text = textArg;
 		isFocused = false;
@@ -63,8 +64,9 @@ public class HvlTextBox extends HvlComponent {
 		blacklistCharacters = "";
 	}
 
-	public HvlTextBox(float wArg, float hArg, HvlComponentDrawable focusedDrawable, HvlComponentDrawable unfocusedDrawable, float textScale, Color textColor,
-			HvlFontPainter2D font, String text) {
+	public HvlTextBox(float wArg, float hArg, HvlComponentDrawable focusedDrawable,
+			HvlComponentDrawable unfocusedDrawable, float textScale, Color textColor, HvlFontPainter2D font,
+			String text) {
 		super(wArg, hArg);
 		this.focusedDrawable = focusedDrawable;
 		this.unfocusedDrawable = unfocusedDrawable;
@@ -79,8 +81,9 @@ public class HvlTextBox extends HvlComponent {
 		ignoreFocus = false;
 	}
 
-	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable focusedDrawable, HvlComponentDrawable unfocusedDrawable,
-			float textScale, Color textColor, HvlFontPainter2D font, String text) {
+	public HvlTextBox(float xArg, float yArg, float wArg, float hArg, HvlComponentDrawable focusedDrawable,
+			HvlComponentDrawable unfocusedDrawable, float textScale, Color textColor, HvlFontPainter2D font,
+			String text) {
 		super(xArg, yArg, wArg, hArg);
 		this.focusedDrawable = focusedDrawable;
 		this.unfocusedDrawable = unfocusedDrawable;
@@ -99,13 +102,15 @@ public class HvlTextBox extends HvlComponent {
 	public void update(float delta) {
 		if (!isEnabled()) {
 			isFocused = false;
-			return;
+			Keyboard.poll();
+			while (Keyboard.next())
+				;
 		}
 
 		if (Mouse.isButtonDown(0)) {
 			isFocused = isBeingPressed(0);
 		}
-		
+
 		if (ignoreFocus || isFocused) {
 			Keyboard.poll();
 			if (Keyboard.getNumKeyboardEvents() > 0) {
@@ -113,8 +118,9 @@ public class HvlTextBox extends HvlComponent {
 					if (Keyboard.getEventKeyState()) {
 						Character keyChar = Keyboard.getEventCharacter();
 						int key = Keyboard.getEventKey();
-						if (key == Keyboard.KEY_LSHIFT || key == Keyboard.KEY_RSHIFT || key == Keyboard.KEY_LCONTROL || key == Keyboard.KEY_RCONTROL
-								|| key == Keyboard.KEY_LMENU || key == Keyboard.KEY_RMENU || key == Keyboard.KEY_LMETA || key == Keyboard.KEY_RMETA)
+						if (key == Keyboard.KEY_LSHIFT || key == Keyboard.KEY_RSHIFT || key == Keyboard.KEY_LCONTROL
+								|| key == Keyboard.KEY_RCONTROL || key == Keyboard.KEY_LMENU
+								|| key == Keyboard.KEY_RMENU || key == Keyboard.KEY_LMETA || key == Keyboard.KEY_RMETA)
 							continue;
 
 						if (Keyboard.getEventKey() == Keyboard.KEY_BACK) {
@@ -142,8 +148,7 @@ public class HvlTextBox extends HvlComponent {
 		if (blacklistCharacters != null && !blacklistCharacters.isEmpty())
 			text = text.replaceAll(String.format("[%s]", Pattern.quote(blacklistCharacters)), "");
 
-		if (!pText.equals(text))
-		{
+		if (!pText.equals(text)) {
 			if (textChangedCommand != null)
 				textChangedCommand.run(this, text);
 		}
@@ -298,7 +303,7 @@ public class HvlTextBox extends HvlComponent {
 		public Builder() {
 			tr = new HvlTextBox(0, 0, "", null, null, null);
 			if (HvlComponentDefault.hasDefault(HvlTextBox.class))
-				tr =  HvlComponentDefault.getDefault(HvlTextBox.class).cloneComponent(tr);
+				tr = HvlComponentDefault.getDefault(HvlTextBox.class).cloneComponent(tr);
 		}
 
 		public Builder setX(float x) {
