@@ -124,9 +124,9 @@ public class ComponentsTest extends HvlTemplate2D {
 				.setDefault(
 						new HvlTextBox.Builder()
 								.setFocusedDrawable(new HvlTiledRectDrawable(new HvlTiledRect(gradient3, 0.125f, 0.875f,
-										0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
+										0.125f, 0.875f, 0, 0, 16, 16)))
 				.setUnfocusedDrawable(new HvlTiledRectDrawable(
-						new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 0, 0, 16, 16)))
+						new HvlTiledRect(gradient3, 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 16, 16)))
 				.setFont(fontPainter).setTextScale(0.4f).setForceLowercase(true).setOffsetX(12f).setOffsetY(12f)
 				.build());
 
