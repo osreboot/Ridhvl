@@ -15,10 +15,7 @@ public class HvlTiledRect {
 	
 	private boolean allowSmallDimensions;
 
-	public HvlTiledRect(Texture tArg, float uvLeftArg,
-			float uvRightArg, float uvTopArg, float uvBottomArg, float xArg,
-			float yArg, float totalWidthArg, float totalHeightArg,
-			float horizontalBarHeightArg, float verticalBarWidthArg) {
+	public HvlTiledRect(Texture tArg, float uvLeftArg, float uvRightArg, float uvTopArg, float uvBottomArg, float xArg, float yArg, float horizontalBarHeightArg, float verticalBarWidthArg) {
 		this.texture = tArg;
 		this.uvLeft = uvLeftArg;
 		this.uvRight = uvRightArg;
@@ -26,16 +23,13 @@ public class HvlTiledRect {
 		this.uvBottom = uvBottomArg;
 		this.x = xArg;
 		this.y = yArg;
-		this.totalWidth = totalWidthArg;
-		this.totalHeight = totalHeightArg;
+		this.totalWidth = tArg.getImageWidth();
+		this.totalHeight = tArg.getImageHeight();
 		this.horizontalBarHeight = horizontalBarHeightArg;
 		this.verticalBarWidth = verticalBarWidthArg;
 		this.color = Color.white;
 	}
-	public HvlTiledRect(Texture tArg, float uvTopLeftArg,
-			float uvBottomRightArg, float xArg,
-			float yArg, float totalWidthArg, float totalHeightArg,
-			float horizontalBarHeightArg, float verticalBarWidthArg) {
+	public HvlTiledRect(Texture tArg, float uvTopLeftArg, float uvBottomRightArg, float xArg, float yArg, float horizontalBarHeightArg, float verticalBarWidthArg) {
 		this.texture = tArg;
 		this.uvLeft = uvTopLeftArg;
 		this.uvRight = uvBottomRightArg;
@@ -43,8 +37,8 @@ public class HvlTiledRect {
 		this.uvBottom = uvBottomRightArg;
 		this.x = xArg;
 		this.y = yArg;
-		this.totalWidth = totalWidthArg;
-		this.totalHeight = totalHeightArg;
+		this.totalWidth = tArg.getImageWidth();
+		this.totalHeight = tArg.getImageHeight();
 		this.horizontalBarHeight = horizontalBarHeightArg;
 		this.verticalBarWidth = verticalBarWidthArg;
 		this.color = Color.white;

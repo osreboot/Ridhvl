@@ -48,7 +48,7 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 		profile = new HvlCPG_Gamepad();
 		textureLoader.loadResource("Icon");
 		color = Color.white;
-		testRect = new HvlTiledRect(textureLoader.getResource(0), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 512, 256, 16, 16);
+		testRect = new HvlTiledRect(textureLoader.getResource(0), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 16, 16);
 	}
 
 	@Override
