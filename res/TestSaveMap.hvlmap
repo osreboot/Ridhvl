@@ -1,4 +1,4 @@
-8,8,2
+8,8,2,8,8
 BeginMap
 Layer:0
 0,0,0,0,0,0,0,0,
@@ -20,5 +20,5 @@ Layer:1
 -1,-1,-1,-1,-1,-1,-1,-1,
 EndMap
 BeginEntities
-com.osreboot.ridhvl.map.HvlArbitraryEntity,0.0,0.0,com.osreboot.ridhvl.test.TestTilemapEntity,37.124,wazzup?
+com.osreboot.ridhvl.test.TestTilemapEntity,0.0,0.0,37.124
 EndEntities

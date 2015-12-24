@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import com.osreboot.ridhvl.config.HvlConfigUtil;
+import com.osreboot.ridhvl.configold.HvlConfigUtil;
 
 public class ConfigUtilTest {
 

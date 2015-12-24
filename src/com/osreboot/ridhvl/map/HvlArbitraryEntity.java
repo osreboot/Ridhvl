@@ -10,6 +10,9 @@ import org.newdawn.slick.Color;
 import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
+/**
+ * Only intended for use in level editor (or similar projects). Do not use for normal game development.
+ */
 public class HvlArbitraryEntity extends HvlEntity {
 
 	public HvlArbitraryEntity(float xArg, float yArg, HvlMap mapArg, String className, String... params) {
@@ -84,7 +87,7 @@ public class HvlArbitraryEntity extends HvlEntity {
 		float g = (float)((hc & 0x00FF00) >> 8 ) / 255;
 		float b = (float)(hc & 0x0000FF) / 255;
 		
-		HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileWidth(), getMap().getTileHeight(), new Color(r, g, b, 0.75f));
+		HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileDrawWidth(), getMap().getTileDrawHeight(), new Color(r, g, b, 0.75f));
 	}
 	
 	@Override

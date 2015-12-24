@@ -26,7 +26,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 public class HvlMap {
 
 	private HvlCoord pos;
-	private float tileWidth, tileHeight;
+	private float tileDrawWidth, tileDrawHeight;
 	private int tilesAcross, tilesTall;
 
 	private int[][][] tiles;
@@ -51,9 +51,9 @@ public class HvlMap {
 	 *            The X position of the map.
 	 * @param yArg
 	 *            The Y position of the map.
-	 * @param tWidthArg
+	 * @param tileDrawWidthArg
 	 *            The width of a tile in pixels.
-	 * @param tHeightArg
+	 * @param tDrawHeightArg
 	 *            The height of a tile in pixels.
 	 * @param tilesAcrossArg
 	 *            How many tiles across the tilemap texture is.
@@ -68,11 +68,11 @@ public class HvlMap {
 	 * @param tArg
 	 *            The tilemap texture.
 	 */
-	public HvlMap(float xArg, float yArg, float tWidthArg, float tHeightArg, int tilesAcrossArg, int tilesTallArg,
+	public HvlMap(float xArg, float yArg, float tileDrawWidthArg, float tDrawHeightArg, int tilesAcrossArg, int tilesTallArg,
 			int layersArg, int mWidthArg, int mHeightArg, Texture tArg) {
 		pos = new HvlCoord(xArg, yArg);
-		tileWidth = tWidthArg;
-		tileHeight = tHeightArg;
+		tileDrawWidth = tileDrawWidthArg;
+		tileDrawHeight = tDrawHeightArg;
 		tilesAcross = tilesAcrossArg;
 		tilesTall = tilesTallArg;
 		texture = tArg;
@@ -138,8 +138,8 @@ public class HvlMap {
 
 					int mapTileX = tile % tilesAcross;
 					int mapTileY = tile / tilesAcross;
-					HvlPainter2D.hvlDrawQuad(pos.x + (tX * tileWidth), pos.y + (tY * tileHeight),
-							tileWidth + overdrawAmount, tileHeight + overdrawAmount, (float) mapTileX / tilesAcross,
+					HvlPainter2D.hvlDrawQuad(pos.x + (tX * tileDrawWidth), pos.y + (tY * tileDrawHeight),
+							tileDrawWidth + overdrawAmount, tileDrawHeight + overdrawAmount, (float) mapTileX / tilesAcross,
 							(float) mapTileY / tilesTall, ((float) mapTileX / tilesAcross) + (1.0f / tilesAcross),
 							((float) mapTileY / tilesTall) + (1.0f / tilesTall), texture,
 							new Color(1.0f, 1.0f, 1.0f, opacities[l]));
@@ -309,8 +309,8 @@ public class HvlMap {
 	 * 
 	 * @return The width of a tile in pixels.
 	 */
-	public float getTileWidth() {
-		return tileWidth;
+	public float getTileDrawWidth() {
+		return tileDrawWidth;
 	}
 
 	/**
@@ -319,8 +319,8 @@ public class HvlMap {
 	 * @param tileWidth
 	 *            The new width of a tile in pixels.
 	 */
-	public void setTileWidth(float tileWidth) {
-		this.tileWidth = tileWidth;
+	public void setTileDrawWidth(float tileWidth) {
+		this.tileDrawWidth = tileWidth;
 	}
 
 	/**
@@ -328,8 +328,8 @@ public class HvlMap {
 	 * 
 	 * @return The height of a tile in pixels.
 	 */
-	public float getTileHeight() {
-		return tileHeight;
+	public float getTileDrawHeight() {
+		return tileDrawHeight;
 	}
 
 	/**
@@ -338,8 +338,8 @@ public class HvlMap {
 	 * @param tileHeight
 	 *            The new height of a tile in pixels.
 	 */
-	public void setTileHeight(float tileHeight) {
-		this.tileHeight = tileHeight;
+	public void setTileDrawHeight(float tileHeight) {
+		this.tileDrawHeight = tileHeight;
 	}
 
 	/**
@@ -582,9 +582,8 @@ public class HvlMap {
 	 *            The height of the tilemap texture in tiles.
 	 * @return The loaded map.
 	 */
-	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
-			int tilemapWidth, int tilemapHeight) {
-		return load(path, x, y, tileWidth, tileHeight, tilemap, tilemapWidth, tilemapHeight, true);
+	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap) {
+		return load(path, x, y, tileWidth, tileHeight, tilemap, true);
 	}
 
 	/**
@@ -612,7 +611,7 @@ public class HvlMap {
 	 * @return The loaded map.
 	 */
 	public static HvlMap load(String path, float x, float y, float tileWidth, float tileHeight, Texture tilemap,
-			int tilemapWidth, int tilemapHeight, boolean replaceArbitrary) {
+			boolean replaceArbitrary) {
 		try {
 			BufferedReader read = new BufferedReader(new FileReader(path + ".hvlmap"));
 
@@ -621,6 +620,8 @@ public class HvlMap {
 			int tilesAcross = Integer.parseInt(firstParts[0]);
 			int tilesTall = Integer.parseInt(firstParts[1]);
 			int layers = Integer.parseInt(firstParts[2]);
+			int tilemapWidth = Integer.parseInt(firstParts[3]);
+			int tilemapHeight = Integer.parseInt(firstParts[4]);
 
 			HvlMap tr = new HvlMap(x, y, tileWidth, tileHeight, tilemapWidth, tilemapHeight, layers, tilesAcross,
 					tilesTall, tilemap);
@@ -741,7 +742,7 @@ public class HvlMap {
 		try {
 			BufferedWriter write = new BufferedWriter(new FileWriter(path + ".hvlmap"));
 
-			write.write(getMapWidth() + "," + getMapHeight() + "," + tiles.length + System.lineSeparator());
+			write.write(getMapWidth() + "," + getMapHeight() + "," + tiles.length + "," + getTilesAcross() + "," + getTilesTall() + System.lineSeparator());
 
 			write.write("BeginMap" + System.lineSeparator());
 
@@ -819,7 +820,7 @@ public class HvlMap {
 	 * @return The converted coordinate.
 	 */
 	public float tileXToWorld(int tX) {
-		return pos.x + (tileWidth * tX);
+		return pos.x + (tileDrawWidth * tX);
 	}
 
 	/**
@@ -831,7 +832,7 @@ public class HvlMap {
 	 * @return The converted coordinate.
 	 */
 	public float tileYToWorld(int tY) {
-		return pos.y + (tileHeight * tY);
+		return pos.y + (tileDrawHeight * tY);
 	}
 
 	/**
@@ -842,7 +843,7 @@ public class HvlMap {
 	 * @return The converted coordinate.
 	 */
 	public int worldXToTile(float wX) {
-		return (int) ((wX - pos.x) / tileWidth);
+		return (int) ((wX - pos.x) / tileDrawWidth);
 	}
 
 	/**
@@ -853,7 +854,7 @@ public class HvlMap {
 	 * @return The converted coordinate.
 	 */
 	public int worldYToTile(float wY) {
-		return (int) ((wY - pos.y) / tileHeight);
+		return (int) ((wY - pos.y) / tileDrawHeight);
 	}
 
 	/**

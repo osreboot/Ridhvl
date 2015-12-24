@@ -33,7 +33,7 @@ public class TileTest extends HvlTemplateInteg2D {
 
 		font = new HvlFontPainter2D(getTextureLoader().getResource(2), HvlFontUtil.DEFAULT, 192, 256);
 
-		map = HvlMap.load("res/TestLoadMap", 0, 0, 64, 64, getTexture(0), 8, 8, false);
+		map = HvlMap.load("res/TestLoadMap", 0, 0, 64, 64, getTexture(0), false);
 		map.setCollisionDebugDraw(true);
 		map.setOverdrawAmount(1.0f);
 		map.mapTileToCollision(9, new HvlSimpleCollisionProfiles.Vertical(4));

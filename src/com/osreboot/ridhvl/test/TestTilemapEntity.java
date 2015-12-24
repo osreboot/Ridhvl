@@ -69,7 +69,7 @@ public class TestTilemapEntity extends HvlEntity {
 
 	@Override
 	public void draw(float delta) {
-		HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileWidth(), getMap().getTileHeight(), t);
+		HvlPainter2D.hvlDrawQuadc(getX(), getY(), getMap().getTileDrawWidth(), getMap().getTileDrawHeight(), t);
 	}
 
 	@Override
