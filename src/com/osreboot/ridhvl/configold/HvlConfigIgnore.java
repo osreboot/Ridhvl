@@ -1,4 +1,4 @@
-package com.osreboot.ridhvl.config;
+package com.osreboot.ridhvl.configold;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
