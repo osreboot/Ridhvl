@@ -57,4 +57,43 @@ public class HvlColorUtil {
 		
 		return new Color(r + m, g + m, b + m);
 	}
+	
+	public static Color hsvToColor(float h, float s, float v, float a) {
+		float c = v * s;
+		
+		float hmod = h / 60f;
+		
+		float x = c * (1f - Math.abs((hmod % 2) - 1));
+		
+		float r = 0f, g = 0f, b = 0f;
+		
+		if (0 <= hmod && hmod < 1) {
+			r = c;
+			g = x;
+		}
+		if (1 <= hmod && hmod < 2) {
+			r = x;
+			g = c;
+		}
+		if (2 <= hmod && hmod < 3) {
+			g = c;
+			b = x;
+		}
+		if (3 <= hmod && hmod < 4) {
+			g = x;
+			b = c;
+		}
+		if (4 <= hmod && hmod < 5) {
+			r = x;
+			b = c;
+		}
+		if (5 <= hmod && hmod < 6) {
+			r = c;
+			b = x;
+		}
+		
+		float m = v - c;
+		
+		return new Color(r + m, g + m, b + m, a);
+	}
 }
