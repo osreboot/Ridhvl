@@ -17,6 +17,7 @@ import com.osreboot.ridhvl.menu.component.HvlSlider.Direction;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
@@ -84,7 +85,11 @@ public class HvlListBox extends HvlComponent {
 		fullBackground = false;
 		sizeIntervalsForScroll = 10;
 
-		renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		try{
+			renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 	}
 
 	public HvlListBox(float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
@@ -116,7 +121,11 @@ public class HvlListBox extends HvlComponent {
 		selectedIndex = -1;
 		sizeIntervalsForScroll = 10;
 
-		renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		try{
+			renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 	}
 
 	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
@@ -148,7 +157,11 @@ public class HvlListBox extends HvlComponent {
 		fullBackground = false;
 		sizeIntervalsForScroll = 10;
 
-		renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		try{
+			renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 	}
 
 	public HvlListBox(float xArg, float yArg, float wArg, float hArg, HvlSlider scrollArg, HvlButton upArg, HvlButton downArg, HvlFontPainter2D fontArg,
@@ -180,7 +193,11 @@ public class HvlListBox extends HvlComponent {
 		selectedIndex = -1;
 		sizeIntervalsForScroll = 10;
 
-		renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		try{
+			renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -242,7 +259,11 @@ public class HvlListBox extends HvlComponent {
 	@Override
 	public void draw(float delta) {
 		if (pX != getX() || pY != getY() || pWidth != getWidth() || pHeight != getHeight()) {
-			renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+			try{
+				renderFrame = new HvlRenderFrame((int) getX(), (int) getY(), (int) getWidth(), (int) getHeight());
+			}catch(FBOUnsupportedException e){
+				e.printStackTrace();
+			}
 		}
 
 		pX = getX();

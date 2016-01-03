@@ -9,6 +9,7 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.HvlShader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
@@ -33,7 +34,11 @@ public class ShaderTest extends HvlTemplateInteg2D{
 		
 		fontPainter = new HvlFontPainter2D(getTextureLoader().getResource(0), HvlFontUtil.DEFAULT, 112, 144);
 		
-		frame = new HvlRenderFrame(1280, 720);
+		try{
+			frame = new HvlRenderFrame(1280, 720);
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 		
 		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_QUADRUPLE_DISPLACEMENT_BLUR);
 		

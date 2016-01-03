@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
 import com.osreboot.ridhvl.action.HvlAction3;
+import com.osreboot.ridhvl.external.HvlVerifier;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlRenderFrame {
@@ -72,7 +73,8 @@ public class HvlRenderFrame {
 
 	private int frameID, textureID, width, height, x = 0, y = 0;
 
-	public HvlRenderFrame(int widthArg, int heightArg){
+	public HvlRenderFrame(int widthArg, int heightArg) throws FBOUnsupportedException{
+		if(!HvlVerifier.VFR_FBOENABLED.isValid()) throw new FBOUnsupportedException();
 		width = widthArg;
 		height = heightArg;
 		frameID = EXTFramebufferObject.glGenFramebuffersEXT();
@@ -85,7 +87,8 @@ public class HvlRenderFrame {
 		setCurrentRenderFrame(null);
 	}
 
-	public HvlRenderFrame(int xArg, int yArg, int widthArg, int heightArg){
+	public HvlRenderFrame(int xArg, int yArg, int widthArg, int heightArg) throws FBOUnsupportedException{
+		if(!HvlVerifier.VFR_FBOENABLED.isValid()) throw new FBOUnsupportedException();
 		x = xArg;
 		y = yArg;
 		width = widthArg;
@@ -137,5 +140,8 @@ public class HvlRenderFrame {
 	public void setY(int yArg){
 		y = yArg;
 	}
+	
+	@SuppressWarnings("serial")
+	public static class FBOUnsupportedException extends Exception{}
 
 }

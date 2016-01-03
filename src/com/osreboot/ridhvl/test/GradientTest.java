@@ -9,6 +9,7 @@ import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.HvlGradient;
 import com.osreboot.ridhvl.painter.HvlGradient.Style;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.HvlShader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
@@ -38,7 +39,11 @@ public class GradientTest extends HvlTemplate2D {
 
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 112, 144);
 
-		frame = new HvlRenderFrame(1280, 720);
+		try{
+			frame = new HvlRenderFrame(1280, 720);
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 
 		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_SIMPLE_NEGATIVE);
 	}

@@ -8,6 +8,7 @@ import org.lwjgl.opengl.Display;
 
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
+import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlDisplayModeCentered extends HvlDisplayMode{
@@ -22,7 +23,11 @@ public class HvlDisplayModeCentered extends HvlDisplayMode{
 	@Override
 	public void initialize(){
 		super.initialize();
-		renderFrame = new HvlRenderFrame(getCoordinateWidth(), getCoordinateHeight());
+		try{
+			renderFrame = new HvlRenderFrame(getCoordinateWidth(), getCoordinateHeight());
+		}catch(FBOUnsupportedException e){
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
