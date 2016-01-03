@@ -13,4 +13,8 @@ public class HvlReflectionUtil {
 
 		return in;
 	}
+
+	public static boolean isSimple(Class<?> c) {
+		return c.equals(int.class) || c.equals(Integer.class) || c.equals(float.class) || c.equals(Float.class) || c.equals(double.class) || c.equals(Double.class) || c.equals(boolean.class) || c.equals(Boolean.class) || c.equals(String.class);
+	}
 }

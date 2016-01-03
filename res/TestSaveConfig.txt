@@ -1,0 +1,11 @@
+test:ERMAHGERD
+someNumber:12345.678
+someInt:79
+magi:{
+pi:3.14159265
+sdoub:13.24
+wazzup:thisistext
+
+}
+wtf:asdfmovie9isn'tathing?
+arr:hey,how's,it,going?

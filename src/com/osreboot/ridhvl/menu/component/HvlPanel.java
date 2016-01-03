@@ -75,11 +75,21 @@ public class HvlPanel extends HvlComponent implements HvlComponentContainer {
 		return (T) children.get(i);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends HvlComponent> T getFirstOfType(Class<? extends T> type) {
+		return getChildOfType(type, 0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends HvlComponent> T getChildOfType(Class<? extends T> type, int i) {
+		int current = -1;
+		
 		for (HvlComponent c : children) {
-			if (c.getClass().isAssignableFrom(type)) return (T) c;
+			if (c.getClass().isAssignableFrom(type)) {
+				current++;
+				if (current == i) return (T) c;
+			}
 		}
 		
 		return null;

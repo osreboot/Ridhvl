@@ -15,5 +15,7 @@ public interface HvlComponentContainer {
 	
 	<T extends HvlComponent> T getFirstOfType(Class<? extends T> type);
 	
+	<T extends HvlComponent> T getChildOfType(Class<? extends T> type, int i);
+	
 	int getChildCount();
 }

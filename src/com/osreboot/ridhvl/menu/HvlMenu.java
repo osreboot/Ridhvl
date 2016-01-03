@@ -255,12 +255,20 @@ public class HvlMenu implements HvlComponentContainer {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public <T extends HvlComponent> T getFirstOfType(Class<? extends T> type) {
-		for (HvlComponent comp : components)
-		{
-			if (comp.getClass().equals(type))
-				return (T) comp;
+		return getChildOfType(type, 0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends HvlComponent> T getChildOfType(Class<? extends T> type, int i) {
+		int current = -1;
+		
+		for (HvlComponent c : components) {
+			if (c.getClass().isAssignableFrom(type)) {
+				current++;
+				if (current == i) return (T) c;
+			}
 		}
 		
 		return null;
