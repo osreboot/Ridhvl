@@ -8,6 +8,7 @@ import java.security.PrivilegedAction;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
+import com.osreboot.ridhvl.input.HvlController;
 import com.osreboot.ridhvl.input.HvlControllerProfile;
 import com.osreboot.ridhvl.input.collection.HvlCPG_Gamepad;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
@@ -50,9 +51,17 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 		color = Color.white;
 		testRect = new HvlTiledRect(textureLoader.getResource(0), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 16, 16);
 	}
+	
+	public static float counter = 0;
 
 	@Override
 	public void update(float delta) {
+		counter += delta;
+		if(counter > 5){
+			counter = 0;
+			HvlController.rescanControllers();
+		}
+		
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, getWhite512(), color);
 
 		testRect.setTotalWidth(testRect.getTotalWidth() + profile.getValue(HvlCPG_Gamepad.TRIGGER_LEFT) * 256 * delta);

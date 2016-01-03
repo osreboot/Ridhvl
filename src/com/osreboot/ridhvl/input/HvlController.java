@@ -1,5 +1,6 @@
 package com.osreboot.ridhvl.input;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 import net.java.games.input.Controller;
@@ -28,12 +29,12 @@ public class HvlController {
 	}
 
 	public static void rescanControllers(){
-		try {//TODO actually implement controller rescanning
-			//			Constructor<ControllerEnvironment> constructor = (Constructor<ControllerEnvironment>)ControllerEnvironment.class.getDeclaredConstructors()[0];
-			//			constructor.setAccessible(true);
-			//			controllers.clear();
-			//			Controller[] newControllers = constructor.newInstance().getControllers();
-			Controller[] newControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+		try {
+						@SuppressWarnings("unchecked")
+						Constructor<ControllerEnvironment> constructor = (Constructor<ControllerEnvironment>)Class.forName("net.java.games.input.DefaultControllerEnvironment").getDeclaredConstructors()[0];
+						constructor.setAccessible(true);
+						controllers.clear();
+						Controller[] newControllers = constructor.newInstance().getControllers();
 			for(Controller c : newControllers) controllers.add(c);
 			for(HvlControllerProfile p : HvlControllerProfile.getProfiles()) p.syncControllers();
 		}catch(Exception e){
