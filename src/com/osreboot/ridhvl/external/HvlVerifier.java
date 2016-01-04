@@ -20,6 +20,8 @@ public abstract class HvlVerifier {
 			globalVerify();
 		}
 	};
+	
+	public static ArrayList<HvlVerifier> verifiers = new ArrayList<>();
 
 	public static final HvlVerifier VFR_JINPUT = new HvlVerifier(){
 		@Override
@@ -40,18 +42,17 @@ public abstract class HvlVerifier {
 		}
 	};
 
-	public static ArrayList<HvlVerifier> verifiers = new ArrayList<>();
-
 	public static void globalVerify(){
 		for(HvlVerifier v : verifiers) v.metaVerify();
 	}
 
 	private boolean isValid = false;
 
-	public HvlVerifier(){}
+	public HvlVerifier(){
+		verifiers.add(this);
+	}
 
 	public final void metaVerify(){
-		verifiers.add(this);
 		isValid = verify();
 	}
 
