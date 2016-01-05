@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL11.glTranslatef;
 
 import org.lwjgl.opengl.Display;
 
-
+@Deprecated
 public class HvlCamera {
 
 	private static float x, y, xOffset, yOffset, rotation, zoom = 1f;
@@ -43,7 +43,7 @@ public class HvlCamera {
 	}
 	
 	public static void doTransform(){
-		glPushMatrix();//TODO add zoom and test
+		glPushMatrix();
 		glTranslatef(-x - xOffset, -y - yOffset, 0);
 		glScalef(zoom, zoom, 0);
 		hvlRotate(x, y, rotation);

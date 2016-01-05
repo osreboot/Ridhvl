@@ -1,6 +1,9 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -40,7 +43,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 			e.printStackTrace();
 		}
 		
-		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_QUADRUPLE_DISPLACEMENT_BLUR);
+		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_NEWSPAPER);
 		
 		texture = new HvlAnimatedTextureArray(new Texture[]{
 				getTextureLoader().getResource(0),
@@ -50,18 +53,20 @@ public class ShaderTest extends HvlTemplateInteg2D{
 
 	@Override
 	public void update(float delta){
+		//HvlCamera.setPosition(0, getNewestInstance().getTimer().getTotalTime()%100);
+		
 		HvlRenderFrame.setCurrentRenderFrame(frame);
 		
 		hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(2));
 		
 		hvlRotate((getWidth()/2), (getHeight()/2), getNewestInstance().getTimer().getTotalTime()/2*360f);
-		hvlDrawQuad((getWidth()/2) - 200, (getHeight()/2) - 200, 400, 400, texture.getCurrentTexture());
+		hvlDrawQuadc(getWidth()/2, getHeight()/2, 400, 400, texture.getCurrentTexture());
 		hvlResetRotation();
 		
 		HvlRenderFrame.setCurrentRenderFrame(null);
 		
 		HvlShader.setCurrentShader(shader);
-		shader.sendFloat("blurAmount", 0.002f);
+		//shader.sendFloat("blurAmount", 0.002f);
 		hvlDrawQuad(0, 0, 1280, 720, frame);
 		HvlShader.setCurrentShader(null);
 	}
