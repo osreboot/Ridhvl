@@ -3,13 +3,14 @@ package com.osreboot.ridhvl.test;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlDebugUtil;
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.map.HvlMap;
 import com.osreboot.ridhvl.map.collection.HvlSimpleCollisionProfiles;
 import com.osreboot.ridhvl.painter.HvlCamera;
-import com.osreboot.ridhvl.painter.HvlCamera.HvlCameraAlignment;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
@@ -20,7 +21,9 @@ public class TileTest extends HvlTemplateInteg2D {
 	public HvlMap map;
 
 	public HvlFontPainter2D font;
-	
+
+	public HvlCamera camera;
+
 	public TileTest() {
 		super(60, 1280, 720, "Ridhvl Tilemap Test", new HvlDisplayModeDefault());
 	}
@@ -30,6 +33,8 @@ public class TileTest extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Tilemap");
 		getTextureLoader().loadResource("Icon");
 		getTextureLoader().loadResource("Font");
+
+		camera = new HvlCamera(0, 0, 0, 1f, new HvlCoord());
 
 		font = new HvlFontPainter2D(getTextureLoader().getResource(2), HvlFontUtil.DEFAULT, 192, 256);
 
@@ -52,26 +57,31 @@ public class TileTest extends HvlTemplateInteg2D {
 
 		map.save("res/TestSaveMap");
 
-		HvlCamera.setAlignment(HvlCameraAlignment.CENTER);
+		camera.setAlignment(HvlCamera.ALIGNMENT_CENTER);
 	}
 
 	@Override
-	public void update(float delta) {
+	public void update(final float delta) {
 		map.update(delta);
-//		HvlCamera.setPosition(ent.getX(), ent.getY());
-		map.draw(delta);
-//		List<HvlMapRaytraceResult> colls = map.raytrace(new HvlCoord(ent.getX(), ent.getY()),
-//				new HvlCoord(HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth() / 2),
-//						HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight() / 2)));
-//
-//		if (!colls.isEmpty()) {
-//
-//			HvlCoord coll = colls.get(0).getLocation();
-//
-//			HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y - 8, coll.x + 8, coll.y + 8, Color.green, 4.0f);
-//			HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y + 8, coll.x + 8, coll.y - 8, Color.green, 4.0f);
-//		}
+		//camera.setPosition(ent.getX(), ent.getY());
+		camera.doTransformedBlock(new HvlAction0(){
+			@Override
+			public void run(){
+				map.draw(delta);
+				//List<HvlMapRaytraceResult> colls = map.raytrace(new HvlCoord(ent.getX(), ent.getY()),
+						//						new HvlCoord(HvlCursor.getCursorX() + HvlCamera.getX() - (Display.getWidth() / 2),
+						//								HvlCursor.getCursorY() + HvlCamera.getY() - (Display.getHeight() / 2)));
+						//
+						//				if (!colls.isEmpty()) {
+						//
+						//					HvlCoord coll = colls.get(0).getLocation();
+						//
+						//					HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y - 8, coll.x + 8, coll.y + 8, Color.green, 4.0f);
+						//					HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y + 8, coll.x + 8, coll.y - 8, Color.green, 4.0f);
+						//				}
 
-		HvlDebugUtil.drawFPSCounter(font, HvlCamera.getX() - (Display.getWidth() / 2), HvlCamera.getY() - (Display.getHeight() / 2), 0.4f, Color.red);
+				HvlDebugUtil.drawFPSCounter(font, camera.getX() - (Display.getWidth() / 2), camera.getY() - (Display.getHeight() / 2), 0.4f, Color.red);
+			}
+		});
 	}
 }

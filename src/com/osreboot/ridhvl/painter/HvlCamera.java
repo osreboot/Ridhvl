@@ -51,6 +51,11 @@ public class HvlCamera {
 		return new HvlCoord(xOffset, yOffset);
 	}
 	
+	public void setPosition(float xArg, float yArg){
+		x = xArg;
+		y = yArg;
+	}
+	
 	public float getX(){
 		return x;
 	}
