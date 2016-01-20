@@ -3,6 +3,7 @@ package com.osreboot.ridhvl.painter;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
@@ -15,6 +16,7 @@ import org.lwjgl.opengl.GL20;
 
 public class HvlShader {
 
+	//TODO remove vertex shader file dependency
 	public static final String PATH_SHADER_DEFAULT = "shader\\", SUFFIX_VERTEX = ".hvlvt", SUFFIX_FRAGMENT = ".hvlfg";
 	
 	public static final String
@@ -34,6 +36,8 @@ public class HvlShader {
 	}
 
 	private int shaderID;
+	
+	private String vertLog, fragLog;
 
 	public HvlShader(String vertexArg, String fragmentArg){
 		int vertexShader = ARBShaderObjects.glCreateShaderObjectARB(ARBVertexShader.GL_VERTEX_SHADER_ARB);
@@ -43,10 +47,8 @@ public class HvlShader {
 		int fragmentShader = ARBShaderObjects.glCreateShaderObjectARB(ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
 		ARBShaderObjects.glShaderSourceARB(fragmentShader, readFile(fragmentArg));
 		ARBShaderObjects.glCompileShaderARB(fragmentShader);
-		String vertLog = ARBShaderObjects.glGetInfoLogARB(vertexShader, ARBShaderObjects.glGetObjectParameteriARB(vertexShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
-		String fragLog = ARBShaderObjects.glGetInfoLogARB(fragmentShader, ARBShaderObjects.glGetObjectParameteriARB(fragmentShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
-		if(vertLog.length() > 0) System.err.println(vertLog);
-		if(fragLog.length() > 0) System.err.println(fragLog);
+		vertLog = ARBShaderObjects.glGetInfoLogARB(vertexShader, ARBShaderObjects.glGetObjectParameteriARB(vertexShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+		fragLog = ARBShaderObjects.glGetInfoLogARB(fragmentShader, ARBShaderObjects.glGetObjectParameteriARB(fragmentShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
 		
 		shaderID = ARBShaderObjects.glCreateProgramObjectARB();
 		ARBShaderObjects.glAttachObjectARB(shaderID, vertexShader);
@@ -63,10 +65,8 @@ public class HvlShader {
 		int fragmentShader = ARBShaderObjects.glCreateShaderObjectARB(ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
 		ARBShaderObjects.glShaderSourceARB(fragmentShader, readFile(fragmentArg));
 		ARBShaderObjects.glCompileShaderARB(fragmentShader);
-		String vertLog = ARBShaderObjects.glGetInfoLogARB(vertexShader, ARBShaderObjects.glGetObjectParameteriARB(vertexShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
-		String fragLog = ARBShaderObjects.glGetInfoLogARB(fragmentShader, ARBShaderObjects.glGetObjectParameteriARB(fragmentShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
-		if(vertLog.length() > 0) System.err.println(vertLog);
-		if(fragLog.length() > 0) System.err.println(fragLog);
+		vertLog = ARBShaderObjects.glGetInfoLogARB(vertexShader, ARBShaderObjects.glGetObjectParameteriARB(vertexShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+		fragLog = ARBShaderObjects.glGetInfoLogARB(fragmentShader, ARBShaderObjects.glGetObjectParameteriARB(fragmentShader, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
 		
 		shaderID = ARBShaderObjects.glCreateProgramObjectARB();
 		ARBShaderObjects.glAttachObjectARB(shaderID, vertexShader);
@@ -75,21 +75,14 @@ public class HvlShader {
 		ARBShaderObjects.glValidateProgramARB(shaderID);
 	}
 
-	public void sendFloat(String key, float value){
-		int loc = GL20.glGetUniformLocation(shaderID, key);
-		GL20.glUniform1f(loc, value);
-	}
-	
-	private void sendTexture(String key, int value){
+	public void sendInt(String key, int value){
 		int loc = GL20.glGetUniformLocation(shaderID, key);
 		GL20.glUniform1i(loc, value);
 	}
 	
-	public void sendRenderFrame(String key, int id, HvlRenderFrame renderFrame){
-		sendTexture(key, id);
-		GL13.glActiveTexture(GL13.GL_TEXTURE0 + id);
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, renderFrame.getTextureID());
-		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+	public void sendFloat(String key, float value){
+		int loc = GL20.glGetUniformLocation(shaderID, key);
+		GL20.glUniform1f(loc, value);
 	}
 	
 	public void sendIntArray(String key, int[] value){
@@ -100,6 +93,29 @@ public class HvlShader {
 		GL20.glUniform1(loc, buffer);
 	}
 	
+	public void sendFloatArray(String key, float[] value){
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(value.length);
+		buffer.put(value);
+		buffer.rewind();
+		int loc = GL20.glGetUniformLocation(shaderID, key);
+		GL20.glUniform1(loc, buffer);
+	}
+	
+	public void sendRenderFrame(String key, int id, HvlRenderFrame renderFrame){
+		sendInt(key, id);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + id);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, renderFrame.getTextureID());
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+	}
+	
+	public String getVertLog(){
+		return vertLog;
+	}
+
+	public String getFragLog(){
+		return fragLog;
+	}
+
 	private String readFile(String file){
 		StringBuilder builder = new StringBuilder();
 		try{
