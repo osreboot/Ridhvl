@@ -88,4 +88,12 @@ public class HvlCamera {
 		zoom = zoomArg;
 	}
 	
+	public float getRawX(){
+		return x + xOffset;
+	}
+	
+	public float getRawY(){
+		return y + yOffset;
+	}
+	
 }
