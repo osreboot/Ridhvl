@@ -7,12 +7,10 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.ARBVertexShader;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.*;
+import org.newdawn.slick.opengl.Texture;
+
+import com.osreboot.ridhvl.action.HvlAction0;
 
 public class HvlShader {
 
@@ -27,7 +25,7 @@ public class HvlShader {
 	FRAGMENT_HIGHLIGHTER					= PATH_SHADER_DEFAULT + "Highlighter" + SUFFIX_FRAGMENT,
 	FRAGMENT_NEWSPAPER						= PATH_SHADER_DEFAULT + "Newspaper" + SUFFIX_FRAGMENT;
 
-	public static void setCurrentShader(HvlShader shader){
+	private static void setCurrentShader(HvlShader shader){
 		if(shader != null){
 			ARBShaderObjects.glUseProgramObjectARB(shader.getID());
 			int loc = GL20.glGetUniformLocation(shader.getID(), "texture1");
@@ -74,6 +72,12 @@ public class HvlShader {
 		ARBShaderObjects.glLinkProgramARB(shaderID);
 		ARBShaderObjects.glValidateProgramARB(shaderID);
 	}
+	
+	public void doShade(HvlAction0 actionArg){
+		setCurrentShader(this);
+		actionArg.run();
+		setCurrentShader(null);
+	}
 
 	public void sendInt(String key, int value){
 		int loc = GL20.glGetUniformLocation(shaderID, key);
@@ -105,6 +109,13 @@ public class HvlShader {
 		sendInt(key, id);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + id);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, renderFrame.getTextureID());
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+	}
+	
+	public void sendTexture(String key, int id, Texture texture){
+		sendInt(key, id);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0 + id);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
 	

@@ -1,10 +1,6 @@
 package com.osreboot.ridhvl.painter;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.nio.ByteBuffer;
 
@@ -12,6 +8,7 @@ import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction3;
 import com.osreboot.ridhvl.external.HvlVerifier;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
@@ -21,7 +18,7 @@ public class HvlRenderFrame {
 	private static boolean hasPushed = false;
 
 	private HvlAction3<Integer, Integer, Integer> actionInitialize = ACTION_INITIALIZE_DEFAULT;
-	
+
 	public static final HvlAction3<Integer, Integer, Integer> ACTION_INITIALIZE_DEFAULT = new HvlAction3<Integer, Integer, Integer>(){
 		@Override
 		public void run(Integer textureID, Integer width, Integer height){
@@ -31,18 +28,15 @@ public class HvlRenderFrame {
 			EXTFramebufferObject.glFramebufferTexture2DEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT, GL11.GL_TEXTURE_2D, textureID, 0);
 		}
 	};
-	
+
 	@SuppressWarnings("deprecation")
-	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame){//TODO clean this up
+	private static void setCurrentRenderFrame(HvlRenderFrame renderFrame){
 		if(hasPushed){
 			GL11.glPopAttrib();
-			//GL11.glPopMatrix();
 			hasPushed = false;
 		}
 		if(renderFrame != null){
 			hasPushed = true;
-			//GL11.glPushMatrix();
-			//GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
 			GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
 			GL11.glViewport(0, 0, renderFrame.getWidth(), renderFrame.getHeight());
@@ -54,16 +48,13 @@ public class HvlRenderFrame {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void setCurrentRenderFrame(HvlRenderFrame renderFrame, boolean clear){//TODO clean this up
+	private static void setCurrentRenderFrame(HvlRenderFrame renderFrame, boolean clear){
 		if(hasPushed){
 			GL11.glPopAttrib();
-			//GL11.glPopMatrix();
 			hasPushed = false;
 		}
 		if(renderFrame != null){
 			hasPushed = true;
-			//GL11.glPushMatrix();
-			//GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
 			GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
 			GL11.glViewport(0, 0, renderFrame.getWidth(), renderFrame.getHeight());
@@ -108,6 +99,95 @@ public class HvlRenderFrame {
 		setCurrentRenderFrame(null);
 	}
 
+	public void doCapture(HvlAction0 actionArg){
+		setCurrentRenderFrame(this);
+		actionArg.run();
+		setCurrentRenderFrame(null);
+	}
+
+	public void doCapture(boolean clear, HvlAction0 actionArg){
+		setCurrentRenderFrame(this, clear);
+		actionArg.run();
+		setCurrentRenderFrame(null);
+	}
+
+	public void doCapture(HvlShader shaderArg, final HvlAction0 actionArg){
+		setCurrentRenderFrame(this);
+		shaderArg.doShade(new HvlAction0(){
+			@Override
+			public void run(){
+				actionArg.run();
+			}
+		});
+		setCurrentRenderFrame(null);
+	}
+
+	public void doCapture(boolean clear, HvlShader shaderArg, final HvlAction0 actionArg){
+		setCurrentRenderFrame(this, clear);
+		shaderArg.doShade(new HvlAction0(){
+			@Override
+			public void run(){
+				actionArg.run();
+			}
+		});
+		setCurrentRenderFrame(null);
+	}
+
+	public void doCapture(HvlCamera cameraArg, final HvlAction0 actionArg){
+		setCurrentRenderFrame(this);
+		cameraArg.doTransform(new HvlAction0(){
+			@Override
+			public void run(){
+				actionArg.run();
+			}
+		});
+		setCurrentRenderFrame(null);
+	}
+
+	public void doCapture(boolean clear, HvlCamera cameraArg, final HvlAction0 actionArg){
+		setCurrentRenderFrame(this, clear);
+		cameraArg.doTransform(new HvlAction0(){
+			@Override
+			public void run(){
+				actionArg.run();
+			}
+		});
+		setCurrentRenderFrame(null);
+	}
+
+
+	public void doCapture(HvlCamera cameraArg, final HvlShader shaderArg, final HvlAction0 actionArg){
+		setCurrentRenderFrame(this);
+		cameraArg.doTransform(new HvlAction0(){
+			@Override
+			public void run(){
+				shaderArg.doShade(new HvlAction0(){
+					@Override
+					public void run(){
+						actionArg.run();
+					}
+				});
+			}
+		});
+		setCurrentRenderFrame(null);
+	}
+
+	public void doCapture(boolean clear, HvlCamera cameraArg, final HvlShader shaderArg, final HvlAction0 actionArg){
+		setCurrentRenderFrame(this, clear);
+		cameraArg.doTransform(new HvlAction0(){
+			@Override
+			public void run(){
+				shaderArg.doShade(new HvlAction0(){
+					@Override
+					public void run(){
+						actionArg.run();
+					}
+				});
+			}
+		});
+		setCurrentRenderFrame(null);
+	}
+
 	public void bindTexture(int texture){
 		GL13.glActiveTexture(texture);
 		glBindTexture(GL_TEXTURE_2D, textureID);
@@ -145,7 +225,7 @@ public class HvlRenderFrame {
 	public void setY(int yArg){
 		y = yArg;
 	}
-	
+
 	@SuppressWarnings("serial")
 	public static class FBOUnsupportedException extends Exception{}
 

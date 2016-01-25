@@ -8,6 +8,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
@@ -53,22 +54,24 @@ public class ShaderTest extends HvlTemplateInteg2D{
 
 	@Override
 	public void update(float delta){
-		//HvlCamera.setPosition(0, getNewestInstance().getTimer().getTotalTime()%100);
+		frame.doCapture(new HvlAction0(){
+			@Override
+			public void run(){
+				hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(2));
+				
+				hvlRotate((getWidth()/2), (getHeight()/2), getNewestInstance().getTimer().getTotalTime()/2*360f);
+				hvlDrawQuadc(getWidth()/2, getHeight()/2, 400, 400, texture.getCurrentTexture());
+				hvlResetRotation();
+			}
+		});
 		
-		HvlRenderFrame.setCurrentRenderFrame(frame);
-		
-		hvlDrawQuad(0, 0, 1280, 720, getTextureLoader().getResource(2));
-		
-		hvlRotate((getWidth()/2), (getHeight()/2), getNewestInstance().getTimer().getTotalTime()/2*360f);
-		hvlDrawQuadc(getWidth()/2, getHeight()/2, 400, 400, texture.getCurrentTexture());
-		hvlResetRotation();
-		
-		HvlRenderFrame.setCurrentRenderFrame(null);
-		
-		HvlShader.setCurrentShader(shader);
-		//shader.sendFloat("blurAmount", 0.002f);
-		hvlDrawQuad(0, 0, 1280, 720, frame);
-		HvlShader.setCurrentShader(null);
+		shader.doShade(new HvlAction0(){
+			@Override
+			public void run(){
+				//shader.sendFloat("blurAmount", 0.002f);
+				hvlDrawQuad(0, 0, 1280, 720, frame);
+			}
+		});
 	}
 
 }

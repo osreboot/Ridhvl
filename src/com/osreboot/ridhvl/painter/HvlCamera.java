@@ -24,7 +24,7 @@ public class HvlCamera {
 		setAlignment(alignmentArg);
 	}
 	
-	public void doTransformed(HvlAction0 actionArg){
+	public void doTransform(HvlAction0 actionArg){
 		doTransform();
 		actionArg.run();
 		undoTransform();
