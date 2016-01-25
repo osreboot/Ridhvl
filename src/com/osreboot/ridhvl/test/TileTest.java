@@ -91,7 +91,7 @@ public class TileTest extends HvlTemplateInteg2D {
 		ent.update(delta);
 		camera.setPosition(ent.getX(), ent.getY());
 		HvlRenderFrame.setCurrentRenderFrame(frame);
-		camera.doTransformedBlock(new HvlAction0(){
+		camera.doTransformed(new HvlAction0(){
 			@Override
 			public void run(){
 				map.draw(delta);
