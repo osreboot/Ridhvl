@@ -32,6 +32,4 @@ class HvlLinePainter2D {
 		hvlForceRefresh();
 	}
 	
-	//TODO hvlDrawLine(float x1, float y1, float x2, float y2, float thickness, Color c)
-	
 }

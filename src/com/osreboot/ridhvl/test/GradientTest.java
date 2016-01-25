@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.HvlGradient;
@@ -50,13 +51,16 @@ public class GradientTest extends HvlTemplate2D {
 
 	@Override
 	public void update(float delta) {
-		HvlRenderFrame.setCurrentRenderFrame(frame);
-		HvlPainter2D.hvlDrawQuad(0, 0, 0, 0, gradient);
-//		HvlPainter2D.hvlForceRefresh();
-//		HvlTextureUtil.getColoredRect(1, 1, Color.transparent).bind();
-		HvlPainter2D.hvlDrawQuad(0, 0, 720, 720, gradient);
-		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, gradient);
-		HvlRenderFrame.setCurrentRenderFrame(null);
+		frame.doCapture(new HvlAction0(){
+			@Override
+			public void run(){
+				HvlPainter2D.hvlDrawQuad(0, 0, 0, 0, gradient);
+//				HvlPainter2D.hvlForceRefresh();
+//				HvlTextureUtil.getColoredRect(1, 1, Color.transparent).bind();
+				HvlPainter2D.hvlDrawQuad(0, 0, 720, 720, gradient);
+				HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, gradient);
+			}
+		});
 //		HvlShader.setCurrentShader(shader);
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, frame);
 //		HvlShader.setCurrentShader(null);

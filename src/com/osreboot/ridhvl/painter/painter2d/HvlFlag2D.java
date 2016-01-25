@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
+import com.osreboot.ridhvl.action.HvlAction0;
+
 public abstract class HvlFlag2D {
 	
 	private boolean enabled;
@@ -27,6 +29,13 @@ public abstract class HvlFlag2D {
 	
 	public boolean isEnabled(){
 		return enabled;
+	}
+	
+	public void doInverted(HvlAction0 actionArg){
+		boolean wasEnabled = isEnabled();
+		setEnabled(!wasEnabled);
+		actionArg.run();
+		setEnabled(wasEnabled);
 	}
 	
 }

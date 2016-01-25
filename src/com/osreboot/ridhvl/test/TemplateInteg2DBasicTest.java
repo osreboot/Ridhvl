@@ -1,15 +1,12 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlResetRotation;
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
-import com.osreboot.ridhvl.painter.HvlCamera;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
@@ -36,8 +33,6 @@ public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
 
 	@Override
 	public void update(float delta) {
-		HvlCamera.setZoom(2f);
-
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 			System.exit(0);
 

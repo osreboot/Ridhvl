@@ -3,7 +3,7 @@ package com.osreboot.ridhvl.menu;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 
 public class HvlMenu implements HvlComponentContainer {
@@ -12,7 +12,7 @@ public class HvlMenu implements HvlComponentContainer {
 	private static Stack<HvlMenu> popups;
 	private static Stack<Boolean> blocks;
 	
-	private static HvlAction2<HvlMenu, HvlMenu> menuChanged;
+	public static final HvlEvent2<HvlMenu, HvlMenu> EVENT_MENU_CHANGED = new HvlEvent2<>();
 	
 	private static float transitionPeriod = 0, transitionCurrent = 0;
 	private static HvlMenu transitionGoal = null;
@@ -48,7 +48,7 @@ public class HvlMenu implements HvlComponentContainer {
 	}
 	
 	private static final void metaSetCurrent(HvlMenu currentArg){
-		if(menuChanged != null) menuChanged.run(current, currentArg);
+		EVENT_MENU_CHANGED.trigger(current, currentArg);
 		current = currentArg;
 		current.setTotalTime(0);
 		if (current.getComponents().size() > 0)
@@ -213,14 +213,6 @@ public class HvlMenu implements HvlComponentContainer {
 
 	public void setInteractable(boolean interactableArg) {
 		interactable = interactableArg;
-	}
-
-	public static HvlAction2<HvlMenu, HvlMenu> getMenuChanged() {
-		return menuChanged;
-	}
-
-	public static void setMenuChanged(HvlAction2<HvlMenu, HvlMenu> menuChangedArg) {
-		menuChanged = menuChangedArg;
 	}
 
 	@Override

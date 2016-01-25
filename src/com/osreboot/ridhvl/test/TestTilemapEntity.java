@@ -17,6 +17,7 @@ public class TestTilemapEntity extends HvlEntity {
 	private Texture t;
 	
 	private float someValue;
+	@SuppressWarnings("unused")
 	private String magicalString;
 
 	public TestTilemapEntity(float xArg, float yArg, HvlMap mapArg) {
@@ -43,8 +44,8 @@ public class TestTilemapEntity extends HvlEntity {
 
 	@Override
 	public void update(float delta) {
-		System.out.println(someValue);
-		System.out.println(magicalString);
+//		System.out.println(someValue);
+//		System.out.println(magicalString);
 		float speed = 256.0f;
 		float xMotion = HvlInputSeriesAction.HORIZONTAL.getCurrentOutput();
 		float yMotion = HvlInputSeriesAction.VERTICAL.getCurrentOutput();
