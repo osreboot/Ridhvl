@@ -86,7 +86,7 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 	public void postUpdate(float delta){
 		HvlChronology.postUpdate(delta);
 		
-		HvlDisplay.postUpdate(delta);//TODO convert to HvlChronology.Update
+		HvlDisplay.postUpdate(delta);
 		
 		Display.update();
 		Display.sync(frameRate);

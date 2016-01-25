@@ -29,6 +29,16 @@ public class HvlDisplay {
 			preUpdate(delta);
 		}
 	};
+	
+	public static final int UPDATE_CHRONOLOGY2 = HvlChronology.UPDATE_CHRONOLOGY_POST_MIDDLE + HvlChronology.UPDATE_CHRONOLOGY_DFLTINTVL;
+
+	@HvlChronologyUpdate(chronology = UPDATE_CHRONOLOGY2)
+	public static final HvlAction1<Float> UPDATE_ACTION2 = new HvlAction1<Float>(){
+		@Override
+		public void run(Float delta){
+			postUpdate(delta);
+		}
+	};
 
 	private static int oldWidth, oldHeight;
 
