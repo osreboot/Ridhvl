@@ -14,10 +14,6 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class Template2DBasicTest extends HvlTemplate2D{
 	
-	public static void main(String[] args) {
-		new Template2DBasicTest();
-	}
-	
 	public Template2DBasicTest(){
 		super(60, 1280, 720, "Ridhvl Template2D Test", new HvlDisplayModeDefault());
 	}
