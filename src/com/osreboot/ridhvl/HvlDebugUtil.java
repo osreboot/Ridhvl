@@ -9,6 +9,6 @@ public class HvlDebugUtil {
 	public static void drawFPSCounter(HvlFontPainter2D font, float x, float y, float scale, Color color) {
 		String text = Math.round(HvlTemplateInteg2D.getNewestInstance().getTimer().getUpdateRate()) + "";
 		// (Display.getWidth() * xAlign) - (font.getLineWidth(text) * xAlign), (Display.getHeight() * yAlign) - (font.getFontHeight() * yAlign)
-		font.drawWord(text, x, y, scale, color);
+		font.drawWord(text, x, y, color, scale);
 	}
 }
