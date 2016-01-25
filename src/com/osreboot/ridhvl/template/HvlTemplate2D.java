@@ -15,10 +15,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
-import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
-import com.osreboot.ridhvl.painter.HvlCamera;
 
 public abstract class HvlTemplate2D extends HvlTemplate{
 
@@ -76,26 +74,19 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		
 		start();
 	}
-	
-	private HvlAction1<Float> preCameraTransform;
 
 	@Override
 	public void preUpdate(float delta){
 		HvlChronology.preUpdate(delta);
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-		if(preCameraTransform != null) preCameraTransform.run(delta);
-		
-		HvlCamera.doTransform();//TODO convert to HvlChronology.Update
 	}
 
 	@Override
 	public void postUpdate(float delta){
 		HvlChronology.postUpdate(delta);
 		
-		HvlCamera.undoTransform();//TODO convert to HvlChronology.Update
-		HvlDisplay.postUpdate(delta);//TODO convert to HvlChronology.Update
+		HvlDisplay.postUpdate(delta);
 		
 		Display.update();
 		Display.sync(frameRate);
@@ -107,14 +98,6 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		getTimer().setRunning(false);
 		Display.destroy();
 		System.exit(0);
-	}
-	
-	public HvlAction1<Float> getPreCameraTransform(){
-		return preCameraTransform;
-	}
-
-	public void setPreCameraTransform(HvlAction1<Float> preCameraTransformArg){
-		preCameraTransform = preCameraTransformArg;
 	}
 	
 	public int getWidth(){

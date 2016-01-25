@@ -19,14 +19,14 @@ public class HvlCursor {
 	public static final HvlAction1<Float> UPDATE_ACTION = new HvlAction1<Float>(){
 			@Override
 			public void run(Float delta){
-				drawCursor();
+				if(autoDraw) drawCursor();
 			}
 		};
 	
 	private static float xOffset, yOffset, width, height;
 	private static Texture texture;
 	private static Color color = Color.white;
-	private static boolean relativeToCamera = false;
+	private static boolean relativeToCamera = false, autoDraw = true;
 
 	public static void setNativeHidden(boolean hiddenArg){
 		Mouse.setGrabbed(hiddenArg);
@@ -38,10 +38,16 @@ public class HvlCursor {
 
 	public static void drawCursor(){
 		if(texture != null && Mouse.isInsideWindow()){
-			if(relativeToCamera) HvlCamera.undoTransform();
-			HvlPainter2D.hvlDrawQuad(getCursorX() + xOffset, getCursorY() + yOffset, width, height, texture, color);//TODO account for inversion
-			if(relativeToCamera) HvlCamera.doTransform();
+			HvlPainter2D.hvlDrawQuad(getCursorX() + xOffset, getCursorY() + yOffset, width, height, texture, color);
 		}
+	}
+	
+	public static boolean getAutoDraw(){
+		return autoDraw;
+	}
+
+	public static void setAutoDraw(boolean autoDrawArg){
+		autoDraw = autoDrawArg;
 	}
 
 	public static float getXOffset(){
