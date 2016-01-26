@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.nio.ByteBuffer;
 
+import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -32,38 +33,36 @@ public class HvlRenderFrame {
 	@SuppressWarnings("deprecation")
 	private static void setCurrentRenderFrame(HvlRenderFrame renderFrame){
 		if(hasPushed){
-			GL11.glPopAttrib();
+			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
+			GL11.glPopMatrix();
 			hasPushed = false;
 		}
 		if(renderFrame != null){
 			hasPushed = true;
+			GL11.glPushMatrix();
+			GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
-			GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
-			GL11.glViewport(0, 0, renderFrame.getWidth(), renderFrame.getHeight());
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			HvlPainter2D.hvlForceRefresh();
-		}else{
-			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 		}
 	}
 
 	@SuppressWarnings("deprecation")
 	private static void setCurrentRenderFrame(HvlRenderFrame renderFrame, boolean clear){
 		if(hasPushed){
-			GL11.glPopAttrib();
+			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
+			GL11.glPopMatrix();
 			hasPushed = false;
 		}
 		if(renderFrame != null){
 			hasPushed = true;
+			GL11.glPushMatrix();
+			GL11.glTranslatef(-renderFrame.getX(), (Display.getHeight() - renderFrame.getHeight() - renderFrame.getY()), 0);
 			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, renderFrame.getID());
-			GL11.glPushAttrib(GL11.GL_VIEWPORT_BIT);
-			GL11.glViewport(0, 0, renderFrame.getWidth(), renderFrame.getHeight());
 			if(clear){
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				HvlPainter2D.hvlForceRefresh();
 			}
-		}else{
-			EXTFramebufferObject.glBindFramebufferEXT(EXTFramebufferObject.GL_FRAMEBUFFER_EXT, 0);
 		}
 	}
 
