@@ -62,7 +62,7 @@ public class HvlLabel extends HvlComponent {
 	public void draw(float delta) {
 		updateDimensions(); // Force the width and height.
 		if (font != null && color != null)
-			font.drawWord(text, getX(), getY(), scale, color);
+			font.drawWord(text, getX(), getY(), color, scale);
 	}
 
 	public HvlFontPainter2D getFont() {
@@ -100,7 +100,7 @@ public class HvlLabel extends HvlComponent {
 	private void updateDimensions() {
 		if (font == null) return;
 		this.setWidth(font.getLineWidth(text) * scale);
-		this.setHeight(font.getFontHeight() * scale);
+		this.setHeight(font.getLineHeight(text) * scale);
 	}
 	
 	// NOTE: There aren't any width and height methods because

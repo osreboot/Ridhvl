@@ -102,8 +102,8 @@ public class HvlLabeledButton extends HvlButton {
 		super.draw(delta);
 		if (font != null && text != null && textColor != null) {
 			float xOffset = (getWidth() - (font.getLineWidth(text) * textScale)) * xAlign;
-			float yOffset = (getHeight() - (font.getFontHeight() * textScale)) * yAlign;
-			font.drawWord(text, getX() + xOffset, getY() + yOffset, textScale, textColor);
+			float yOffset = (getHeight() - (font.getLineHeight(text) * textScale)) * yAlign;
+			font.drawWord(text, getX() + xOffset, getY() + yOffset, textColor, textScale);
 		}
 	}
 

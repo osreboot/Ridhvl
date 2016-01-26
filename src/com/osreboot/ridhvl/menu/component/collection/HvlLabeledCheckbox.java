@@ -119,7 +119,7 @@ public class HvlLabeledCheckbox extends HvlCheckbox {
 
 		// Dimension overrides to respond to rearranging properly.
 		setWidth((font.getLineWidth(text) * scale) + checkWidth + spacing);
-		setHeight(Math.max(font.getFontHeight() * scale, checkHeight));
+		setHeight(Math.max(font.getLineHeight(text) * scale, checkHeight));
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class HvlLabeledCheckbox extends HvlCheckbox {
 
 		if (font != null && text != null && color != null)
 			font.drawWord(text, textSide == HvlTextSide.RIGHT ? getX() + checkWidth + spacing : getX(), getY() + (getHeight() / 2)
-					- (font.getFontHeight() * scale / 2), scale, color);
+					- (font.getLineHeight(text) * scale / 2), color, scale);
 	}
 
 	public void onChanged(boolean state) {

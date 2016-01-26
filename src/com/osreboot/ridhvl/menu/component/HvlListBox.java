@@ -20,7 +20,6 @@ import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
-import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlListBox extends HvlComponent {
 
@@ -281,7 +280,7 @@ public class HvlListBox extends HvlComponent {
 					background.draw(delta, getX(), getY(), fullBackground ? getWidth() : getWidth() - scrollBox.getWidth(), getHeight());
 
 				scrollBox.draw(delta);
-
+				
 				// float topItem = (scrollBar.getValue() * (items.size() -
 				// maxVisibleItems));
 				// for (int i = 0; i < Math.min(items.size(), topItem +
@@ -310,10 +309,10 @@ public class HvlListBox extends HvlComponent {
 						itemBackgroundHover.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
 					else
 						itemBackgroundOff.draw(delta, getX(), getY() + ((i - topItem) * itemHeight), getWidth() - scrollBox.getWidth(), itemHeight);
-					font.drawWord(items.get(i).toString(), getX(), getY() + ((i - topItem) * itemHeight), textScale, textColor);
+					font.drawWord(items.get(i).toString(), getX(), getY() + ((i - topItem) * itemHeight), textColor, textScale);
 				}
 
-				HvlPainter2D.hvlForceRefresh();
+//				HvlPainter2D.hvlForceRefresh();
 			}
 		});
 

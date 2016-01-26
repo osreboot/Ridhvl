@@ -166,7 +166,7 @@ public class HvlTextBox extends HvlComponent {
 				unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		}
 		if (font != null && text != null && textColor != null)
-			font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textScale, textColor);
+			font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textColor, textScale);
 	}
 
 	public String getText() {
