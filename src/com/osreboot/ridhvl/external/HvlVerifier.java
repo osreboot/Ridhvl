@@ -9,6 +9,7 @@ import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.template.HvlChronology;
 import com.osreboot.ridhvl.template.HvlChronologyInitialize;
 
+@Deprecated
 public abstract class HvlVerifier {
 
 	public static final int INIT_CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY - HvlChronology.INIT_CHRONOLOGY_DFLTINTVL;

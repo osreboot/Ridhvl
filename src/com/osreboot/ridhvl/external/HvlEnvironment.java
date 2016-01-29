@@ -4,33 +4,60 @@ import java.util.ArrayList;
 
 import com.osreboot.ridhvl.action.HvlAction0r;
 
-@Deprecated
 public class HvlEnvironment {
 
-	public static void analyze(){
-
+	public static HvlEnvironment analyze(){
+		ArrayList<Float> values = new ArrayList<>();
+		for(HvlEnvironment.Variable v : template) values.add(v.verify());
+		return new HvlEnvironment(template, values);
 	}
 
-	private static HvlEnvironment analyzed;
+	private static ArrayList<HvlEnvironment.Variable> template;
 
-	public static HvlEnvironment getAnalyzed(){
-		return analyzed;
+	public static ArrayList<HvlEnvironment.Variable> getTemplate(){
+		return template;
 	}
 
 	private ArrayList<HvlEnvironment.Variable> variables = new ArrayList<>();
-	@SuppressWarnings("unused")
-	private ArrayList<Integer> values;
+	private ArrayList<Float> values;
 	
 	public HvlEnvironment(ArrayList<HvlEnvironment.Variable> variablesArg){
-
+		variables = variablesArg;
+	}
+	
+	public HvlEnvironment(ArrayList<HvlEnvironment.Variable> variablesArg, ArrayList<Float> valuesArg){
+		variables = variablesArg;
+		values = valuesArg;
 	}
 
-	public ArrayList<HvlEnvironment> outliers(HvlEnvironment compareArg){
-		return null;
+	public boolean meets(HvlEnvironment compareArg){
+		return meetsOutliers(compareArg).size() > 0;
+	}
+	
+	public ArrayList<HvlEnvironment.Variable> meetsOutliers(HvlEnvironment compareArg){
+		ArrayList<HvlEnvironment.Variable> outliers = new ArrayList<HvlEnvironment.Variable>();
+		for(HvlEnvironment.Variable v : variables) if(getValue(v) < compareArg.getValue(v)) outliers.add(v);
+		return outliers;
 	}
 
 	public ArrayList<HvlEnvironment.Variable> getVariables(){
 		return variables;
+	}
+	
+	public void setValues(ArrayList<Float> valuesArg){
+		values = valuesArg;
+	}
+
+	public ArrayList<Float> getValues(){
+		return values;
+	}
+	
+	public float getValue(HvlEnvironment.Variable variableArg){
+		return values.get(variables.indexOf(variableArg));
+	}
+	
+	public boolean getBooleanValue(HvlEnvironment.Variable variableArg){
+		return values.get(variables.indexOf(variableArg)) == 1f;
 	}
 
 	public static class Variable{
@@ -50,14 +77,14 @@ public class HvlEnvironment {
 		}
 
 		private int id;
-		private HvlAction0r<Boolean> verify;
+		private HvlAction0r<Float> verify;
 
-		public Variable(int idArg, HvlAction0r<Boolean> verifyArg){
+		public Variable(int idArg, HvlAction0r<Float> verifyArg){
 			id = idArg;
 			verify = verifyArg;
 		}
 
-		public boolean verify(){
+		public float verify(){
 			return verify.run();
 		}
 
@@ -65,7 +92,7 @@ public class HvlEnvironment {
 			return id;
 		}
 
-		public HvlAction0r<Boolean> getVerify(){
+		public HvlAction0r<Float> getVerify(){
 			return verify;
 		}
 

@@ -255,7 +255,6 @@ public class HvlListBox extends HvlComponent {
 		pSelectedIndex = selectedIndex;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void draw(final float delta) {
 		if (pX != getX() || pY != getY() || pWidth != getWidth() || pHeight != getHeight()) {
