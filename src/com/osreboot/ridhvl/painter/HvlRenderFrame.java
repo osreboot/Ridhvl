@@ -1,6 +1,10 @@
 package com.osreboot.ridhvl.painter;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glClear;
 
 import java.nio.ByteBuffer;
 
@@ -11,7 +15,8 @@ import org.lwjgl.opengl.GL13;
 
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction3;
-import com.osreboot.ridhvl.external.HvlVerifier;
+import com.osreboot.ridhvl.external.HvlEnvironment;
+import com.osreboot.ridhvl.external.HvlEnvironmentRegistry;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlRenderFrame {
@@ -69,7 +74,7 @@ public class HvlRenderFrame {
 	private int frameID, textureID, width, height, x = 0, y = 0;
 
 	public HvlRenderFrame(int widthArg, int heightArg) throws FBOUnsupportedException{
-		if(!HvlVerifier.VFR_FBOENABLED.isValid()) throw new FBOUnsupportedException();
+		if(!HvlEnvironment.getCurrent().getBooleanValue(HvlEnvironmentRegistry.CAPABILITY_OPENGL_FBO)) throw new FBOUnsupportedException();
 		width = widthArg;
 		height = heightArg;
 		frameID = EXTFramebufferObject.glGenFramebuffersEXT();
@@ -83,7 +88,7 @@ public class HvlRenderFrame {
 	}
 
 	public HvlRenderFrame(int xArg, int yArg, int widthArg, int heightArg) throws FBOUnsupportedException{
-		if(!HvlVerifier.VFR_FBOENABLED.isValid()) throw new FBOUnsupportedException();
+		if(!HvlEnvironment.getCurrent().getBooleanValue(HvlEnvironmentRegistry.CAPABILITY_OPENGL_FBO)) throw new FBOUnsupportedException();
 		x = xArg;
 		y = yArg;
 		width = widthArg;

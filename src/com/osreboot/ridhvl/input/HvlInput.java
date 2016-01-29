@@ -4,7 +4,8 @@ import java.util.LinkedList;
 
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction1;
-import com.osreboot.ridhvl.external.HvlVerifier;
+import com.osreboot.ridhvl.external.HvlEnvironment;
+import com.osreboot.ridhvl.external.HvlEnvironmentRegistry;
 import com.osreboot.ridhvl.template.HvlChronology;
 import com.osreboot.ridhvl.template.HvlChronologyInitialize;
 import com.osreboot.ridhvl.template.HvlChronologyUpdate;
@@ -39,7 +40,7 @@ public class HvlInput {
 	}
 
 	public static void initialize(){
-		if(!HvlVerifier.VFR_JINPUT.isValid()) System.out.println("Joystick control disabled: jinput.jar not available.");
+		if(!HvlEnvironment.getCurrent().getBooleanValue(HvlEnvironmentRegistry.DEPENDENCY_JINPUT_EXISTS)) System.out.println("Joystick control disabled: jinput.jar not available.");
 	}
 
 	public static void update(){

@@ -2,7 +2,7 @@ package com.osreboot.ridhvl.template;
 
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.display.HvlDisplay;
-import com.osreboot.ridhvl.external.HvlVerifier;
+import com.osreboot.ridhvl.external.HvlEnvironment;
 import com.osreboot.ridhvl.input.HvlController;
 import com.osreboot.ridhvl.input.HvlControllerProfile;
 import com.osreboot.ridhvl.input.HvlInput;
@@ -20,7 +20,7 @@ public class HvlChronologyRegistry {
 		HvlChronology.registerChronology(HvlMenuDJ.class);
 		HvlChronology.registerChronology(HvlDisplay.class);
 		HvlChronology.registerChronology(HvlInput.class);
-		HvlChronology.registerChronology(HvlVerifier.class);
+		HvlChronology.registerChronology(HvlEnvironment.class);
 		HvlChronology.registerChronology(HvlControllerProfile.class);
 		HvlChronology.registerChronology(HvlController.class);
 		HvlChronology.registerChronology(HvlMenuInteractor.class);

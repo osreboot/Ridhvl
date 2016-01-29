@@ -20,6 +20,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
+import com.osreboot.ridhvl.external.HvlEnvironmentRegistry;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.loader.HvlTextureSeriesLoader;
@@ -64,6 +65,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
+		HvlEnvironmentRegistry.registerVariables();
 		HvlChronologyRegistry.registerChronologies();
 		HvlChronology.initialize();
 		
@@ -95,6 +97,7 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		hvlGL11Init();
 		hvlGL11Ortho(width, height);
 		
+		HvlEnvironmentRegistry.registerVariables();
 		HvlChronologyRegistry.registerChronologies();
 		HvlChronology.initialize();
 		
