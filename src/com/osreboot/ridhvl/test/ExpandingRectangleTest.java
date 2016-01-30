@@ -2,14 +2,10 @@ package com.osreboot.ridhvl.test;
 
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.input.HvlController;
-import com.osreboot.ridhvl.input.HvlControllerProfile;
 import com.osreboot.ridhvl.input.collection.HvlCPG_Gamepad;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
@@ -17,21 +13,6 @@ import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ExpandingRectangleTest extends HvlTemplate2D {
-	
-	static {
-		HvlControllerProfile.setDebugOutput(true);
-
-		AccessController.doPrivileged(new PrivilegedAction<Object>(){//TODO add this to an initialize method in HvlController
-			public Object run(){
-				String os = System.getProperty("os.name", "").trim();
-				if(os.startsWith("Windows 8")){
-					System.setProperty("jinput.useDefaultPlugin", "false");
-					System.setProperty("net.java.games.input.plugins", "net.java.games.input.DirectAndRawInputEnvironmentPlugin");
-				}
-				return null;
-			}
-		});
-	}
 	
 	public ExpandingRectangleTest() {
 		super(60, 1280, 720, "Ridhvl Expanding Rectangle Test", new HvlDisplayModeDefault());
