@@ -15,12 +15,15 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.ImageIOImageData;
 
+import com.osreboot.ridhvl.action.HvlEvent1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.external.HvlEnvironmentRegistry;
 
 public abstract class HvlTemplate2D extends HvlTemplate{
 
+	public static final HvlEvent1<HvlTemplate2D> EVENT_EXIT = new HvlEvent1<>();
+	
 	private int frameRate, displayWidth, displayHeight;
 
 	public HvlTemplate2D(int frameRateArg, int width, int height, String title, HvlDisplayMode displayModeArg){
@@ -94,7 +97,10 @@ public abstract class HvlTemplate2D extends HvlTemplate{
 		Display.update();
 		Display.sync(frameRate);
 
-		if(Display.isCloseRequested()) exit();
+		if(Display.isCloseRequested()){
+			EVENT_EXIT.trigger(this);
+			exit();
+		}
 	}
 	
 	public void exit(){

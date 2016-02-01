@@ -18,6 +18,7 @@ import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.action.HvlEvent1;
 import com.osreboot.ridhvl.display.HvlDisplay;
 import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.external.HvlEnvironmentRegistry;
@@ -27,6 +28,8 @@ import com.osreboot.ridhvl.loader.HvlTextureSeriesLoader;
 
 public abstract class HvlTemplateInteg2D extends HvlTemplate{
 
+	public static final HvlEvent1<HvlTemplateInteg2D> EVENT_EXIT = new HvlEvent1<>();
+	
 	public static Texture getTexture(int indexArg){
 		return ((HvlTemplateInteg2D)HvlTemplate.getNewestInstance()).getTextureLoader().getResource(indexArg);
 	}
@@ -124,7 +127,10 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		Display.update();
 		Display.sync(frameRate);
 		
-		if(Display.isCloseRequested()) exit();
+		if(Display.isCloseRequested()){
+			EVENT_EXIT.trigger(this);
+			exit();
+		}
 	}
 	
 	public void exit(){
