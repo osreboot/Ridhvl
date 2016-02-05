@@ -28,4 +28,60 @@ public class HvlTextureUtil {
 			return null;
 		}
 	}
+	
+	public static float getPixelR(Texture t, int index) {
+		byte original = t.getTextureData()[index * 4];
+
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static float getPixelR(Texture t, int x, int y) {
+		byte original = t.getTextureData()[(y * t.getImageWidth() + x) * 4];
+		
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static float getPixelG(Texture t, int index) {
+		byte original = t.getTextureData()[index * 4 + 1];
+
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static float getPixelG(Texture t, int x, int y) {
+		byte original = t.getTextureData()[(y * t.getImageWidth() + x) * 4 + 1];
+
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static float getPixelB(Texture t, int index) {
+		byte original = t.getTextureData()[index * 4 + 2];
+
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static float getPixelB(Texture t, int x, int y) {
+		byte original = t.getTextureData()[(y * t.getImageWidth() + x) * 4 + 2];
+
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static float getPixelA(Texture t, int index) {
+		byte original = t.getTextureData()[index * 4 + 3];
+
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static float getPixelA(Texture t, int x, int y) {
+		byte original = t.getTextureData()[(y * t.getImageWidth() + x) * 4 + 3];
+
+		return (original < 0 ? ((float) (255 + original) / 255) : ((float) original / 255));
+	}
+	
+	public static Color getPixel(Texture t, int index) {
+		return new Color(getPixelR(t, index), getPixelG(t, index), getPixelB(t, index), getPixelA(t, index));
+	}
+	
+	public static Color getPixel(Texture t, int x, int y) {
+		return new Color(getPixelR(t, x, y), getPixelG(t, x, y), getPixelB(t, x, y), getPixelA(t, x, y));
+	}
 }
