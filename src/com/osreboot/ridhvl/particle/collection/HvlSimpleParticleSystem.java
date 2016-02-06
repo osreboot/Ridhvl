@@ -9,6 +9,8 @@ import org.newdawn.slick.opengl.Texture;
 import com.osreboot.ridhvl.HvlColorUtil;
 import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlMath;
+import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
 
@@ -18,7 +20,7 @@ public class HvlSimpleParticleSystem extends HvlParticleSystem {
 	private boolean isColorCoordinated;
 	private Color startColorOne, startColorTwo;
 	private Color endColorOne, endColorTwo;
-	private List<Texture> particleTextures;
+	private List<HvlAnimatedTexture> particleAnimations;
 	private float minXVel, maxXVel;
 	private float minYVel, maxYVel;
 	private float xVelDecay, yVelDecay;
@@ -35,9 +37,32 @@ public class HvlSimpleParticleSystem extends HvlParticleSystem {
 		positionProvider = positionArg;
 		startColorOne = startColorTwo = Color.white;
 		endColorOne = endColorTwo = Color.white;
-		particleTextures = new ArrayList<>();
+		particleAnimations = new ArrayList<>();
 		for (Texture t : tArg) {
-			particleTextures.add(t);
+			particleAnimations.add(new HvlAnimatedTextureArray(new Texture[] { t }, 0f));
+		}
+		minXVel = maxXVel = 0;
+		minYVel = maxYVel = 0;
+		xVelDecay = yVelDecay = 0;
+		minRot = 0;
+		maxRot = 360;
+		minRotVel = maxRotVel = 0;
+		rotVelDecay = 0f;
+		baseWidth = pWidthArg;
+		baseHeight = pHeightArg;
+		minScale = maxScale = 1.0f;
+		scaleDecay = 0f;
+		minLifetime = maxLifetime = 5.0f;
+	}
+	
+	public HvlSimpleParticleSystem(float xArg, float yArg, float pWidthArg, float pHeightArg, HvlParticlePositionProvider positionArg, HvlAnimatedTexture... animArg) {
+		super(xArg, yArg);
+		positionProvider = positionArg;
+		startColorOne = startColorTwo = Color.white;
+		endColorOne = endColorTwo = Color.white;
+		particleAnimations = new ArrayList<>();
+		for (HvlAnimatedTexture anim : animArg) {
+			particleAnimations.add(anim);
 		}
 		minXVel = maxXVel = 0;
 		minYVel = maxYVel = 0;
@@ -69,25 +94,19 @@ public class HvlSimpleParticleSystem extends HvlParticleSystem {
 			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo, (float) Math.random());
 			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo, (float) Math.random());
 		} else {
-			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo, (float) Math.random(), (float) Math.random(), (float) Math.random(),
-					(float) Math.random());
-			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo, (float) Math.random(), (float) Math.random(), (float) Math.random(),
-					(float) Math.random());
+			startColor = HvlColorUtil.lerpColor(startColorOne, startColorTwo, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random());
+			endColor = HvlColorUtil.lerpColor(endColorOne, endColorTwo, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random());
 		}
 
-		Texture particleTexture = particleTextures.get(HvlMath.randomIntBetween(0, particleTextures.size()));
+		HvlAnimatedTexture particleTexture = particleAnimations.get(HvlMath.randomIntBetween(0, particleAnimations.size()));
 
-		HvlParticle p = createParticleFromSpecs(position.x, position.y, xVel, yVel, xVelDecay, yVelDecay, rot, rotVel, rotVelDecay, baseWidth, baseHeight,
-				scale, scaleDecay, lifetime, startColor, endColor, particleTexture);
+		HvlParticle p = createParticleFromSpecs(position.x, position.y, xVel, yVel, xVelDecay, yVelDecay, rot, rotVel, rotVelDecay, baseWidth, baseHeight, scale, scaleDecay, lifetime, startColor, endColor, particleTexture);
 
 		return p;
 	}
 
-	protected HvlParticle createParticleFromSpecs(float xArg, float yArg, float xVelArg, float yVelArg, float xVelDecayArg, float yVelDecayArg, float rotArg,
-			float rotRateArg, float rotVelDecayArg, float baseWidthArg, float baseHeightArg, float scaleArg, float scaleDecayArg, float lifetimeArg,
-			Color startColorArg, Color endColorArg, Texture tArg) {
-		return new HvlSimpleParticle(xArg, yArg, this, startColorArg, endColorArg, tArg, xVelArg, yVelArg, xVelDecayArg, yVelDecayArg, rotArg, rotRateArg,
-				rotVelDecayArg, baseWidthArg, baseHeightArg, scaleArg, scaleDecayArg, lifetimeArg);
+	protected HvlParticle createParticleFromSpecs(float xArg, float yArg, float xVelArg, float yVelArg, float xVelDecayArg, float yVelDecayArg, float rotArg, float rotRateArg, float rotVelDecayArg, float baseWidthArg, float baseHeightArg, float scaleArg, float scaleDecayArg, float lifetimeArg, Color startColorArg, Color endColorArg, HvlAnimatedTexture animArg) {
+		return new HvlSimpleParticle(xArg, yArg, this, startColorArg, endColorArg, animArg, xVelArg, yVelArg, xVelDecayArg, yVelDecayArg, rotArg, rotRateArg, rotVelDecayArg, baseWidthArg, baseHeightArg, scaleArg, scaleDecayArg, lifetimeArg);
 	}
 
 	public Color getStartColorOne() {
@@ -122,16 +141,20 @@ public class HvlSimpleParticleSystem extends HvlParticleSystem {
 		this.endColorTwo = endColorTwo;
 	}
 
-	public List<Texture> getParticleTextures() {
-		return particleTextures;
+	public List<HvlAnimatedTexture> getParticleAnimations() {
+		return particleAnimations;
 	}
 
-	public void setParticleTexture(List<Texture> particleTextures) {
-		this.particleTextures = particleTextures;
+	public void setParticleAnimations(List<HvlAnimatedTexture> particleAnimations) {
+		this.particleAnimations = particleAnimations;
 	}
 
-	public void addParticleTexture(Texture particleTexture) {
-		particleTextures.add(particleTexture);
+	public void addParticleAnimation(HvlAnimatedTexture particleAnimation) {
+		particleAnimations.add(particleAnimation);
+	}
+	
+	public void addParticleAnimation(Texture particleTexture) {
+		particleAnimations.add(new HvlAnimatedTextureArray(new Texture[]{ particleTexture }, 0f));
 	}
 
 	public float getMinXVel() {
@@ -299,10 +322,6 @@ public class HvlSimpleParticleSystem extends HvlParticleSystem {
 	public void setColor(Color color) {
 		setStartColor(color);
 		setEndColor(color);
-	}
-
-	public void addTexture(Texture texture) {
-		particleTextures.add(texture);
 	}
 
 	public void setXVel(float xVel) {

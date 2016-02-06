@@ -1,10 +1,12 @@
 package com.osreboot.ridhvl.particle.collection;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlColorUtil;
 import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
+import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.particle.HvlParticle;
 import com.osreboot.ridhvl.particle.HvlParticleSystem;
@@ -17,7 +19,7 @@ import com.osreboot.ridhvl.particle.HvlParticleSystem;
 public class HvlSimpleParticle extends HvlParticle {
 
 	private Color startColor, endColor;
-	private Texture texture;
+	private HvlAnimatedTexture animation;
 	private float xVel, yVel;
 	private float xVelDecay, yVelDecay;
 	private float rot;
@@ -71,13 +73,13 @@ public class HvlSimpleParticle extends HvlParticle {
 	 * @param lifetime
 	 *            How long this particle will live.
 	 */
-	public HvlSimpleParticle(float xArg, float yArg, HvlParticleSystem parentArg, Color startColor, Color endColor, Texture texture, float xVel, float yVel,
+	public HvlSimpleParticle(float xArg, float yArg, HvlParticleSystem parentArg, Color startColor, Color endColor, HvlAnimatedTexture texture, float xVel, float yVel,
 			float xVelDecay, float yVelDecay, float rot, float rotVel, float rotVelDecay, float baseWidth, float baseHeight, float scale, float scaleDecay,
 			float lifetime) {
 		super(xArg, yArg, parentArg);
 		this.startColor = startColor;
 		this.endColor = endColor;
-		this.texture = texture;
+		this.animation = texture;
 		this.xVel = xVel;
 		this.yVel = yVel;
 		this.xVelDecay = xVelDecay;
@@ -135,13 +137,13 @@ public class HvlSimpleParticle extends HvlParticle {
 	 * @param lifetime
 	 *            How long this particle will live.
 	 */
-	public HvlSimpleParticle(HvlCoord pos, HvlParticleSystem parentArg, Color startColor, Color endColor, Texture texture, float xVel, float yVel,
+	public HvlSimpleParticle(HvlCoord pos, HvlParticleSystem parentArg, Color startColor, Color endColor, HvlAnimatedTexture texture, float xVel, float yVel,
 			float xVelDecay, float yVelDecay, float rot, float rotVel, float rotVelDecay, float baseWidth, float baseHeight, float scale, float scaleDecay,
 			float lifetime) {
 		super(pos, parentArg);
 		this.startColor = startColor;
 		this.endColor = endColor;
-		this.texture = texture;
+		this.animation = texture;
 		this.xVel = xVel;
 		this.yVel = yVel;
 		this.xVelDecay = xVelDecay;
@@ -190,9 +192,11 @@ public class HvlSimpleParticle extends HvlParticle {
 		super.draw(delta);
 
 		HvlPainter2D.hvlRotate(getX(), getY(), rot);
-
-		HvlPainter2D.hvlDrawQuad(getX() - (baseWidth * scale * 0.5f), getY() - (baseHeight * scale * 0.5f), baseWidth * scale, baseHeight * scale, texture,
-				HvlColorUtil.lerpColor(startColor, endColor, getTimeAlive() / lifetime));
+		
+		if (animation instanceof HvlAnimatedTextureArray)
+			HvlPainter2D.hvlDrawQuad(getX() - (baseWidth * scale * 0.5f), getY() - (baseHeight * scale * 0.5f), baseWidth * scale, baseHeight * scale, (HvlAnimatedTextureArray) animation);
+		else
+			HvlPainter2D.hvlDrawQuad(getX() - (baseWidth * scale * 0.5f), getY() - (baseHeight * scale * 0.5f), baseWidth * scale, baseHeight * scale, (HvlAnimatedTextureUV) animation, HvlColorUtil.lerpColor(startColor, endColor, getTimeAlive() / lifetime));
 
 		HvlPainter2D.hvlResetRotation();
 	}
@@ -251,19 +255,19 @@ public class HvlSimpleParticle extends HvlParticle {
 	}
 
 	/**
-	 * Gets the texture of the particle.
-	 * @return The texture of the particle.
+	 * Gets the animation of the particle.
+	 * @return The animation of the particle.
 	 */
-	public Texture getTexture() {
-		return texture;
+	public HvlAnimatedTexture getAnimation() {
+		return animation;
 	}
 
 	/**
-	 * Sets the texture of the particle.
-	 * @param texture The new texture of the particle.
+	 * Sets the animation of the particle.
+	 * @param animation The new animation of the particle.
 	 */
-	public void setTexture(Texture texture) {
-		this.texture = texture;
+	public void setAnimation(HvlAnimatedTexture animation) {
+		this.animation = animation;
 	}
 
 	/**
