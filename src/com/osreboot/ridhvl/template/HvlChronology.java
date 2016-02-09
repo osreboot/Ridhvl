@@ -63,7 +63,7 @@ public class HvlChronology {
 				if(chronologyArg == -1) defaultAdd(actionArg);
 				else if(chronoInit.containsKey(chronologyArg)) throw new PredefinedChronologyException(f.getDeclaringClass(), chronologyArg);
 				else{
-					if(debugOutput) System.out.println("HvlChronology: manually assigning initialize " + f.getDeclaringClass().getName() + " action to slot " + chronologyArg);
+					if(debugOutput) System.out.println("HvlChronology: manually assigning initialize " + f.getDeclaringClass().getName() + " action to slot " + chronologyArg + ".");
 					chronoInit.put(chronologyArg, actionArg);
 				}
 			}
@@ -75,7 +75,7 @@ public class HvlChronology {
 
 		private static void defaultAdd(HvlAction0 action){
 			for(int i = INIT_CHRONOLOGY_LATEST; i >= INIT_CHRONOLOGY_EARLIEST; i--) if(!chronoInit.containsKey(i)){
-				if(debugOutput) System.out.println("HvlChronology: automatically assigning an initialize action to slot " + i);
+				if(debugOutput) System.out.println("HvlChronology: automatically assigning an initialize action to slot " + i + ".");
 				chronoInit.put(i, action);
 			}
 		}
@@ -91,7 +91,7 @@ public class HvlChronology {
 				if(chronologyArg == -1) defaultAdd(actionArg);
 				else if(chronoUpdate.containsKey(chronologyArg)) throw new PredefinedChronologyException(f.getDeclaringClass(), chronologyArg);
 				else{
-					if(debugOutput) System.out.println("HvlChronology: manually assigning updating " + f.getDeclaringClass().getName() + " action to slot " + chronologyArg);
+					if(debugOutput) System.out.println("HvlChronology: manually assigning updating " + f.getDeclaringClass().getName() + " action to slot " + chronologyArg + ".");
 					chronoUpdate.put(chronologyArg, actionArg);
 				}
 			}
@@ -103,7 +103,7 @@ public class HvlChronology {
 
 		private static void defaultAdd(HvlAction1<Float> action){
 			for(int i = UPDATE_CHRONOLOGY_PRE_LATEST; i >= UPDATE_CHRONOLOGY_PRE_EARLIEST; i--) if(!chronoUpdate.containsKey(i)){
-				if(debugOutput) System.out.println("HvlChronology: automatically assigning an updating action to slot " + i);
+				if(debugOutput) System.out.println("HvlChronology: automatically assigning an updating action to slot " + i + ".");
 				chronoUpdate.put(i, action);
 				break;
 			}
@@ -114,15 +114,36 @@ public class HvlChronology {
 		Initialize.sortQueue();
 		Update.sortQueue();
 		initialized = true;
-		for(int i = INIT_CHRONOLOGY_EARLIEST; i <= INIT_CHRONOLOGY_LATEST; i++) if(chronoInit.containsKey(i)) chronoInit.get(i).run();
+		for(int i = INIT_CHRONOLOGY_EARLIEST; i <= INIT_CHRONOLOGY_LATEST; i++) if(chronoInit.containsKey(i)){
+			try{
+				chronoInit.get(i).run();
+			}catch(Exception e){
+				System.err.println("HvlChronology: exception thrown by initialize action " + i + "!");
+				e.printStackTrace();
+			}
+		}
 	}
 
 	protected static void preUpdate(float delta){
-		for(int i = UPDATE_CHRONOLOGY_PRE_EARLIEST; i <= UPDATE_CHRONOLOGY_PRE_LATEST; i++) if(chronoUpdate.containsKey(i)) chronoUpdate.get(i).run(delta);
+		for(int i = UPDATE_CHRONOLOGY_PRE_EARLIEST; i <= UPDATE_CHRONOLOGY_PRE_LATEST; i++) if(chronoUpdate.containsKey(i)){
+			try{
+				chronoUpdate.get(i).run(delta);
+			}catch(Exception e){
+				System.err.println("HvlChronology: exception thrown by pre-update action " + i + "!");
+				e.printStackTrace();
+			}
+		}
 	}
 
 	protected static void postUpdate(float delta){
-		for(int i = UPDATE_CHRONOLOGY_POST_EARLIEST; i <= UPDATE_CHRONOLOGY_POST_LATEST; i++) if(chronoUpdate.containsKey(i)) chronoUpdate.get(i).run(delta);
+		for(int i = UPDATE_CHRONOLOGY_POST_EARLIEST; i <= UPDATE_CHRONOLOGY_POST_LATEST; i++) if(chronoUpdate.containsKey(i)){
+			try{
+				chronoUpdate.get(i).run(delta);
+			}catch(Exception e){
+				System.err.println("HvlChronology: exception thrown by post-update action " + i + "!");
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@SuppressWarnings("serial")
