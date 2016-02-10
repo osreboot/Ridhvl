@@ -167,6 +167,10 @@ public class HvlPainter2D {
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
 		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), texture);
 	}
+	
+	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), texture, c);
+	}
 
 	public static void hvlDrawQuad(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
 		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), texture);
