@@ -8,7 +8,6 @@ import static org.lwjgl.opengl.GL11.glClear;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -24,7 +23,6 @@ import com.osreboot.ridhvl.display.HvlDisplayMode;
 import com.osreboot.ridhvl.external.HvlEnvironmentRegistry;
 import com.osreboot.ridhvl.loader.HvlSoundLoader;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
-import com.osreboot.ridhvl.loader.HvlTextureSeriesLoader;
 
 public abstract class HvlTemplateInteg2D extends HvlTemplate{
 
@@ -38,15 +36,10 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		return ((HvlTemplateInteg2D)HvlTemplate.getNewestInstance()).getSoundLoader().getResource(indexArg);
 	}
 	
-	public static ArrayList<Texture> getTextureSeries(int indexArg){
-		return ((HvlTemplateInteg2D)HvlTemplate.getNewestInstance()).getTextureSeriesLoader().getResource(indexArg);
-	}
-	
 	private int frameRate, displayWidth, displayHeight;
 	
 	private HvlTextureLoader textureLoader;
 	private HvlSoundLoader soundLoader;
-	private HvlTextureSeriesLoader textureSeriesLoader;
 
 	public HvlTemplateInteg2D(int frameRateArg, int width, int height, String title, HvlDisplayMode displayModeArg){
 		super();
@@ -74,7 +67,6 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();
-		textureSeriesLoader = new HvlTextureSeriesLoader();
 		
 		start();
 	}
@@ -106,7 +98,6 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 		
 		textureLoader = new HvlTextureLoader();
 		soundLoader = new HvlSoundLoader();
-		textureSeriesLoader = new HvlTextureSeriesLoader();
 		
 		start();
 	}
@@ -145,10 +136,6 @@ public abstract class HvlTemplateInteg2D extends HvlTemplate{
 	
 	public HvlSoundLoader getSoundLoader(){
 		return soundLoader;
-	}
-	
-	public HvlTextureSeriesLoader getTextureSeriesLoader(){
-		return textureSeriesLoader;
 	}
 
 	public int getWidth(){

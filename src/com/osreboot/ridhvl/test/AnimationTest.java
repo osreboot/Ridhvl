@@ -3,7 +3,6 @@ package com.osreboot.ridhvl.test;
 import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuad;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
-import com.osreboot.ridhvl.loader.HvlTextureSeriesLoader;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -18,7 +17,6 @@ public class AnimationTest extends HvlTemplateInteg2D{
 	static HvlFontPainter2D fontPainter;
 	
 	HvlAnimatedTexture texture;
-	HvlTextureSeriesLoader animationLoader;
 	HvlAnimatedTexture animation;
 	
 	@Override
@@ -26,8 +24,7 @@ public class AnimationTest extends HvlTemplateInteg2D{
 		getTextureLoader().loadResource("Icon");
 		getTextureLoader().loadResource("Font");
 		
-		animationLoader = new HvlTextureSeriesLoader();
-		//animationLoader.loadResource("animation\\WubSplash_%03d", 375, 2);
+		//getTextureLoader().loadResource("animation\\WubSplash_%03d:::375");//TODO test this
 		
 		animation = new HvlAnimatedTextureUV(getTextureLoader().getResource(1), 256, 128, 1f);
 		//animation = new HvlAnimatedTextureArray(animationLoader.getResource(0), 0.02f);

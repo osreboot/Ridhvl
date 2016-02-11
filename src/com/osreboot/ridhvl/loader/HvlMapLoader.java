@@ -76,16 +76,8 @@ public class HvlMapLoader extends HvlContentLoader<HvlMap>{
 	}
 
 	@Override
-	public boolean loadResource(String nameArg){
-		HvlMap m;
-		try{
-			m = HvlMap.load(getPath(), x, y, drawWidth, drawHeight, tilemap);
-		}catch(Exception e){
-			e.printStackTrace();
-			return false;
-		}
-		super.addResource(m);
-		return true;
+	public HvlMap loadResourceMeta(String nameArg){
+		return HvlMap.load(getPath(), x, y, drawWidth, drawHeight, tilemap);
 	}
 
 }
