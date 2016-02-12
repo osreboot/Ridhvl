@@ -194,7 +194,7 @@ public class HvlSimpleParticle extends HvlParticle {
 		HvlPainter2D.hvlRotate(getX(), getY(), rot);
 		
 		if (animation instanceof HvlAnimatedTextureArray)
-			HvlPainter2D.hvlDrawQuad(getX() - (baseWidth * scale * 0.5f), getY() - (baseHeight * scale * 0.5f), baseWidth * scale, baseHeight * scale, (HvlAnimatedTextureArray) animation);
+			HvlPainter2D.hvlDrawQuad(getX() - (baseWidth * scale * 0.5f), getY() - (baseHeight * scale * 0.5f), baseWidth * scale, baseHeight * scale, (HvlAnimatedTextureArray) animation, HvlColorUtil.lerpColor(startColor, endColor, getTimeAlive() / lifetime));
 		else
 			HvlPainter2D.hvlDrawQuad(getX() - (baseWidth * scale * 0.5f), getY() - (baseHeight * scale * 0.5f), baseWidth * scale, baseHeight * scale, (HvlAnimatedTextureUV) animation, HvlColorUtil.lerpColor(startColor, endColor, getTimeAlive() / lifetime));
 
