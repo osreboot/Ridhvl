@@ -44,7 +44,8 @@ public class HvlSequentialLoader{
 	}
 
 	public float getProgress(){
-		return (float)index/objects.size();
+		String resource = index == objects.size() ? "" : new ArrayList<String>(objects.keySet()).get(index);
+		return (float)(index + (HvlContentLoader.isResourceASeries(resource) ? objects.get(resource).getLocalProgress() : 0))/(float)objects.size();
 	}
 	
 	public int getRate(){

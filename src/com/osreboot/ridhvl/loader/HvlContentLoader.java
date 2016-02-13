@@ -13,11 +13,11 @@ public abstract class HvlContentLoader<T> {
 	}
 
 	public static int getSeriesLength(String nameArg){
-		return Integer.parseInt(nameArg.split(VALUE_SEPARATOR)[1]);
+		return Integer.parseInt(nameArg.split(VALUE_SEPARATOR)[1])/getSeriesInterval(nameArg);
 	}
 
 	public static int getSeriesInterval(String nameArg){
-		return nameArg.split(VALUE_SEPARATOR).length > 2 ? Integer.parseInt(nameArg.split(VALUE_SEPARATOR)[2]) : -1;
+		return nameArg.split(VALUE_SEPARATOR).length > 2 ? Integer.parseInt(nameArg.split(VALUE_SEPARATOR)[2]) : 1;
 	}
 
 	private String path;
@@ -94,13 +94,17 @@ public abstract class HvlContentLoader<T> {
 		if(t != null) localSeries.add(t);
 		localIndex++;
 		if(isLocalLoadComplete()){
-			resourceSeries.add(localSeries);
+			resourceSeries.add(new ArrayList<T>(localSeries));
 			localSeries.clear();
 		}
 	}
 
 	protected boolean isLocalLoadComplete(){
 		return localName != null && localIndex == getSeriesLength(localName);
+	}
+	
+	protected float getLocalProgress(){
+		return isLocalLoadComplete() ? 1 : ((float)localSeries.size()/(float)getSeriesLength(localName));
 	}
 
 }

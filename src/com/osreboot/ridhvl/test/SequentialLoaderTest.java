@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.test;
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+
 import java.util.HashMap;
 
 import org.lwjgl.opengl.Display;
@@ -17,7 +19,7 @@ import com.osreboot.ridhvl.painter.HvlGradient.Style;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class SequentialLoaderTest extends HvlTemplateInteg2D {
-
+	
 	public TempMenu menu;
 
 	public class TempMenu extends HvlMenu {
@@ -47,7 +49,7 @@ public class SequentialLoaderTest extends HvlTemplateInteg2D {
 				.setBorderD(4f).build());
 
 		HashMap<String, HvlTextureLoader> toLoad = new HashMap<>();
-		toLoad.put("WASplash/WubSplash_%03d:::375", getTextureLoader());//TODO test this
+		toLoad.put("WASplash/WubSplash_%03d:::375", getTextureLoader());
 		seq = new HvlSequentialLoader(toLoad);
 
 		menu = new TempMenu();
@@ -58,6 +60,7 @@ public class SequentialLoaderTest extends HvlTemplateInteg2D {
 	public void update(float delta) {
 		seq.load();
 		menu.pb.setValue(seq.getProgress());
+		if(seq.isFinished()) hvlDrawQuad(0, 0, 200, 200, getTextureLoader().getResourceSeries(0).get(20));
 		HvlMenu.updateMenus(delta);
 	}
 }
