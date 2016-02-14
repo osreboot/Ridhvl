@@ -1,22 +1,22 @@
 package com.osreboot.ridhvl.config;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
 
 public class HvlConfigUtil {
-	public static <TConfigType> TConfigType load(Class<? extends TConfigType> type, String path, boolean loadInstance, boolean loadStatic) {
+	public static <TConfigType> TConfigType load(Class<TConfigType> type, String path, boolean loadInstance, boolean loadStatic) {
+
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
+			BufferedReader reader = new BufferedReader(new FileReader(path));
 
 			StringBuilder sb = new StringBuilder();
 			String line;
@@ -27,328 +27,173 @@ public class HvlConfigUtil {
 
 			reader.close();
 
-			return loadVar(type, sb.toString(), loadInstance, loadStatic);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static void loadStatic(Class<?> type, String path, boolean loadInstance, boolean loadStatic) {
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
-
-			StringBuilder sb = new StringBuilder();
-			String line;
-
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + System.lineSeparator());
-			}
-
-			reader.close();
-
-			loadStaticVar(type, sb.toString(), loadInstance, loadStatic);
+			return loadFromText(type, sb.toString(), loadInstance, loadStatic);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		return null;
 	}
 
-	public static void save(Object toSave, String path, boolean saveInstance, boolean saveStatic) {
-		String out = saveVar(toSave, saveInstance, saveStatic);
+	private static <TConfigType> TConfigType loadFromText(Class<TConfigType> type, String text, boolean loadInstance, boolean loadStatic) {
+		// split by line separator
+		String[] split = text.split(System.lineSeparator());
 
+		// define int for mode, define string for searching name, define string
+		// builder for buildup of lines
+		int mode = -1; // 0 = custom class, 1 = primitive array, 2 = custom
+						// class array
+		String searchingName = null;
+		StringBuilder lineBuildup = null;
+
+		// create return instance
 		try {
-			BufferedWriter write = new BufferedWriter(new FileWriter(new File(path)));
-			write.write(out);
-			write.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void saveStatic(Class<?> type, String path, boolean saveInstance, boolean saveStatic) {
-		String out = saveStaticVar(type, saveInstance, saveStatic);
+			TConfigType tr = type.getConstructor().newInstance();
 
-		try {
-			BufferedWriter write = new BufferedWriter(new FileWriter(new File(path)));
-			write.write(out);
-			write.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static String saveVar(Object toSave, boolean saveInstance, boolean saveStatic) {
-		try {
-			StringBuilder tr = new StringBuilder();
-
-			for (Field f : toSave.getClass().getFields()) {
-				if (f.isAnnotationPresent(HvlConfigIgnore.class)) {
-					HvlConfigIgnore ign = f.getAnnotation(HvlConfigIgnore.class);
-					if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.SAVE)
-						continue;
-				}
-
-				if (!saveStatic && Modifier.isStatic(f.getModifiers()) || !saveInstance && !Modifier.isStatic(f.getModifiers()))
-					continue;
-
-				if (f.getType().isArray() && HvlReflectionUtil.isSimple(f.getType().getComponentType())) {
-					Object arr = f.get(toSave);
-					tr.append(f.getName() + ":");
-					for (int i = 0; i < Array.getLength(arr); i++) {
-						tr.append(Array.get(arr, i) + (i == Array.getLength(arr) - 1 ? "" : ",")); // TODO:
-																									// Less
-																									// common
-																									// delimeter?
-					}
-				} else if (HvlReflectionUtil.isSimple(f.getType())) {
-					tr.append(f.getName() + ":" + f.get(toSave).toString() + System.lineSeparator());
-				} else {
-					tr.append(f.getName() + ":{" + System.lineSeparator());
-					tr.append(saveVar(f.get(toSave), saveInstance, saveStatic));
-					tr.append(System.lineSeparator() + "}" + System.lineSeparator());
-				}
-			}
-
-			return tr.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static String saveStaticVar(Class<?> type, boolean saveInstance, boolean saveStatic) {
-		try {
-			StringBuilder tr = new StringBuilder();
-
-			for (Field f : type.getFields()) {
-				if (f.isAnnotationPresent(HvlConfigIgnore.class)) {
-					HvlConfigIgnore ign = f.getAnnotation(HvlConfigIgnore.class);
-					if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.SAVE)
-						continue;
-				}
-
-				if (!Modifier.isStatic(f.getModifiers()))
-					continue;
-
-				if (f.getType().isArray() && HvlReflectionUtil.isSimple(f.getType().getComponentType())) {
-					Object arr = f.get(null);
-					tr.append(f.getName() + ":");
-					for (int i = 0; i < Array.getLength(arr); i++) {
-						tr.append(Array.get(arr, i) + (i == Array.getLength(arr) - 1 ? "" : ",")); // TODO: Less common delimiter?
-					}
-				} else if (HvlReflectionUtil.isSimple(f.getType())) {
-
-					tr.append(f.getName() + ":" + f.get(null).toString() + System.lineSeparator());
-				} else {
-					tr.append(f.getName() + ":{" + System.lineSeparator());
-					tr.append(saveVar(f.get(null), saveInstance, saveStatic));
-					tr.append(System.lineSeparator() + "}" + System.lineSeparator());
-				}
-			}
-
-			return tr.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static <TConfigType> TConfigType loadVar(Class<? extends TConfigType> type, String text, boolean loadInstance, boolean loadStatic) {
-		try {
-			TConfigType tr = (TConfigType) type.getConstructor().newInstance();
-
-			String[] split = text.split(System.lineSeparator());
-
-			String classField = null;
-			StringBuilder classInsides = null;
-
-			int classDepth = 0;
-
+			// loop through each line
 			for (String line : split) {
-				if (classField != null) {
-					if (line.equals("}")) {
-						classDepth--;
-						if (classDepth == 0) {
-							boolean ignore = false;
+				if (line.replaceAll(" ", "").isEmpty()) continue;
+				
+				// if searching name is null (searching for variable)
+				if (searchingName == null) {
+					// get name of variable
+					String varName = line.split(":")[0];
 
-							if (type.getField(classField).isAnnotationPresent(HvlConfigIgnore.class)) {
-								HvlConfigIgnore ign = type.getField(classField).getAnnotation(HvlConfigIgnore.class);
-								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD) {
-									ignore = true;
+					// get field
+					try {
+						Field field = type.getField(varName);
+
+						// if we shouldn't load continue (based on boolean args
+						// and annotations)
+						if (shouldLoadField(field, loadInstance, loadStatic)) {
+							// get type of field from variable name
+							Class<?> fieldType = field.getType();
+							if (HvlReflectionUtil.isSimple(fieldType)) {
+								// load with primitive loader
+								field.set(tr, HvlReflectionUtil.genericParse(fieldType, line.split(":")[1]));
+							} else if (fieldType.isArray()) {
+								if (HvlReflectionUtil.isSimple(fieldType.getComponentType())) {
+									searchingName = varName;
+									mode = 1;
+									lineBuildup = new StringBuilder();
+								} else {
+									searchingName = varName;
+									mode = 2;
+									lineBuildup = new StringBuilder();
 								}
+							} else {
+								searchingName = varName;
+								mode = 0;
+								lineBuildup = new StringBuilder();
 							}
-
-							if ((!loadStatic && Modifier.isStatic(type.getField(classField).getModifiers())) || (!loadInstance && !Modifier.isStatic(type.getField(classField).getModifiers())))
-								ignore = true;
-
-							if (!ignore)
-								tr.getClass().getField(classField).set(tr, loadVar(type.getField(classField).getType(), classInsides.toString(), loadInstance, loadStatic));
-							classField = null;
-							classInsides = null;
 						}
-					} else {
-						classInsides.append(line + System.lineSeparator());
+					} catch (NoSuchFieldException | SecurityException e) {
+						e.printStackTrace();
 					}
 				} else {
-					String[] parts = line.split(":");
-
-					if (parts.length != 2)
-						continue;
-
-					String name = parts[0];
-
-					if (parts[1].equals("{")) {
-						classField = name;
-						classDepth++;
-						classInsides = new StringBuilder();
-					} else {
-						Class<?> fieldType = type.getField(name).getType();
-
-						if (fieldType.isArray()) {
-							String[] arrayParts = parts[1].split(","); // TODO:
-																		// Non-common
-																		// string
-																		// delimiter
-							Object arr = Array.newInstance(fieldType.getComponentType(), new int[] { arrayParts.length });
-							for (int i = 0; i < arrayParts.length; i++) {
-								Array.set(arr, i, HvlReflectionUtil.genericParse(fieldType.getComponentType(), arrayParts[i]));
+					if (line.equals("/" + searchingName))
+					{
+						switch (mode) {
+						case 0:
+							// set variable with recursion
+							try {
+								Field f = type.getField(searchingName);
+								f.set(tr, loadFromText(f.getType(), lineBuildup.toString(), loadInstance, loadStatic));
+							} catch (NoSuchFieldException e1) {
+								e1.printStackTrace();
 							}
-
-							boolean ignore = false;
-
-							if (type.getField(name).isAnnotationPresent(HvlConfigIgnore.class)) {
-								HvlConfigIgnore ign = type.getField(name).getAnnotation(HvlConfigIgnore.class);
-								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD) {
-									ignore = true;
+							lineBuildup = null;
+							searchingName = null;
+							mode = -1;
+							break;
+						case 1:
+						{
+							// set variable with primitive array loader (just here, no
+							// recursion)
+							try {
+								Field arrayField = type.getField(searchingName);
+								String[] arrayParts = lineBuildup.toString().split(System.lineSeparator());
+								Object arr = Array.newInstance(arrayField.getType().getComponentType(), arrayParts.length);
+								for (int i = 0; i < arrayParts.length; i++) {
+									Array.set(arr, i, HvlReflectionUtil.genericParse(HvlReflectionUtil.convertAwayFromPrimitive(arrayField.getType().getComponentType()), arrayParts[i]));
 								}
+								arrayField.set(tr, arr);
+							} catch (NoSuchFieldException e) {
+								e.printStackTrace();
 							}
-
-							if ((!loadStatic && Modifier.isStatic(type.getField(name).getModifiers())) || (!loadInstance && !Modifier.isStatic(type.getField(name).getModifiers())))
-								ignore = true;
-
-							if (!ignore)
-								type.getField(name).set(tr, arr);
-						} else {
-							boolean ignore = false;
-
-							if (type.getField(name).isAnnotationPresent(HvlConfigIgnore.class)) {
-								HvlConfigIgnore ign = type.getField(name).getAnnotation(HvlConfigIgnore.class);
-								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD) {
-									ignore = true;
-								}
-							}
-
-							if ((!loadStatic && Modifier.isStatic(type.getField(name).getModifiers())) || (!loadInstance && !Modifier.isStatic(type.getField(name).getModifiers())))
-								ignore = true;
-
-							if (!ignore)
-								type.getField(name).set(tr, HvlReflectionUtil.genericParse(fieldType, parts[1]));
+							lineBuildup = null;
+							searchingName = null;
+							mode = -1;
+							break;
 						}
+						case 2:
+							// set variable with custom array loader (requires
+							// recursion)
+							try {
+								String[] customArraySplit = lineBuildup.toString().split(System.lineSeparator());
+								Field arrayField = type.getField(searchingName);
+								System.out.println("HEEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY!");
+								System.out.println(arrayField.getType().getComponentType());
+								StringBuilder classBuildup = new StringBuilder();
+								int classDepth = 0;
+								List<Object> loaded = new ArrayList<>();
+								for (String customLine : customArraySplit) {
+									if (customLine.equals("class:")) {
+										classDepth++;
+									}
+									else if (customLine.equals("/class")) {
+										classDepth--;
+										if (classDepth == 0) {
+											Object toAdd = loadFromText(arrayField.getType().getComponentType(), classBuildup.toString(), loadInstance, loadStatic);
+											loaded.add(toAdd);
+											classBuildup = new StringBuilder();
+										}
+									}
+									else {
+										classBuildup.append(customLine + System.lineSeparator());
+									}
+								}
+								
+								Object arr = Array.newInstance(arrayField.getType().getComponentType(), loaded.size());
+								for (int i = 0; i < loaded.size(); i++) {
+									Array.set(arr, i, loaded.get(i));
+								}
+								arrayField.set(tr, arr);
+								
+							} catch (NoSuchFieldException e) {
+								e.printStackTrace();
+							}
+							lineBuildup = null;
+							searchingName = null;
+							mode = -1;
+							break;
+						}
+					}
+					else {
+						lineBuildup.append(line + System.lineSeparator());
 					}
 				}
 			}
-
+			
 			return tr;
-		} catch (Exception e) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	private static void loadStaticVar(Class<?> type, String text, boolean loadInstance, boolean loadStatic) {
-		try {
-			String[] split = text.split(System.lineSeparator());
+	private static boolean shouldLoadField(Field field, boolean loadInstance, boolean loadStatic) {
+		if (Modifier.isStatic(field.getModifiers()) && !loadStatic)
+			return false;
+		if (!Modifier.isStatic(field.getModifiers()) && !loadInstance)
+			return false;
 
-			String classField = null;
-			StringBuilder classInsides = null;
-
-			int classDepth = 0;
-
-			for (String line : split) {
-				if (classField != null) {
-					if (line.equals("}")) {
-						classDepth--;
-						if (classDepth == 0) {
-							boolean ignore = false;
-
-							if (type.getField(classField).isAnnotationPresent(HvlConfigIgnore.class)) {
-								HvlConfigIgnore ign = type.getField(classField).getAnnotation(HvlConfigIgnore.class);
-								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD) {
-									ignore = true;
-								}
-							}
-
-							if (!Modifier.isStatic(type.getField(classField).getModifiers()))
-								ignore = true;
-
-							if (!ignore)
-								type.getField(classField).set(null, loadVar(type.getField(classField).getType(), classInsides.toString(), loadInstance, loadStatic));
-							classField = null;
-							classInsides = null;
-						}
-					} else {
-						classInsides.append(line + System.lineSeparator());
-					}
-				} else {
-					String[] parts = line.split(":");
-
-					if (parts.length != 2)
-						continue;
-
-					String name = parts[0];
-
-					if (parts[1].equals("{")) {
-						classField = name;
-						classDepth++;
-						classInsides = new StringBuilder();
-					} else {
-						Class<?> fieldType = type.getField(name).getType();
-
-						if (fieldType.isArray()) {
-							String[] arrayParts = parts[1].split(","); // TODO:
-																		// Non-common
-																		// string
-																		// delimiter
-							Object arr = Array.newInstance(fieldType.getComponentType(), new int[] { arrayParts.length });
-							for (int i = 0; i < arrayParts.length; i++) {
-								Array.set(arr, i, HvlReflectionUtil.genericParse(fieldType.getComponentType(), arrayParts[i]));
-							}
-
-							boolean ignore = false;
-
-							if (type.getField(name).isAnnotationPresent(HvlConfigIgnore.class)) {
-								HvlConfigIgnore ign = type.getField(name).getAnnotation(HvlConfigIgnore.class);
-								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD) {
-									ignore = true;
-								}
-							}
-
-							if (!Modifier.isStatic(type.getField(classField).getModifiers()))
-								ignore = true;
-
-							if (!ignore)
-								type.getField(name).set(null, arr);
-						} else {
-							boolean ignore = false;
-
-							if (type.getField(name).isAnnotationPresent(HvlConfigIgnore.class)) {
-								HvlConfigIgnore ign = type.getField(name).getAnnotation(HvlConfigIgnore.class);
-								if (ign.value() == IgnoreType.BOTH || ign.value() == IgnoreType.LOAD) {
-									ignore = true;
-								}
-							}
-
-							if (!Modifier.isStatic(type.getField(classField).getModifiers()))
-								ignore = true;
-
-							if (!ignore)
-								type.getField(name).set(null, HvlReflectionUtil.genericParse(fieldType, parts[1]));
-						}
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (field.isAnnotationPresent(HvlConfigIgnore.class)) {
+			HvlConfigIgnore.IgnoreType t = field.getAnnotation(HvlConfigIgnore.class).value();
+			if (t == IgnoreType.BOTH || t == IgnoreType.LOAD)
+				return false;
 		}
+
+		return true;
 	}
 }
