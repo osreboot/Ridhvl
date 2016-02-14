@@ -66,15 +66,14 @@ public abstract class HvlComponent {
 	public void draw(float delta) {
 	}
 
-	public boolean isBeingPressed(int buttonArg) {// TODO account for
-													// HvlDisplayMode
+	public boolean isBeingPressed(int buttonArg) {
 		if (!enabled || !HvlMenu.getCurrent().isInteractable())
 			return false;
 
 		return (isHovering() && Mouse.isButtonDown(buttonArg)) || HvlMenuInteractor.isBeingClicked(this);
 	}
 
-	public boolean isHovering() {// TODO account for HvlDisplayMode
+	public boolean isHovering() {
 		if (!enabled || !HvlMenu.getCurrent().isInteractable())
 			return false;
 

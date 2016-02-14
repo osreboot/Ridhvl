@@ -24,7 +24,7 @@ public class AnimationTest extends HvlTemplateInteg2D{
 		getTextureLoader().loadResource("Icon");
 		getTextureLoader().loadResource("Font");
 		
-		//getTextureLoader().loadResource("animation\\WubSplash_%03d:::375");//TODO test this
+		//getTextureLoader().loadResource("animation\\WubSplash_%03d:::375");
 		
 		animation = new HvlAnimatedTextureUV(getTextureLoader().getResource(1), 256, 128, 1f);
 		//animation = new HvlAnimatedTextureArray(animationLoader.getResource(0), 0.02f);

@@ -14,19 +14,40 @@ public class HvlMenu implements HvlComponentContainer {
 	
 	public static final HvlEvent2<HvlMenu, HvlMenu> EVENT_MENU_CHANGED = new HvlEvent2<>();
 	
-	private static float transitionPeriod = 0, transitionCurrent = 0;
+	private static float transitionPeriodIn = 0, transitionPeriodOut = 0, transitionCurrent = 0;
 	private static HvlMenu transitionGoal = null;
 
-	public static float getTransitionPeriod(){
-		return transitionPeriod;
+	public static float getTransitionPeriodIn(){
+		return transitionPeriodIn;
+	}
+
+	public static void setTransitionPeriodIn(float transitionPeriodInArg){
+		transitionPeriodIn = transitionPeriodInArg;
+	}
+
+	public static float getTransitionPeriodOut(){
+		return transitionPeriodOut;
+	}
+
+	public static void setTransitionPeriodOut(float transitionPeriodOutArg){
+		transitionPeriodOut = transitionPeriodOutArg;
 	}
 
 	public static void setTransitionPeriod(float transitionPeriodArg){
-		transitionPeriod = transitionPeriodArg;
+		transitionPeriodIn = transitionPeriodArg;
+		transitionPeriodOut = transitionPeriodArg;
 	}
 
-	public static float getTransitionProgress(boolean polarArg){
-		return polarArg ? (1 - (transitionCurrent/transitionPeriod)) + (current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriod)/transitionPeriod) : 0) : (1 - (transitionCurrent/transitionPeriod));
+	public static float getTransitionProgress(){
+		return (transitionGoal != null ? (1 - (transitionCurrent/transitionPeriodOut)) : 0) + (current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriodIn)/transitionPeriodIn) : 0);
+	}
+	
+	public static float getTransitionProgressOut(){
+		return transitionGoal != null ? (1 - (transitionCurrent/transitionPeriodOut)) : 0;
+	}
+	
+	public static float getTransitionProgressIn(){
+		return current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriodIn)/transitionPeriodIn) : 0;
 	}
 	
 	static {
@@ -39,9 +60,9 @@ public class HvlMenu implements HvlComponentContainer {
 	}
 
 	public static void setCurrent(HvlMenu currentArg){
-		if(transitionPeriod == 0) metaSetCurrent(currentArg); else{
+		if(transitionPeriodOut == 0) metaSetCurrent(currentArg); else{
 			if(transitionCurrent == 0){
-				transitionCurrent = transitionPeriod;
+				transitionCurrent = transitionPeriodOut;
 				transitionGoal = currentArg;
 			}
 		}
@@ -51,13 +72,12 @@ public class HvlMenu implements HvlComponentContainer {
 		EVENT_MENU_CHANGED.trigger(current, currentArg);
 		current = currentArg;
 		current.setTotalTime(0);
-		if (current.getComponents().size() > 0)
-			current.setFocused(current.getComponents().get(0));// TODO implement boolean joystick using system
 	}
 
 	public static void updateMenus(float delta) {
 		if(transitionCurrent > 0 && transitionCurrent - delta <= 0 && transitionGoal != null){
 			metaSetCurrent(transitionGoal);
+			transitionGoal = null;
 		}
 		transitionCurrent = Math.max(transitionCurrent - delta, 0);
 		
@@ -95,7 +115,6 @@ public class HvlMenu implements HvlComponentContainer {
 	
 	private boolean interactable;
 	
-	private HvlComponent focused;
 	private float totalTime;
 
 	public HvlMenu() {
@@ -133,14 +152,6 @@ public class HvlMenu implements HvlComponentContainer {
 			if (c.isVisible())
 				c.metaDraw(delta);
 		}
-	}
-	
-	public HvlComponent getFocused() {
-		return focused;
-	}
-
-	public void setFocused(HvlComponent focusedArg) {
-		focused = focusedArg;
 	}
 
 	public float getTotalTime() {
