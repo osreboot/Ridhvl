@@ -11,6 +11,7 @@ import org.newdawn.slick.Color;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction2;
 import com.osreboot.ridhvl.action.HvlAction3;
+import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
@@ -22,6 +23,8 @@ import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlListBox extends HvlComponent {
+
+	public static final HvlEvent2<HvlListBox, Object> EVENT_LISTBOX_ITEMSELECTED = new HvlEvent2<>();
 
 	@HvlDoNotClone
 	private HvlSlider scrollBar;
@@ -248,9 +251,11 @@ public class HvlListBox extends HvlComponent {
 			}
 		}
 
-		if (selectedIndex != pSelectedIndex)
+		if (selectedIndex != pSelectedIndex){
 			if (selectionChangedCommand != null)
 				selectionChangedCommand.run(this, selectedIndex, getSelectedItem());
+			EVENT_LISTBOX_ITEMSELECTED.trigger(this, getSelectedItem());
+		}
 
 		pSelectedIndex = selectedIndex;
 	}
@@ -279,7 +284,7 @@ public class HvlListBox extends HvlComponent {
 					background.draw(delta, getX(), getY(), fullBackground ? getWidth() : getWidth() - scrollBox.getWidth(), getHeight());
 
 				scrollBox.draw(delta);
-				
+
 				// float topItem = (scrollBar.getValue() * (items.size() -
 				// maxVisibleItems));
 				// for (int i = 0; i < Math.min(items.size(), topItem +
@@ -311,7 +316,7 @@ public class HvlListBox extends HvlComponent {
 					font.drawWord(items.get(i).toString(), getX(), getY() + ((i - topItem) * itemHeight), textColor, textScale);
 				}
 
-//				HvlPainter2D.hvlForceRefresh();
+				//				HvlPainter2D.hvlForceRefresh();
 			}
 		});
 
@@ -678,30 +683,30 @@ public class HvlListBox extends HvlComponent {
 		}
 	}
 
-	
+
 	@Override
 	protected <T> T specialClone(T cloneTo) {
 		super.specialClone(cloneTo); // Pass special cloning up the chain
 		HvlListBox lb = (HvlListBox) cloneTo;
-		
+
 		if (scrollBar == null)
 			lb.setScrollBar(null);
 		else
 			// Make a new slider with dummy values (0s, nulls, etc.) to clone into: values shouldn't matter, they get overwritten anyways.
 			lb.setScrollBar(scrollBar.cloneComponent(new HvlSlider(0, 0, Direction.HORIZONTAL, 0, 0, 0, null, null)));
-		
+
 		if (scrollUpButton == null)
 			lb.setScrollUpButton(null);
 		else
 			lb.setScrollUpButton(new HvlButton(0, 0, null, null));
-		
+
 		if (scrollDownButton == null)
 			lb.setScrollDownButton(null);
 		else
 			lb.setScrollDownButton(new HvlButton(0, 0, null, null));
-		
+
 		return cloneTo;
 	}
 
-	
+
 }

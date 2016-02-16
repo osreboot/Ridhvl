@@ -1,11 +1,14 @@
 package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlCheckbox extends HvlComponent {
+	
+	public static final HvlEvent2<HvlCheckbox, Boolean> EVENT_CHECKBOX_CLICKED = new HvlEvent2<>();
 	
 	@HvlDoNotClone
 	protected boolean previousPressed, currentPressed, previousHover, currentHover;
@@ -139,6 +142,7 @@ public class HvlCheckbox extends HvlComponent {
 			checked = !checked;
 			if (changedCommand != null)
 				changedCommand.run(this, checked);
+			EVENT_CHECKBOX_CLICKED.trigger(this, checked);
 		}
 	}
 

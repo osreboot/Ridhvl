@@ -3,6 +3,7 @@ package com.osreboot.ridhvl.menu.component;
 import org.lwjgl.input.Mouse;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
@@ -10,6 +11,9 @@ import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
 public class HvlSlider extends HvlComponent {
+	
+	public static final HvlEvent2<HvlSlider, Float> EVENT_SLIDER_VALUECHANGED = new HvlEvent2<>();
+	
 	public enum Direction {
 		VERTICAL, HORIZONTAL
 	}
@@ -160,6 +164,7 @@ public class HvlSlider extends HvlComponent {
 		if (pValue != value) {
 			if (valueChangedCommand != null)
 				valueChangedCommand.run(this, value);
+			EVENT_SLIDER_VALUECHANGED.trigger(this, getValue());
 		}
 
 		pValue = value;

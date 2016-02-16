@@ -2,11 +2,14 @@ package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlEvent1;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlButton extends HvlComponent {
+	
+	public static final HvlEvent1<HvlButton> EVENT_BUTTON_PRESSED = new HvlEvent1<>();
 	
 	private boolean previousHover, currentHover, previousClick, currentClick;
 	private HvlComponentDrawable offDrawable, hoverDrawable, onDrawable;
@@ -76,6 +79,7 @@ public class HvlButton extends HvlComponent {
 		if (previousClick && !currentClick) {
 			if (clickedCommand != null)
 				clickedCommand.run(this);
+			EVENT_BUTTON_PRESSED.trigger(this);
 		} else if (currentClick) {
 			if (pressingCommand != null)
 				pressingCommand.run(this);

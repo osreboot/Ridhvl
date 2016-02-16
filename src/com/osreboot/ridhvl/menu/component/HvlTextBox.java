@@ -7,6 +7,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
@@ -14,6 +15,9 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlTextBox extends HvlComponent {
 
+	public static final HvlEvent2<HvlTextBox, Boolean> EVENT_TEXTBOX_FOCUSCHANGED = new HvlEvent2<>();
+	public static final HvlEvent2<HvlTextBox, String> EVENT_TEXTBOX_VALUECHANGED = new HvlEvent2<>();
+	
 	private HvlComponentDrawable focusedDrawable, unfocusedDrawable;
 	private float offsetX, offsetY;
 	private float textScale;
@@ -23,7 +27,7 @@ public class HvlTextBox extends HvlComponent {
 	@HvlDoNotClone
 	private String pText;
 	@HvlDoNotClone
-	private boolean isFocused;
+	private boolean isFocused, pIsFocused;
 	private int maxCharacters;
 	private boolean forceUppercase, forceLowercase;
 	private boolean numbersOnly;
@@ -38,6 +42,7 @@ public class HvlTextBox extends HvlComponent {
 		super(wArg, hArg);
 		text = textArg;
 		isFocused = false;
+		pIsFocused = false;
 		maxCharacters = -1;
 		focusedDrawable = focusedArg;
 		unfocusedDrawable = unfocusedArg;
@@ -54,6 +59,7 @@ public class HvlTextBox extends HvlComponent {
 		super(xArg, yArg, wArg, hArg);
 		text = textArg;
 		isFocused = false;
+		pIsFocused = false;
 		maxCharacters = -1;
 		focusedDrawable = focusedArg;
 		unfocusedDrawable = unfocusedArg;
@@ -75,6 +81,7 @@ public class HvlTextBox extends HvlComponent {
 		this.font = font;
 		this.text = text;
 		isFocused = false;
+		pIsFocused = false;
 		maxCharacters = -1;
 		pText = text;
 		blacklistCharacters = "";
@@ -92,6 +99,7 @@ public class HvlTextBox extends HvlComponent {
 		this.font = font;
 		this.text = text;
 		isFocused = false;
+		pIsFocused = false;
 		maxCharacters = -1;
 		pText = text;
 		blacklistCharacters = "";
@@ -148,11 +156,16 @@ public class HvlTextBox extends HvlComponent {
 		if (blacklistCharacters != null && !blacklistCharacters.isEmpty())
 			text = text.replaceAll(String.format("[%s]", Pattern.quote(blacklistCharacters)), "");
 
+		if(!pIsFocused == isFocused){
+			EVENT_TEXTBOX_FOCUSCHANGED.trigger(this, isFocused);
+		}
+		pIsFocused = isFocused;
+		
 		if (!pText.equals(text)) {
 			if (textChangedCommand != null)
 				textChangedCommand.run(this, text);
+			EVENT_TEXTBOX_VALUECHANGED.trigger(this, text);
 		}
-
 		pText = text;
 	}
 

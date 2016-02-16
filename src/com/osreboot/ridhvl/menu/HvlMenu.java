@@ -8,11 +8,11 @@ import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 
 public class HvlMenu implements HvlComponentContainer {
 
+	public static final HvlEvent2<HvlMenu, HvlMenu> EVENT_MENU_CHANGED = new HvlEvent2<>();
+	
 	private static HvlMenu current;
 	private static Stack<HvlMenu> popups;
 	private static Stack<Boolean> blocks;
-	
-	public static final HvlEvent2<HvlMenu, HvlMenu> EVENT_MENU_CHANGED = new HvlEvent2<>();
 	
 	private static float transitionPeriodIn = 0, transitionPeriodOut = 0, transitionCurrent = 0;
 	private static HvlMenu transitionGoal = null;
