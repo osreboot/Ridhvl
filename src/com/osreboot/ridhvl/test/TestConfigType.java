@@ -50,4 +50,5 @@ public class TestConfigType {
 	public TCT1 aClass;
 	public TCT2 anotherClass;
 	public TCT4[] aClassArray;
+	public static String testingStatics;
 }

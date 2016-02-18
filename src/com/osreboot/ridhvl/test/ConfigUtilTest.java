@@ -4,18 +4,13 @@ import com.osreboot.ridhvl.config.HvlConfigUtil;
 import com.osreboot.ridhvl.test.TestConfigType.TCT4;
 import com.osreboot.ridhvl.test.TestConfigType.TCT5;
 
-public class ConfigUtilTest {
-
-	public static void main(String[] args) {
-		new ConfigUtilTest();
-	}	
-	
+public class ConfigUtilTest {	
 	public ConfigUtilTest() {
 		start();
 	}
 
 	public void start() {
-		TestConfigType loaded = HvlConfigUtil.load(TestConfigType.class, "res/TestLoadConfig.txt", true, true);
+		TestConfigType loaded = HvlConfigUtil.load(TestConfigType.class, "res/TestLoadConfig.txt", true, false);
 		
 		System.out.println(loaded.aString);
 		System.out.println(loaded.someBool);
@@ -27,14 +22,18 @@ public class ConfigUtilTest {
 			System.out.println(i);
 		}
 		System.out.println(loaded.anotherClass.nestedClass.property);
+		System.out.println();
 		for (TCT4 obj : loaded.aClassArray) {
 			System.out.println(obj.prop);
 			System.out.println(obj.value);
+			System.out.println();
 			for (TCT5 nest : obj.nestedClassArray) {
 				System.out.println(nest.val);
 			}
 			System.out.println();
 		}
+		
+		System.out.println(TestConfigType.testingStatics);
 		
 //		TestConfigType loaded = HvlConfigUtil.load(TestConfigType.class, "res/TestLoadConfig.txt", true, true);
 //		// HvlConfigUtil.loadStaticConfig(TestConfigType.class,

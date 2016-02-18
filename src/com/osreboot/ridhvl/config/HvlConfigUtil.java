@@ -132,14 +132,13 @@ public class HvlConfigUtil {
 							try {
 								String[] customArraySplit = lineBuildup.toString().split(System.lineSeparator());
 								Field arrayField = type.getField(searchingName);
-								System.out.println("HEEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY!");
-								System.out.println(arrayField.getType().getComponentType());
 								StringBuilder classBuildup = new StringBuilder();
 								int classDepth = 0;
 								List<Object> loaded = new ArrayList<>();
 								for (String customLine : customArraySplit) {
 									if (customLine.equals("class:")) {
-										classDepth++;
+										if (classDepth++ != 0)
+											classBuildup.append(customLine + System.lineSeparator());
 									}
 									else if (customLine.equals("/class")) {
 										classDepth--;
@@ -147,6 +146,8 @@ public class HvlConfigUtil {
 											Object toAdd = loadFromText(arrayField.getType().getComponentType(), classBuildup.toString(), loadInstance, loadStatic);
 											loaded.add(toAdd);
 											classBuildup = new StringBuilder();
+										} else {
+											classBuildup.append(customLine + System.lineSeparator());
 										}
 									}
 									else {
