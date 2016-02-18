@@ -1,12 +1,15 @@
 package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlRadioButton extends HvlComponent {
 
+	public static final HvlEvent2<HvlRadioButton, Boolean> EVENT_RADIOBUTTON_VALUECHANGED = new HvlEvent2<>();
+	
 	@HvlDoNotClone
 	protected boolean previousPressed, currentPressed, previousHover, currentHover;
 	private boolean checked;
@@ -157,6 +160,7 @@ public class HvlRadioButton extends HvlComponent {
 
 			if (changedCommand != null)
 				changedCommand.run(this, checked);
+			EVENT_RADIOBUTTON_VALUECHANGED.trigger(this, checked);
 		}
 	}
 

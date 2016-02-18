@@ -9,11 +9,13 @@ import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlTextureUtil;
+import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeResizable;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
 import com.osreboot.ridhvl.menu.HvlMenu;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
+import com.osreboot.ridhvl.menu.component.HvlButton;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox.ArrangementStyle;
 import com.osreboot.ridhvl.menu.component.HvlCheckbox;
 import com.osreboot.ridhvl.menu.component.HvlLabel;
@@ -36,7 +38,7 @@ import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ComponentsTest extends HvlTemplate2D {
 	
-	private HvlMenu testMenu;
+	private HvlMenu testMenu, testMenu2;
 	private HvlArrangerBox testArranger;
 	private HvlLabel testLabel;
 //	private HvlCheckbox testCheck;
@@ -72,7 +74,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		grad.addStop(1, Color.green);
 		Texture gradient3 = grad.toTexture(512, 512, 256, 256, 0, 0);
 
-		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 192, 256, 0f, 0.5f);
+		fontPainter = new HvlFontPainter2D(textureLoader.getResource(1), HvlFontUtil.DEFAULT, 192, 256, 0.5f, 0.5f);
 
 		HvlComponentDefault.setDefault(new HvlLabeledButton.Builder().setOffDrawable(new HvlTextureDrawable(gradient2))
 				.setHoverDrawable(new HvlTextureDrawable(textureLoader.getResource(2)))
@@ -205,12 +207,30 @@ public class ComponentsTest extends HvlTemplate2D {
 				.add(testRadioButton2)
 				.build();
 		
+		testMenu2 = new HvlMenu();
+		testMenu2.add(new HvlLabel.Builder().setFont(fontPainter).setText("menu 2").setColor(Color.red).build());
+		testMenu2.add(new HvlLabeledButton.Builder().setText("switch").setWidth(64).setHeight(64).setClickedCommand(new HvlAction1<HvlButton>(){
+			@Override
+			public void run(HvlButton a){
+				HvlMenu.setCurrent(testMenu);
+			}
+		}).build());
+		
+		testMenu.add(new HvlLabeledButton.Builder().setText("switch1").setWidth(64).setHeight(64).setClickedCommand(new HvlAction1<HvlButton>(){
+			@Override
+			public void run(HvlButton a){
+				HvlMenu.setCurrent(testMenu2);
+			}
+		}).build());
 				
 		testArranger.add(testRadioButton1);
 		testArranger.add(testRadioButton2);
 		testMenu.add(testArranger);
 
 		HvlMenu.setCurrent(testMenu);
+		
+		HvlMenu.setTransitionPeriodIn(0.2f);
+		HvlMenu.setTransitionPeriodOut(0.5f);
 	}
 
 	@Override
@@ -221,6 +241,8 @@ public class ComponentsTest extends HvlTemplate2D {
 		testArranger.setWidth(Display.getWidth());
 		testArranger.setHeight(Display.getHeight());
 		HvlMenu.updateMenus(delta);
+		
+		hvlDrawQuad(0, 0, Display.getWidth(), Display.getHeight(), new Color(0f, 0f, 0f, HvlMenu.getTransitionProgress()));
 	}
 
 }

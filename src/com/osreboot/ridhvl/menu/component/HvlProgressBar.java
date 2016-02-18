@@ -1,16 +1,22 @@
 package com.osreboot.ridhvl.menu.component;
 
 import com.osreboot.ridhvl.action.HvlAction2;
+import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.HvlComponent;
 import com.osreboot.ridhvl.menu.HvlComponentDefault;
+import com.osreboot.ridhvl.menu.reflect.HvlDoNotClone;
 
 public class HvlProgressBar extends HvlComponent {
 
+	public static final HvlEvent2<HvlProgressBar, Float> EVENT_PROGRESSBAR_VALUECHANGED = new HvlEvent2<>();
+	
 	public static enum Direction {
 		HORIZONTAL, VERTICAL
 	}
 
 	private float value;
+	@HvlDoNotClone
+	private float pValue;
 
 	private HvlComponentDrawable background;
 	private HvlComponentDrawable foreground;
@@ -27,6 +33,7 @@ public class HvlProgressBar extends HvlComponent {
 			HvlComponentDrawable foreground, Direction direction) {
 		super(wArg, hArg);
 		this.value = value;
+		pValue = value;
 		this.background = background;
 		this.foreground = foreground;
 		this.direction = direction;
@@ -38,6 +45,7 @@ public class HvlProgressBar extends HvlComponent {
 			HvlComponentDrawable foreground, Direction direction) {
 		super(xArg, yArg, wArg, hArg);
 		this.value = value;
+		pValue = value;
 		this.background = background;
 		this.foreground = foreground;
 		this.direction = direction;
@@ -45,6 +53,14 @@ public class HvlProgressBar extends HvlComponent {
 		this.continuousBlocks = true;
 	}
 
+	@Override
+	public void update(float delta){
+		if(pValue != value){
+			EVENT_PROGRESSBAR_VALUECHANGED.trigger(this, value);
+		}
+		pValue = value;
+	}
+	
 	@Override
 	public void draw(float delta) {
 		if (background != null)

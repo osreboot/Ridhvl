@@ -44,7 +44,7 @@ public class ShaderTest extends HvlTemplateInteg2D{
 			e.printStackTrace();
 		}
 		
-		shader = new HvlShader(HvlShader.VERTEX_DEFAULT, HvlShader.FRAGMENT_NEWSPAPER);
+		shader = new HvlShader(HvlShader.FRAGMENT_NEWSPAPER);
 		
 		texture = new HvlAnimatedTextureArray(new Texture[]{
 				getTextureLoader().getResource(0),

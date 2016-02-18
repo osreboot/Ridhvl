@@ -37,7 +37,7 @@ public class HvlMenuDJ {
 			}
 
 			if(fadeTime > 0 && volume > 0){
-				float previousLocation = fadeLocation;//TODO changing volume like this makes a strange clicking noise
+				float previousLocation = fadeLocation;
 				fadeLocation = HvlMath.stepTowards(fadeLocation, delta * (1/fadeTime) * volume, fadeGoal * volume);
 				if(currentSong != null && previousLocation != fadeLocation){
 					float position = currentSong.getPosition();

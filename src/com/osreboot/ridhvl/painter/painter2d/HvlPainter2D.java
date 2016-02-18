@@ -201,7 +201,7 @@ public class HvlPainter2D {
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
-		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), renderFrame);//TODO test this
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), renderFrame);
 	}
 
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
