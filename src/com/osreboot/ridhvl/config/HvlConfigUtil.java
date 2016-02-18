@@ -1,7 +1,9 @@
 package com.osreboot.ridhvl.config;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -34,6 +36,19 @@ public class HvlConfigUtil {
 
 		return null;
 	}
+	
+	public static void save(Object val, String path, boolean loadInstance, boolean loadStatic) {
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+
+			writer.write(saveToText(val, loadInstance, loadStatic));
+			
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static <TConfigType> TConfigType loadFromText(Class<TConfigType> type, String text, boolean loadInstance, boolean loadStatic) {
 		// split by line separator
@@ -52,8 +67,9 @@ public class HvlConfigUtil {
 
 			// loop through each line
 			for (String line : split) {
-				if (line.replaceAll(" ", "").isEmpty()) continue;
-				
+				if (line.replaceAll(" ", "").isEmpty())
+					continue;
+
 				// if searching name is null (searching for variable)
 				if (searchingName == null) {
 					// get name of variable
@@ -91,8 +107,7 @@ public class HvlConfigUtil {
 						e.printStackTrace();
 					}
 				} else {
-					if (line.equals("/" + searchingName))
-					{
+					if (line.equals("/" + searchingName)) {
 						switch (mode) {
 						case 0:
 							// set variable with recursion
@@ -106,9 +121,9 @@ public class HvlConfigUtil {
 							searchingName = null;
 							mode = -1;
 							break;
-						case 1:
-						{
-							// set variable with primitive array loader (just here, no
+						case 1: {
+							// set variable with primitive array loader (just
+							// here, no
 							// recursion)
 							try {
 								Field arrayField = type.getField(searchingName);
@@ -139,8 +154,7 @@ public class HvlConfigUtil {
 									if (customLine.equals("class:")) {
 										if (classDepth++ != 0)
 											classBuildup.append(customLine + System.lineSeparator());
-									}
-									else if (customLine.equals("/class")) {
+									} else if (customLine.equals("/class")) {
 										classDepth--;
 										if (classDepth == 0) {
 											Object toAdd = loadFromText(arrayField.getType().getComponentType(), classBuildup.toString(), loadInstance, loadStatic);
@@ -149,18 +163,17 @@ public class HvlConfigUtil {
 										} else {
 											classBuildup.append(customLine + System.lineSeparator());
 										}
-									}
-									else {
+									} else {
 										classBuildup.append(customLine + System.lineSeparator());
 									}
 								}
-								
+
 								Object arr = Array.newInstance(arrayField.getType().getComponentType(), loaded.size());
 								for (int i = 0; i < loaded.size(); i++) {
 									Array.set(arr, i, loaded.get(i));
 								}
 								arrayField.set(tr, arr);
-								
+
 							} catch (NoSuchFieldException e) {
 								e.printStackTrace();
 							}
@@ -169,18 +182,66 @@ public class HvlConfigUtil {
 							mode = -1;
 							break;
 						}
-					}
-					else {
+					} else {
 						lineBuildup.append(line + System.lineSeparator());
 					}
 				}
 			}
-			
+
 			return tr;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private static String saveToText(Object val, boolean saveInstance, boolean saveStatic) {
+		StringBuilder save = new StringBuilder();
+
+		for (Field f : val.getClass().getFields()) {
+			if (!shouldSaveField(f, saveInstance, saveStatic))
+				continue;
+
+			try {
+				if (f.getType().isArray()) {
+					if (HvlReflectionUtil.isSimple(f.getType().getComponentType())) {
+						save.append(f.getName() + ":" + System.lineSeparator());
+						Object array = f.get(val);
+						int arrayLength = Array.getLength(array);
+
+						for (int i = 0; i < arrayLength; i++) {
+							save.append(Array.get(array, i).toString() + System.lineSeparator());
+						}
+						
+						save.append("/" + f.getName() + System.lineSeparator());
+					} else {
+						save.append(f.getName() + ":" + System.lineSeparator());
+						Object array = f.get(val);
+						int arrayLength = Array.getLength(array);
+
+						for (int i = 0; i < arrayLength; i++) {
+							save.append("class:" + System.lineSeparator());
+							save.append(saveToText(Array.get(array, i), saveInstance, saveStatic) + System.lineSeparator());
+							save.append("/class" + System.lineSeparator());
+						}
+						
+						save.append("/" + f.getName() + System.lineSeparator());
+					}
+				} else {
+					if (HvlReflectionUtil.isSimple(f.getType())) {
+						save.append(f.getName() + ":" + f.get(val) + System.lineSeparator());
+					} else {
+						save.append(f.getName() + ":" + System.lineSeparator());
+						save.append(saveToText(f.get(val), saveInstance, saveStatic) + System.lineSeparator());
+						save.append("/" + f.getName() + System.lineSeparator());
+					}
+				}
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return save.toString();
 	}
 
 	private static boolean shouldLoadField(Field field, boolean loadInstance, boolean loadStatic) {
@@ -192,6 +253,21 @@ public class HvlConfigUtil {
 		if (field.isAnnotationPresent(HvlConfigIgnore.class)) {
 			HvlConfigIgnore.IgnoreType t = field.getAnnotation(HvlConfigIgnore.class).value();
 			if (t == IgnoreType.BOTH || t == IgnoreType.LOAD)
+				return false;
+		}
+
+		return true;
+	}
+
+	private static boolean shouldSaveField(Field field, boolean saveInstance, boolean saveStatic) {
+		if (Modifier.isStatic(field.getModifiers()) && !saveStatic)
+			return false;
+		if (!Modifier.isStatic(field.getModifiers()) && !saveInstance)
+			return false;
+
+		if (field.isAnnotationPresent(HvlConfigIgnore.class)) {
+			HvlConfigIgnore.IgnoreType t = field.getAnnotation(HvlConfigIgnore.class).value();
+			if (t == IgnoreType.BOTH || t == IgnoreType.SAVE)
 				return false;
 		}
 
