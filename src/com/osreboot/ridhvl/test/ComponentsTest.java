@@ -29,10 +29,6 @@ import com.osreboot.ridhvl.template.HvlTemplate;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ComponentsTest extends HvlTemplate2D {
-
-	public static void main(String[] args) {
-		new ComponentsTest();
-	}
 	
 	private HvlMenu testMenu, testMenu2;
 	private HvlArrangerBox testArranger;
