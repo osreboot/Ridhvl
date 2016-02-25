@@ -1,25 +1,27 @@
 package com.osreboot.ridhvl.test;
 
-import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.*;
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.getWhite512;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.input.HvlController;
+import com.osreboot.ridhvl.input.HvlInputSeriesAction;
 import com.osreboot.ridhvl.input.collection.HvlCPG_Gamepad;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
-import com.osreboot.ridhvl.painter.painter2d.HvlTiledRect;
 import com.osreboot.ridhvl.template.HvlTemplate2D;
 
 public class ExpandingRectangleTest extends HvlTemplate2D {
+	
+	float width, height;
 	
 	public ExpandingRectangleTest() {
 		super(60, 1280, 720, "Ridhvl Expanding Rectangle Test", new HvlDisplayModeDefault());
 	}
 
 	static HvlTextureLoader textureLoader = new HvlTextureLoader();
-	HvlTiledRect testRect;
 	
 	Color color;
 
@@ -30,7 +32,9 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 		profile = new HvlCPG_Gamepad();
 		textureLoader.loadResource("Icon");
 		color = Color.white;
-		testRect = new HvlTiledRect(textureLoader.getResource(0), 0.125f, 0.875f, 0.125f, 0.875f, 0, 0, 16, 16);
+		
+		width = 512;
+		height = 512;
 	}
 	
 	public static float counter = 0;
@@ -45,13 +49,12 @@ public class ExpandingRectangleTest extends HvlTemplate2D {
 		
 		HvlPainter2D.hvlDrawQuad(0, 0, 1280, 720, getWhite512(), color);
 
-		testRect.setTotalWidth(testRect.getTotalWidth() + profile.getValue(HvlCPG_Gamepad.TRIGGER_LEFT) * 256 * delta);
-		testRect.setTotalHeight(testRect.getTotalHeight() + profile.getValue(HvlCPG_Gamepad.TRIGGER_RIGHT) * 256 * delta);
-
-		testRect.setX(640 - (testRect.getTotalWidth()/2));
-		testRect.setY(360 - (testRect.getTotalHeight()/2));
-
-		testRect.draw();
+//		width += profile.getValue(HvlCPG_Gamepad.TRIGGER_LEFT) * 256 * delta;
+//		height += profile.getValue(HvlCPG_Gamepad.TRIGGER_RIGHT) * 256 * delta;
+		width += HvlInputSeriesAction.HORIZONTAL.getCurrentOutput() * 256 * delta;
+		height += HvlInputSeriesAction.VERTICAL.getCurrentOutput() * 256 * delta;
+		
+		HvlPainter2D.hvlDrawTiledQuadc(Display.getWidth() / 2, Display.getHeight() / 2, width, height, 32, 32, 32, 32, "0.125,0.125", textureLoader.getResource(0));
 	}
 
 }

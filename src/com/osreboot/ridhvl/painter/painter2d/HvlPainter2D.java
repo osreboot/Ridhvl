@@ -223,6 +223,38 @@ public class HvlPainter2D {
 	public static void hvlDrawQuadc(float x, float y, float xl, float yl, Color c){
 		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x), getSnappedY(y), getSnappedX(xl), getSnappedY(yl), white512, c);//TODO support more sizes
 	}
+	
+	public static void hvlDrawTiledQuad(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t) {
+		hvlDrawTiledQuad(x, y, w, h, lrWidth, lrWidth, udHeight, udHeight, format, t);
+	}
+	
+	public static void hvlDrawTiledQuad(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t) {
+		hvlDrawTiledQuad(x, y, w, h, lWidth, rWidth, uHeight, dHeight, format, t, Color.white);
+	}
+
+	public static void hvlDrawTiledQuad(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t, Color c) {
+		HvlTiledRectPainter2D.hvlDrawTiledQuad(x, y, w, h, lWidth, rWidth, uHeight, dHeight, format, t, c);
+	}
+	
+	public static void hvlDrawTiledQuad(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t, Color c) {
+		hvlDrawTiledQuad(x, y, w, h, lrWidth, lrWidth, udHeight, udHeight, format, t, c);
+	}
+
+	public static void hvlDrawTiledQuadc(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t) {
+		hvlDrawTiledQuadc(x, y, w, h, lrWidth, lrWidth, udHeight, udHeight, format, t);
+	}
+	
+	public static void hvlDrawTiledQuadc(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t) {
+		hvlDrawTiledQuadc(x, y, w, h, lWidth, rWidth, uHeight, dHeight, format, t, Color.white);
+	}
+
+	public static void hvlDrawTiledQuadc(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t, Color c) {
+		hvlDrawTiledQuad(x - (w / 2), y - (h / 2), w, h, lWidth, rWidth, uHeight, dHeight, format, t, c);
+	}
+	
+	public static void hvlDrawTiledQuadc(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t, Color c) {
+		hvlDrawTiledQuadc(x, y, w, h, lrWidth, lrWidth, udHeight, udHeight, format, t, c);
+	}
 
 	public static void hvlRotate(float x, float y, float degrees){
 		HvlSwivel2D.hvlRotate(x, y, degrees);
