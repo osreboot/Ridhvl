@@ -42,4 +42,17 @@ public class HvlReflectionUtil {
 	public static boolean isSimple(Class<?> type) {
 		return isPrimitive(type) || type.equals(String.class); // Strings are "simple" but not technically "primitive"
 	}
+	
+	public static Object getDefault(Class<?> type) {
+		if (type.equals(byte.class) || type.equals(Byte.class)) return 0;
+		if (type.equals(short.class) || type.equals(Short.class)) return 0;
+		if (type.equals(int.class) || type.equals(Integer.class)) return 0;
+		if (type.equals(long.class) || type.equals(Long.class)) return 0l;
+		if (type.equals(float.class) || type.equals(Float.class)) return 0f;
+		if (type.equals(double.class) || type.equals(Double.class)) return 0d;
+		if (type.equals(boolean.class) || type.equals(Boolean.class)) return false;
+		if (type.equals(char.class) || type.equals(Character.class)) return '\u0000';
+		
+		return null;
+	}
 }

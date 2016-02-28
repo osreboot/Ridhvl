@@ -36,14 +36,14 @@ public class HvlConfigUtil {
 
 		return null;
 	}
-	
+
 	public static void save(Object val, String path, boolean loadInstance, boolean loadStatic) {
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
 			writer.write(saveToText(val, loadInstance, loadStatic));
-			
+
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +86,8 @@ public class HvlConfigUtil {
 							Class<?> fieldType = field.getType();
 							if (HvlReflectionUtil.isSimple(fieldType)) {
 								// load with primitive loader
-								field.set(tr, HvlReflectionUtil.genericParse(fieldType, line.split(":")[1]));
+								if (line.split(":").length == 1)
+									field.set(tr, line.split(":").length == 1 ? HvlReflectionUtil.getDefault(fieldType) : HvlReflectionUtil.genericParse(fieldType, line.split(":")[1]));
 							} else if (fieldType.isArray()) {
 								if (HvlReflectionUtil.isSimple(fieldType.getComponentType())) {
 									searchingName = varName;
@@ -212,7 +213,7 @@ public class HvlConfigUtil {
 						for (int i = 0; i < arrayLength; i++) {
 							save.append(Array.get(array, i).toString() + System.lineSeparator());
 						}
-						
+
 						save.append("/" + f.getName() + System.lineSeparator());
 					} else {
 						save.append(f.getName() + ":" + System.lineSeparator());
@@ -224,7 +225,7 @@ public class HvlConfigUtil {
 							save.append(saveToText(Array.get(array, i), saveInstance, saveStatic) + System.lineSeparator());
 							save.append("/class" + System.lineSeparator());
 						}
-						
+
 						save.append("/" + f.getName() + System.lineSeparator());
 					}
 				} else {
