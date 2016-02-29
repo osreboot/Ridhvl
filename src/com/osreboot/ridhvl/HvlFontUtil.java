@@ -25,4 +25,34 @@ public class HvlFontUtil {
 		return -1;
 	}
 
+	public static String wrapText(String text, int charsPerLine) {
+		if (text.length() < charsPerLine) return text;
+		
+		StringBuilder tr = new StringBuilder();
+		
+		int charsSoFar = 0;
+		
+		String[] parts = text.split(" ");
+		
+		for (String part : parts) {
+			charsSoFar += part.length();
+			if (charsSoFar > charsPerLine) {
+				tr.append("\n");
+				tr.append(part + " ");
+				charsSoFar = part.length() + 1;
+			} else if (charsSoFar == charsPerLine) {
+				tr.append(part);
+				tr.append("\n");
+				charsSoFar = 0;
+			} else {
+				tr.append(part);
+				tr.append(" ");
+				charsSoFar++;
+			}
+		}
+		
+		return tr.toString();
+	}
+	
+	// TODO: variant of wrapText that takes pixels rather than characters (due to support for uneven char sizes)
 }
