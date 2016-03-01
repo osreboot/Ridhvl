@@ -4,6 +4,7 @@ import org.lwjgl.opengl.Display;
 
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.action.HvlAction1;
+import com.osreboot.ridhvl.action.HvlEvent0;
 import com.osreboot.ridhvl.template.HvlChronology;
 import com.osreboot.ridhvl.template.HvlChronologyInitialize;
 import com.osreboot.ridhvl.template.HvlChronologyUpdate;
@@ -39,6 +40,8 @@ public class HvlDisplay {
 			postUpdate(delta);
 		}
 	};
+	
+	public static final HvlEvent0 EVENT_DISPLAY_RESIZED = new HvlEvent0();
 
 	private static int oldWidth, oldHeight;
 
@@ -58,6 +61,9 @@ public class HvlDisplay {
 	}
 
 	public static void preUpdate(float delta){
+		if(hasBeenResized()) EVENT_DISPLAY_RESIZED.trigger();
+		oldWidth = Display.getWidth();
+		oldHeight = Display.getHeight();
 		displayMode.preUpdate(delta);
 	}
 
@@ -65,12 +71,7 @@ public class HvlDisplay {
 		displayMode.postUpdate(delta);
 	}
 
-	public static boolean hasBeenResized(){
-		if(oldWidth != Display.getWidth() || oldHeight != Display.getHeight()){
-			oldWidth = Display.getWidth();
-			oldHeight = Display.getHeight();
-			return true;
-		}
-		return false;
+	private static boolean hasBeenResized(){
+		return oldWidth != Display.getWidth() || oldHeight != Display.getHeight();
 	}
 }
