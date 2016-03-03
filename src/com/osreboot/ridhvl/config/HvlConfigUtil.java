@@ -37,12 +37,12 @@ public class HvlConfigUtil {
 		return null;
 	}
 
-	public static void save(Object val, String path, boolean loadInstance, boolean loadStatic) {
+	public static void save(Object val, String path, boolean saveInstance, boolean saveStatic) {
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
-			writer.write(saveToText(val, loadInstance, loadStatic));
+			writer.write(saveToText(val, saveInstance, saveStatic));
 
 			writer.close();
 		} catch (Exception e) {
