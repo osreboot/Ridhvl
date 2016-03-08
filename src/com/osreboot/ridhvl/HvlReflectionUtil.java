@@ -52,6 +52,7 @@ public class HvlReflectionUtil {
 		if (type.equals(double.class) || type.equals(Double.class)) return 0d;
 		if (type.equals(boolean.class) || type.equals(Boolean.class)) return false;
 		if (type.equals(char.class) || type.equals(Character.class)) return '\u0000';
+		if (type.equals(String.class)) return "";
 		
 		return null;
 	}
