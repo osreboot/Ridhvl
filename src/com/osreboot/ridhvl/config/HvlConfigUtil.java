@@ -86,8 +86,7 @@ public class HvlConfigUtil {
 							Class<?> fieldType = field.getType();
 							if (HvlReflectionUtil.isSimple(fieldType)) {
 								// load with primitive loader
-								if (line.split(":").length == 1)
-									field.set(tr, line.split(":").length == 1 ? HvlReflectionUtil.getDefault(fieldType) : HvlReflectionUtil.genericParse(fieldType, line.split(":")[1]));
+								field.set(tr, line.split(":").length == 1 ? HvlReflectionUtil.getDefault(fieldType) : HvlReflectionUtil.genericParse(fieldType, line.split(":")[1]));
 							} else if (fieldType.isArray()) {
 								if (HvlReflectionUtil.isSimple(fieldType.getComponentType())) {
 									searchingName = varName;

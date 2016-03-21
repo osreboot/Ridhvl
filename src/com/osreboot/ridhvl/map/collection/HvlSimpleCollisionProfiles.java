@@ -319,6 +319,103 @@ public class HvlSimpleCollisionProfiles {
 		}
 	}
 
+	public static class CustomSide implements HvlMapCollisionProfile {
+		private boolean left, right, up, down;
+		
+		private float overshoot;
+		
+		public CustomSide(boolean l, boolean r, boolean u, boolean d, float overshoot) {
+			left = l;
+			right = r;
+			up = u;
+			down = d;
+			this.overshoot = overshoot;
+		}
+
+		@Override
+		public List<HvlMapRaytraceResult> raytrace(HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX, int tileY) {
+			List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
+
+			if (left) {
+				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()),
+						map.getY() + (tileY * map.getTileDrawHeight()) - overshoot);
+
+				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()),
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + overshoot);
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
+							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
+			}
+
+			if (right) {
+				HvlCoord segStart = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
+						map.getY() + (tileY * map.getTileDrawHeight()) - overshoot);
+
+				HvlCoord segEnd = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + overshoot);
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
+							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
+			}
+
+			if (up) {
+				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
+						map.getY() + (tileY * map.getTileDrawHeight()));
+
+				HvlCoord segEnd = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth() + overshoot),
+						map.getY() + (tileY * map.getTileDrawHeight()));
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
+							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
+			}
+
+			if (down) {
+				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()));
+
+				HvlCoord segEnd = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth() + overshoot),
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()));
+
+				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				if (found != null)
+					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
+							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
+			}
+			
+			return collisions;
+		}
+
+		@Override
+		public void debugDraw(float delta, HvlMap map, int layer, int tileX, int tileY) {
+			if (left)
+				HvlPainter2D.hvlDrawLine(map.getX() + (tileX * map.getTileDrawWidth()),
+						map.getY() + (tileY * map.getTileDrawHeight()) - overshoot,
+						map.getX() + (tileX * map.getTileDrawWidth()),
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + overshoot, Color.red, 4.0f);
+			if (right)
+				HvlPainter2D.hvlDrawLine(map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
+						map.getY() + (tileY * map.getTileDrawHeight()) - overshoot,
+						map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + overshoot, Color.red, 4.0f);
+			if (up)
+				HvlPainter2D.hvlDrawLine(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
+						map.getY() + (tileY * map.getTileDrawHeight()),
+						map.getX() + (tileX + 1) * map.getTileDrawWidth() + overshoot,
+						map.getY() + (tileY * map.getTileDrawHeight()), Color.red, 4.0f);
+			if (down)
+				HvlPainter2D.hvlDrawLine(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()),
+						map.getX() + ((tileX + 1) * map.getTileDrawWidth()) + overshoot,
+						map.getY() + ((tileY + 1) * map.getTileDrawHeight()), Color.red, 4.0f);
+		}
+	}
+	
 	/**
 	 * A collision profile that is a vertical line centered in the tile.
 	 */
