@@ -43,6 +43,19 @@ public class HvlGradient {
 			return null;
 		}
 	}
+	
+	public Texture toTexture(int w, int h, float startX, float startY, float endX, float endY) {
+		switch (style) {
+		case LINEAR:
+			return genLinear(w, h, (int)(startX*w), (int)(startY*h), (int)(endX*w), (int)(endY*h));
+		case RADIAL:
+			return genRadial(w, h, (int)(startX*w), (int)(startY*h), (int)(endX*w), (int)(endY*h));
+		case CONIC:
+			return genConic(w, h, (int)(startX*w), (int)(startY*h), (int)(endX*w), (int)(endY*h));
+		default:
+			return null;
+		}
+	}
 
 	private Texture genLinear(int w, int h, int startX, int startY, int endX, int endY) {
 		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);

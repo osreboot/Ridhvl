@@ -35,7 +35,7 @@ public class GradientTest extends HvlTemplate2D {
 		g.addStop(0, Color.red);
 		g.addStop(0.5f, Color.green);
 		g.addStop(1, Color.blue);
-		gradient = g.toTexture(1024, 1024, 512, 512, 1024, 0);
+		gradient = g.toTexture(1024, 1024, 0.5f, 0.5f, 1.0f, 1.0f);
 		textureLoader.loadResource("Font");
 
 		fontPainter = new HvlFontPainter2D(textureLoader.getResource(0), HvlFontUtil.DEFAULT, 112, 144);
