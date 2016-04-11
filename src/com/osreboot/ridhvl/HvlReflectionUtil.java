@@ -1,5 +1,9 @@
 package com.osreboot.ridhvl;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 public class HvlReflectionUtil {
 	public static Object genericParse(Class<?> c, String in) {
 		if (c.equals(byte.class) || c.equals(Byte.class))
@@ -55,5 +59,20 @@ public class HvlReflectionUtil {
 		if (type.equals(String.class)) return "";
 		
 		return null;
+	}
+	
+	public static Class<?>[] getGenericTypes(Field f) {
+		Type type = f.getGenericType();
+		
+		if (type instanceof ParameterizedType) {
+			ParameterizedType pType = (ParameterizedType) type;
+			Class<?>[] tr = new Class<?>[pType.getActualTypeArguments().length];
+			for (int i = 0; i < pType.getActualTypeArguments().length; i++) {
+				tr[i] = (Class<?>) pType.getActualTypeArguments()[i];
+			}
+			return tr;
+		} else {
+			return new Class<?>[] {};
+		}
 	}
 }
