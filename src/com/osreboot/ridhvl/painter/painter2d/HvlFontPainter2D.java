@@ -261,15 +261,15 @@ public class HvlFontPainter2D {
 	}
 
 	public void drawWordc(String text, float x, float y, Color c, float s) {
-		drawWord(text, x - (getLineWidth(text) / 2), y - (getLineHeight(text) / 2), c, s, s);
+		drawWord(text, x - (getLineWidth(text) / 2 * s), y - (getLineHeight(text) / 2 * s), c, s, s);
 	}
 
 	public void drawWordc(String text, float x, float y, Color c, float sX, float sY) {
-		drawWord(text, x - (getLineWidth(text) / 2), y - (getLineHeight(text) / 2), c, sX, sY, 0.0f);
+		drawWord(text, x - (getLineWidth(text) / 2 * sX), y - (getLineHeight(text) / 2 * sY), c, sX, sY, 0.0f);
 	}
 
 	public void drawWordc(String text, float x, float y, Color c, float sX, float sY, float align) {
-		drawWord(text, x - (getLineWidth(text) / 2), y - (getLineHeight(text) / 2), c, sX, sY, align);
+		drawWord(text, x - (getLineWidth(text) / 2 * sX), y - (getLineHeight(text) / 2 * sY), c, sX, sY, align);
 	}
 
 	public void setCharWidth(Character c, Float startUV, Float endUV) {
