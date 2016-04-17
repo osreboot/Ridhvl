@@ -145,7 +145,7 @@ public class ComponentsTest extends HvlTemplate2D {
 		testArranger = new HvlArrangerBox.Builder().setX(0).setY(0).setxAlign(0.5f).setyAlign(0f).setWidth(Display.getWidth() - 64).setHeight(720).add(testLabel)
 				// .add(testCheck)
 				// .add(testButton)
-				.add(testTextBox).add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(Direction.HORIZONTAL).setTextureDirection(Direction.HORIZONTAL).build()).add(testListBox).add(testProgressBar).add(testRadioButton1).add(testRadioButton2).build();
+				.add(testTextBox).add(new HvlTextBox.Builder().setWidth(512).setHeight(96).setText("hey").setMaxCharacters(10).build()).add(new HvlSlider.Builder().setWidth(256).setHeight(32).setDirection(Direction.HORIZONTAL).setTextureDirection(Direction.HORIZONTAL).build()).add(testListBox).add(testProgressBar).add(testRadioButton1).add(testRadioButton2).build();
 
 		testMenu2 = new HvlMenu();
 		testMenu2.add(new HvlLabel.Builder().setFont(fontPainter).setText("menu 2").setColor(Color.red).build());

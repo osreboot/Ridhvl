@@ -3,84 +3,88 @@ package com.osreboot.ridhvl.menu;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import org.lwjgl.input.Keyboard;
+
 import com.osreboot.ridhvl.action.HvlEvent2;
 import com.osreboot.ridhvl.menu.component.HvlArrangerBox;
 
 public class HvlMenu implements HvlComponentContainer {
 
 	public static final HvlEvent2<HvlMenu, HvlMenu> EVENT_MENU_CHANGED = new HvlEvent2<>();
-	
+
 	private static HvlMenu current;
 	private static Stack<HvlMenu> popups;
 	private static Stack<Boolean> blocks;
-	
+
 	private static float transitionPeriodIn = 0, transitionPeriodOut = 0, transitionCurrent = 0;
 	private static HvlMenu transitionGoal = null;
 
-	public static float getTransitionPeriodIn(){
+	public static float getTransitionPeriodIn() {
 		return transitionPeriodIn;
 	}
 
-	public static void setTransitionPeriodIn(float transitionPeriodInArg){
+	public static void setTransitionPeriodIn(float transitionPeriodInArg) {
 		transitionPeriodIn = transitionPeriodInArg;
 	}
 
-	public static float getTransitionPeriodOut(){
+	public static float getTransitionPeriodOut() {
 		return transitionPeriodOut;
 	}
 
-	public static void setTransitionPeriodOut(float transitionPeriodOutArg){
+	public static void setTransitionPeriodOut(float transitionPeriodOutArg) {
 		transitionPeriodOut = transitionPeriodOutArg;
 	}
 
-	public static void setTransitionPeriod(float transitionPeriodArg){
+	public static void setTransitionPeriod(float transitionPeriodArg) {
 		transitionPeriodIn = transitionPeriodArg;
 		transitionPeriodOut = transitionPeriodArg;
 	}
 
-	public static float getTransitionProgress(){
-		return (transitionGoal != null ? (1 - (transitionCurrent/transitionPeriodOut)) : 0) + (current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriodIn)/transitionPeriodIn) : 0);
+	public static float getTransitionProgress() {
+		return (transitionGoal != null ? (1 - (transitionCurrent / transitionPeriodOut)) : 0) + (current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriodIn) / transitionPeriodIn) : 0);
 	}
-	
-	public static float getTransitionProgressOut(){
-		return transitionGoal != null ? (1 - (transitionCurrent/transitionPeriodOut)) : 0;
+
+	public static float getTransitionProgressOut() {
+		return transitionGoal != null ? (1 - (transitionCurrent / transitionPeriodOut)) : 0;
 	}
-	
-	public static float getTransitionProgressIn(){
-		return current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriodIn)/transitionPeriodIn) : 0;
+
+	public static float getTransitionProgressIn() {
+		return current != null ? 1 - (Math.min(current.getTotalTime(), transitionPeriodIn) / transitionPeriodIn) : 0;
 	}
-	
+
 	static {
 		popups = new Stack<>();
 		blocks = new Stack<>();
 	}
 
-	public static HvlMenu getCurrent(){
+	public static HvlMenu getCurrent() {
 		return current;
 	}
 
-	public static void setCurrent(HvlMenu currentArg){
-		if(transitionPeriodOut == 0) metaSetCurrent(currentArg); else{
-			if(transitionCurrent == 0){
+	public static void setCurrent(HvlMenu currentArg) {
+		if (transitionPeriodOut == 0)
+			metaSetCurrent(currentArg);
+		else {
+			if (transitionCurrent == 0) {
 				transitionCurrent = transitionPeriodOut;
 				transitionGoal = currentArg;
 			}
 		}
 	}
-	
-	private static final void metaSetCurrent(HvlMenu currentArg){
+
+	private static final void metaSetCurrent(HvlMenu currentArg) {
 		EVENT_MENU_CHANGED.trigger(current, currentArg);
 		current = currentArg;
 		current.setTotalTime(0);
 	}
 
 	public static void updateMenus(float delta) {
-		if(transitionCurrent > 0 && transitionCurrent - delta <= 0 && transitionGoal != null){
+		if (transitionCurrent > 0 && transitionCurrent - delta <= 0 && transitionGoal != null) {
 			metaSetCurrent(transitionGoal);
 			transitionGoal = null;
 		}
 		transitionCurrent = Math.max(transitionCurrent - delta, 0);
-		
+
 		boolean blocked = false;
 
 		// Go from the top down (highest popup to lowest).
@@ -109,12 +113,17 @@ public class HvlMenu implements HvlComponentContainer {
 		for (int i = 0; i < popups.size(); i++) {
 			popups.get(i).draw(delta);
 		}
+
+		// Clear the input buffer after updating EVERYTHING
+		Keyboard.poll();
+		while (Keyboard.next())
+			;
 	}
 
 	private ArrayList<HvlComponent> components;
-	
+
 	private boolean interactable;
-	
+
 	private float totalTime;
 
 	public HvlMenu() {
@@ -130,18 +139,17 @@ public class HvlMenu implements HvlComponentContainer {
 	public <T> T getChild(int index) {
 		if (index >= components.size())
 			return null;
-		
+
 		return (T) components.get(index);
 	}
-	
-	public HvlArrangerBox getFirstArrangerBox(){
+
+	public HvlArrangerBox getFirstArrangerBox() {
 		return getFirstOfType(HvlArrangerBox.class);
 	}
-	
+
 	public void update(float delta) {
 		totalTime += delta;
-		for (HvlComponent c : components)
-		{
+		for (HvlComponent c : components) {
 			c.setContainer(this);
 			c.metaUpdate(delta);
 		}
@@ -200,20 +208,23 @@ public class HvlMenu implements HvlComponentContainer {
 	public static boolean hasPopup() {
 		return !popups.isEmpty();
 	}
-	
-	public static boolean isBlocked(HvlMenu menu) {		
+
+	public static boolean isBlocked(HvlMenu menu) {
 		for (int i = popups.size() - 1; i >= 0; i--) {
-			// If we've found the menu (and haven't been blocked already) return false
+			// If we've found the menu (and haven't been blocked already) return
+			// false
 			// (before we check for blocks)
 			if (popups.get(i) == menu)
 				return false;
-			
-			// If this one is blocking (and isn't the target: see above) return true
+
+			// If this one is blocking (and isn't the target: see above) return
+			// true
 			if (blocks.get(i))
 				return true;
 		}
-		
-		// Either this is the base menu (and therefore unblocked if we've gotten this far)
+
+		// Either this is the base menu (and therefore unblocked if we've gotten
+		// this far)
 		// or isn't actually a current menu (so return false).
 		return false;
 	}
@@ -261,19 +272,20 @@ public class HvlMenu implements HvlComponentContainer {
 	public <T extends HvlComponent> T getFirstOfType(Class<? extends T> type) {
 		return getChildOfType(type, 0);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends HvlComponent> T getChildOfType(Class<? extends T> type, int i) {
 		int current = -1;
-		
+
 		for (HvlComponent c : components) {
 			if (c.getClass().isAssignableFrom(type)) {
 				current++;
-				if (current == i) return (T) c;
+				if (current == i)
+					return (T) c;
 			}
 		}
-		
+
 		return null;
 	}
 
