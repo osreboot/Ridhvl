@@ -49,6 +49,7 @@ public abstract class HvlControllerProfile {
 	private LinkedHashMap<String, HvlPollValue> staticPollAnnotations = new LinkedHashMap<>();
 	private ArrayList<String> staticPollValues = new ArrayList<>();
 	private LinkedHashMap<Controller, ArrayList<Float>> pollValues = new LinkedHashMap<>();
+	private LinkedHashMap<Controller, Boolean> responseValues = new LinkedHashMap<>();
 	private ArrayList<Controller> controllerIndexes = new ArrayList<>();
 	private LinkedHashMap<String, HvlAction2r<Float, Controller, HvlControllerProfile>> pollCustom = new LinkedHashMap<>();
 
@@ -126,6 +127,7 @@ public abstract class HvlControllerProfile {
 
 	protected void syncControllers(){
 		pollValues.clear();
+		responseValues.clear();
 		if(autoIndex) controllerIndexes.clear();
 		for(Controller c : HvlController.getControllers()){
 			if(isOfType(c)){
@@ -133,6 +135,7 @@ public abstract class HvlControllerProfile {
 				ArrayList<Float> list = new ArrayList<>();
 				for(int i = 0; i < staticPollValues.size(); i++) list.add(0f);
 				pollValues.put(c, list);
+				responseValues.put(c, true);
 				if(autoIndex) controllerIndexes.add(c);
 			}
 		}
@@ -140,7 +143,7 @@ public abstract class HvlControllerProfile {
 
 	protected void pollValues(){
 		for(Controller c : pollValues.keySet()){
-			c.poll();
+			responseValues.put(c, c.poll());
 			EventQueue queue = c.getEventQueue();
 			Event event = new Event();
 			while(queue.getNextEvent(event)){
@@ -157,6 +160,13 @@ public abstract class HvlControllerProfile {
 					}
 				}
 			}
+		}
+	}
+	
+	public boolean isResponding(int controllerIndex){
+		if(controllerIndexes.size() <= controllerIndex) return false;
+		else{
+			return responseValues.get(controllerIndexes.get(controllerIndex));
 		}
 	}
 
