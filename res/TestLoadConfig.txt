@@ -93,3 +93,8 @@ val:didn't...
 /aClassArray
 
 testingStatics:ERMAHGERD STAHTICS!
+staticTestClass:
+aString:WOOOWWWWWWWSTATIC!
+aTestStaticNestedString:STATICSTATICSTATIC!
+
+/staticTestClass

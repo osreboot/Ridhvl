@@ -35,7 +35,9 @@ public class ConfigUtilTest {
 		}
 		
 		System.out.println(TestConfigType.testingStatics);
+		System.out.println(TestConfigType.staticTestClass.aString);
+		System.out.println(TestConfigType.TCT1.aTestStaticNestedString);
 		
-		HvlConfigUtil.save(loaded, "res/TestSaveConfig.txt", true, true);
+		HvlConfigUtil.save(TestConfigType.class, "res/TestSaveConfig.txt", true, true);
 	}
 }

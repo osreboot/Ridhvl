@@ -50,6 +50,19 @@ public class HvlConfigUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void save(Class<?> type, String path, boolean saveNestedInstance, boolean saveNestedStatic) {
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+
+			writer.write(saveToText(type, saveNestedInstance, saveNestedStatic));
+
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static <TConfigType> TConfigType loadFromText(Class<TConfigType> type, String text, boolean loadInstance,
 			boolean loadStatic) {
@@ -195,7 +208,8 @@ public class HvlConfigUtil {
 										} else if (customLine.equals("/class")) {
 											classDepth--;
 											if (classDepth == 0) {
-												Object toAdd = loadFromText(HvlReflectionUtil.getGenericTypes(arrayField)[0],
+												Object toAdd = loadFromText(
+														HvlReflectionUtil.getGenericTypes(arrayField)[0],
 														classBuildup.toString(), loadInstance, loadStatic);
 												loaded.add(toAdd);
 												classBuildup = new StringBuilder();
@@ -256,6 +270,83 @@ public class HvlConfigUtil {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private static String saveToText(Class<?> c, boolean saveNestedInstance, boolean saveNestedStatic) {
+		StringBuilder save = new StringBuilder();
+
+		for (Field f : c.getFields()) {
+			if (!shouldSaveField(f, false, true)) // this has filled in values because this is the highest level. It only saves statics, not instances
+				continue;
+
+			try {
+				if (f.getType().isArray()) {
+					Object array = f.get(null);
+					if (array == null) {
+						continue;
+					}
+					save.append(f.getName() + ":" + System.lineSeparator());
+					int arrayLength = Array.getLength(array);
+
+					if (HvlReflectionUtil.isSimple(f.getType().getComponentType())) {
+						for (int i = 0; i < arrayLength; i++) {
+							save.append(Array.get(array, i).toString() + System.lineSeparator());
+						}
+
+						save.append("/" + f.getName() + System.lineSeparator());
+					} else {
+						for (int i = 0; i < arrayLength; i++) {
+							save.append("class:" + System.lineSeparator());
+							save.append(
+									saveToText(Array.get(array, i), saveNestedInstance, saveNestedStatic) + System.lineSeparator());
+							save.append("/class" + System.lineSeparator());
+						}
+
+						save.append("/" + f.getName() + System.lineSeparator());
+					}
+				} else if (List.class.isAssignableFrom(f.getType())) {
+					Class<?> listType = HvlReflectionUtil.getGenericTypes(f)[0];
+
+					@SuppressWarnings("unchecked")
+					List<Object> l = (List<Object>) f.get(null);
+					if (l == null) {
+						continue;
+					}
+					save.append(f.getName() + ":" + System.lineSeparator());
+
+					if (HvlReflectionUtil.isSimple(listType)) {
+						for (int i = 0; i < l.size(); i++) {
+							save.append(l.get(i).toString() + System.lineSeparator());
+						}
+
+						save.append("/" + f.getName() + System.lineSeparator());
+					} else {
+						for (int i = 0; i < l.size(); i++) {
+							save.append("class:" + System.lineSeparator());
+							save.append(saveToText(l.get(i), saveNestedInstance, saveNestedStatic) + System.lineSeparator());
+							save.append("/class" + System.lineSeparator());
+						}
+
+						save.append("/" + f.getName() + System.lineSeparator());
+					}
+				} else {
+					Object value = f.get(null);
+					if (value == null)
+						continue;
+					if (HvlReflectionUtil.isSimple(f.getType())) {
+						save.append(f.getName() + ":" + value + System.lineSeparator());
+					} else {
+						save.append(f.getName() + ":" + System.lineSeparator());
+						save.append(saveToText(value, saveNestedInstance, saveNestedStatic) + System.lineSeparator());
+						save.append("/" + f.getName() + System.lineSeparator());
+					}
+				}
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return save.toString();
 	}
 
 	private static String saveToText(Object val, boolean saveInstance, boolean saveStatic) {

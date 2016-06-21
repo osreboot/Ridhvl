@@ -9,6 +9,7 @@ public class TestConfigType {
 		}
 		
 		public String aString;
+		public static String aTestStaticNestedString;
 	}
 	
 	public static class TCT2 {
@@ -63,4 +64,5 @@ public class TestConfigType {
 	public TCT2 anotherClass;
 	public List<TCT4> aClassArray;
 	public static String testingStatics;
+	public static TCT1 staticTestClass;
 }
