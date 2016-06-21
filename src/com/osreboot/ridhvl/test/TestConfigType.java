@@ -1,5 +1,7 @@
 package com.osreboot.ridhvl.test;
 
+import java.util.List;
+
 public class TestConfigType {
 	public static class TCT1 {
 		public TCT1() {
@@ -31,6 +33,12 @@ public class TestConfigType {
 			
 		}
 		
+		public TCT4(boolean p, int v, TCT5... nca) {
+			prop = p;
+			value = v;
+			nestedClassArray = nca;
+		}
+		
 		public boolean prop;
 		public int value;
 		public TCT5[] nestedClassArray;
@@ -41,14 +49,18 @@ public class TestConfigType {
 			
 		}
 		
+		public TCT5(String v) {
+			val = v;
+		}
+		
 		public String val;
 	}
 	
 	public String aString;
 	public boolean someBool;
-	public int[] anIntArray;
+	public List<Integer> anIntArray;
 	public TCT1 aClass;
 	public TCT2 anotherClass;
-	public TCT4[] aClassArray;
+	public List<TCT4> aClassArray;
 	public static String testingStatics;
 }

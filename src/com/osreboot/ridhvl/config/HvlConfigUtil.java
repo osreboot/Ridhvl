@@ -15,7 +15,8 @@ import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
 
 public class HvlConfigUtil {
-	public static <TConfigType> TConfigType load(Class<TConfigType> type, String path, boolean loadInstance, boolean loadStatic) {
+	public static <TConfigType> TConfigType load(Class<TConfigType> type, String path, boolean loadInstance,
+			boolean loadStatic) {
 
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -50,7 +51,8 @@ public class HvlConfigUtil {
 		}
 	}
 
-	private static <TConfigType> TConfigType loadFromText(Class<TConfigType> type, String text, boolean loadInstance, boolean loadStatic) {
+	private static <TConfigType> TConfigType loadFromText(Class<TConfigType> type, String text, boolean loadInstance,
+			boolean loadStatic) {
 		// split by line separator
 		String[] split = text.split(System.lineSeparator());
 
@@ -86,7 +88,8 @@ public class HvlConfigUtil {
 							Class<?> fieldType = field.getType();
 							if (HvlReflectionUtil.isSimple(fieldType)) {
 								// load with primitive loader
-								field.set(tr, line.split(":").length == 1 ? HvlReflectionUtil.getDefault(fieldType) : HvlReflectionUtil.genericParse(fieldType, line.split(":")[1]));
+								field.set(tr, line.split(":").length == 1 ? HvlReflectionUtil.getDefault(fieldType)
+										: HvlReflectionUtil.genericParse(fieldType, line.split(":")[1]));
 							} else if (fieldType.isArray()) {
 								if (HvlReflectionUtil.isSimple(fieldType.getComponentType())) {
 									searchingName = varName;
@@ -128,9 +131,15 @@ public class HvlConfigUtil {
 							try {
 								Field arrayField = type.getField(searchingName);
 								String[] arrayParts = lineBuildup.toString().split(System.lineSeparator());
-								Object arr = Array.newInstance(arrayField.getType().getComponentType(), arrayParts.length);
+								Object arr = Array.newInstance(arrayField.getType().getComponentType(),
+										arrayParts.length);
 								for (int i = 0; i < arrayParts.length; i++) {
-									Array.set(arr, i, HvlReflectionUtil.genericParse(HvlReflectionUtil.convertAwayFromPrimitive(arrayField.getType().getComponentType()), arrayParts[i]));
+									Array.set(arr, i,
+											HvlReflectionUtil
+													.genericParse(
+															HvlReflectionUtil.convertAwayFromPrimitive(
+																	arrayField.getType().getComponentType()),
+															arrayParts[i]));
 								}
 								arrayField.set(tr, arr);
 							} catch (NoSuchFieldException e) {
@@ -157,7 +166,8 @@ public class HvlConfigUtil {
 									} else if (customLine.equals("/class")) {
 										classDepth--;
 										if (classDepth == 0) {
-											Object toAdd = loadFromText(arrayField.getType().getComponentType(), classBuildup.toString(), loadInstance, loadStatic);
+											Object toAdd = loadFromText(arrayField.getType().getComponentType(),
+													classBuildup.toString(), loadInstance, loadStatic);
 											loaded.add(toAdd);
 											classBuildup = new StringBuilder();
 										} else {
@@ -189,7 +199,8 @@ public class HvlConfigUtil {
 			}
 
 			return tr;
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -204,35 +215,64 @@ public class HvlConfigUtil {
 
 			try {
 				if (f.getType().isArray()) {
+					Object array = f.get(val);
+					if (array == null) {
+						continue;
+					}
+					save.append(f.getName() + ":" + System.lineSeparator());
+					int arrayLength = Array.getLength(array);
+					
 					if (HvlReflectionUtil.isSimple(f.getType().getComponentType())) {
-						save.append(f.getName() + ":" + System.lineSeparator());
-						Object array = f.get(val);
-						int arrayLength = Array.getLength(array);
-
 						for (int i = 0; i < arrayLength; i++) {
 							save.append(Array.get(array, i).toString() + System.lineSeparator());
 						}
 
 						save.append("/" + f.getName() + System.lineSeparator());
 					} else {
-						save.append(f.getName() + ":" + System.lineSeparator());
-						Object array = f.get(val);
-						int arrayLength = Array.getLength(array);
-
 						for (int i = 0; i < arrayLength; i++) {
 							save.append("class:" + System.lineSeparator());
-							save.append(saveToText(Array.get(array, i), saveInstance, saveStatic) + System.lineSeparator());
+							save.append(
+									saveToText(Array.get(array, i), saveInstance, saveStatic) + System.lineSeparator());
+							save.append("/class" + System.lineSeparator());
+						}
+
+						save.append("/" + f.getName() + System.lineSeparator());
+					}
+				} else if (List.class.isAssignableFrom(f.getType())) {
+					Class<?> listType = HvlReflectionUtil.getGenericTypes(f)[0];
+					
+					@SuppressWarnings("unchecked")
+					List<Object> l = (List<Object>) f.get(val);
+					if (l == null) {
+						continue;
+					}
+					save.append(f.getName() + ":" + System.lineSeparator());
+					
+					if (HvlReflectionUtil.isSimple(listType)) {
+						for (int i = 0; i < l.size(); i++) {
+							save.append(l.get(i).toString() + System.lineSeparator());
+						}
+
+						save.append("/" + f.getName() + System.lineSeparator());
+					} else {
+						for (int i = 0; i < l.size(); i++) {
+							save.append("class:" + System.lineSeparator());
+							save.append(
+									saveToText(l.get(i), saveInstance, saveStatic) + System.lineSeparator());
 							save.append("/class" + System.lineSeparator());
 						}
 
 						save.append("/" + f.getName() + System.lineSeparator());
 					}
 				} else {
+					Object value = f.get(val);
+					if (value == null)
+						continue;
 					if (HvlReflectionUtil.isSimple(f.getType())) {
-						save.append(f.getName() + ":" + f.get(val) + System.lineSeparator());
+						save.append(f.getName() + ":" + value + System.lineSeparator());
 					} else {
 						save.append(f.getName() + ":" + System.lineSeparator());
-						save.append(saveToText(f.get(val), saveInstance, saveStatic) + System.lineSeparator());
+						save.append(saveToText(value, saveInstance, saveStatic) + System.lineSeparator());
 						save.append("/" + f.getName() + System.lineSeparator());
 					}
 				}
