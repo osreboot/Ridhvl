@@ -6,6 +6,8 @@ anIntArray:
 3
 4
 5
+9
+-37
 /anIntArray
 aClass:
 aString:Thisisastring
@@ -25,6 +27,7 @@ property:PROPERTIES!
 /nestedClass
 
 /anotherClass
+
 aClassArray:
 class:
 prop:true
@@ -88,4 +91,5 @@ val:didn't...
 
 /class
 /aClassArray
+
 testingStatics:ERMAHGERD STAHTICS!

@@ -100,6 +100,17 @@ public class HvlConfigUtil {
 									mode = 2;
 									lineBuildup = new StringBuilder();
 								}
+							} else if (List.class.isAssignableFrom(fieldType)) {
+								Class<?> listType = HvlReflectionUtil.getGenericTypes(field)[0];
+								if (HvlReflectionUtil.isSimple(listType)) {
+									searchingName = varName;
+									mode = 1;
+									lineBuildup = new StringBuilder();
+								} else {
+									searchingName = varName;
+									mode = 2;
+									lineBuildup = new StringBuilder();
+								}
 							} else {
 								searchingName = varName;
 								mode = 0;
@@ -131,17 +142,31 @@ public class HvlConfigUtil {
 							try {
 								Field arrayField = type.getField(searchingName);
 								String[] arrayParts = lineBuildup.toString().split(System.lineSeparator());
-								Object arr = Array.newInstance(arrayField.getType().getComponentType(),
-										arrayParts.length);
-								for (int i = 0; i < arrayParts.length; i++) {
-									Array.set(arr, i,
-											HvlReflectionUtil
-													.genericParse(
-															HvlReflectionUtil.convertAwayFromPrimitive(
-																	arrayField.getType().getComponentType()),
-															arrayParts[i]));
+
+								if (List.class.isAssignableFrom(arrayField.getType())) {
+									Object uncastList = (arrayField.getType().equals(List.class) ? ArrayList.class
+											: arrayField.getType()).newInstance();
+									@SuppressWarnings("unchecked")
+									List<Object> l = (List<Object>) uncastList;
+									for (int i = 0; i < arrayParts.length; i++) {
+										l.add(HvlReflectionUtil.genericParse(
+												HvlReflectionUtil.convertAwayFromPrimitive(
+														HvlReflectionUtil.getGenericTypes(arrayField)[0]),
+												arrayParts[i]));
+									}
+									arrayField.set(tr, uncastList);
+								} else {
+									Object arr = Array.newInstance(arrayField.getType().getComponentType(),
+											arrayParts.length);
+									for (int i = 0; i < arrayParts.length; i++) {
+										Array.set(arr, i,
+												HvlReflectionUtil.genericParse(
+														HvlReflectionUtil.convertAwayFromPrimitive(
+																arrayField.getType().getComponentType()),
+														arrayParts[i]));
+									}
+									arrayField.set(tr, arr);
 								}
-								arrayField.set(tr, arr);
 							} catch (NoSuchFieldException e) {
 								e.printStackTrace();
 							}
@@ -158,31 +183,58 @@ public class HvlConfigUtil {
 								Field arrayField = type.getField(searchingName);
 								StringBuilder classBuildup = new StringBuilder();
 								int classDepth = 0;
-								List<Object> loaded = new ArrayList<>();
-								for (String customLine : customArraySplit) {
-									if (customLine.equals("class:")) {
-										if (classDepth++ != 0)
-											classBuildup.append(customLine + System.lineSeparator());
-									} else if (customLine.equals("/class")) {
-										classDepth--;
-										if (classDepth == 0) {
-											Object toAdd = loadFromText(arrayField.getType().getComponentType(),
-													classBuildup.toString(), loadInstance, loadStatic);
-											loaded.add(toAdd);
-											classBuildup = new StringBuilder();
+								if (List.class.isAssignableFrom(arrayField.getType())) {
+									Object uncastList = (arrayField.getType().equals(List.class) ? ArrayList.class
+											: arrayField.getType()).newInstance();
+									@SuppressWarnings("unchecked")
+									List<Object> loaded = (List<Object>) uncastList;
+									for (String customLine : customArraySplit) {
+										if (customLine.equals("class:")) {
+											if (classDepth++ != 0)
+												classBuildup.append(customLine + System.lineSeparator());
+										} else if (customLine.equals("/class")) {
+											classDepth--;
+											if (classDepth == 0) {
+												Object toAdd = loadFromText(HvlReflectionUtil.getGenericTypes(arrayField)[0],
+														classBuildup.toString(), loadInstance, loadStatic);
+												loaded.add(toAdd);
+												classBuildup = new StringBuilder();
+											} else {
+												classBuildup.append(customLine + System.lineSeparator());
+											}
 										} else {
 											classBuildup.append(customLine + System.lineSeparator());
 										}
-									} else {
-										classBuildup.append(customLine + System.lineSeparator());
 									}
-								}
+									arrayField.set(tr, uncastList);
+								} else {
+									List<Object> loaded = new ArrayList<>();
+									for (String customLine : customArraySplit) {
+										if (customLine.equals("class:")) {
+											if (classDepth++ != 0)
+												classBuildup.append(customLine + System.lineSeparator());
+										} else if (customLine.equals("/class")) {
+											classDepth--;
+											if (classDepth == 0) {
+												Object toAdd = loadFromText(arrayField.getType().getComponentType(),
+														classBuildup.toString(), loadInstance, loadStatic);
+												loaded.add(toAdd);
+												classBuildup = new StringBuilder();
+											} else {
+												classBuildup.append(customLine + System.lineSeparator());
+											}
+										} else {
+											classBuildup.append(customLine + System.lineSeparator());
+										}
+									}
 
-								Object arr = Array.newInstance(arrayField.getType().getComponentType(), loaded.size());
-								for (int i = 0; i < loaded.size(); i++) {
-									Array.set(arr, i, loaded.get(i));
+									Object arr = Array.newInstance(arrayField.getType().getComponentType(),
+											loaded.size());
+									for (int i = 0; i < loaded.size(); i++) {
+										Array.set(arr, i, loaded.get(i));
+									}
+									arrayField.set(tr, arr);
 								}
-								arrayField.set(tr, arr);
 
 							} catch (NoSuchFieldException e) {
 								e.printStackTrace();
@@ -221,7 +273,7 @@ public class HvlConfigUtil {
 					}
 					save.append(f.getName() + ":" + System.lineSeparator());
 					int arrayLength = Array.getLength(array);
-					
+
 					if (HvlReflectionUtil.isSimple(f.getType().getComponentType())) {
 						for (int i = 0; i < arrayLength; i++) {
 							save.append(Array.get(array, i).toString() + System.lineSeparator());
@@ -240,14 +292,14 @@ public class HvlConfigUtil {
 					}
 				} else if (List.class.isAssignableFrom(f.getType())) {
 					Class<?> listType = HvlReflectionUtil.getGenericTypes(f)[0];
-					
+
 					@SuppressWarnings("unchecked")
 					List<Object> l = (List<Object>) f.get(val);
 					if (l == null) {
 						continue;
 					}
 					save.append(f.getName() + ":" + System.lineSeparator());
-					
+
 					if (HvlReflectionUtil.isSimple(listType)) {
 						for (int i = 0; i < l.size(); i++) {
 							save.append(l.get(i).toString() + System.lineSeparator());
@@ -257,8 +309,7 @@ public class HvlConfigUtil {
 					} else {
 						for (int i = 0; i < l.size(); i++) {
 							save.append("class:" + System.lineSeparator());
-							save.append(
-									saveToText(l.get(i), saveInstance, saveStatic) + System.lineSeparator());
+							save.append(saveToText(l.get(i), saveInstance, saveStatic) + System.lineSeparator());
 							save.append("/class" + System.lineSeparator());
 						}
 
