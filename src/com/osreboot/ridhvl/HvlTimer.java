@@ -78,9 +78,9 @@ public abstract class HvlTimer {
 	}
 	
 	/**
-	 * Gets the total time since the loop started (affected by dilation and starts/stops) (in milliseconds).
+	 * Gets the total time since the loop started (affected by dilation and starts/stops) (in seconds).
 	 * 
-	 * @return The total time since the loop started (in milliseconds).
+	 * @return The total time since the loop started (in seconds).
 	 */
 	public float getTotalTime(){
 		return total;
