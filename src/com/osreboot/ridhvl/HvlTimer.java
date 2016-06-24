@@ -1,6 +1,5 @@
 package com.osreboot.ridhvl;
 
-import org.lwjgl.Sys;
 
 /**
  * This manages the timing of a loop. Once the loop is started, the only escape is to set running to false.
@@ -24,7 +23,7 @@ public abstract class HvlTimer {
 	 */
 	public final void start(){
 		while(running){
-			time = (Sys.getTime()*1000)/Sys.getTimerResolution();
+			time = System.nanoTime()/1000000;
 			delta = Math.min((time - last), maxDelta);
 			last = time;
 			if(delta > 0 && delta < time){
