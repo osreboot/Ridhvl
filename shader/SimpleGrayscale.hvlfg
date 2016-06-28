@@ -1,0 +1,7 @@
+uniform sampler2D texture1;
+
+void main(){
+	vec4 color = texture2D(texture1, gl_TexCoord[0].st);
+	float average = (color.r + color.g + color.b)/3.0;
+	gl_FragColor = vec4(average, average, average, color.a);
+}
