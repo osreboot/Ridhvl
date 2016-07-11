@@ -14,6 +14,7 @@ import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -258,6 +259,138 @@ public class HvlPainter2D {
 
 	public static void hvlRotate(float x, float y, float degrees){
 		HvlSwivel2D.hvlRotate(x, y, degrees);
+	}
+	
+	public static void hvlDrawLinea(float x1, float y1, float x2, float y2, Color c){
+		HvlLinePainter2D.hvlDrawLine(getSnappedX(x1 + (Display.getWidth()/2)), getSnappedY(y1 + (Display.getHeight()/2)), getSnappedX(x2), getSnappedY(y2), c);
+	}
+
+	public static void hvlDrawLinea(float x1, float y1, float x2, float y2, Color c, float width){
+		HvlLinePainter2D.hvlDrawLine(getSnappedX(x1 + (Display.getWidth()/2)), getSnappedY(y1 + (Display.getHeight()/2)), getSnappedX(x2), getSnappedY(y2), c, width);
+	}
+	
+	public static void hvlDrawLineac(float x, float y, float xl, float yl, Color c){
+		HvlLinePainter2D.hvlDrawLinec(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), c);
+	}
+	
+	public static void hvlDrawLineac(float x, float y, float xl, float yl, Color c, float width){
+		HvlLinePainter2D.hvlDrawLinec(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), c, width);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, Texture t){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), t);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), t, c);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), uvx1, uvy1, uvx2, uvy2, t);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), uvx1, uvy1, uvx2, uvy2, t, c);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), renderFrame);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture);
+	}
+	
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture, c);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture, c);
+	}
+
+	public static void hvlDrawQuada(float x, float y, float xl, float yl, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), white512, c);//TODO support more sizes
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, Texture t){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), t);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), t, c);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), uvx1, uvy1, uvx2, uvy2, t);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), uvx1, uvy1, uvx2, uvy2, t, c);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, HvlRenderFrame renderFrame){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), renderFrame);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture);
+	}
+	
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, HvlAnimatedTextureArray texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture, c);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, HvlAnimatedTextureUV texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), texture, c);
+	}
+
+	public static void hvlDrawQuadac(float x, float y, float xl, float yl, Color c){
+		HvlQuadPainter2D.hvlDrawQuadc(getSnappedX(x + (Display.getWidth()/2)), getSnappedY(y + (Display.getHeight()/2)), getSnappedX(xl), getSnappedY(yl), white512, c);//TODO support more sizes
+	}
+	
+	public static void hvlDrawTiledQuada(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t) {
+		hvlDrawTiledQuad(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lrWidth, lrWidth, udHeight, udHeight, format, t);
+	}
+	
+	public static void hvlDrawTiledQuada(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t) {
+		hvlDrawTiledQuad(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lWidth, rWidth, uHeight, dHeight, format, t, Color.white);
+	}
+
+	public static void hvlDrawTiledQuada(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t, Color c) {
+		HvlTiledRectPainter2D.hvlDrawTiledQuad(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lWidth, rWidth, uHeight, dHeight, format, t, c);
+	}
+	
+	public static void hvlDrawTiledQuada(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t, Color c) {
+		hvlDrawTiledQuad(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lrWidth, lrWidth, udHeight, udHeight, format, t, c);
+	}
+
+	public static void hvlDrawTiledQuadac(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t) {
+		hvlDrawTiledQuadc(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lrWidth, lrWidth, udHeight, udHeight, format, t);
+	}
+	
+	public static void hvlDrawTiledQuadac(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t) {
+		hvlDrawTiledQuadc(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lWidth, rWidth, uHeight, dHeight, format, t, Color.white);
+	}
+
+	public static void hvlDrawTiledQuadac(float x, float y, float w, float h, float lWidth, float rWidth, float uHeight, float dHeight, String format, Texture t, Color c) {
+		hvlDrawTiledQuad(x - (w / 2) + (Display.getWidth()/2), y - (h / 2) + (Display.getHeight()/2), w, h, lWidth, rWidth, uHeight, dHeight, format, t, c);
+	}
+	
+	public static void hvlDrawTiledQuadac(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t, Color c) {
+		hvlDrawTiledQuadc(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lrWidth, lrWidth, udHeight, udHeight, format, t, c);
+	}
+
+	public static void hvlRotatea(float x, float y, float degrees){
+		HvlSwivel2D.hvlRotate(x + (Display.getWidth()/2), y + (Display.getHeight()/2), degrees);
 	}
 
 	public static void hvlResetRotation(){
