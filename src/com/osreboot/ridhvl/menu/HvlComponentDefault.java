@@ -7,6 +7,14 @@ public class HvlComponentDefault {
 	
 	private static Map<Class<? extends HvlComponent>, HvlComponent> defaults = new HashMap<>();
 	
+	public static void setCompleteDefaults(Map<Class<? extends HvlComponent>, HvlComponent> map){
+		defaults = map;
+	}
+	
+	public static Map<Class<? extends HvlComponent>, HvlComponent> getCompleteDefaults(){
+		return defaults;
+	}
+	
 	public static void setDefault(HvlComponent component)
 	{
 		defaults.put(component.getClass(), component);
