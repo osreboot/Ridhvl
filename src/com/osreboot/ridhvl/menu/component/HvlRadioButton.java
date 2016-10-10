@@ -166,7 +166,15 @@ public class HvlRadioButton extends HvlComponent {
 
 	@Override
 	public void draw(float delta) {
-		if (getChecked()) {
+		if(isBeingPressed(0)){//TODO this should be done more cleanly in a future refactor
+			if(getChecked()){
+				if (onDrawable != null)
+					onDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			}else{
+				if (offDrawable != null)
+					offDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
+			}
+		}else if (getChecked()) {
 			if (isHovering()) {
 				if (onHoverDrawable != null)
 					onHoverDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
