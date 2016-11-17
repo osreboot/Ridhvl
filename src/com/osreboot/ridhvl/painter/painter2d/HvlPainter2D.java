@@ -18,6 +18,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.HvlTextureUtil;
 import com.osreboot.ridhvl.action.HvlAction0;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
@@ -389,6 +390,55 @@ public class HvlPainter2D {
 		hvlDrawTiledQuadc(x + (Display.getWidth()/2), y + (Display.getHeight()/2), w, h, lrWidth, lrWidth, udHeight, udHeight, format, t, c);
 	}
 
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, Texture t){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, t);
+	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, t, c);
+	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, uvx1, uvy1, uvx2, uvy2, t);
+	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, uvx1, uvy1, uvx2, uvy2, t, c);
+	}
+	
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlCoord uv1, HvlCoord uv2, HvlCoord uv3, HvlCoord uv4, Texture t){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, uv1, uv2, uv3, uv4, t);
+	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlCoord uv1, HvlCoord uv2, HvlCoord uv3, HvlCoord uv4, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, uv1, uv2, uv3, uv4, t, c);
+	}
+
+	//TODO
+//	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlRenderFrame renderFrame){
+//		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, renderFrame);
+//	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureArray texture){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, texture);
+	}
+	
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureArray texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, texture, c);
+	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureUV texture){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, texture);
+	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureUV texture, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, texture, c);
+	}
+
+	public static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, Color c){
+		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, white512, c);//TODO support more sizes
+	}
+	
 	public static void hvlRotatea(float x, float y, float degrees){
 		HvlSwivel2D.hvlRotate(x + (Display.getWidth()/2), y + (Display.getHeight()/2), degrees);
 	}

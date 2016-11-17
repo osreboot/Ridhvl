@@ -7,6 +7,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import com.osreboot.ridhvl.HvlCoord;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.loader.HvlTextureLoader;
 import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
@@ -86,6 +87,8 @@ public class Template2DBasicTest extends HvlTemplate2D{
 		hvlRotate(300f, 300f, gradient/1280f*360f);
 		hvlDrawQuad(250, 250, 100, 100, Color.white);
 		hvlResetRotation();
+		
+		hvlDrawQuad(new HvlCoord(100, 100), new HvlCoord(200, 100), new HvlCoord(250, 300), new HvlCoord(150, 300), Color.yellow);
 
 		String text = "hello hi\nhows it going?\nits going good.\nniiiice!";
 		font.drawWordc(text, Display.getWidth() / 2, Display.getHeight() / 2, Color.white, 1f, 1f, 0.0f);
