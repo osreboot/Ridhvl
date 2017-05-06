@@ -7,10 +7,54 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlFontUtil;
+import com.osreboot.ridhvl.action.HvlAction0;
+import com.osreboot.ridhvl.template.HvlChronology;
+import com.osreboot.ridhvl.template.HvlChronologyInitialize;
 
 public class HvlFontPainter2D {
+	
+	public static class Preset {
+		
+		public static final int INIT_CHRONOLOGY = HvlChronology.INIT_CHRONOLOGY_EARLY + 1;
 
-	public class Preset {
+		@HvlChronologyInitialize(chronology = INIT_CHRONOLOGY)
+		public static final HvlAction0 INIT_ACTION = new HvlAction0(){
+			@Override
+			public void run(){
+				FP_INOFFICIAL.charEndUVs.put('1', 32f/96f);
+				FP_INOFFICIAL.charEndUVs.put('\'', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put('"', 40f/96f);
+				FP_INOFFICIAL.charEndUVs.put(')', 32f/96f);
+				FP_INOFFICIAL.charEndUVs.put('(', 32f/96f);
+				FP_INOFFICIAL.charEndUVs.put(']', 32f/96f);
+				FP_INOFFICIAL.charEndUVs.put('[', 32f/96f);
+				FP_INOFFICIAL.charEndUVs.put('?', 64f/96f);
+				FP_INOFFICIAL.charEndUVs.put('!', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put('.', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put(',', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put('*', 40f/96f);
+				FP_INOFFICIAL.charEndUVs.put('^', 64f/96f);
+				FP_INOFFICIAL.charEndUVs.put('-', 80f/96f);
+				FP_INOFFICIAL.charEndUVs.put('+', 80f/96f);
+				FP_INOFFICIAL.charEndUVs.put('=', 80f/96f);
+				FP_INOFFICIAL.charEndUVs.put('|', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put(';', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put(':', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put('>', 70f/96f);
+				FP_INOFFICIAL.charEndUVs.put('<', 70f/96f);
+				FP_INOFFICIAL.charEndUVs.put('f', 48f/96f);
+				FP_INOFFICIAL.charEndUVs.put('i', 16f/96f);
+				FP_INOFFICIAL.charEndUVs.put('j', 48f/96f);
+				FP_INOFFICIAL.charEndUVs.put('k', 80f/96f);
+				FP_INOFFICIAL.charEndUVs.put('l', 32f/96f);
+				FP_INOFFICIAL.charEndUVs.put('r', 48f/96f);
+				FP_INOFFICIAL.charEndUVs.put('t', 48f/96f);
+			}
+		};
+		
+		public static final Preset FP_INOFFICIAL = new Preset(HvlFontUtil.COMPUTATIONALCASE, 96, 192, 21, 48, new HashMap<Character, Float>(), new HashMap<Character, Float>());
+		//TODO global font offset (for chars extending below write line, etc.)
+		
 		char[] chars;
 		float charWidth, charHeight;
 		int charsAcross;
@@ -53,6 +97,10 @@ public class HvlFontPainter2D {
 			this.spaceSize = charWidth;
 			this.charStartUVs = charStartUVs;
 			this.charEndUVs = charEndUVs;
+			for (char c : chars) {
+				if(!charStartUVs.containsKey(c)) charStartUVs.put(c, 0.0f);
+				if(!charEndUVs.containsKey(c)) charEndUVs.put(c, 1.0f);
+			}
 		}
 
 		public Preset(char[] chars, float charWidth, float charHeight, int charsAcross, float spaceSize, Map<Character, Float> charStartUVs, Map<Character, Float> charEndUVs) {
@@ -63,6 +111,10 @@ public class HvlFontPainter2D {
 			this.spaceSize = spaceSize;
 			this.charStartUVs = charStartUVs;
 			this.charEndUVs = charEndUVs;
+			for (char c : chars) {
+				if(!charStartUVs.containsKey(c)) charStartUVs.put(c, 0.0f);
+				if(!charEndUVs.containsKey(c)) charEndUVs.put(c, 1.0f);
+			}
 		}
 
 		public char[] getChars() {

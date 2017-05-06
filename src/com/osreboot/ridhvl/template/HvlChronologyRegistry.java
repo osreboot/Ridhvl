@@ -10,6 +10,7 @@ import com.osreboot.ridhvl.menu.HvlMenuDJ;
 import com.osreboot.ridhvl.menu.HvlMenuInteractor;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlCursor;
+import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 
 public class HvlChronologyRegistry {
 
@@ -24,6 +25,7 @@ public class HvlChronologyRegistry {
 		HvlChronology.registerChronology(HvlControllerProfile.class);
 		HvlChronology.registerChronology(HvlController.class);
 		HvlChronology.registerChronology(HvlMenuInteractor.class);
+		HvlChronology.registerChronology(HvlFontPainter2D.Preset.class);
 	}
 	
 }
