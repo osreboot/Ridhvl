@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glColor4f;
@@ -198,6 +199,13 @@ class HvlQuadPainter2D {
 		glColor4f(c.r, c.g, c.b, c.a);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(v1, v2, v3, v4, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
+	}
+	
+	public static void hvlDrawPolygon(float x, float y, HvlCoord[] vertices, Color c){
+		glColor4f(c.r, c.g, c.b, c.a);
+		glBegin(GL_TRIANGLE_FAN);
+		for(int i = 0; i < vertices.length; i++) glVertex2f(vertices[i].x + x, vertices[i].y + y);
+		glEnd();
 	}
 	
 	private static void constructTexturedQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2){

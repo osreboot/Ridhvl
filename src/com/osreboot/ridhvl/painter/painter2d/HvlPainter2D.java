@@ -439,6 +439,10 @@ public class HvlPainter2D {
 		HvlQuadPainter2D.hvlDrawQuad(v1, v2, v3, v4, white512, c);//TODO support more sizes
 	}
 	
+	public static void hvlDrawPolygon(float x, float y, HvlCoord[] vertices, Color c){
+		HvlQuadPainter2D.hvlDrawPolygon(x, y, vertices, c);
+	}
+	
 	public static void hvlRotatea(float x, float y, float degrees){
 		HvlSwivel2D.hvlRotate(x + (Display.getWidth()/2), y + (Display.getHeight()/2), degrees);
 	}

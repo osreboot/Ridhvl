@@ -8,6 +8,11 @@ public class HvlCoord
 		
 	}
 	
+	public HvlCoord(HvlCoord cArg) {
+		this.x = cArg.x;
+		this.y = cArg.y;
+	}
+	
 	public HvlCoord(float xArg, float yArg) {
 		this.x = xArg;
 		this.y = yArg;
@@ -164,5 +169,12 @@ public class HvlCoord
 	
 	public HvlCoord clone() {
 		return new HvlCoord(x, y);
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj != null && obj instanceof HvlCoord){
+			return ((HvlCoord)obj).x == x && ((HvlCoord)obj).y == y;
+		}else return false;
 	}
 }

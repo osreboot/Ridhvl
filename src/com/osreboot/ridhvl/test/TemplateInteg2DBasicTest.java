@@ -13,6 +13,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlFontPainter2D;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class TemplateInteg2DBasicTest extends HvlTemplateInteg2D {
+	
 	public TemplateInteg2DBasicTest() {
 		super(60, 1280, 720, "Ridhvl TemplateInteg2D Test", new HvlDisplayModeDefault());
 	}
