@@ -3,7 +3,21 @@ package com.osreboot.ridhvl;
 public class HvlMatrix2D {
 
 	private HvlCoord fv1, fv2, fv3, fv4, tv1, tv2, tv3, tv4;
+	private float verticalError;
 
+	public HvlMatrix2D(HvlCoord fv1Arg, HvlCoord fv2Arg,HvlCoord fv3Arg, HvlCoord fv4Arg, 
+			HvlCoord tv1Arg, HvlCoord tv2Arg,HvlCoord tv3Arg, HvlCoord tv4Arg, float verticalErrorArg){
+		fv1 = fv1Arg;
+		fv2 = fv2Arg;
+		fv3 = fv3Arg;
+		fv4 = fv4Arg;
+		tv1 = tv1Arg;
+		tv2 = tv2Arg;
+		tv3 = tv3Arg;
+		tv4 = tv4Arg;
+		verticalError = verticalErrorArg;
+	}
+	
 	public HvlMatrix2D(HvlCoord fv1Arg, HvlCoord fv2Arg,HvlCoord fv3Arg, HvlCoord fv4Arg, 
 			HvlCoord tv1Arg, HvlCoord tv2Arg,HvlCoord tv3Arg, HvlCoord tv4Arg){
 		fv1 = fv1Arg;
@@ -14,6 +28,15 @@ public class HvlMatrix2D {
 		tv2 = tv2Arg;
 		tv3 = tv3Arg;
 		tv4 = tv4Arg;
+		verticalError = 0.01f;
+	}
+
+	public float getVerticalError(){
+		return verticalError;
+	}
+
+	public void setVerticalError(float verticalErrorArg){
+		verticalError = verticalErrorArg;
 	}
 
 	public HvlCoord map(HvlCoord arg){
@@ -55,11 +78,11 @@ public class HvlMatrix2D {
 	private HvlCoord intersection(HvlCoord s1, HvlCoord e1, HvlCoord s2, HvlCoord e2){
 		float m1 = (s1.y - e1.y) / (s1.x - e1.x);//line 1 slope
 		float b1 = -(m1 * s1.x) + s1.y;//line 1 y-intercept
-		boolean m1vert = Math.abs(s1.x - e1.x) < 0.01f;
+		boolean m1vert = Math.abs(s1.x - e1.x) < verticalError;
 
 		float m2 = (s2.y - e2.y) / (s2.x - e2.x);//line 2 slope
 		float b2 = -(m2 * s2.x) + s2.y;//line 2 y-intercept
-		boolean m2vert = Math.abs(s2.x - e2.x) < 0.01f;
+		boolean m2vert = Math.abs(s2.x - e2.x) < verticalError;
 
 		if(m1 == m2) return null; else{
 			
