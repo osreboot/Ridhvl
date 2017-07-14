@@ -19,7 +19,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
@@ -134,37 +134,37 @@ class HvlQuadPainter2D {
 		constructTexturedQuad(x - (xl/2), y - (yl/2), xl, yl, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
 	}
 	
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, Texture t){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, Texture t){
 		glColor4f(1, 1, 1, 1);
 		t.bind();
 		constructTexturedQuad(v1, v2, v3, v4, 0, 0, t.getWidth(), t.getHeight());
 	}
 
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, Texture t, Color c){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, Texture t, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		constructTexturedQuad(v1, v2, v3, v4, 0, 0, t.getWidth(), t.getHeight());
 	}
 
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, float uvx1, float uvy1, float uvx2, float uvy2, Texture t){
 		glColor4f(1, 1, 1, 1);
 		t.bind();
 		constructTexturedQuad(v1, v2, v3, v4, uvx1, uvy1, uvx2, uvy2);
 	}
 
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, float uvx1, float uvy1, float uvx2, float uvy2, Texture t, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		constructTexturedQuad(v1, v2, v3, v4, uvx1, uvy1, uvx2, uvy2);
 	}
 	
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlCoord uv1, HvlCoord uv2, HvlCoord uv3, HvlCoord uv4, Texture t){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, HvlCoord2D uv1, HvlCoord2D uv2, HvlCoord2D uv3, HvlCoord2D uv4, Texture t){
 		glColor4f(1, 1, 1, 1);
 		t.bind();
 		constructTexturedQuad(v1, v2, v3, v4, uv1, uv2, uv3, uv4);
 	}
 
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlCoord uv1, HvlCoord uv2, HvlCoord uv3, HvlCoord uv4, Texture t, Color c){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, HvlCoord2D uv1, HvlCoord2D uv2, HvlCoord2D uv3, HvlCoord2D uv4, Texture t, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		constructTexturedQuad(v1, v2, v3, v4, uv1, uv2, uv3, uv4);
@@ -177,31 +177,31 @@ class HvlQuadPainter2D {
 //		constructTexturedQuad(x, y + yl, xl, -yl, 0, 0, 1, 1);
 //	}
 
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureArray texture){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, HvlAnimatedTextureArray texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(v1, v2, v3, v4, 0, 0, texture.getCurrentTexture().getWidth(), texture.getCurrentTexture().getHeight());
 	}
 	
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureArray texture, Color c){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, HvlAnimatedTextureArray texture, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(v1, v2, v3, v4, 0, 0, texture.getCurrentTexture().getWidth(), texture.getCurrentTexture().getHeight());
 	}
 
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureUV texture){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, HvlAnimatedTextureUV texture){
 		glColor4f(1, 1, 1, 1);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(v1, v2, v3, v4, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
 	}
 	
-	protected static void hvlDrawQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlAnimatedTextureUV texture, Color c){
+	protected static void hvlDrawQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, HvlAnimatedTextureUV texture, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		texture.getCurrentTexture().bind();
 		constructTexturedQuad(v1, v2, v3, v4, texture.getCurrentUVX(), texture.getCurrentUVY(), texture.getCurrentUVX() + texture.getFrameWidth(), texture.getCurrentUVY() + texture.getFrameHeight());
 	}
 	
-	public static void hvlDrawPolygon(float x, float y, HvlCoord[] vertices, Color c){
+	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, Color c){
 		glColor4f(c.r, c.g, c.b, c.a);
 		glBegin(GL_TRIANGLE_FAN);
 		for(int i = 0; i < vertices.length; i++) glVertex2f(vertices[i].x + x, vertices[i].y + y);
@@ -228,7 +228,7 @@ class HvlQuadPainter2D {
 		glEnd();
 	}
 	
-	private static void constructTexturedQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, float uvx1, float uvy1, float uvx2, float uvy2){
+	private static void constructTexturedQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, float uvx1, float uvy1, float uvx2, float uvy2){
 		if(HvlPainter2D.FLAG_TEXMAGBLUR.isEnabled()){
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -248,7 +248,7 @@ class HvlQuadPainter2D {
 		glEnd();
 	}
 	
-	private static void constructTexturedQuad(HvlCoord v1, HvlCoord v2, HvlCoord v3, HvlCoord v4, HvlCoord uv1, HvlCoord uv2, HvlCoord uv3, HvlCoord uv4){
+	private static void constructTexturedQuad(HvlCoord2D v1, HvlCoord2D v2, HvlCoord2D v3, HvlCoord2D v4, HvlCoord2D uv1, HvlCoord2D uv2, HvlCoord2D uv3, HvlCoord2D uv4){
 		if(HvlPainter2D.FLAG_TEXMAGBLUR.isEnabled()){
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

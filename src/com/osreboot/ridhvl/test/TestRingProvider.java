@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.test;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.particle.collection.HvlParticlePositionProvider;
 import com.osreboot.ridhvl.particle.collection.HvlSimpleParticleSystem;
@@ -14,9 +14,9 @@ public class TestRingProvider implements HvlParticlePositionProvider {
 	}
 
 	@Override
-	public HvlCoord getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
+	public HvlCoord2D getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
 		float angle = HvlMath.randomFloatBetween(0, 2.0f * (float)Math.PI);
-		return new HvlCoord(spawnerArg.getX() + ((float) Math.cos(angle) * radius), spawnerArg.getY() + ((float) Math.sin(angle) * radius));
+		return new HvlCoord2D(spawnerArg.getX() + ((float) Math.cos(angle) * radius), spawnerArg.getY() + ((float) Math.sin(angle) * radius));
 	}
 
 	public float getRadius() {

@@ -2,11 +2,30 @@ package com.osreboot.ridhvl;
 
 public class HvlMatrix2D {
 
-	private HvlCoord fv1, fv2, fv3, fv4, tv1, tv2, tv3, tv4;
+	public static HvlMatrix2D createTranslationMatrix(HvlCoord2D c){
+		return new HvlMatrix2D(new HvlCoord2D(0, 0), new HvlCoord2D(1, 0), new HvlCoord2D(1, 1), new HvlCoord2D(0, 1),
+				new HvlCoord2D(c.x, c.y), new HvlCoord2D(c.x + 1, c.y), new HvlCoord2D(c.x + 1, c.y + 1), new HvlCoord2D(c.x, c.y + 1));
+	}
+	
+	public static HvlMatrix2D createRotationMatrix(float rotation){
+		return new HvlMatrix2D(new HvlCoord2D(-0.5f, -0.5f), new HvlCoord2D(0.5f, -0.5f), new HvlCoord2D(0.5f, 0.5f), new HvlCoord2D(-0.5f, 0.5f),
+				new HvlCoord2D((-0.5f*(float)Math.cos(rotation))-(-0.5f*(float)Math.sin(rotation)),
+						(-0.5f*(float)Math.sin(rotation))+(-0.5f*(float)Math.cos(rotation))), 
+				new HvlCoord2D((0.5f*(float)Math.cos(rotation))-(-0.5f*(float)Math.sin(rotation)),
+						(0.5f*(float)Math.sin(rotation))+(-0.5f*(float)Math.cos(rotation))), 
+				new HvlCoord2D((0.5f*(float)Math.cos(rotation))-(0.5f*(float)Math.sin(rotation)),
+						(0.5f*(float)Math.sin(rotation))+(0.5f*(float)Math.cos(rotation))), 
+				new HvlCoord2D((-0.5f*(float)Math.cos(rotation))-(0.5f*(float)Math.sin(rotation)),
+						(-0.5f*(float)Math.sin(rotation))+(0.5f*(float)Math.cos(rotation))));
+	}
+	
+	//TODO rotation matrix
+	
+	private HvlCoord2D fv1, fv2, fv3, fv4, tv1, tv2, tv3, tv4;
 	private float verticalError;
 
-	public HvlMatrix2D(HvlCoord fv1Arg, HvlCoord fv2Arg,HvlCoord fv3Arg, HvlCoord fv4Arg, 
-			HvlCoord tv1Arg, HvlCoord tv2Arg,HvlCoord tv3Arg, HvlCoord tv4Arg, float verticalErrorArg){
+	public HvlMatrix2D(HvlCoord2D fv1Arg, HvlCoord2D fv2Arg,HvlCoord2D fv3Arg, HvlCoord2D fv4Arg, 
+			HvlCoord2D tv1Arg, HvlCoord2D tv2Arg,HvlCoord2D tv3Arg, HvlCoord2D tv4Arg, float verticalErrorArg){
 		fv1 = fv1Arg;
 		fv2 = fv2Arg;
 		fv3 = fv3Arg;
@@ -18,8 +37,8 @@ public class HvlMatrix2D {
 		verticalError = verticalErrorArg;
 	}
 	
-	public HvlMatrix2D(HvlCoord fv1Arg, HvlCoord fv2Arg,HvlCoord fv3Arg, HvlCoord fv4Arg, 
-			HvlCoord tv1Arg, HvlCoord tv2Arg,HvlCoord tv3Arg, HvlCoord tv4Arg){
+	public HvlMatrix2D(HvlCoord2D fv1Arg, HvlCoord2D fv2Arg,HvlCoord2D fv3Arg, HvlCoord2D fv4Arg, 
+			HvlCoord2D tv1Arg, HvlCoord2D tv2Arg,HvlCoord2D tv3Arg, HvlCoord2D tv4Arg){
 		fv1 = fv1Arg;
 		fv2 = fv2Arg;
 		fv3 = fv3Arg;
@@ -39,43 +58,43 @@ public class HvlMatrix2D {
 		verticalError = verticalErrorArg;
 	}
 
-	public HvlCoord map(HvlCoord arg){
+	public HvlCoord2D map(HvlCoord2D arg){
 		float fdeg12 = fullDegrees(arg, fv1) - fullDegrees(fv2, fv1);
 		if(Float.isNaN(fdeg12)) fdeg12 = 0;
 		float fdis12 = (float)Math.cos(fdeg12) * HvlMath.distance(fv1, arg);
-		HvlCoord tint12 = HvlMath.lerp(tv1, tv2, fdis12/HvlMath.distance(fv1, fv2));
+		HvlCoord2D tint12 = HvlMath.lerp(tv1, tv2, fdis12/HvlMath.distance(fv1, fv2));
 
 		float fdeg43 = fullDegrees(arg, fv4) - fullDegrees(fv3, fv4);
 		if(Float.isNaN(fdeg43)) fdeg43 = 0;
 		float fdis43 = (float)Math.cos(fdeg43) * HvlMath.distance(fv4, arg);
-		HvlCoord tint43 = HvlMath.lerp(tv4, tv3, fdis43/HvlMath.distance(fv4, fv3));
+		HvlCoord2D tint43 = HvlMath.lerp(tv4, tv3, fdis43/HvlMath.distance(fv4, fv3));
 
 		float fdeg14 = fullDegrees(arg, fv1) - fullDegrees(fv4, fv1);
 		if(Float.isNaN(fdeg14)) fdeg14 = 0;
 		float fdis14 = (float)Math.cos(fdeg14) * HvlMath.distance(fv1, arg);
-		HvlCoord tint14 = HvlMath.lerp(tv1, tv4, fdis14/HvlMath.distance(fv1, fv4));
+		HvlCoord2D tint14 = HvlMath.lerp(tv1, tv4, fdis14/HvlMath.distance(fv1, fv4));
 
 		float fdeg23 = fullDegrees(arg, fv2) - fullDegrees(fv3, fv2);
 		if(Float.isNaN(fdeg23)) fdeg23 = 0;
 		float fdis23 = (float)Math.cos(fdeg23) * HvlMath.distance(fv2, arg);
-		HvlCoord tint23 = HvlMath.lerp(tv2, tv3, fdis23/HvlMath.distance(fv2, fv3));
+		HvlCoord2D tint23 = HvlMath.lerp(tv2, tv3, fdis23/HvlMath.distance(fv2, fv3));
 
 		//hvlDrawQuadc(tint12.x, tint12.y, 10, 10, Color.blue);
 		//hvlDrawQuadc(tint43.x, tint43.y, 10, 10, Color.red);
 		//hvlDrawQuadc(tint14.x, tint14.y, 10, 10, Color.blue);
 		//hvlDrawQuadc(tint23.x, tint23.y, 10, 10, Color.red);
-		HvlCoord t = intersection(tint12, tint43, tint14, tint23);
+		HvlCoord2D t = intersection(tint12, tint43, tint14, tint23);
 
-		return new HvlCoord(t);
+		return new HvlCoord2D(t);
 	}
 
-	private float fullDegrees(HvlCoord arg1, HvlCoord arg2){
+	private float fullDegrees(HvlCoord2D arg1, HvlCoord2D arg2){
 		float deg = (float)Math.atan((arg1.y - arg2.y) / (arg1.x - arg2.x));
 		if(arg1.x < arg2.x) deg += Math.PI;
 		return deg;
 	}
 
-	private HvlCoord intersection(HvlCoord s1, HvlCoord e1, HvlCoord s2, HvlCoord e2){
+	private HvlCoord2D intersection(HvlCoord2D s1, HvlCoord2D e1, HvlCoord2D s2, HvlCoord2D e2){
 		float m1 = (s1.y - e1.y) / (s1.x - e1.x);//line 1 slope
 		float b1 = -(m1 * s1.x) + s1.y;//line 1 y-intercept
 		boolean m1vert = Math.abs(s1.x - e1.x) < verticalError;
@@ -97,7 +116,7 @@ public class HvlMatrix2D {
 				ty = (m1 * s2.x) + b1;
 			}
 			
-			return new HvlCoord(tx, ty);
+			return new HvlCoord2D(tx, ty);
 		}
 	}
 

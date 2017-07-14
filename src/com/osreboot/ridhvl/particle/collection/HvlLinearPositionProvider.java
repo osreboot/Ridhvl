@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.particle.collection;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 
 public class HvlLinearPositionProvider implements HvlParticlePositionProvider {
@@ -16,10 +16,10 @@ public class HvlLinearPositionProvider implements HvlParticlePositionProvider {
 
 	// TODO: this is relative to the original spawner, is this what we want?
 	@Override
-	public HvlCoord getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
+	public HvlCoord2D getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
 		float lerpValue = HvlMath.randomFloatBetween(0.0f, 1.0f);
 		
-		return new HvlCoord(spawnerArg.getX() + HvlMath.lerp(startX, endX, lerpValue), spawnerArg.getY() + HvlMath.lerp(startY, endY, lerpValue));
+		return new HvlCoord2D(spawnerArg.getX() + HvlMath.lerp(startX, endX, lerpValue), spawnerArg.getY() + HvlMath.lerp(startY, endY, lerpValue));
 	}
 
 	public float getStartX() {

@@ -3,7 +3,7 @@ package com.osreboot.ridhvl.map;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 
 /**
  * Represents an entity in a tilemap. This is essentially an object with a
@@ -11,7 +11,7 @@ import com.osreboot.ridhvl.HvlCoord;
  */
 public abstract class HvlEntity {
 
-	private HvlCoord pos;
+	private HvlCoord2D pos;
 
 	private HvlMap map;
 
@@ -24,7 +24,7 @@ public abstract class HvlEntity {
 	 * @param mapArg The map that owns this entity (that it was added to)
 	 */
 	public HvlEntity(float xArg, float yArg, HvlMap mapArg) {
-		pos = new HvlCoord(xArg, yArg);
+		pos = new HvlCoord2D(xArg, yArg);
 		map = mapArg;
 	}
 

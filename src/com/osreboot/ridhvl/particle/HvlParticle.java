@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.particle;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 
 /**
  * This represents the base of a particle, and is designed to be expanded upon.
@@ -14,7 +14,7 @@ public abstract class HvlParticle {
 	 */
 	private float timeAlive;
 
-	private HvlCoord pos;
+	private HvlCoord2D pos;
 
 	/**
 	 * The particle system that contains this particle.
@@ -34,7 +34,7 @@ public abstract class HvlParticle {
 	 */
 	public HvlParticle(float xArg, float yArg, HvlParticleSystem parentArg) {
 		this.parent = parentArg;
-		this.pos = new HvlCoord(xArg, yArg);
+		this.pos = new HvlCoord2D(xArg, yArg);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public abstract class HvlParticle {
 	 *            The particle system that contains this particle (the one that
 	 *            spawned it).
 	 */
-	public HvlParticle(HvlCoord posArg, HvlParticleSystem parentArg) {
+	public HvlParticle(HvlCoord2D posArg, HvlParticleSystem parentArg) {
 		this.pos = posArg;
 		this.parent = parentArg;
 	}
@@ -122,7 +122,7 @@ public abstract class HvlParticle {
 	 * 
 	 * @return The position of this particle.
 	 */
-	public HvlCoord getPosition() {
+	public HvlCoord2D getPosition() {
 		return pos;
 	}
 
@@ -145,7 +145,7 @@ public abstract class HvlParticle {
 	 * @param position
 	 *            The new position of this particle.
 	 */
-	public void setPosition(HvlCoord position) {
+	public void setPosition(HvlCoord2D position) {
 		pos = position;
 	}
 

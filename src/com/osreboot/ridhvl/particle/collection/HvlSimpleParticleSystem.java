@@ -7,7 +7,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import com.osreboot.ridhvl.HvlColorUtil;
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
@@ -80,7 +80,7 @@ public class HvlSimpleParticleSystem extends HvlParticleSystem {
 
 	@Override
 	public HvlParticle generateParticle() {
-		HvlCoord position = positionProvider.getParticlePosition(this);
+		HvlCoord2D position = positionProvider.getParticlePosition(this);
 		float xVel = HvlMath.randomFloatBetween(minXVel, maxXVel);
 		float yVel = HvlMath.randomFloatBetween(minYVel, maxYVel);
 		float rot = HvlMath.randomFloatBetween(minRot, maxRot);

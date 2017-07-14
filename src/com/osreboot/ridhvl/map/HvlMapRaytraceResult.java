@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.map;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 
 /**
@@ -63,8 +63,8 @@ public class HvlMapRaytraceResult implements Comparable<HvlMapRaytraceResult>{
 	}
 
 	private Object source;
-	private HvlCoord location;
-	private HvlCoord traceStart, traceEnd;
+	private HvlCoord2D location;
+	private HvlCoord2D traceStart, traceEnd;
 
 	/**
 	 * A basic constructor.
@@ -73,7 +73,7 @@ public class HvlMapRaytraceResult implements Comparable<HvlMapRaytraceResult>{
 	 * @param traceStart The starting point of the raytrace.
 	 * @param traceEnd The ending point of the raytrace.
 	 */
-	public HvlMapRaytraceResult(Object source, HvlCoord location, HvlCoord traceStart, HvlCoord traceEnd) {
+	public HvlMapRaytraceResult(Object source, HvlCoord2D location, HvlCoord2D traceStart, HvlCoord2D traceEnd) {
 		super();
 		this.source = source;
 		this.location = location;
@@ -93,7 +93,7 @@ public class HvlMapRaytraceResult implements Comparable<HvlMapRaytraceResult>{
 	 * Gets the specific location that the raytrace hit.
 	 * @return The specific location that the raytrace hit.
 	 */
-	public HvlCoord getLocation() {
+	public HvlCoord2D getLocation() {
 		return location;
 	}
 
@@ -101,7 +101,7 @@ public class HvlMapRaytraceResult implements Comparable<HvlMapRaytraceResult>{
 	 * Gets the starting location of the raytrace.
 	 * @return The starting location of the raytrace.
 	 */
-	public HvlCoord getTraceStart() {
+	public HvlCoord2D getTraceStart() {
 		return traceStart;
 	}
 
@@ -109,7 +109,7 @@ public class HvlMapRaytraceResult implements Comparable<HvlMapRaytraceResult>{
 	 * Gets the ending location of the raytrace.
 	 * @return The ending location of the raytrace.
 	 */
-	public HvlCoord getTraceEnd() {
+	public HvlCoord2D getTraceEnd() {
 		return traceEnd;
 	}
 

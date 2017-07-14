@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.particle.collection;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 
 public class HvlRectanglePositionProvider implements HvlParticlePositionProvider {
@@ -15,8 +15,8 @@ public class HvlRectanglePositionProvider implements HvlParticlePositionProvider
 	}
 
 	@Override
-	public HvlCoord getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
-		return new HvlCoord(HvlMath.randomFloatBetween(left, right), HvlMath.randomFloatBetween(top, bottom)).add(spawnerArg.getX(), spawnerArg.getY());
+	public HvlCoord2D getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
+		return new HvlCoord2D(HvlMath.randomFloatBetween(left, right), HvlMath.randomFloatBetween(top, bottom)).add(spawnerArg.getX(), spawnerArg.getY());
 	}
 
 	public float getLeft() {

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.particle.correlation.HvlParticleCorrelator;
 
@@ -35,7 +35,7 @@ public abstract class HvlParticleSystem {
 	private float minTimeToSpawn, maxTimeToSpawn;
 	private float timeToSpawn, spawnTimer;
 	private boolean spawnOnTimer;
-	private HvlCoord pos;
+	private HvlCoord2D pos;
 
 	/**
 	 * A basic constructor with the minimal information to function.
@@ -51,7 +51,7 @@ public abstract class HvlParticleSystem {
 		maxParticlesPerSpawn = 1;
 		particles = new LinkedList<HvlParticle>();
 		spawnOnTimer = true;
-		pos = new HvlCoord(xArg, yArg);
+		pos = new HvlCoord2D(xArg, yArg);
 		correlators = new LinkedList<>();
 	}
 
@@ -61,7 +61,7 @@ public abstract class HvlParticleSystem {
 	 * @param posArg
 	 *            The position of the particle system.
 	 */
-	public HvlParticleSystem(HvlCoord posArg) {
+	public HvlParticleSystem(HvlCoord2D posArg) {
 		maxParticles = -1; // Unlimited by default
 		minParticlesPerSpawn = 1;
 		maxParticlesPerSpawn = 1;
@@ -333,7 +333,7 @@ public abstract class HvlParticleSystem {
 	 * 
 	 * @return The position of this particle system.
 	 */
-	public HvlCoord getPosition() {
+	public HvlCoord2D getPosition() {
 		return pos;
 	}
 
@@ -356,7 +356,7 @@ public abstract class HvlParticleSystem {
 	 * @param pos
 	 *            The new position of this particle system.
 	 */
-	public void setPosition(HvlCoord pos) {
+	public void setPosition(HvlCoord2D pos) {
 		this.pos = pos;
 	}
 

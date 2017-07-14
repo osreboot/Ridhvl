@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.input.HvlInputSeriesAction;
 import com.osreboot.ridhvl.map.HvlEntity;
 import com.osreboot.ridhvl.map.HvlMap;
@@ -50,11 +50,11 @@ public class TestTilemapEntity extends HvlEntity {
 		float xMotion = HvlInputSeriesAction.HORIZONTAL.getCurrentOutput();
 		float yMotion = HvlInputSeriesAction.VERTICAL.getCurrentOutput();
 		
-		HvlCoord entPos = new HvlCoord(getX(), getY());
+		HvlCoord2D entPos = new HvlCoord2D(getX(), getY());
 		
-		HvlCoord motionInput = new HvlCoord(xMotion, yMotion).normalize().fixNaN().mult(delta).mult(speed);
+		HvlCoord2D motionInput = new HvlCoord2D(xMotion, yMotion).normalize().fixNaN().mult(delta).mult(speed);
 		
-		HvlCoord motionActual = new HvlCoord(0, 0);
+		HvlCoord2D motionActual = new HvlCoord2D(0, 0);
 		
 		if (getMap().raytrace(entPos, entPos.addNew(motionInput.x, 0)).isEmpty()) motionActual.x = motionInput.x;
 		if (getMap().raytrace(entPos, entPos.addNew(0, motionInput.y)).isEmpty()) motionActual.y = motionInput.y;

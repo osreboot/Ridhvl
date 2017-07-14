@@ -3,7 +3,7 @@ package com.osreboot.ridhvl.particle.collection;
 import org.newdawn.slick.Color;
 
 import com.osreboot.ridhvl.HvlColorUtil;
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.painter.HvlAnimatedTexture;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureArray;
 import com.osreboot.ridhvl.painter.HvlAnimatedTextureUV;
@@ -137,7 +137,7 @@ public class HvlSimpleParticle extends HvlParticle {
 	 * @param lifetime
 	 *            How long this particle will live.
 	 */
-	public HvlSimpleParticle(HvlCoord pos, HvlParticleSystem parentArg, Color startColor, Color endColor, HvlAnimatedTexture texture, float xVel, float yVel,
+	public HvlSimpleParticle(HvlCoord2D pos, HvlParticleSystem parentArg, Color startColor, Color endColor, HvlAnimatedTexture texture, float xVel, float yVel,
 			float xVelDecay, float yVelDecay, float rot, float rotVel, float rotVelDecay, float baseWidth, float baseHeight, float scale, float scaleDecay,
 			float lifetime) {
 		super(pos, parentArg);

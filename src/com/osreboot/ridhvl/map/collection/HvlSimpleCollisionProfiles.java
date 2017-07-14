@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.map.HvlMap;
 import com.osreboot.ridhvl.map.HvlMapCollisionProfile;
@@ -32,18 +32,18 @@ public class HvlSimpleCollisionProfiles {
 		}
 
 		@Override
-		public List<HvlMapRaytraceResult> raytrace(final HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX,
+		public List<HvlMapRaytraceResult> raytrace(final HvlCoord2D start, HvlCoord2D end, HvlMap map, int layer, int tileX,
 				int tileY) {
 			List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
 
 			{
-				HvlCoord segStart = new HvlCoord(map.getX() + (map.getTileDrawWidth() * tileX),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * tileX),
 						map.getY() + (map.getTileDrawHeight() * tileY) - overshoot);
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (map.getTileDrawWidth() * tileX),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * tileX),
 						map.getY() + (map.getTileDrawHeight() * (tileY + 1)) + overshoot);
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null) {
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
@@ -51,13 +51,13 @@ public class HvlSimpleCollisionProfiles {
 			}
 
 			{
-				HvlCoord segStart = new HvlCoord(map.getX() + (map.getTileDrawWidth() * tileX) - overshoot,
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * tileX) - overshoot,
 						map.getY() + (map.getTileDrawHeight() * tileY));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (map.getTileDrawWidth() * (tileX + 1)) + overshoot,
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * (tileX + 1)) + overshoot,
 						map.getY() + (map.getTileDrawHeight() * tileY));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null) {
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
@@ -65,13 +65,13 @@ public class HvlSimpleCollisionProfiles {
 			}
 
 			{
-				HvlCoord segStart = new HvlCoord(map.getX() + (map.getTileDrawWidth() * (tileX + 1)),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * (tileX + 1)),
 						map.getY() + (map.getTileDrawHeight() * tileY) - overshoot);
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (map.getTileDrawWidth() * (tileX + 1)),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * (tileX + 1)),
 						map.getY() + (map.getTileDrawHeight() * (tileY + 1)) + overshoot);
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null) {
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
@@ -79,13 +79,13 @@ public class HvlSimpleCollisionProfiles {
 			}
 
 			{
-				HvlCoord segStart = new HvlCoord(map.getX() + (map.getTileDrawWidth() * tileX) - overshoot,
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * tileX) - overshoot,
 						map.getY() + (map.getTileDrawHeight() * (tileY + 1)));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (map.getTileDrawWidth() * (tileX + 1)) + overshoot,
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * (tileX + 1)) + overshoot,
 						map.getY() + (map.getTileDrawHeight() * (tileY + 1)));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null) {
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
@@ -153,113 +153,113 @@ public class HvlSimpleCollisionProfiles {
 		}
 
 		@Override
-		public List<HvlMapRaytraceResult> raytrace(final HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX,
+		public List<HvlMapRaytraceResult> raytrace(final HvlCoord2D start, HvlCoord2D end, HvlMap map, int layer, int tileX,
 				int tileY) {
 			List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
 
 			if (left) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (right) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth()) + overshoot,
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + ((tileX + 1) * map.getTileDrawWidth()) + overshoot,
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (up) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
 						map.getY() + (tileY * map.getTileDrawHeight()) - overshoot);
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (down) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
 						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + overshoot);
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (ul) {
-				HvlCoord segStart = new HvlCoord(
+				HvlCoord2D segStart = new HvlCoord2D(
 						map.getX() + (tileX * map.getTileDrawWidth()) - (overshoot * (float) Math.sqrt(2)),
 						map.getY() + (tileY * map.getTileDrawHeight()) - (overshoot * (float) Math.sqrt(2)));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (ur) {
-				HvlCoord segStart = new HvlCoord(
+				HvlCoord2D segStart = new HvlCoord2D(
 						map.getX() + ((tileX + 1) * map.getTileDrawWidth()) + (overshoot * (float) Math.sqrt(2)),
 						map.getY() + (tileY * map.getTileDrawHeight()) - (overshoot * (float) Math.sqrt(2)));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth() + (map.getTileDrawWidth() / 2)),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (ll) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord segEnd = new HvlCoord(
+				HvlCoord2D segEnd = new HvlCoord2D(
 						map.getX() + (tileX * map.getTileDrawWidth()) - (overshoot * (float) Math.sqrt(2)),
 						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + (overshoot * (float) Math.sqrt(2)));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (lr) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) + (map.getTileDrawWidth() / 2),
 						map.getY() + (tileY * map.getTileDrawHeight()) + (map.getTileDrawHeight() / 2));
 
-				HvlCoord segEnd = new HvlCoord(
+				HvlCoord2D segEnd = new HvlCoord2D(
 						map.getX() + ((tileX + 1) * map.getTileDrawWidth()) + (overshoot * (float) Math.sqrt(2)),
 						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + (overshoot * (float) Math.sqrt(2)));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
@@ -333,56 +333,56 @@ public class HvlSimpleCollisionProfiles {
 		}
 
 		@Override
-		public List<HvlMapRaytraceResult> raytrace(HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX, int tileY) {
+		public List<HvlMapRaytraceResult> raytrace(HvlCoord2D start, HvlCoord2D end, HvlMap map, int layer, int tileX, int tileY) {
 			List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
 
 			if (left) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()),
 						map.getY() + (tileY * map.getTileDrawHeight()) - overshoot);
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()),
 						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + overshoot);
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (right) {
-				HvlCoord segStart = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
 						map.getY() + (tileY * map.getTileDrawHeight()) - overshoot);
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + ((tileX + 1) * map.getTileDrawWidth()),
 						map.getY() + ((tileY + 1) * map.getTileDrawHeight()) + overshoot);
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (up) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
 						map.getY() + (tileY * map.getTileDrawHeight()));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth() + overshoot),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + ((tileX + 1) * map.getTileDrawWidth() + overshoot),
 						map.getY() + (tileY * map.getTileDrawHeight()));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
 			}
 
 			if (down) {
-				HvlCoord segStart = new HvlCoord(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
+				HvlCoord2D segStart = new HvlCoord2D(map.getX() + (tileX * map.getTileDrawWidth()) - overshoot,
 						map.getY() + ((tileY + 1) * map.getTileDrawHeight()));
 
-				HvlCoord segEnd = new HvlCoord(map.getX() + ((tileX + 1) * map.getTileDrawWidth() + overshoot),
+				HvlCoord2D segEnd = new HvlCoord2D(map.getX() + ((tileX + 1) * map.getTileDrawWidth() + overshoot),
 						map.getY() + ((tileY + 1) * map.getTileDrawHeight()));
 
-				HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+				HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 				if (found != null)
 					collisions.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX,
 							tileY, map.getTile(layer, tileX, tileY)), found, segStart, segEnd));
@@ -432,16 +432,16 @@ public class HvlSimpleCollisionProfiles {
 		}
 
 		@Override
-		public List<HvlMapRaytraceResult> raytrace(HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX, int tileY) {
-			HvlCoord segStart = new HvlCoord(map.getX() + (map.getTileDrawWidth() * tileX) + (map.getTileDrawWidth() / 2),
+		public List<HvlMapRaytraceResult> raytrace(HvlCoord2D start, HvlCoord2D end, HvlMap map, int layer, int tileX, int tileY) {
+			HvlCoord2D segStart = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * tileX) + (map.getTileDrawWidth() / 2),
 					map.getY() + (map.getTileDrawHeight() * tileY) - overshoot);
 
-			HvlCoord segEnd = new HvlCoord(map.getX() + (map.getTileDrawWidth() * tileX) + (map.getTileDrawWidth() / 2),
+			HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * tileX) + (map.getTileDrawWidth() / 2),
 					map.getY() + (map.getTileDrawHeight() * (tileY + 1)) + overshoot);
 
 			List<HvlMapRaytraceResult> tr = new LinkedList<HvlMapRaytraceResult>();
 			
-			HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+			HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 			if (found != null)
 				tr.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX, tileY, map.getTile(layer, tileX, tileY)), found, start, end));
 			
@@ -481,17 +481,17 @@ public class HvlSimpleCollisionProfiles {
 		}
 
 		@Override
-		public List<HvlMapRaytraceResult> raytrace(HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX, int tileY) {
-			HvlCoord segStart = new HvlCoord(map.getX() + (map.getTileDrawWidth() * tileX) - overshoot,
+		public List<HvlMapRaytraceResult> raytrace(HvlCoord2D start, HvlCoord2D end, HvlMap map, int layer, int tileX, int tileY) {
+			HvlCoord2D segStart = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * tileX) - overshoot,
 					map.getY() + (map.getTileDrawHeight() * tileY) + (map.getTileDrawHeight() / 2));
 
-			HvlCoord segEnd = new HvlCoord(map.getX() + (map.getTileDrawWidth() * (tileX + 1)) + overshoot,
+			HvlCoord2D segEnd = new HvlCoord2D(map.getX() + (map.getTileDrawWidth() * (tileX + 1)) + overshoot,
 					map.getY() + (map.getTileDrawHeight() * tileY) + (map.getTileDrawHeight() / 2));
 
 
 			List<HvlMapRaytraceResult> tr = new LinkedList<HvlMapRaytraceResult>();
 			
-			HvlCoord found = HvlMath.raytrace(start, end, segStart, segEnd);
+			HvlCoord2D found = HvlMath.raytrace(start, end, segStart, segEnd);
 			if (found != null)
 				tr.add(new HvlMapRaytraceResult(new HvlMapRaytraceResult.MapTileTraceSource(layer, tileX, tileY, map.getTile(layer, tileX, tileY)), found, start, end));
 			

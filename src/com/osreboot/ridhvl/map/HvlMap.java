@@ -16,7 +16,7 @@ import java.util.Map;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 
@@ -25,7 +25,7 @@ import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
  */
 public class HvlMap {
 
-	private HvlCoord pos;
+	private HvlCoord2D pos;
 	private float tileDrawWidth, tileDrawHeight;
 	private int tilesAcross, tilesTall;
 
@@ -70,7 +70,7 @@ public class HvlMap {
 	 */
 	public HvlMap(float xArg, float yArg, float tileDrawWidthArg, float tDrawHeightArg, int tilesAcrossArg, int tilesTallArg,
 			int layersArg, int mWidthArg, int mHeightArg, Texture tArg) {
-		pos = new HvlCoord(xArg, yArg);
+		pos = new HvlCoord2D(xArg, yArg);
 		tileDrawWidth = tileDrawWidthArg;
 		tileDrawHeight = tDrawHeightArg;
 		tilesAcross = tilesAcrossArg;
@@ -475,7 +475,7 @@ public class HvlMap {
 	 * @return The collision results along this line, sorted closest to furthest
 	 *         from the start point.
 	 */
-	public List<HvlMapRaytraceResult> raytrace(final HvlCoord start, HvlCoord end) {
+	public List<HvlMapRaytraceResult> raytrace(final HvlCoord2D start, HvlCoord2D end) {
 		int[] layerIndices = new int[tiles.length];
 		for (int i = 0; i < tiles.length; i++)
 			layerIndices[i] = i;
@@ -496,7 +496,7 @@ public class HvlMap {
 	 * @return The collision results along this line in the given layers, sorted
 	 *         closest to furthest from the start point.
 	 */
-	public List<HvlMapRaytraceResult> raytrace(final HvlCoord start, HvlCoord end, int... layers) {
+	public List<HvlMapRaytraceResult> raytrace(final HvlCoord2D start, HvlCoord2D end, int... layers) {
 		List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
 
 		for (int l : layers) {
@@ -542,7 +542,7 @@ public class HvlMap {
 	 * @return The collision results along this line in the given layers, sorted
 	 *         closest to furthest from the start point.
 	 */
-	public List<HvlMapRaytraceResult> raytraceEntities(final HvlCoord start, HvlCoord end) {
+	public List<HvlMapRaytraceResult> raytraceEntities(final HvlCoord2D start, HvlCoord2D end) {
 		List<HvlMapRaytraceResult> collisions = new ArrayList<HvlMapRaytraceResult>();
 
 		for (HvlEntity ent : entities) {

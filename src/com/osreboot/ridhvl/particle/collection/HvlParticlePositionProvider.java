@@ -1,7 +1,7 @@
 package com.osreboot.ridhvl.particle.collection;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 
 public interface HvlParticlePositionProvider {
-	HvlCoord getParticlePosition(HvlSimpleParticleSystem spawnerArg);
+	HvlCoord2D getParticlePosition(HvlSimpleParticleSystem spawnerArg);
 }

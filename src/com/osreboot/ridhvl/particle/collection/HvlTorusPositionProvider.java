@@ -1,6 +1,6 @@
 package com.osreboot.ridhvl.particle.collection;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMath;
 
 public class HvlTorusPositionProvider implements HvlParticlePositionProvider {
@@ -13,11 +13,11 @@ public class HvlTorusPositionProvider implements HvlParticlePositionProvider {
 	}
 
 	@Override
-	public HvlCoord getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
+	public HvlCoord2D getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
 		float angle = HvlMath.randomFloatBetween(0, (float) Math.PI * 2);
 		float length = HvlMath.randomFloatBetween(innerRadius, outerRadius);
 
-		return new HvlCoord((float)(spawnerArg.getX() + (Math.cos(angle) * length)), (float)(spawnerArg.getY() + (Math.sin(angle) * length)));
+		return new HvlCoord2D((float)(spawnerArg.getX() + (Math.cos(angle) * length)), (float)(spawnerArg.getY() + (Math.sin(angle) * length)));
 	}
 
 	public float getInnerRadius() {

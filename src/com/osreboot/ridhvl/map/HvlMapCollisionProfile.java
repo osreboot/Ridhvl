@@ -2,7 +2,7 @@ package com.osreboot.ridhvl.map;
 
 import java.util.List;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 
 /**
  * Represents a tile collision profile, which can be used to designate how a
@@ -27,7 +27,7 @@ public interface HvlMapCollisionProfile {
 	 *            The Y coordinate of the tile being traced against.
 	 * @return A list of collision results with this tile.
 	 */
-	public List<HvlMapRaytraceResult> raytrace(HvlCoord start, HvlCoord end, HvlMap map, int layer, int tileX,
+	public List<HvlMapRaytraceResult> raytrace(HvlCoord2D start, HvlCoord2D end, HvlMap map, int layer, int tileX,
 			int tileY);
 
 	/**

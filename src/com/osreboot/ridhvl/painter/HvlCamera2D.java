@@ -6,17 +6,17 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlRotate;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.action.HvlAction0;
 
-public class HvlCamera {
+public class HvlCamera2D {
 	
-	public static final HvlCoord ALIGNMENT_TOPLEFT = new HvlCoord(0, 0), 
-			ALIGNMENT_CENTER = new HvlCoord(-Display.getWidth()/2, -Display.getHeight()/2);
+	public static final HvlCoord2D ALIGNMENT_TOPLEFT = new HvlCoord2D(0, 0), 
+			ALIGNMENT_CENTER = new HvlCoord2D(-Display.getWidth()/2, -Display.getHeight()/2);
 	
 	private float x, y, xOffset, yOffset, rotation, zoom = 1f;
 	
-	public HvlCamera(float xArg, float yArg, float rotationArg, float zoomArg, HvlCoord alignmentArg){
+	public HvlCamera2D(float xArg, float yArg, float rotationArg, float zoomArg, HvlCoord2D alignmentArg){
 		x = xArg;
 		y = yArg;
 		rotation = rotationArg;
@@ -42,13 +42,13 @@ public class HvlCamera {
 		GL11.glPopMatrix();
 	}
 	
-	public void setAlignment(HvlCoord alignmentArg){
+	public void setAlignment(HvlCoord2D alignmentArg){
 		xOffset = alignmentArg.x;
 		yOffset = alignmentArg.y;
 	}
 	
-	public HvlCoord getAlignment(){
-		return new HvlCoord(xOffset, yOffset);
+	public HvlCoord2D getAlignment(){
+		return new HvlCoord2D(xOffset, yOffset);
 	}
 	
 	public void setPosition(float xArg, float yArg){

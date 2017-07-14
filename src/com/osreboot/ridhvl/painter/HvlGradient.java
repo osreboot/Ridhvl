@@ -11,7 +11,7 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.BufferedImageUtil;
 
 import com.osreboot.ridhvl.HvlColorUtil;
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 
 public class HvlGradient {
 	public enum Style {
@@ -66,8 +66,8 @@ public class HvlGradient {
 			for (int y = 0; y < h; y++) {
 				float len = (float) Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
 
-				HvlCoord start = new HvlCoord(endX - startX, endY - startY);
-				HvlCoord point = new HvlCoord(x - startX, y - startY);
+				HvlCoord2D start = new HvlCoord2D(endX - startX, endY - startY);
+				HvlCoord2D point = new HvlCoord2D(x - startX, y - startY);
 				float dot = start.dot(point) / len;
 
 				float val = Math.max(0, Math.min(1, dot / len));

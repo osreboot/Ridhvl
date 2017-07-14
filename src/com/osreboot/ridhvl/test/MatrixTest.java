@@ -5,7 +5,7 @@ import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlDrawQuadc;
 
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlMatrix2D;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
@@ -32,21 +32,21 @@ public class MatrixTest extends HvlTemplateInteg2D{
 		
 		
 		//9-box complete test
-		drawModel(new HvlCoord(0, -value * 20), new HvlCoord(), new HvlCoord(), new HvlCoord(0, value * 20), new HvlCoord(100, 100));
-		drawModel(new HvlCoord(-value * 20, 0), new HvlCoord(), new HvlCoord(), new HvlCoord(-value * 20, 0), new HvlCoord(500, 100));
-		drawModel(new HvlCoord(), new HvlCoord(), new HvlCoord(0, value * 20), new HvlCoord(0, value * 20), new HvlCoord(900, 100));
-		drawModel(new HvlCoord(), new HvlCoord(), new HvlCoord(value * 20, 0), new HvlCoord(-value * 20, 0), new HvlCoord(100, 300));
-		drawModel(new HvlCoord(-value * 20, -value * 20), new HvlCoord(-value * 20, -value * 20), new HvlCoord(-value * 20, -value * 20), new HvlCoord(-value * 20, -value * 20), new HvlCoord(500, 300));
-		drawModel(new HvlCoord(0, -value * 20), new HvlCoord(), new HvlCoord(), new HvlCoord(0, -value * 20), new HvlCoord(900, 300));
+		drawModel(new HvlCoord2D(0, -value * 20), new HvlCoord2D(), new HvlCoord2D(), new HvlCoord2D(0, value * 20), new HvlCoord2D(100, 100));
+		drawModel(new HvlCoord2D(-value * 20, 0), new HvlCoord2D(), new HvlCoord2D(), new HvlCoord2D(-value * 20, 0), new HvlCoord2D(500, 100));
+		drawModel(new HvlCoord2D(), new HvlCoord2D(), new HvlCoord2D(0, value * 20), new HvlCoord2D(0, value * 20), new HvlCoord2D(900, 100));
+		drawModel(new HvlCoord2D(), new HvlCoord2D(), new HvlCoord2D(value * 20, 0), new HvlCoord2D(-value * 20, 0), new HvlCoord2D(100, 300));
+		drawModel(new HvlCoord2D(-value * 20, -value * 20), new HvlCoord2D(-value * 20, -value * 20), new HvlCoord2D(-value * 20, -value * 20), new HvlCoord2D(-value * 20, -value * 20), new HvlCoord2D(500, 300));
+		drawModel(new HvlCoord2D(0, -value * 20), new HvlCoord2D(), new HvlCoord2D(), new HvlCoord2D(0, -value * 20), new HvlCoord2D(900, 300));
 		drawModel(
-				new HvlCoord((-50*(float)Math.cos(value*Math.PI*0.2))-(-50*(float)Math.sin(value*Math.PI*0.2))+50, (-50*(float)Math.cos(value*Math.PI*0.2))+(-50*(float)Math.sin(value*Math.PI*0.2))+50),
-				new HvlCoord((50*(float)Math.cos(value*Math.PI*0.2))-(-50*(float)Math.sin(value*Math.PI*0.2))-50, (-50*(float)Math.cos(value*Math.PI*0.2))+(50*(float)Math.sin(value*Math.PI*0.2))+50),
-				new HvlCoord((50*(float)Math.cos(value*Math.PI*0.2))-(50*(float)Math.sin(value*Math.PI*0.2))-50, (50*(float)Math.cos(value*Math.PI*0.2))+(50*(float)Math.sin(value*Math.PI*0.2))-50),
-				new HvlCoord((-50*(float)Math.cos(value*Math.PI*0.2))-(50*(float)Math.sin(value*Math.PI*0.2))+50, (50*(float)Math.cos(value*Math.PI*0.2))+(-50*(float)Math.sin(value*Math.PI*0.2))-50),
-				new HvlCoord(100, 500));
-		drawModel(new HvlCoord(-value * 20, -value * 20), new HvlCoord(value * 20, -value * 20), new HvlCoord(value * 20, value * 20), new HvlCoord(-value * 20, value * 20), new HvlCoord(500, 500));
-		drawModel(new HvlCoord(-value * 20, -value * 20), new HvlCoord(), new HvlCoord(), new HvlCoord(), new HvlCoord(900, 500));
-		 
+				new HvlCoord2D((-50*(float)Math.cos(value*Math.PI*0.2))-(-50*(float)Math.sin(value*Math.PI*0.2))+50, (-50*(float)Math.cos(value*Math.PI*0.2))+(-50*(float)Math.sin(value*Math.PI*0.2))+50),
+				new HvlCoord2D((50*(float)Math.cos(value*Math.PI*0.2))-(-50*(float)Math.sin(value*Math.PI*0.2))-50, (-50*(float)Math.cos(value*Math.PI*0.2))+(50*(float)Math.sin(value*Math.PI*0.2))+50),
+				new HvlCoord2D((50*(float)Math.cos(value*Math.PI*0.2))-(50*(float)Math.sin(value*Math.PI*0.2))-50, (50*(float)Math.cos(value*Math.PI*0.2))+(50*(float)Math.sin(value*Math.PI*0.2))-50),
+				new HvlCoord2D((-50*(float)Math.cos(value*Math.PI*0.2))-(50*(float)Math.sin(value*Math.PI*0.2))+50, (50*(float)Math.cos(value*Math.PI*0.2))+(-50*(float)Math.sin(value*Math.PI*0.2))-50),
+				new HvlCoord2D(100, 500));
+		drawModel(new HvlCoord2D(-value * 20, -value * 20), new HvlCoord2D(value * 20, -value * 20), new HvlCoord2D(value * 20, value * 20), new HvlCoord2D(-value * 20, value * 20), new HvlCoord2D(500, 500));
+		drawModel(new HvlCoord2D(-value * 20, -value * 20), new HvlCoord2D(), new HvlCoord2D(), new HvlCoord2D(), new HvlCoord2D(900, 500));
+		
 		
 		
 		/*//Single uniform box test
@@ -75,48 +75,48 @@ public class MatrixTest extends HvlTemplateInteg2D{
 		*/
 		
 		
-		/*//Bounds test
-		HvlCoord s1 = new HvlCoord(100, 120);
-		HvlCoord s2 = new HvlCoord(300, 100);
-		HvlCoord s3 = new HvlCoord(500, 400);
-		HvlCoord s4 = new HvlCoord(HvlCursor.getCursorX(), HvlCursor.getCursorY());
+		//Bounds test
+		/*HvlCoord2D s1 = new HvlCoord2D(100, 120);
+		HvlCoord2D s2 = new HvlCoord2D(300, 100);
+		HvlCoord2D s3 = new HvlCoord2D(500, 400);
+		HvlCoord2D s4 = new HvlCoord2D(HvlCursor.getCursorX(), HvlCursor.getCursorY());
 		
-		HvlCoord e1 = new HvlCoord(-1, -1);
-		HvlCoord e2 = new HvlCoord(1, -1);
-		HvlCoord e3 = new HvlCoord(1, 1);
-		HvlCoord e4 = new HvlCoord(-1, 1);
+		HvlCoord2D e1 = new HvlCoord2D(-1, -1);
+		HvlCoord2D e2 = new HvlCoord2D(1, -1);
+		HvlCoord2D e3 = new HvlCoord2D(1, 1);
+		HvlCoord2D e4 = new HvlCoord2D(-1, 1);
 		
 		HvlMatrix2D m = new HvlMatrix2D(s1, s2, s3, s4, e1, e2, e3, e4);
 		
-		hvlDrawPolygon(0, 0, new HvlCoord[]{s1, s2, s3, s4}, Color.red);
+		hvlDrawPolygon(0, 0, new HvlCoord2D[]{s1, s2, s3, s4}, Color.red);
 		
 		for(float x = 0; x < 1; x += 1f/100f){
 			for(float y = 0; y < 1; y += 1f/100f){
-				HvlCoord c = new HvlCoord(x*500, y*500);
-				HvlCoord p = m.map(c);
+				HvlCoord2D c = new HvlCoord2D(x*500, y*500);
+				HvlCoord2D p = m.map(c);
 				boolean inside = Math.abs(p.x) >= 1 || Math.abs(p.y) >= 1;
 				hvlDrawQuadc(c.x, c.y, 1f, 1f, inside ? Color.orange : Color.blue);
 			}
-		}
-		*/
+		}*/
+		
 	}
 	
-	private void drawModel(HvlCoord dv1, HvlCoord dv2, HvlCoord dv3, HvlCoord dv4, HvlCoord loc){
+	private void drawModel(HvlCoord2D dv1, HvlCoord2D dv2, HvlCoord2D dv3, HvlCoord2D dv4, HvlCoord2D loc){
 		hvlDrawQuad(
-				new HvlCoord(loc.x + dv1.x, loc.y + dv1.y), new HvlCoord(loc.x + 100 + dv2.x, loc.y + dv2.y),
-				new HvlCoord(loc.x + 100 + dv3.x, loc.y + 100 + dv3.y), new HvlCoord(loc.x + dv4.x, loc.y + 100 + dv4.y), Color.darkGray);
+				new HvlCoord2D(loc.x + dv1.x, loc.y + dv1.y), new HvlCoord2D(loc.x + 100 + dv2.x, loc.y + dv2.y),
+				new HvlCoord2D(loc.x + 100 + dv3.x, loc.y + 100 + dv3.y), new HvlCoord2D(loc.x + dv4.x, loc.y + 100 + dv4.y), Color.darkGray);
 		
 		HvlMatrix2D mat = new HvlMatrix2D(
-				new HvlCoord(loc.x + dv1.x, loc.y + dv1.y), new HvlCoord(loc.x + 100 + dv2.x, loc.y + dv2.y),
-				new HvlCoord(loc.x + 100 + dv3.x, loc.y + 100 + dv3.y), new HvlCoord(loc.x + dv4.x, loc.y + 100 + dv4.y),
-				new HvlCoord(loc.x + 200, loc.y), new HvlCoord(loc.x + 300, loc.y), new HvlCoord(loc.x + 300, loc.y + 100), new HvlCoord(loc.x + 200, loc.y + 100));
+				new HvlCoord2D(loc.x + dv1.x, loc.y + dv1.y), new HvlCoord2D(loc.x + 100 + dv2.x, loc.y + dv2.y),
+				new HvlCoord2D(loc.x + 100 + dv3.x, loc.y + 100 + dv3.y), new HvlCoord2D(loc.x + dv4.x, loc.y + 100 + dv4.y),
+				new HvlCoord2D(loc.x + 200, loc.y), new HvlCoord2D(loc.x + 300, loc.y), new HvlCoord2D(loc.x + 300, loc.y + 100), new HvlCoord2D(loc.x + 200, loc.y + 100));
 		
 		float value = 1/12f;
 		
 		for(float x = 0; x < 1; x += value){
 			for(float y = 0; y < 1; y += value){
-				HvlCoord fc = new HvlCoord(loc.x - 10 + (x*120), loc.y - 10 + (y*120));
-				HvlCoord tc = mat.map(fc);
+				HvlCoord2D fc = new HvlCoord2D(loc.x - 10 + (x*120), loc.y - 10 + (y*120));
+				HvlCoord2D tc = mat.map(fc);
 				hvlDrawQuadc(fc.x, fc.y, 5f, 5f, new Color(x, 0f, y));
 				hvlDrawQuadc(tc.x, tc.y, 5f, 5f, new Color(x, 0f, y));
 			}

@@ -137,7 +137,7 @@ public class HvlRenderFrame {
 		setCurrentRenderFrame(null);
 	}
 
-	public void doCapture(HvlCamera cameraArg, final HvlAction0 actionArg){
+	public void doCapture(HvlCamera2D cameraArg, final HvlAction0 actionArg){
 		setCurrentRenderFrame(this);
 		cameraArg.doTransform(new HvlAction0(){
 			@Override
@@ -148,7 +148,7 @@ public class HvlRenderFrame {
 		setCurrentRenderFrame(null);
 	}
 
-	public void doCapture(boolean clear, HvlCamera cameraArg, final HvlAction0 actionArg){
+	public void doCapture(boolean clear, HvlCamera2D cameraArg, final HvlAction0 actionArg){
 		setCurrentRenderFrame(this, clear);
 		cameraArg.doTransform(new HvlAction0(){
 			@Override
@@ -160,7 +160,7 @@ public class HvlRenderFrame {
 	}
 
 
-	public void doCapture(HvlCamera cameraArg, final HvlShader shaderArg, final HvlAction0 actionArg){
+	public void doCapture(HvlCamera2D cameraArg, final HvlShader shaderArg, final HvlAction0 actionArg){
 		setCurrentRenderFrame(this);
 		cameraArg.doTransform(new HvlAction0(){
 			@Override
@@ -176,7 +176,7 @@ public class HvlRenderFrame {
 		setCurrentRenderFrame(null);
 	}
 
-	public void doCapture(boolean clear, HvlCamera cameraArg, final HvlShader shaderArg, final HvlAction0 actionArg){
+	public void doCapture(boolean clear, HvlCamera2D cameraArg, final HvlShader shaderArg, final HvlAction0 actionArg){
 		setCurrentRenderFrame(this, clear);
 		cameraArg.doTransform(new HvlAction0(){
 			@Override

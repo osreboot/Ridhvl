@@ -15,7 +15,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
@@ -72,7 +72,7 @@ public class ParticlesTest extends HvlTemplate2D {
 		tileWidth = 720 / image.getWidth();
 		tileHeight = 720 / image.getHeight();
 		
-		corr = new HvlParticleAttractionCorrelator(-512.0f, new HvlCoord(Display.getWidth() / 2, Display.getHeight() / 2));
+		corr = new HvlParticleAttractionCorrelator(-512.0f, new HvlCoord2D(Display.getWidth() / 2, Display.getHeight() / 2));
 		
 //		HvlSimpleParticleSystem t= new HvlSimpleParticleSystem(Display.getWidth() / 2, Display.getHeight() / 2, 16, 16, new HvlTorusPositionProvider(64, 64), getWhite512());
 //		t.setColor(Color.red);
@@ -96,9 +96,9 @@ public class ParticlesTest extends HvlTemplate2D {
 			int last = 0;
 
 			@Override
-			public HvlCoord getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
+			public HvlCoord2D getParticlePosition(HvlSimpleParticleSystem spawnerArg) {
 				int tile = last++;
-				return new HvlCoord(spawnerArg.getX() + (tileWidth / 2) + (tile % image.getHeight()) * tileWidth, spawnerArg.getY() + (tileHeight / 2) + (int)((tile / image.getHeight())) * tileHeight);
+				return new HvlCoord2D(spawnerArg.getX() + (tileWidth / 2) + (tile % image.getHeight()) * tileWidth, spawnerArg.getY() + (tileHeight / 2) + (int)((tile / image.getHeight())) * tileHeight);
 			}
 		}, getWhite512());
 		test.setMaxParticles(image.getWidth() * image.getHeight());
@@ -134,7 +134,7 @@ public class ParticlesTest extends HvlTemplate2D {
 			}
 		});
 		test.addCorrelator(new HvlParticleCorrelator() {	
-			HashMap<HvlParticle, HvlCoord> origins = new HashMap<>();
+			HashMap<HvlParticle, HvlCoord2D> origins = new HashMap<>();
 			{
 				setContinuous(true);
 			}
@@ -143,7 +143,7 @@ public class ParticlesTest extends HvlTemplate2D {
 			public void correlate(HvlParticle in, float delta) {
 				HvlSimpleParticle p = (HvlSimpleParticle) in;
 
-				if(!origins.containsKey(in)) origins.put(in, new HvlCoord(p.getX(), p.getY()));
+				if(!origins.containsKey(in)) origins.put(in, new HvlCoord2D(p.getX(), p.getY()));
 
 				if (!pTriggered && triggered)
 				{					
@@ -159,7 +159,7 @@ public class ParticlesTest extends HvlTemplate2D {
 				}
 
 				if(p.getTimeAlive() > 5){
-					HvlCoord dir = new HvlCoord((origins.get(p).x - p.getX()), (origins.get(p).y - p.getY()));
+					HvlCoord2D dir = new HvlCoord2D((origins.get(p).x - p.getX()), (origins.get(p).y - p.getY()));
 					if(dir.length() < 2){
 						p.setX(origins.get(p).x);
 						p.setY(origins.get(p).y);
@@ -277,7 +277,7 @@ public class ParticlesTest extends HvlTemplate2D {
 		
 		particles.get(0).setX(HvlCursor.getCursorX());
 		particles.get(0).setY(HvlCursor.getCursorY());
-		corr.setPoints(new HvlCoord[] { new HvlCoord(HvlCursor.getCursorX(), HvlCursor.getCursorY())});
+		corr.setPoints(new HvlCoord2D[] { new HvlCoord2D(HvlCursor.getCursorX(), HvlCursor.getCursorY())});
 
 		// particles.setX(HvlCursor.getCursorX());
 		// particles.setY(HvlCursor.getCursorY());

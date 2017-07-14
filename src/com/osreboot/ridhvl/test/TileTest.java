@@ -5,7 +5,7 @@ import java.util.List;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
-import com.osreboot.ridhvl.HvlCoord;
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.HvlDebugUtil;
 import com.osreboot.ridhvl.HvlFontUtil;
 import com.osreboot.ridhvl.action.HvlAction0;
@@ -13,7 +13,7 @@ import com.osreboot.ridhvl.display.collection.HvlDisplayModeDefault;
 import com.osreboot.ridhvl.map.HvlMap;
 import com.osreboot.ridhvl.map.HvlMapRaytraceResult;
 import com.osreboot.ridhvl.map.collection.HvlSimpleCollisionProfiles;
-import com.osreboot.ridhvl.painter.HvlCamera;
+import com.osreboot.ridhvl.painter.HvlCamera2D;
 import com.osreboot.ridhvl.painter.HvlCursor;
 import com.osreboot.ridhvl.painter.HvlRenderFrame;
 import com.osreboot.ridhvl.painter.HvlRenderFrame.FBOUnsupportedException;
@@ -30,7 +30,7 @@ public class TileTest extends HvlTemplateInteg2D {
 
 	public HvlFontPainter2D font;
 
-	public HvlCamera camera;
+	public HvlCamera2D camera;
 
 	public HvlRenderFrame frame = null;
 	public HvlShader shader;
@@ -48,7 +48,7 @@ public class TileTest extends HvlTemplateInteg2D {
 		getTextureLoader().loadResource("Icon");
 		getTextureLoader().loadResource("Font");
 
-		camera = new HvlCamera(0, 0, 0, 1f, new HvlCoord());
+		camera = new HvlCamera2D(0, 0, 0, 1f, new HvlCoord2D());
 
 		font = new HvlFontPainter2D(getTextureLoader().getResource(2), HvlFontUtil.DEFAULT, 192, 256);
 
@@ -81,7 +81,7 @@ public class TileTest extends HvlTemplateInteg2D {
 			e.printStackTrace();
 		}
 		shader = new HvlShader("shader\\ShadowMap.hvlfg");
-		camera.setAlignment(HvlCamera.ALIGNMENT_CENTER);
+		camera.setAlignment(HvlCamera2D.ALIGNMENT_CENTER);
 		System.out.println(shader.getFragLog());
 	}
 
@@ -94,22 +94,22 @@ public class TileTest extends HvlTemplateInteg2D {
 			@Override
 			public void run(){
 				map.draw(delta);
-				List<HvlMapRaytraceResult> colls = map.raytrace(new HvlCoord(ent.getX(), ent.getY()),
-						new HvlCoord(HvlCursor.getCursorX() + camera.getX() - (Display.getWidth() / 2),
+				List<HvlMapRaytraceResult> colls = map.raytrace(new HvlCoord2D(ent.getX(), ent.getY()),
+						new HvlCoord2D(HvlCursor.getCursorX() + camera.getX() - (Display.getWidth() / 2),
 								HvlCursor.getCursorY() + camera.getY() - (Display.getHeight() / 2)));
 
 				for(int i = 0; i < 3600; i++){
 					float x = (float)(i%pixelsWidth)/(float)pixelsWidth*Display.getWidth();
 					float y = (float)(i/pixelsWidth)/(float)pixelsHeight*Display.getHeight();
-					pixels[i] = map.raytrace(new HvlCoord(ent.getX(), ent.getY()), 
-							new HvlCoord(ent.getX() + x - (Display.getWidth() / 2),
+					pixels[i] = map.raytrace(new HvlCoord2D(ent.getX(), ent.getY()), 
+							new HvlCoord2D(ent.getX() + x - (Display.getWidth() / 2),
 									ent.getY() + y - (Display.getHeight() / 2))
 							).isEmpty() ? 0f : 1f;
 				}
 
 				if (!colls.isEmpty()) {
 
-					HvlCoord coll = colls.get(0).getLocation();
+					HvlCoord2D coll = colls.get(0).getLocation();
 
 					HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y - 8, coll.x + 8, coll.y + 8, Color.green, 4.0f);
 					HvlPainter2D.hvlDrawLine(coll.x - 8, coll.y + 8, coll.x + 8, coll.y - 8, Color.green, 4.0f);

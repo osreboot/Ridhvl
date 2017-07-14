@@ -20,8 +20,8 @@ public class HvlMath {
 		return arg1 + alpha * (arg2 - arg1);
 	}
 	
-	public static HvlCoord lerp(HvlCoord arg1, HvlCoord arg2, float alpha){
-		return new HvlCoord(lerp(arg1.x, arg2.x, alpha), lerp(arg1.y, arg2.y, alpha));
+	public static HvlCoord2D lerp(HvlCoord2D arg1, HvlCoord2D arg2, float alpha){
+		return new HvlCoord2D(lerp(arg1.x, arg2.x, alpha), lerp(arg1.y, arg2.y, alpha));
 	}
 
 	/**
@@ -65,21 +65,21 @@ public class HvlMath {
 		return (float)Math.sqrt(Math.pow(xArg1 - xArg2, 2) + Math.pow(yArg1 - yArg2, 2));
 	}
 	
-	public static float distance(HvlCoord arg1, HvlCoord arg2){
+	public static float distance(HvlCoord2D arg1, HvlCoord2D arg2){
 		return (float)Math.sqrt(Math.pow(arg1.x - arg2.x, 2) + Math.pow(arg1.y - arg2.y, 2));
 	}
 
-	public static HvlCoord raytrace(HvlCoord start, HvlCoord end, HvlCoord segStart, HvlCoord segEnd) {
-		HvlCoord tr = new HvlCoord(0, 0);
+	public static HvlCoord2D raytrace(HvlCoord2D start, HvlCoord2D end, HvlCoord2D segStart, HvlCoord2D segEnd) {
+		HvlCoord2D tr = new HvlCoord2D(0, 0);
 
-		HvlCoord b = end.subtractNew(start);
-		HvlCoord d = segEnd.subtractNew(segStart);
+		HvlCoord2D b = end.subtractNew(start);
+		HvlCoord2D d = segEnd.subtractNew(segStart);
 		float bDotDPerp = b.x * d.y - b.y * d.x;
 
 		if (bDotDPerp == 0)
 			return null;
 
-		HvlCoord c = segStart.subtractNew(start);
+		HvlCoord2D c = segStart.subtractNew(start);
 		float t = (c.x * d.y - c.y * d.x) / bDotDPerp;
 		if (t < 0 || t > 1)
 			return null;
@@ -113,10 +113,10 @@ public class HvlMath {
 		return min + ((float) Math.random() * (max - min));
 	}
 
-	public static HvlCoord randomPointInCircle(float radius) {
+	public static HvlCoord2D randomPointInCircle(float radius) {
 		float theta = randomFloatBetween(0, 360);
 		float d = (float) Math.random();
-		return new HvlCoord((float) Math.cos(theta) * radius * d,
+		return new HvlCoord2D((float) Math.cos(theta) * radius * d,
 				(float) Math.sin(theta) * radius * d);
 	}
 
@@ -140,12 +140,12 @@ public class HvlMath {
 		return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 	}
 	
-	public static HvlCoord map(float x, HvlCoord in_min, HvlCoord in_max, HvlCoord out_min, HvlCoord out_max){
-		return new HvlCoord(map(x, in_min.x, in_max.x, out_min.x, out_max.x), map(x, in_min.y, in_max.y, out_min.y, out_max.y));
+	public static HvlCoord2D map(float x, HvlCoord2D in_min, HvlCoord2D in_max, HvlCoord2D out_min, HvlCoord2D out_max){
+		return new HvlCoord2D(map(x, in_min.x, in_max.x, out_min.x, out_max.x), map(x, in_min.y, in_max.y, out_min.y, out_max.y));
 	}
 	
-	public static HvlCoord map(HvlCoord arg, HvlCoord in_min, HvlCoord in_max, HvlCoord out_min, HvlCoord out_max){
-		return new HvlCoord(map(arg.x, in_min.x, in_max.x, out_min.x, out_max.x), map(arg.y, in_min.y, in_max.y, out_min.y, out_max.y));
+	public static HvlCoord2D map(HvlCoord2D arg, HvlCoord2D in_min, HvlCoord2D in_max, HvlCoord2D out_min, HvlCoord2D out_max){
+		return new HvlCoord2D(map(arg.x, in_min.x, in_max.x, out_min.x, out_max.x), map(arg.y, in_min.y, in_max.y, out_min.y, out_max.y));
 	}
 	
 	public static float limit(float x, float min, float max){
