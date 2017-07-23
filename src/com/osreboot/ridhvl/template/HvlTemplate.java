@@ -35,7 +35,7 @@ public abstract class HvlTemplate{
 	/**
 	 * Runs the initialization method and starts the timer.
 	 */
-	final void start(){
+	protected final void start(){
 		timer = new HvlTimer(){
 			@Override
 			public void update(float delta) {

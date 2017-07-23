@@ -77,10 +77,6 @@ public abstract class HvlTemplate2DA extends HvlTemplate{
 		HvlChronology.initialize();
 	}
 	
-	public void metaStart(){
-		start();
-	}
-	
 	@Override
 	public void preUpdate(float delta){
 		HvlChronology.preUpdate(delta);
