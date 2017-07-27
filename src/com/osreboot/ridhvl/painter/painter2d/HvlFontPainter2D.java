@@ -49,10 +49,40 @@ public class HvlFontPainter2D {
 				FP_INOFFICIAL.charEndUVs.put('l', 32f/96f);
 				FP_INOFFICIAL.charEndUVs.put('r', 48f/96f);
 				FP_INOFFICIAL.charEndUVs.put('t', 48f/96f);
+				
+				FP_INOFFICIAL_Q.charEndUVs.put('1', 32f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('\'', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('"', 40f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put(')', 32f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('(', 32f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put(']', 32f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('[', 32f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('?', 64f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('!', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('.', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put(',', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('*', 40f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('^', 64f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('-', 80f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('+', 80f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('=', 80f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('|', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put(';', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put(':', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('>', 70f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('<', 70f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('f', 48f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('i', 16f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('j', 48f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('k', 80f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('l', 32f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('r', 48f/96f);
+				FP_INOFFICIAL_Q.charEndUVs.put('t', 48f/96f);
 			}
 		};
 		
 		public static final Preset FP_INOFFICIAL = new Preset(HvlFontUtil.COMPUTATIONALCASE, 96, 192, 21, 48, new HashMap<Character, Float>(), new HashMap<Character, Float>());
+		public static final Preset FP_INOFFICIAL_Q = new Preset(HvlFontUtil.COMPUTATIONALCASE, 96/4, 192/4, 21, 48/4, new HashMap<Character, Float>(), new HashMap<Character, Float>());
 		//TODO global font offset (for chars extending below write line, etc.)
 		
 		char[] chars;
