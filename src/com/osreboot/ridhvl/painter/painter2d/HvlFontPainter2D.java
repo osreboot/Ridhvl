@@ -302,6 +302,7 @@ public class HvlFontPainter2D {
 		float currentY = y;
 
 		for (String line : lines) {
+			line.replace("\t", "    ");
 			float lineWidth = 0f;
 			for (char ch : line.toCharArray()) {
 				if (HvlFontUtil.containsChar(chars, ch)) {
