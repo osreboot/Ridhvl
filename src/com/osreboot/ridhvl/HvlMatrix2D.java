@@ -59,22 +59,22 @@ public class HvlMatrix2D {
 	}
 
 	public HvlCoord2D map(HvlCoord2D arg){
-		float fdeg12 = fullDegrees(arg, fv1) - fullDegrees(fv2, fv1);
+		float fdeg12 = HvlMath.fullRadians(arg, fv1) - HvlMath.fullRadians(fv2, fv1);
 		if(Float.isNaN(fdeg12)) fdeg12 = 0;
 		float fdis12 = (float)Math.cos(fdeg12) * HvlMath.distance(fv1, arg);
 		HvlCoord2D tint12 = HvlMath.lerp(tv1, tv2, fdis12/HvlMath.distance(fv1, fv2));
 
-		float fdeg43 = fullDegrees(arg, fv4) - fullDegrees(fv3, fv4);
+		float fdeg43 = HvlMath.fullRadians(arg, fv4) - HvlMath.fullRadians(fv3, fv4);
 		if(Float.isNaN(fdeg43)) fdeg43 = 0;
 		float fdis43 = (float)Math.cos(fdeg43) * HvlMath.distance(fv4, arg);
 		HvlCoord2D tint43 = HvlMath.lerp(tv4, tv3, fdis43/HvlMath.distance(fv4, fv3));
 
-		float fdeg14 = fullDegrees(arg, fv1) - fullDegrees(fv4, fv1);
+		float fdeg14 = HvlMath.fullRadians(arg, fv1) - HvlMath.fullRadians(fv4, fv1);
 		if(Float.isNaN(fdeg14)) fdeg14 = 0;
 		float fdis14 = (float)Math.cos(fdeg14) * HvlMath.distance(fv1, arg);
 		HvlCoord2D tint14 = HvlMath.lerp(tv1, tv4, fdis14/HvlMath.distance(fv1, fv4));
 
-		float fdeg23 = fullDegrees(arg, fv2) - fullDegrees(fv3, fv2);
+		float fdeg23 = HvlMath.fullRadians(arg, fv2) - HvlMath.fullRadians(fv3, fv2);
 		if(Float.isNaN(fdeg23)) fdeg23 = 0;
 		float fdis23 = (float)Math.cos(fdeg23) * HvlMath.distance(fv2, arg);
 		HvlCoord2D tint23 = HvlMath.lerp(tv2, tv3, fdis23/HvlMath.distance(fv2, fv3));
@@ -86,12 +86,6 @@ public class HvlMatrix2D {
 		HvlCoord2D t = intersection(tint12, tint43, tint14, tint23);
 
 		return new HvlCoord2D(t);
-	}
-
-	private float fullDegrees(HvlCoord2D arg1, HvlCoord2D arg2){
-		float deg = (float)Math.atan((arg1.y - arg2.y) / (arg1.x - arg2.x));
-		if(arg1.x < arg2.x) deg += Math.PI;
-		return deg;
 	}
 
 	private HvlCoord2D intersection(HvlCoord2D s1, HvlCoord2D e1, HvlCoord2D s2, HvlCoord2D e2){

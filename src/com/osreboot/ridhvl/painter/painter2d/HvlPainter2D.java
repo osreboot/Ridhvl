@@ -257,10 +257,6 @@ public class HvlPainter2D {
 	public static void hvlDrawTiledQuadc(float x, float y, float w, float h, float lrWidth, float udHeight, String format, Texture t, Color c) {
 		hvlDrawTiledQuadc(x, y, w, h, lrWidth, lrWidth, udHeight, udHeight, format, t, c);
 	}
-
-	public static void hvlRotate(float x, float y, float degrees){
-		HvlSwivel2D.hvlRotate(x, y, degrees);
-	}
 	
 	public static void hvlDrawLinea(float x1, float y1, float x2, float y2, Color c){
 		HvlLinePainter2D.hvlDrawLine(getSnappedX(x1 + (Display.getWidth()/2)), getSnappedY(y1 + (Display.getHeight()/2)), getSnappedX(x2), getSnappedY(y2), c);
@@ -441,6 +437,14 @@ public class HvlPainter2D {
 	
 	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, Color c){
 		HvlQuadPainter2D.hvlDrawPolygon(x, y, vertices, c);
+	}
+	
+	public static void hvlRotate(HvlCoord2D location, float degrees){
+		HvlSwivel2D.hvlRotate(location, degrees);
+	}
+	
+	public static void hvlRotate(float x, float y, float degrees){
+		HvlSwivel2D.hvlRotate(x, y, degrees);
 	}
 	
 	public static void hvlRotatea(float x, float y, float degrees){

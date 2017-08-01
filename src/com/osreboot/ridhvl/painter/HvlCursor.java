@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import com.osreboot.ridhvl.HvlCoord2D;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.painter.painter2d.HvlPainter2D;
 import com.osreboot.ridhvl.template.HvlChronology;
@@ -108,6 +109,10 @@ public class HvlCursor {
 		return Display.getHeight() - Mouse.getY();
 	}
 
+	public static HvlCoord2D getCursorPosition(){
+		return new HvlCoord2D(getCursorX(), getCursorY());
+	}
+	
 	public static void setOffset(float offsetArg){
 		xOffset = offsetArg;
 		yOffset = offsetArg;

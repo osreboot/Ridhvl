@@ -151,6 +151,12 @@ public class HvlMath {
 	public static float limit(float x, float min, float max){
 		return Math.min(Math.max(x, min), max);
 	}
+	
+	public static float fullRadians(HvlCoord2D arg1, HvlCoord2D arg2){
+		float deg = (float)Math.atan((arg1.y - arg2.y) / (arg1.x - arg2.x));
+		if(arg1.x < arg2.x) deg += Math.PI;
+		return deg;
+	}
 
 	public static class Stepper{
 
