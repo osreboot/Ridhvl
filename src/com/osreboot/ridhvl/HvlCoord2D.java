@@ -1,7 +1,10 @@
 package com.osreboot.ridhvl;
 
-public class HvlCoord2D
-{
+import java.io.Serializable;
+
+public class HvlCoord2D implements Serializable{
+	private static final long serialVersionUID = 1589626903435625847L;
+	
 	public float x, y;
 	
 	public HvlCoord2D() {
