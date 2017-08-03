@@ -180,4 +180,15 @@ public class HvlCoord2D implements Serializable{
 			return ((HvlCoord2D)obj).x == x && ((HvlCoord2D)obj).y == y;
 		}else return false;
 	}
+	
+	@Override
+	public String toString(){
+		return "[" + x + "," + y + "]";
+	}
+	
+	@Override
+	public int hashCode(){
+		return toString().hashCode();
+	}
+	
 }

@@ -33,5 +33,15 @@ public class HvlCoord3D implements Serializable{
 			return ((HvlCoord3D)obj).x == x && ((HvlCoord3D)obj).y == y && ((HvlCoord3D)obj).z == z;
 		}else return false;
 	}
+	
+	@Override
+	public String toString(){
+		return "[" + x + "," + y + "," + z + "]";
+	}
 
+	@Override
+	public int hashCode(){
+		return toString().hashCode();
+	}
+	
 }
