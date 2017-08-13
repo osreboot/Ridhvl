@@ -99,7 +99,7 @@ public abstract class HvlTemplate2DA extends HvlTemplate{
 		}
 	}
 	
-	public void exit(){
+	public final void exit(){
 		getTimer().setRunning(false);
 		Display.destroy();
 		System.exit(0);

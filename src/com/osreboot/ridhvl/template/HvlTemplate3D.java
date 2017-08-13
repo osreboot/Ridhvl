@@ -100,7 +100,7 @@ public abstract class HvlTemplate3D extends HvlTemplate{
 		}
 	}
 	
-	public void exit(){
+	public final void exit(){
 		getTimer().setRunning(false);
 		Display.destroy();
 		System.exit(0);
