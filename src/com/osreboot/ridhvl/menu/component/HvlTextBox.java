@@ -31,6 +31,7 @@ public class HvlTextBox extends HvlComponent {
 	private int maxCharacters;
 	private boolean forceUppercase, forceLowercase;
 	private boolean numbersOnly;
+	private boolean disguised;
 	private String blacklistCharacters;
 	private boolean ignoreFocus;
 
@@ -135,7 +136,7 @@ public class HvlTextBox extends HvlComponent {
 							if (text.length() > 0)
 								text = text.substring(0, Math.max(text.length() - 1, 0));
 						} else {
-							text = text.concat(keyChar.toString());
+							if(keyChar != '\t' && keyChar != '\n') text = text.concat(keyChar.toString());
 						}
 					}
 				}
@@ -178,8 +179,15 @@ public class HvlTextBox extends HvlComponent {
 			if (unfocusedDrawable != null)
 				unfocusedDrawable.draw(delta, getX(), getY(), getWidth(), getHeight());
 		}
-		if (font != null && text != null && textColor != null)
-			font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textColor, textScale);
+		if (font != null && text != null && textColor != null){
+			if(!disguised){
+				font.drawWord(getText(), getX() + offsetX, getY() + offsetY, textColor, textScale);
+			}else{
+				String output = "";
+				for(int i = 0; i < getText().length(); i++) output += "*";
+				font.drawWord(output, getX() + offsetX, getY() + offsetY, textColor, textScale);
+			}
+		}
 	}
 
 	public String getText() {
@@ -228,6 +236,14 @@ public class HvlTextBox extends HvlComponent {
 
 	public void setNumbersOnly(boolean numbersOnly) {
 		this.numbersOnly = numbersOnly;
+	}
+	
+	public boolean isDisguised(){
+		return disguised;
+	}
+
+	public void setDisguised(boolean disguisedArg){
+		disguised = disguisedArg;
 	}
 
 	public String getBlacklistCharacters() {
@@ -371,6 +387,11 @@ public class HvlTextBox extends HvlComponent {
 
 		public Builder setNumbersOnly(boolean numbersOnly) {
 			tr.setNumbersOnly(numbersOnly);
+			return this;
+		}
+		
+		public Builder setDisguised(boolean disguised){
+			tr.setDisguised(disguised);
 			return this;
 		}
 

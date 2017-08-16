@@ -131,7 +131,7 @@ public class HvlMenu implements HvlComponentContainer {
 		interactable = true;
 	}
 
-	public ArrayList<HvlComponent> getComponents() {
+	public ArrayList<HvlComponent> getComponents() {//TODO get ALL components
 		return components;
 	}
 
