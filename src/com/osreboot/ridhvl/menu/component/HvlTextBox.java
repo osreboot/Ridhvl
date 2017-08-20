@@ -136,7 +136,7 @@ public class HvlTextBox extends HvlComponent {
 							if (text.length() > 0)
 								text = text.substring(0, Math.max(text.length() - 1, 0));
 						} else {
-							if(keyChar != '\t' && keyChar != '\n') text = text.concat(keyChar.toString());
+							text = text.concat(keyChar.toString());//TODO limited charset
 						}
 					}
 				}
