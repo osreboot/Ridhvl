@@ -322,9 +322,12 @@ public class HvlFontPainter2D {
 					int cIndex = HvlFontUtil.indexOfChar(chars, ch);
 					int fontX = cIndex % charsAcross;
 					int fontY = cIndex / charsAcross;
-					float uvX = charWidth / texture.getImageWidth();
+					float uvX = (charWidth / (float)texture.getImageWidth());
 					float uvY = charHeight / texture.getImageHeight();
-					HvlPainter2D.hvlDrawQuad(currentX, currentY, charWidth * uvWidth * sX * scale, charHeight * sY * scale, (fontX * uvX) + (uvX * charStartUVs.get(ch)), fontY * uvY, (fontX * uvX) + (uvX * charEndUVs.get(ch)), (fontY + 1) * uvY, texture, c);
+					float correction = 0.5f/((float)texture.getImageWidth() * sX * scale);
+					HvlPainter2D.hvlDrawQuad(currentX, currentY, charWidth * uvWidth * sX * scale, charHeight * sY * scale, 
+							((float)fontX * uvX) + (uvX * charStartUVs.get(ch)) + correction, (((float)fontY * uvY)), 
+							((float)fontX * uvX) + (uvX * charEndUVs.get(ch)) - correction, ((float)(fontY + 1) * uvY) - correction, texture, c);
 				}
 				if (HvlFontUtil.containsChar(chars, ch)) {
 					currentX += charWidth * (charEndUVs.get(ch) - charStartUVs.get(ch)) * sX * scale + charSpacing * sX * scale;
