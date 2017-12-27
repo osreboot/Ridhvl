@@ -4,6 +4,7 @@ import com.osreboot.ridhvl.config.HvlConfigUtil;
 import com.osreboot.ridhvl.test.TestConfigType.TCT4;
 import com.osreboot.ridhvl.test.TestConfigType.TCT5;
 
+@SuppressWarnings("deprecation")
 public class ConfigUtilTest {
 	
 	public ConfigUtilTest() {

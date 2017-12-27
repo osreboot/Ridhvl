@@ -14,6 +14,7 @@ import java.util.List;
 import com.osreboot.ridhvl.HvlReflectionUtil;
 import com.osreboot.ridhvl.config.HvlConfigIgnore.IgnoreType;
 
+@Deprecated
 public class HvlConfigUtil {
 	public static <TConfigType> TConfigType load(Class<TConfigType> type, String path, boolean loadInstance,
 			boolean loadStatic) {
