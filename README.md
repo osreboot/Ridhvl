@@ -31,12 +31,12 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 public class Main extends HvlTemplateInteg2D{
 
     public static void main(String args[]){
-        new Main();//Instantiate our program
+        new Main();// Instantiate our program
     }
 
     public Main() {
-        //Window configuration
-        //super(max_framerate, window_width, window_height, window_title, window_display_mode)
+        // Window configuration
+        // super(max_framerate, window_width, window_height, window_title, window_display_mode)
         super(60, 1280, 720, "Ridhvl Test!", new HvlDisplayModeDefault());
     }
 
@@ -52,8 +52,8 @@ public class Main extends HvlTemplateInteg2D{
     //Update is called every frame - "delta" is the time (in seconds) since the last frame update
     @Override
     public void update(float delta) {
-        //Drawing a quad
-        //hvlDrawQuad(quad_origin_x, quad_origin_y, quad_width, quad_height, texture_or_color)
+        // Drawing a quad
+        // hvlDrawQuad(quad_origin_x, quad_origin_y, quad_width, quad_height, texture_or_color)
         // - The texture is referenced with the order in which it was loaded (0 for first, 1 for second, etc.)
         // - Also look into hvlDrawQuadc - draws with the origin at the center of the quad rather than top-left
         hvlDrawQuad(100, 100, 512, 512, getTexture(0));
