@@ -40,7 +40,7 @@ public class Main extends HvlTemplateInteg2D{
         super(60, 1280, 720, "Ridhvl Test!", new HvlDisplayModeDefault());
     }
 
-    //Initialize is called once on program startup
+    // Initialize is called once on program startup
     @Override
     public void initialize() {
         // Loading a texture
@@ -49,7 +49,7 @@ public class Main extends HvlTemplateInteg2D{
         getTextureLoader().loadResource("Icon");
     }
 
-    //Update is called every frame - "delta" is the time (in seconds) since the last frame update
+    // Update is called every frame - "delta" is the time (in seconds) since the last frame update
     @Override
     public void update(float delta) {
         // Drawing a quad
