@@ -96,6 +96,20 @@ public class HvlMath {
 		return tr;
 	}
 
+	public static HvlCoord2D averageCoord(HvlCoord2D[] coordsArg){
+		HvlCoord2D total = new HvlCoord2D();
+		for(int i = 0; i < coordsArg.length; i++) total.add(coordsArg[i]);
+		total.div(coordsArg.length);
+		return total;
+	}
+	
+	public static HvlCoord2D averageCoord(ArrayList<HvlCoord2D> coordsArg){
+		HvlCoord2D total = new HvlCoord2D();
+		for(HvlCoord2D c : coordsArg) total.add(c);
+		total.div(coordsArg.size());
+		return total;
+	}
+	
 	public static int randomInt(int max) {
 		return rand.nextInt(max);
 	}

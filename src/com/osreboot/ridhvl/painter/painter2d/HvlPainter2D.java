@@ -439,6 +439,14 @@ public class HvlPainter2D {
 		HvlQuadPainter2D.hvlDrawPolygon(x, y, vertices, c);
 	}
 	
+	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, HvlCoord2D[] uvs, Texture t){
+		HvlQuadPainter2D.hvlDrawPolygon(x, y, vertices, uvs, t);
+	}
+	
+	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, HvlCoord2D[] uvs, Texture t, Color c){
+		HvlQuadPainter2D.hvlDrawPolygon(x, y, vertices, uvs, t, c);
+	}
+	
 	public static void hvlRotate(HvlCoord2D location, float degrees){
 		HvlSwivel2D.hvlRotate(location, degrees);
 	}

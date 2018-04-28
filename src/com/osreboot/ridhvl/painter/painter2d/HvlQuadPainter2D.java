@@ -208,6 +208,42 @@ class HvlQuadPainter2D {
 		glEnd();
 	}
 	
+	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, HvlCoord2D[] uvs, Texture t){
+		glColor4f(1, 1, 1, 1);
+		t.bind();
+		if(HvlPainter2D.FLAG_TEXMAGBLUR.isEnabled()){
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		}else{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		}
+		glBegin(GL_TRIANGLE_FAN);
+		for(int i = 0; i < vertices.length; i++){
+			glTexCoord2f(uvs[i].x, uvs[i].y);
+			glVertex2f(vertices[i].x + x, vertices[i].y + y);
+		}
+		glEnd();
+	}
+	
+	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, HvlCoord2D[] uvs, Texture t, Color c){
+		glColor4f(c.r, c.g, c.b, c.a);
+		t.bind();
+		if(HvlPainter2D.FLAG_TEXMAGBLUR.isEnabled()){
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		}else{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		}
+		glBegin(GL_TRIANGLE_FAN);
+		for(int i = 0; i < vertices.length; i++){
+			glTexCoord2f(uvs[i].x, uvs[i].y);
+			glVertex2f(vertices[i].x + x, vertices[i].y + y);
+		}
+		glEnd();
+	}
+	
 	private static void constructTexturedQuad(float x, float y, float xl, float yl, float uvx1, float uvy1, float uvx2, float uvy2){
 		if(HvlPainter2D.FLAG_TEXMAGBLUR.isEnabled()){
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
