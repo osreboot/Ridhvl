@@ -466,6 +466,7 @@ public class HvlPainter2D {
 	@Deprecated
 	public static void hvlForceRefresh(){
 		hvlDrawQuad(0f, 0f, 0f, 0f, refreshTexture);
+		hvlDrawQuad(0f, 0f, 0f, 0f, Color.red);
 	}
 
 }

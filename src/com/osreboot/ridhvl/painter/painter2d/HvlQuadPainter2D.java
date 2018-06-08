@@ -1,6 +1,7 @@
 package com.osreboot.ridhvl.painter.painter2d;
 
 
+import static com.osreboot.ridhvl.painter.painter2d.HvlPainter2D.hvlForceRefresh;
 import static org.lwjgl.opengl.GL11.GL_LINEAR;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 import static org.lwjgl.opengl.GL11.GL_QUADS;
@@ -202,6 +203,7 @@ class HvlQuadPainter2D {
 	}
 	
 	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, Color c){
+		hvlForceRefresh();
 		glColor4f(c.r, c.g, c.b, c.a);
 		glBegin(GL_TRIANGLE_FAN);
 		for(int i = 0; i < vertices.length; i++) glVertex2f(vertices[i].x + x, vertices[i].y + y);
@@ -209,6 +211,7 @@ class HvlQuadPainter2D {
 	}
 	
 	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, HvlCoord2D[] uvs, Texture t){
+		hvlForceRefresh();
 		glColor4f(1, 1, 1, 1);
 		t.bind();
 		if(HvlPainter2D.FLAG_TEXMAGBLUR.isEnabled()){
@@ -227,6 +230,7 @@ class HvlQuadPainter2D {
 	}
 	
 	public static void hvlDrawPolygon(float x, float y, HvlCoord2D[] vertices, HvlCoord2D[] uvs, Texture t, Color c){
+		hvlForceRefresh();
 		glColor4f(c.r, c.g, c.b, c.a);
 		t.bind();
 		if(HvlPainter2D.FLAG_TEXMAGBLUR.isEnabled()){
