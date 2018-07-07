@@ -83,6 +83,7 @@ public class HvlFontPainter2D {
 		
 		public static final Preset FP_INOFFICIAL = new Preset(HvlFontUtil.COMPUTATIONALCASE, 96, 192, 21, 48, new HashMap<Character, Float>(), new HashMap<Character, Float>());
 		public static final Preset FP_INOFFICIAL_Q = new Preset(HvlFontUtil.COMPUTATIONALCASE, 96/4, 192/4, 21, 48/4, new HashMap<Character, Float>(), new HashMap<Character, Float>());
+		public static final Preset FP_INOFFICIAL_IDE = new Preset(HvlFontUtil.IDECASE, 96, 192, 21, 48, new HashMap<Character, Float>(), new HashMap<Character, Float>());
 		//TODO global font offset (for chars extending below write line, etc.)
 		
 		char[] chars;
@@ -435,8 +436,12 @@ public class HvlFontPainter2D {
 	}
 
 	public float getLineHeight(String text) {
-		String[] lines = text.split("\n");
-
-		return ((lines.length * charHeight) + ((lines.length - 1) * (rowSpacing * charHeight))) * scale;
+		int lines = 1;
+		
+		for(char c : text.toCharArray()) if(c == '\n') lines++;
+		
+		return ((lines * charHeight) + 
+				(lines > 1 ? ((lines - 1) * (rowSpacing * charHeight)) : 0)) 
+				* scale;
 	}
 }
