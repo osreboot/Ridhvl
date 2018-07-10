@@ -1,7 +1,6 @@
 package com.osreboot.ridhvl.template;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.osreboot.ridhvl.action.HvlAction0;
@@ -54,8 +53,6 @@ public class HvlChronology {
 	}
 
 	private static class Initialize{
-		private static ArrayList<HvlAction0> queue = new ArrayList<>();
-
 		public Initialize(HvlAction0 actionArg, Field f){
 			int chronologyArg = f.getAnnotation(HvlChronologyInitialize.class).chronology();
 			if((chronologyArg < INIT_CHRONOLOGY_EARLIEST || chronologyArg > INIT_CHRONOLOGY_LATEST) && chronologyArg != -1) throw new BrokenChronologyException();
@@ -69,21 +66,16 @@ public class HvlChronology {
 			}
 		}
 
-		private static void sortQueue(){
-			for(HvlAction0 action : queue) defaultAdd(action);
-		}
-
 		private static void defaultAdd(HvlAction0 action){
 			for(int i = INIT_CHRONOLOGY_LATEST; i >= INIT_CHRONOLOGY_EARLIEST; i--) if(!chronoInit.containsKey(i)){
 				if(debugOutput) System.out.println("HvlChronology: automatically assigning an initialize action to slot " + i + ".");
 				chronoInit.put(i, action);
+				break;
 			}
 		}
 	}
 
 	private static class Update{
-		private static ArrayList<HvlAction1<Float>> queue = new ArrayList<>();
-
 		public Update(HvlAction1<Float> actionArg, Field f){
 			int chronologyArg = f.getAnnotation(HvlChronologyUpdate.class).chronology();
 			if((chronologyArg < UPDATE_CHRONOLOGY_PRE_EARLIEST || chronologyArg > UPDATE_CHRONOLOGY_POST_LATEST) && chronologyArg != -1) throw new BrokenChronologyException();
@@ -97,10 +89,6 @@ public class HvlChronology {
 			}
 		}
 
-		private static void sortQueue(){
-			for(HvlAction1<Float> action : queue) defaultAdd(action);
-		}
-
 		private static void defaultAdd(HvlAction1<Float> action){
 			for(int i = UPDATE_CHRONOLOGY_PRE_LATEST; i >= UPDATE_CHRONOLOGY_PRE_EARLIEST; i--) if(!chronoUpdate.containsKey(i)){
 				if(debugOutput) System.out.println("HvlChronology: automatically assigning an updating action to slot " + i + ".");
@@ -111,8 +99,6 @@ public class HvlChronology {
 	}
 
 	protected static void initialize(){
-		Initialize.sortQueue();
-		Update.sortQueue();
 		initialized = true;
 		for(int i = INIT_CHRONOLOGY_EARLIEST; i <= INIT_CHRONOLOGY_LATEST; i++) if(chronoInit.containsKey(i)){
 			try{
