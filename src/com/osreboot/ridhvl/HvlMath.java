@@ -110,6 +110,10 @@ public class HvlMath {
 		return total;
 	}
 	
+	public static float cropDecimals(float arg, int decimals){
+		return (float)((int)(arg*(float)Math.pow(10, decimals)))/(float)Math.pow(10, decimals);
+	}
+	
 	public static int randomInt(int max) {
 		return rand.nextInt(max);
 	}
