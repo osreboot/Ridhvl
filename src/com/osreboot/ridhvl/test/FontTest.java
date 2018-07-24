@@ -9,10 +9,6 @@ import com.osreboot.ridhvl.template.HvlTemplateInteg2D;
 
 public class FontTest extends HvlTemplateInteg2D{
 	
-	public static void main(String[] args) {
-		new FontTest();
-	}
-	
 	public FontTest() {
 		super(60, 3000, 720, "Ridhvl - Font Test", new HvlDisplayModeDefault());
 	}
