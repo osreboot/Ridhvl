@@ -78,6 +78,35 @@ public class HvlFontPainter2D {
 				FP_INOFFICIAL_Q.charEndUVs.put('l', 32f/96f);
 				FP_INOFFICIAL_Q.charEndUVs.put('r', 48f/96f);
 				FP_INOFFICIAL_Q.charEndUVs.put('t', 48f/96f);
+				
+				FP_AGOFFICIAL.charEndUVs.put('1', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('\'', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('"', 40f/96f);
+				FP_AGOFFICIAL.charEndUVs.put(')', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('(', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put(']', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('[', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('?', 64f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('!', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('.', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put(',', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('*', 40f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('^', 64f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('-', 80f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('+', 80f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('=', 80f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('|', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put(';', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put(':', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('>', 70f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('<', 70f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('f', 48f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('i', 16f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('j', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('k', 88f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('l', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('r', 32f/96f);
+				FP_AGOFFICIAL.charEndUVs.put('t', 48f/96f);
 			}
 		};
 		
@@ -85,6 +114,8 @@ public class HvlFontPainter2D {
 		public static final Preset FP_INOFFICIAL_Q = new Preset(HvlFontUtil.COMPUTATIONALCASE, 96/4, 192/4, 21, 48/4, new HashMap<Character, Float>(), new HashMap<Character, Float>());
 		public static final Preset FP_INOFFICIAL_IDE = new Preset(HvlFontUtil.IDECASE, 96, 192, 21, 48, new HashMap<Character, Float>(), new HashMap<Character, Float>());
 		//TODO global font offset (for chars extending below write line, etc.)
+		
+		public static final Preset FP_AGOFFICIAL = new Preset(HvlFontUtil.COMPUTATIONALCASE, 96, 192, 21, 48, new HashMap<Character, Float>(), new HashMap<Character, Float>());
 		
 		char[] chars;
 		float charWidth, charHeight;
