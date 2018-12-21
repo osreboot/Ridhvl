@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import com.osreboot.ridhvl.HvlMath;
 import com.osreboot.ridhvl.action.HvlAction1;
 import com.osreboot.ridhvl.action.HvlAction2r;
+import com.osreboot.ridhvl.input.collection.HvlCP_Unknown;
 import com.osreboot.ridhvl.template.HvlChronology;
 import com.osreboot.ridhvl.template.HvlChronologyUpdate;
 
@@ -43,7 +44,7 @@ public abstract class HvlControllerProfile {
 		return profiles;
 	}
 
-	public boolean autoIndex = true;
+	public boolean autoIndex = true, unknownType = false;
 	private String controllerIdentifier = null;
 	private HvlAction2r<Boolean, HvlControllerProfile, Controller> actionIsController;
 	private LinkedHashMap<String, HvlPollValue> staticPollAnnotations = new LinkedHashMap<>();
@@ -57,6 +58,8 @@ public abstract class HvlControllerProfile {
 	public HvlControllerProfile(Class<? extends HvlControllerProfile> hostArg, String controllerIdentifierArg){
 		controllerIdentifier = controllerIdentifierArg;
 
+		unknownType = hostArg == HvlCP_Unknown.class;
+		
 		String value = null;
 		for(Field f : hostArg.getDeclaredFields()){
 			if(f.isAnnotationPresent(HvlPollValue.class)){
@@ -130,7 +133,7 @@ public abstract class HvlControllerProfile {
 		responseValues.clear();
 		if(autoIndex) controllerIndexes.clear();
 		for(Controller c : HvlController.getControllers()){
-			if(isOfType(c)){
+			if(isOfType(c) || unknownType){
 				if(debugOutput) System.out.println("HvlControllerProfile: Found controller: \"" + c.getName() + "\"");
 				ArrayList<Float> list = new ArrayList<>();
 				for(int i = 0; i < staticPollValues.size(); i++) list.add(0f);
