@@ -29,7 +29,7 @@ public class HvlController {
 
 	public static void rescanControllers(){
 		Controller[] newControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
-		for(Controller c : newControllers) controllers.add(c);
+		for(Controller c : newControllers) if(!controllers.contains(c)) controllers.add(c);
 		for(HvlControllerProfile p : HvlControllerProfile.getProfiles()) p.syncControllers();
 	}
 
