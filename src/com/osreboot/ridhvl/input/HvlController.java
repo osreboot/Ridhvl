@@ -37,9 +37,7 @@ public class HvlController {
 						Controller[] newControllers = constructor.newInstance().getControllers();
 			for(Controller c : newControllers) controllers.add(c);
 			for(HvlControllerProfile p : HvlControllerProfile.getProfiles()) p.syncControllers();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		}catch(Exception e){}
 	}
 
 }
