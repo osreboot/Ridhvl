@@ -1,3 +1,7 @@
+### *Note: this engine is undocumented and outdated. It has served us well, but it's time to move on. Go check out [Ridhvl2](https://github.com/osreboot/Ridhvl2)!*
+
+------
+
 **Reboot's In-Depth High Velocity Library**
 
 <p align="center">
