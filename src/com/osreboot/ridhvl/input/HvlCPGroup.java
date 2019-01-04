@@ -71,8 +71,9 @@ public abstract class HvlCPGroup extends HvlControllerProfile{
 	public float getValue(String fieldArg, int controllerIndex){
 		float output = 0;
 		for(HvlControllerProfile p : profiles){
-			if(!staticPollGroupAnnotations.get(fieldArg).value()[profiles.indexOf(p)].equals("") && p.getControllerIndexes().size() > controllerIndex)
+			if(!staticPollGroupAnnotations.get(fieldArg).value()[profiles.indexOf(p)].equals("") && p.getControllerIndexes().size() > controllerIndex && controllerIndex >= 0)
 			output += p.getValue(staticPollGroupAnnotations.get(fieldArg).value()[profiles.indexOf(p)], controllerIndex);
+			controllerIndex -= p.getControllerIndexes().size();
 		}
 		output = (float)Math.max(staticPollGroupAnnotations.get(fieldArg).min(), Math.min(staticPollGroupAnnotations.get(fieldArg).max(), output));
 		return output;
