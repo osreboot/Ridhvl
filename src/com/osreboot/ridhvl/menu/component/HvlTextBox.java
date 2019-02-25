@@ -153,7 +153,7 @@ public class HvlTextBox extends HvlComponent {
 		if (forceUppercase)
 			text = text.toUpperCase();
 		if (numbersOnly)
-			text = text.replaceAll("[^\\d-]", "");
+			text = text.replaceAll("[^\\d-.]", "");
 		if (blacklistCharacters != null && !blacklistCharacters.isEmpty())
 			text = text.replaceAll(String.format("[%s]", Pattern.quote(blacklistCharacters)), "");
 
